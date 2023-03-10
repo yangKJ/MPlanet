@@ -1,0 +1,30 @@
+{
+  "name": "RootManager",
+  "version": "0.1.0",
+  "summary": "A short description of RootManager.",
+  "homepage": "https://github.com/Condy/RootManager",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "ykj310@126.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/RootManager.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "dependencies": {
+    "AppMain": [
+
+    ]
+  },
+  "source_files": "RootManager/Classes/**/*",
+  "swift_version": "5.0"
+}

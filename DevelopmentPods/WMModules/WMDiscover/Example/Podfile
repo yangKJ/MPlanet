@@ -1,0 +1,15 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'WMDiscover_Example' do
+  
+  pod 'WMDiscover', :path => '../'
+  
+  pod 'FeatBox', :path => '../../../FeatBox'
+
+  target 'WMDiscover_Tests' do
+    inherit! :search_paths
+    
+  end
+end

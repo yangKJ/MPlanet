@@ -1,0 +1,62 @@
+{
+  "name": "WMMine",
+  "version": "0.0.1",
+  "summary": "A short description of WMMine.",
+  "homepage": "https://github.com/Condy/WMMine",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "ykj310@126.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/WMMine.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "dependencies": {
+    "SnapKit": [
+
+    ],
+    "Rickenbacker": [
+
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "Resources",
+      "resource_bundles": {
+        "WMMine": [
+          "WMMine/Classes/Resources/*.{xcassets,lproj}"
+        ]
+      }
+    },
+    {
+      "name": "Util",
+      "source_files": "WMMine/Classes/Util/*.swift"
+    },
+    {
+      "name": "Controller",
+      "source_files": "WMMine/Classes/Controller/*.swift"
+    },
+    {
+      "name": "ViewModel",
+      "source_files": "WMMine/Classes/ViewModel/*.swift"
+    },
+    {
+      "name": "View",
+      "source_files": "WMMine/Classes/View/*.swift"
+    },
+    {
+      "name": "Model",
+      "source_files": "WMMine/Classes/Model/*.swift"
+    }
+  ],
+  "swift_version": "5.0"
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Mediator",
+  "version": "0.1.0",
+  "summary": "A short description of Mediator.",
+  "homepage": "https://github.com/Condy/Mediator",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "ykj310@126.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/Mediator.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "dependencies": {
+    "Rickenbacker/Mediator": [
+
+    ]
+  },
+  "source_files": "Mediator/Classes/**/*",
+  "swift_version": "5.0"
+}

@@ -1,0 +1,6 @@
+framework module AppMain {
+  umbrella header "AppMain-umbrella.h"
+
+  export *
+  module * { export * }
+}

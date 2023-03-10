@@ -1,0 +1,43 @@
+{
+  "name": "WMDiscover",
+  "version": "0.1.0",
+  "summary": "A short description of WMDiscover.",
+  "homepage": "https://github.com/Condy/WMDiscover",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "ykj310@126.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/WMDiscover.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "dependencies": {
+    "Wintersweet": [
+
+    ],
+    "FeatBox": [
+
+    ]
+  },
+  "source_files": "WMDiscover/Classes/**/*.swift",
+  "subspecs": [
+    {
+      "name": "Resources",
+      "resource_bundles": {
+        "WMDiscover": [
+          "WMDiscover/Classes/Resources/*.{xcassets,lproj,gif}"
+        ]
+      }
+    }
+  ],
+  "swift_version": "5.0"
+}

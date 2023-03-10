@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'Database_Example' do
+  pod 'Database', :path => '../'
+  pod 'Database/DApp', :path => '../'
+  pod 'Database/Wallet', :path => '../'
+
+  target 'Database_Tests' do
+    inherit! :search_paths
+  end
+end

@@ -1,0 +1,46 @@
+{
+  "name": "WMWallet",
+  "version": "0.0.1",
+  "summary": "A short description of WMWallet.",
+  "homepage": "https://github.com/Condy/WMWallet",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "ykj310@126.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/WMWallet.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "dependencies": {
+    "FeatBox": [
+
+    ],
+    "RxDataSources": [
+
+    ],
+    "Database/Wallet": [
+
+    ]
+  },
+  "source_files": "WMWallet/Classes/**/*.swift",
+  "subspecs": [
+    {
+      "name": "Resources",
+      "resource_bundles": {
+        "WMWallet": [
+          "WMWallet/Classes/Resources/*.{xcassets,lproj}"
+        ]
+      }
+    }
+  ],
+  "swift_version": "5.0"
+}

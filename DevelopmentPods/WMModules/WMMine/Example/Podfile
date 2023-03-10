@@ -1,0 +1,11 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'WMMine_Example' do
+  pod 'WMMine', :path => '../'
+
+  target 'WMMine_Tests' do
+    inherit! :search_paths
+  end
+end

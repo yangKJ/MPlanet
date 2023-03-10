@@ -1,0 +1,40 @@
+PODS:
+  - Database (0.0.4):
+    - Database/Manager (= 0.0.4)
+  - Database/DApp (0.0.4):
+    - Database/Manager
+  - Database/Manager (0.0.4):
+    - WCDB.swift
+  - Database/Wallet (0.0.4):
+    - Database/Manager
+  - SQLiteRepairKit (1.2.2):
+    - WCDBOptimizedSQLCipher (~> 1.2.0)
+  - WCDB.swift (1.0.8.2):
+    - SQLiteRepairKit (~> 1.2.0)
+    - WCDBOptimizedSQLCipher (~> 1.2.0)
+  - WCDBOptimizedSQLCipher (1.2.1)
+
+DEPENDENCIES:
+  - Database (from `../`)
+  - Database/DApp (from `../`)
+  - Database/Wallet (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - SQLiteRepairKit
+    - WCDB.swift
+    - WCDBOptimizedSQLCipher
+
+EXTERNAL SOURCES:
+  Database:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Database: 355454140a4ee255e5cb49a159758d655d0dfffd
+  SQLiteRepairKit: 35aaae5a8838adb85f5b1eb4d796055be6060a4b
+  WCDB.swift: 05d509d7a0e60fb6e11c34eb7e4027c0fab5849f
+  WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
+
+PODFILE CHECKSUM: cc8dff666dc50c9853c8a3f5a8ef8ab5fe9e8226
+
+COCOAPODS: 1.11.3

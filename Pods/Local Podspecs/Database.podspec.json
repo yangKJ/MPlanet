@@ -1,0 +1,50 @@
+{
+  "name": "Database",
+  "version": "0.0.4",
+  "summary": "Collection of database tables.",
+  "homepage": "https://github.com/Condy/Database",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "ykj310@126.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/Database.git",
+    "tag": "0.0.4"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "default_subspecs": "Manager",
+  "subspecs": [
+    {
+      "name": "Manager",
+      "source_files": "Database/Classes/Manager/*.swift",
+      "dependencies": {
+        "WCDB.swift": [
+
+        ]
+      }
+    },
+    {
+      "name": "DApp",
+      "source_files": "Database/Classes/DApp/*.swift",
+      "dependencies": {
+        "Database/Manager": [
+
+        ]
+      }
+    },
+    {
+      "name": "Wallet",
+      "source_files": "Database/Classes/Wallet/*.swift",
+      "dependencies": {
+        "Database/Manager": [
+
+        ]
+      }
+    }
+  ]
+}

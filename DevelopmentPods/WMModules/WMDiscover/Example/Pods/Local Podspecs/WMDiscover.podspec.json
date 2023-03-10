@@ -1,0 +1,68 @@
+{
+  "name": "WMDiscover",
+  "version": "0.1.0",
+  "summary": "A short description of WMDiscover.",
+  "homepage": "https://github.com/Condy/WMDiscover",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "ykj310@126.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/WMDiscover.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "dependencies": {
+    "SnapKit": [
+
+    ],
+    "Rickenbacker": [
+
+    ],
+    "Harbeth": [
+
+    ],
+    "Wintersweet": [
+
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "Resources",
+      "resource_bundles": {
+        "WMDiscover": [
+          "WMDiscover/Classes/Resources/*.xcassets"
+        ]
+      }
+    },
+    {
+      "name": "Util",
+      "source_files": "WMDiscover/Classes/Util/*.swift"
+    },
+    {
+      "name": "Controller",
+      "source_files": "WMDiscover/Classes/Controller/*.swift"
+    },
+    {
+      "name": "ViewModel",
+      "source_files": "WMDiscover/Classes/ViewModel/*.swift"
+    },
+    {
+      "name": "View",
+      "source_files": "WMDiscover/Classes/View/*.swift"
+    },
+    {
+      "name": "Model",
+      "source_files": "WMDiscover/Classes/Model/*.swift"
+    }
+  ],
+  "swift_version": "5.0"
+}

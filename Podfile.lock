@@ -1,0 +1,238 @@
+PODS:
+  - Alamofire (5.6.4)
+  - AppMain (0.0.1):
+    - AppMain/Resources (= 0.0.1)
+    - FeatBox
+    - Mediator
+  - AppMain/Resources (0.0.1):
+    - FeatBox
+    - Mediator
+  - Database (0.0.4):
+    - Database/Manager (= 0.0.4)
+  - Database/Manager (0.0.4):
+    - WCDB.swift
+  - Database/Wallet (0.0.4):
+    - Database/Manager
+  - Differentiator (5.0.0)
+  - DZNEmptyDataSet (1.8.1)
+  - FeatBox (0.1.0):
+    - Harbeth
+    - Rickenbacker
+    - RxCocoa
+    - RxNetworks
+    - SnapKit
+  - HandyJSON (5.0.2)
+  - Harbeth (0.6.5):
+    - Harbeth/Basic (= 0.6.5)
+    - Harbeth/Collector (= 0.6.5)
+    - Harbeth/Compute (= 0.6.5)
+    - Harbeth/CoreImage (= 0.6.5)
+  - Harbeth/Basic (0.6.5)
+  - Harbeth/Collector (0.6.5):
+    - Harbeth/Basic
+  - Harbeth/Compute (0.6.5):
+    - Harbeth/Basic
+  - Harbeth/CoreImage (0.6.5):
+    - Harbeth/Basic
+  - HBDNavigationBar (1.9.6)
+  - MBProgressHUD (1.2.0)
+  - Mediator (0.1.0):
+    - Rickenbacker/Mediator
+  - MJRefresh (3.7.5)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Rickenbacker (1.0.3):
+    - Rickenbacker/Adapter (= 1.0.3)
+    - Rickenbacker/BeeBox (= 1.0.3)
+    - Rickenbacker/CatHome (= 1.0.3)
+    - Rickenbacker/DZNEmptyDataSet (= 1.0.3)
+    - Rickenbacker/HBDNavigationBar (= 1.0.3)
+    - Rickenbacker/Mediator (= 1.0.3)
+    - Rickenbacker/MJRefresh (= 1.0.3)
+  - Rickenbacker/Adapter (1.0.3):
+    - Rickenbacker/CatHome
+    - RxCocoa
+    - RxSwift
+  - Rickenbacker/BeeBox (1.0.3):
+    - RxCocoa
+    - RxSwift
+  - Rickenbacker/CatHome (1.0.3)
+  - Rickenbacker/DZNEmptyDataSet (1.0.3):
+    - DZNEmptyDataSet
+    - Rickenbacker/Adapter
+  - Rickenbacker/HBDNavigationBar (1.0.3):
+    - HBDNavigationBar
+  - Rickenbacker/Mediator (1.0.3)
+  - Rickenbacker/MJRefresh (1.0.3):
+    - MJRefresh
+    - Rickenbacker/Adapter
+  - RootManager (0.1.0):
+    - AppMain
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxNetworks (0.2.5):
+    - RxNetworks/HandyJSON (= 0.2.5)
+    - RxNetworks/MoyaNetwork (= 0.2.5)
+    - RxNetworks/MoyaPlugins (= 0.2.5)
+    - RxNetworks/RxSwift (= 0.2.5)
+  - RxNetworks/HandyJSON (0.2.5):
+    - HandyJSON
+    - RxSwift
+  - RxNetworks/MoyaNetwork (0.2.5):
+    - Moya
+  - RxNetworks/MoyaPlugins (0.2.5):
+    - RxNetworks/MoyaPlugins/Cache (= 0.2.5)
+    - RxNetworks/MoyaPlugins/Debugging (= 0.2.5)
+    - RxNetworks/MoyaPlugins/GZip (= 0.2.5)
+    - RxNetworks/MoyaPlugins/Indicator (= 0.2.5)
+    - RxNetworks/MoyaPlugins/Loading (= 0.2.5)
+    - RxNetworks/MoyaPlugins/Warning (= 0.2.5)
+  - RxNetworks/MoyaPlugins/Cache (0.2.5):
+    - RxNetworks/MoyaNetwork
+    - YYCache
+  - RxNetworks/MoyaPlugins/Debugging (0.2.5):
+    - RxNetworks/MoyaNetwork
+  - RxNetworks/MoyaPlugins/GZip (0.2.5):
+    - RxNetworks/MoyaNetwork
+  - RxNetworks/MoyaPlugins/Indicator (0.2.5):
+    - RxNetworks/MoyaNetwork
+  - RxNetworks/MoyaPlugins/Loading (0.2.5):
+    - MBProgressHUD
+    - RxNetworks/MoyaNetwork
+  - RxNetworks/MoyaPlugins/Warning (0.2.5):
+    - RxNetworks/MoyaNetwork
+    - Toast-Swift
+  - RxNetworks/RxSwift (0.2.5):
+    - RxNetworks/MoyaNetwork
+    - RxSwift
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - SnapKit (5.6.0)
+  - SQLiteRepairKit (1.3.0):
+    - WCDBOptimizedSQLCipher (~> 1.3.0)
+  - Toast-Swift (5.0.1)
+  - WCDB.swift (1.1.0):
+    - SQLiteRepairKit (~> 1.3.0)
+    - WCDBOptimizedSQLCipher (~> 1.3.0)
+  - WCDBOptimizedSQLCipher (1.3.0)
+  - Wintersweet (0.0.6):
+    - Harbeth
+  - WMDiscover (0.1.0):
+    - FeatBox
+    - Wintersweet
+    - WMDiscover/Resources (= 0.1.0)
+  - WMDiscover/Resources (0.1.0):
+    - FeatBox
+    - Wintersweet
+  - WMMine (0.0.1):
+    - FeatBox
+    - WMMine/Resources (= 0.0.1)
+  - WMMine/Resources (0.0.1):
+    - FeatBox
+  - WMWallet (0.0.1):
+    - Database/Wallet
+    - FeatBox
+    - RxDataSources
+    - WMWallet/Resources (= 0.0.1)
+  - WMWallet/Resources (0.0.1):
+    - Database/Wallet
+    - FeatBox
+    - RxDataSources
+  - YYCache (1.0.4)
+
+DEPENDENCIES:
+  - AppMain (from `DevelopmentPods/AppMain`)
+  - Database (from `DevelopmentPods/Database`)
+  - FeatBox (from `DevelopmentPods/FeatBox`)
+  - Mediator (from `DevelopmentPods/Mediator`)
+  - RootManager (from `DevelopmentPods/RootManager`)
+  - WMDiscover (from `DevelopmentPods/WMModules/WMDiscover`)
+  - WMMine (from `DevelopmentPods/WMModules/WMMine`)
+  - WMWallet (from `DevelopmentPods/WMModules/WMWallet`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Differentiator
+    - DZNEmptyDataSet
+    - HandyJSON
+    - Harbeth
+    - HBDNavigationBar
+    - MBProgressHUD
+    - MJRefresh
+    - Moya
+    - Rickenbacker
+    - RxCocoa
+    - RxDataSources
+    - RxNetworks
+    - RxRelay
+    - RxSwift
+    - SnapKit
+    - SQLiteRepairKit
+    - Toast-Swift
+    - WCDB.swift
+    - WCDBOptimizedSQLCipher
+    - Wintersweet
+    - YYCache
+
+EXTERNAL SOURCES:
+  AppMain:
+    :path: DevelopmentPods/AppMain
+  Database:
+    :path: DevelopmentPods/Database
+  FeatBox:
+    :path: DevelopmentPods/FeatBox
+  Mediator:
+    :path: DevelopmentPods/Mediator
+  RootManager:
+    :path: DevelopmentPods/RootManager
+  WMDiscover:
+    :path: DevelopmentPods/WMModules/WMDiscover
+  WMMine:
+    :path: DevelopmentPods/WMModules/WMMine
+  WMWallet:
+    :path: DevelopmentPods/WMModules/WMWallet
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  AppMain: b601344e96402fe06965b9e64889cacdf899620f
+  Database: 355454140a4ee255e5cb49a159758d655d0dfffd
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  FeatBox: 97936ea603389a2ff30c8b2290c44e101238416a
+  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
+  Harbeth: cdb986a68c5c67d2f29b80c6b107006c1bf54bef
+  HBDNavigationBar: a997b65ab7194271e5584b87a952fc851832f692
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  Mediator: 1041c92464e21654183ffe800240cae2180a7890
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Rickenbacker: 41b7e7e4b684162efc1a7b6bdd65d7e3a3544e3d
+  RootManager: 042bfb9daf9b99393fdc3e8b8656c84834b76b05
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxNetworks: ee9e67081361555755d48d3460209841ccc34ec2
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SQLiteRepairKit: a66145aadae91886c800f75e16f5cc6476af1a93
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  WCDB.swift: 39e28fe29b5a3bf2927d9fb9218978f19bd49ff0
+  WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
+  Wintersweet: ace5dca474ec7e9562c03c2f7ad3dbe7f45824cc
+  WMDiscover: 7611f2d5a57296148506ef1e2877fa676c7fd541
+  WMMine: 38763ae157f3cdf10381188a43709994c540f4a8
+  WMWallet: 71305204a5f7ad1f778f31813504e4342aa68717
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+
+PODFILE CHECKSUM: d15e588c64010a8afe15fcf977178d0a66a0e917
+
+COCOAPODS: 1.11.3

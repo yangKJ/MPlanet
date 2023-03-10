@@ -1,0 +1,6 @@
+framework module Pods_WMMine_Tests {
+  umbrella header "Pods-WMMine_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

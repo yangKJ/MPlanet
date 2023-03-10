@@ -1,0 +1,58 @@
+{
+  "name": "WMDApp",
+  "version": "0.0.2",
+  "summary": "DApp module.",
+  "homepage": "https://github.com/Condy/DAppDemo",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "ykj310@126.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/DAppDemo.git",
+    "tag": "0.0.2"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "dependencies": {
+    "Rickenbacker": [
+
+    ],
+    "blockchain-ios": [
+
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "DApp",
+      "source_files": "WMDApp/Classes/**/*.swift",
+      "resource_bundles": {
+        "WMDApp": [
+          "WMDApp/Classes/ViewModel/Resources/*.js"
+        ]
+      },
+      "subspecs": [
+        {
+          "name": "ETH",
+          "source_files": "WMDApp/Classes/ViewModel/ETH/*.swift"
+        }
+      ]
+    },
+    {
+      "name": "CTMediator",
+      "source_files": "WMDApp/Classes/CTMediator/*.swift",
+      "dependencies": {
+        "WMDApp/DApp": [
+
+        ]
+      }
+    }
+  ],
+  "swift_version": "5.0"
+}

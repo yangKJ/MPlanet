@@ -1,0 +1,2 @@
+# WMModules
+wami wallet modules

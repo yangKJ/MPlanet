@@ -1,0 +1,11 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'WMWallet_Example' do
+  pod 'WMWallet', :path => '../'
+
+  target 'WMWallet_Tests' do
+    inherit! :search_paths
+  end
+end
