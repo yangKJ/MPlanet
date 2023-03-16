@@ -12,7 +12,7 @@ struct DiscoverUtil {
     internal static let moduleName = "WMDiscover"
 }
 
-extension R {
+extension Rickenbacker.R {
     internal static func image(_ named: String) -> UIImage {
         self.image(named, forResource: DiscoverUtil.moduleName)
     }

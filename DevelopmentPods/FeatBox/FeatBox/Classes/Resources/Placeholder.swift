@@ -18,6 +18,10 @@ public struct Placeholder {
     
     /// 灰色占位图
     public static var gray: C7Image {
-        C7Color.gray.mt.colorImage(with: CGSize(width: 100, height: 100)) ?? C7Image()
+        C7Color.cdy.gray.mt.colorImage(with: CGSize(width: 100, height: 100)) ?? C7Image()
+    }
+    
+    public static var itemShadowImage: C7Image? {
+        C7Color.cdy.itemShadowImageColor.mt.colorImage()
     }
 }

@@ -20,7 +20,7 @@ end
 
 target 'MainProject_Example' do
   
-  ## Root管理
+  ## AppDelegate解偶拆解
   pod 'RootManager', :path => 'DevelopmentPods/RootManager'
   
   ## 主tabBar

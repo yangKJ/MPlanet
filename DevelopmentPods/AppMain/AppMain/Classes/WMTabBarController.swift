@@ -7,7 +7,6 @@
 
 import UIKit
 import FeatBox
-import Harbeth
 
 final class WMTabBarController: UITabBarController {
     
@@ -50,7 +49,7 @@ final class WMTabBarController: UITabBarController {
         tabBar.tintColor = UIColor.cdy.background
         tabBar.barTintColor = UIColor.cdy.background
         tabBar.backgroundColor = UIColor.cdy.background
-        tabBar.shadowImage = UIColor.cdy.itemShadowImageColor.mt.colorImage()
+        tabBar.shadowImage = FeatBox.Placeholder.itemShadowImage
         //tabBar.backgroundImage = UIColor.cdy.background.mt.colorImage()
     }
     

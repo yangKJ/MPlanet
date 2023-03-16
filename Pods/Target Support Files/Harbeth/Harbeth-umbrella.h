@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "Harbeth.h"
 
 FOUNDATION_EXPORT double HarbethVersionNumber;
 FOUNDATION_EXPORT const unsigned char HarbethVersionString[];

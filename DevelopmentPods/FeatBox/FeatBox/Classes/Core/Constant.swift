@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-@objcMembers public class Constant: NSObject {
+public struct Constant {
     
     public static let width  = UIScreen.main.bounds.width
     public static let height = UIScreen.main.bounds.height

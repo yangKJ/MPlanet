@@ -12,7 +12,7 @@ struct MineUtil {
     internal static let moduleName = "WMMine"
 }
 
-extension R {
+extension Rickenbacker.R {
     
     internal static func image(_ named: String) -> UIImage {
         self.image(named, forResource: MineUtil.moduleName)

@@ -23,6 +23,9 @@
   "dependencies": {
     "AppMain": [
 
+    ],
+    "FeatBox": [
+
     ]
   },
   "source_files": "RootManager/Classes/**/*",

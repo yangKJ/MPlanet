@@ -21,18 +21,19 @@ PODS:
     - RxCocoa
     - RxNetworks
     - SnapKit
+    - Wintersweet
   - HandyJSON (5.0.2)
-  - Harbeth (0.6.5):
-    - Harbeth/Basic (= 0.6.5)
-    - Harbeth/Collector (= 0.6.5)
-    - Harbeth/Compute (= 0.6.5)
-    - Harbeth/CoreImage (= 0.6.5)
-  - Harbeth/Basic (0.6.5)
-  - Harbeth/Collector (0.6.5):
+  - Harbeth (0.6.6):
+    - Harbeth/Basic (= 0.6.6)
+    - Harbeth/Collector (= 0.6.6)
+    - Harbeth/Compute (= 0.6.6)
+    - Harbeth/CoreImage (= 0.6.6)
+  - Harbeth/Basic (0.6.6)
+  - Harbeth/Collector (0.6.6):
     - Harbeth/Basic
-  - Harbeth/Compute (0.6.5):
+  - Harbeth/Compute (0.6.6):
     - Harbeth/Basic
-  - Harbeth/CoreImage (0.6.5):
+  - Harbeth/CoreImage (0.6.6):
     - Harbeth/Basic
   - HBDNavigationBar (1.9.6)
   - MBProgressHUD (1.2.0)
@@ -43,33 +44,33 @@ PODS:
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
-  - Rickenbacker (1.0.3):
-    - Rickenbacker/Adapter (= 1.0.3)
-    - Rickenbacker/BeeBox (= 1.0.3)
-    - Rickenbacker/CatHome (= 1.0.3)
-    - Rickenbacker/DZNEmptyDataSet (= 1.0.3)
-    - Rickenbacker/HBDNavigationBar (= 1.0.3)
-    - Rickenbacker/Mediator (= 1.0.3)
-    - Rickenbacker/MJRefresh (= 1.0.3)
-  - Rickenbacker/Adapter (1.0.3):
+  - Rickenbacker (1.0.5):
+    - Rickenbacker/Adapter (= 1.0.5)
+    - Rickenbacker/BeeBox (= 1.0.5)
+    - Rickenbacker/CatHome (= 1.0.5)
+    - Rickenbacker/DZNEmptyDataSet (= 1.0.5)
+    - Rickenbacker/HBDNavigationBar (= 1.0.5)
+    - Rickenbacker/Mediator (= 1.0.5)
+    - Rickenbacker/MJRefresh (= 1.0.5)
+  - Rickenbacker/Adapter (1.0.5):
+    - Rickenbacker/BeeBox
     - Rickenbacker/CatHome
+  - Rickenbacker/BeeBox (1.0.5):
     - RxCocoa
     - RxSwift
-  - Rickenbacker/BeeBox (1.0.3):
-    - RxCocoa
-    - RxSwift
-  - Rickenbacker/CatHome (1.0.3)
-  - Rickenbacker/DZNEmptyDataSet (1.0.3):
+  - Rickenbacker/CatHome (1.0.5)
+  - Rickenbacker/DZNEmptyDataSet (1.0.5):
     - DZNEmptyDataSet
     - Rickenbacker/Adapter
-  - Rickenbacker/HBDNavigationBar (1.0.3):
+  - Rickenbacker/HBDNavigationBar (1.0.5):
     - HBDNavigationBar
-  - Rickenbacker/Mediator (1.0.3)
-  - Rickenbacker/MJRefresh (1.0.3):
+  - Rickenbacker/Mediator (1.0.5)
+  - Rickenbacker/MJRefresh (1.0.5):
     - MJRefresh
     - Rickenbacker/Adapter
   - RootManager (0.1.0):
     - AppMain
+    - FeatBox
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
@@ -127,11 +128,9 @@ PODS:
     - Harbeth
   - WMDiscover (0.1.0):
     - FeatBox
-    - Wintersweet
     - WMDiscover/Resources (= 0.1.0)
   - WMDiscover/Resources (0.1.0):
     - FeatBox
-    - Wintersweet
   - WMMine (0.0.1):
     - FeatBox
     - WMMine/Resources (= 0.0.1)
@@ -207,16 +206,16 @@ SPEC CHECKSUMS:
   Database: 355454140a4ee255e5cb49a159758d655d0dfffd
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FeatBox: 97936ea603389a2ff30c8b2290c44e101238416a
+  FeatBox: 8e01e49b8bc79d13674a8bc4c6734830721605c2
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
-  Harbeth: cdb986a68c5c67d2f29b80c6b107006c1bf54bef
+  Harbeth: 91b33a393a5a0d78e117c3973ae9623b270e4cc3
   HBDNavigationBar: a997b65ab7194271e5584b87a952fc851832f692
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Mediator: 1041c92464e21654183ffe800240cae2180a7890
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
-  Rickenbacker: 41b7e7e4b684162efc1a7b6bdd65d7e3a3544e3d
-  RootManager: 042bfb9daf9b99393fdc3e8b8656c84834b76b05
+  Rickenbacker: 3006b379aaa33e3613852cbc5e3b2c86d00e7176
+  RootManager: 4b2ef9e640b928c904558d27e7cb90a3d47d10ff
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxNetworks: ee9e67081361555755d48d3460209841ccc34ec2
@@ -228,11 +227,11 @@ SPEC CHECKSUMS:
   WCDB.swift: 39e28fe29b5a3bf2927d9fb9218978f19bd49ff0
   WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
   Wintersweet: ace5dca474ec7e9562c03c2f7ad3dbe7f45824cc
-  WMDiscover: 7611f2d5a57296148506ef1e2877fa676c7fd541
+  WMDiscover: 88003b9a316ec3a4727577dd4b9df42fd3cc6fe5
   WMMine: 38763ae157f3cdf10381188a43709994c540f4a8
   WMWallet: 71305204a5f7ad1f778f31813504e4342aa68717
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: d15e588c64010a8afe15fcf977178d0a66a0e917
+PODFILE CHECKSUM: 64e010194be6903d6baa95be6247daf7f6cd9eb3
 
 COCOAPODS: 1.11.3

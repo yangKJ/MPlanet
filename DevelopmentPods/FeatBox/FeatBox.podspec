@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint FeatBox.podspec' to ensure this is a
+# Be sure to run 'pod lib lint FeatBox.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -33,6 +33,7 @@ Pod::Spec.new do |s|
   s.dependency 'Rickenbacker' # 基础架构
   s.dependency 'SnapKit' # 布局架构
   s.dependency 'Harbeth' # 滤镜框架
+  s.dependency 'Wintersweet' # GIF和网图显示框架，替代`Kingfisher`
   
   s.source_files = 'FeatBox/Classes/**/*'
   

@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
   
   s.dependency 'AppMain'
+  s.dependency 'FeatBox'
   
   s.source_files = 'RootManager/Classes/**/*'
   

@@ -15,4 +15,12 @@ class WMNavigationController: BaseNavigationController {
 
         // Do any additional setup after loading the view.
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
+    override var childForStatusBarStyle: UIViewController? {
+        return topViewController
+    }
 }

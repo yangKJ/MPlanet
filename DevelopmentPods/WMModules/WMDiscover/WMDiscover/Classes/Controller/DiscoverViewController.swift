@@ -6,15 +6,14 @@
 //
 
 import FeatBox
-import Wintersweet
+import Harbeth
 
-class DiscoverViewController: VMTableViewController<DiscoverViewModel> {
-
+class DiscoverViewController: VMViewController<DiscoverViewModel> {
+    
     private static let identifier = "DiscoverCellIdentifier"
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
         view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
         return view
     }()
@@ -64,21 +63,6 @@ class DiscoverViewController: VMTableViewController<DiscoverViewModel> {
             "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Demo/Harbeth-iOS-Demo/Resources/Assets.xcassets/IMG_3960.imageset/IMG_3960.heic"
         ]
         let named = links.randomElement() ?? ""
-        let options = AnimatedOptions(
-            loop: .forever,
-            placeholder: .image(FeatBox.Placeholder.mainColor),
-            contentMode: .scaleAspectFit,
-            bufferCount: 20,
-            cacheOption: .disk,
-            cacheCrypto: .sha1,
-            cacheDataZip: .gzip,
-            moduleName: DiscoverUtil.moduleName,
-            preparation: { [weak self] in
-                guard let `self` = self else { return }
-                self.label.text = "\(self.imageView.frameCount) frames / \(String(format: "%.2f", self.imageView.loopDuration))s"
-            }, animated: { _ in
-                print("Played end!!!")
-            })
-        imageView.mt.displayImage(named: named, filters: filters, options: options)
+        imageView.cdy.setImage(with: named, module: DiscoverUtil.moduleName, filters: filters)
     }
 }
