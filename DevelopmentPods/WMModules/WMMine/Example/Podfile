@@ -1,11 +1,19 @@
+# Uncomment the next line to define a global platform for your project
+
+source 'https://github.com/CocoaPods/Specs.git'
+# source 'git@github.com:yangKJ/PrivatePod.git' # 私有索引
+
+platform :ios, '10.0' # 这个版本为所有CocoaPods里面`s.ios.deployment_target`支持的最低版本
+inhibit_all_warnings!
 use_frameworks!
 
-platform :ios, '9.0'
-
 target 'WMMine_Example' do
-  pod 'WMMine', :path => '../'
+  pod 'WMMine', :path => '..'
 
-  target 'WMMine_Tests' do
-    inherit! :search_paths
-  end
+  pod 'FeatBox', :path => '../../../FeatBox'
+end
+
+target 'WMMine_Tests' do
+  inherit! :search_paths
+
 end

@@ -1,0 +1,6 @@
+framework module WMWallet {
+  umbrella header "WMWallet-umbrella.h"
+
+  export *
+  module * { export * }
+}

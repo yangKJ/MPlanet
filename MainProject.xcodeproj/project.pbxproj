@@ -282,7 +282,7 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/Rickenbacker/Rickenbacker.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/WMDiscover/WMDiscover.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/WMMine/WMMine.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/WMWallet/WMWallet.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/WMWallet/Demo.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -291,7 +291,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Rickenbacker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WMDiscover.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WMMine.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WMWallet.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Demo.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

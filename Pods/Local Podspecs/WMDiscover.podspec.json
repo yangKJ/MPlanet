@@ -1,6 +1,6 @@
 {
   "name": "WMDiscover",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "summary": "A short description of WMDiscover.",
   "homepage": "https://github.com/Condy/WMDiscover",
   "license": {
@@ -8,11 +8,11 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "ykj310@126.com"
+    "Condy": "yangkj310@gmail.com"
   },
   "source": {
     "git": "https://github.com/Condy/WMDiscover.git",
-    "tag": "0.1.0"
+    "tag": "1.0.0"
   },
   "platforms": {
     "ios": "10.0"
@@ -23,17 +23,46 @@
   "dependencies": {
     "FeatBox": [
 
+    ],
+    "Rickenbacker/Adapter": [
+
+    ],
+    "Rickenbacker/Mediator": [
+
     ]
   },
-  "source_files": "WMDiscover/Classes/**/*.swift",
   "subspecs": [
     {
       "name": "Resources",
       "resource_bundles": {
         "WMDiscover": [
-          "WMDiscover/Classes/Resources/*.{xcassets,lproj,gif}"
+          "Sources/Resources/*.{xcassets,lproj}"
         ]
       }
+    },
+    {
+      "name": "Util",
+      "source_files": "Sources/Util/**/*.swift"
+    },
+    {
+      "name": "Api",
+      "source_files": "Sources/Api/**/*.swift"
+    },
+    {
+      "name": "Controller",
+      "source_files": "Sources/Controller/**/*.swift"
+    },
+    {
+      "name": "ViewModel",
+      "source_files": "Sources/ViewModel/**/*.swift"
+    },
+    {
+      "name": "View",
+      "source_files": "Sources/View/**/*.swift"
+    },
+    {
+      "name": "Model",
+      "source_files": "Sources/Model/**/*.swift"
     }
   ],
   "swift_version": "5.0"

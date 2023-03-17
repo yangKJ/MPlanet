@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WMWallet'
-  s.version          = '0.0.1'
+  s.version          = '1.0.0'
   s.summary          = 'A short description of WMWallet.'
   
   # This description is used to generate tags and improve search results.
@@ -33,9 +33,31 @@ Pod::Spec.new do |s|
   s.dependency 'Database/Wallet'
   
   s.subspec 'Resources' do |xx|
-    xx.resource_bundles = { 'WMWallet' => ['WMWallet/Classes/Resources/*.{xcassets,lproj}'] }
+    xx.resource_bundles = { 'Demo' => ['Sources/Resources/*.{xcassets,lproj}'] }
   end
-
-  s.source_files = 'WMWallet/Classes/**/*.swift'
+  
+  s.subspec 'Util' do |xx|
+    xx.source_files = 'Sources/Util/**/*.swift'
+  end
+  
+  s.subspec 'Api' do |xx|
+    xx.source_files = 'Sources/Api/**/*.swift'
+  end
+  
+  s.subspec 'Controller' do |xx|
+    xx.source_files = 'Sources/Controller/**/*.swift'
+  end
+  
+  s.subspec 'ViewModel' do |xx|
+    xx.source_files = 'Sources/ViewModel/**/*.swift'
+  end
+  
+  s.subspec 'View' do |xx|
+    xx.source_files = 'Sources/View/**/*.swift'
+  end
+  
+  s.subspec 'Model' do |xx|
+    xx.source_files = 'Sources/Model/**/*.swift'
+  end
   
 end

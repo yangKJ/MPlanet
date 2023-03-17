@@ -1,4 +1,4 @@
-# macOS
+# OS X
 .DS_Store
 
 # Xcode
@@ -13,14 +13,15 @@ build/
 !default.perspectivev3
 xcuserdata/
 *.xccheckout
-profile
+# profile
 *.moved-aside
 DerivedData
 *.hmap
 *.ipa
+# *.gitkeep
 
 # Bundler
-.bundle
+# .bundle
 
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts

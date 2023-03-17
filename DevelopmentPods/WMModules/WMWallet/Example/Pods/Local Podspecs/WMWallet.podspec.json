@@ -1,6 +1,6 @@
 {
   "name": "WMWallet",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "summary": "A short description of WMWallet.",
   "homepage": "https://github.com/Condy/WMWallet",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/Condy/WMWallet.git",
-    "tag": "0.0.1"
+    "tag": "1.0.0"
   },
   "platforms": {
     "ios": "10.0"
@@ -20,38 +20,49 @@
   "swift_versions": "5.0",
   "requires_arc": true,
   "static_framework": true,
+  "dependencies": {
+    "FeatBox": [
+
+    ],
+    "RxDataSources": [
+
+    ],
+    "Database/Wallet": [
+
+    ]
+  },
   "subspecs": [
     {
       "name": "Resources",
       "resource_bundles": {
-        "WMWallet": [
-          "WMWallet/Classes/Resources/*.{xcassets,lproj}"
+        "Demo": [
+          "Sources/Resources/*.{xcassets,lproj}"
         ]
       }
     },
     {
       "name": "Util",
-      "source_files": "WMWallet/Classes/Util/*.swift"
+      "source_files": "Sources/Util/**/*.swift"
     },
     {
       "name": "Api",
-      "source_files": "WMWallet/Classes/Api/*.swift"
+      "source_files": "Sources/Api/**/*.swift"
     },
     {
       "name": "Controller",
-      "source_files": "WMWallet/Classes/Controller/*.swift"
+      "source_files": "Sources/Controller/**/*.swift"
     },
     {
       "name": "ViewModel",
-      "source_files": "WMWallet/Classes/ViewModel/*.swift"
+      "source_files": "Sources/ViewModel/**/*.swift"
     },
     {
       "name": "View",
-      "source_files": "WMWallet/Classes/View/**/*.swift"
+      "source_files": "Sources/View/**/*.swift"
     },
     {
       "name": "Model",
-      "source_files": "WMWallet/Classes/Model/*.swift"
+      "source_files": "Sources/Model/**/*.swift"
     }
   ],
   "swift_version": "5.0"

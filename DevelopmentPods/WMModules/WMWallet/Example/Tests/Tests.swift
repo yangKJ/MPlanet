@@ -1,5 +1,4 @@
 import XCTest
-import WMWallet
 
 class Tests: XCTestCase {
     

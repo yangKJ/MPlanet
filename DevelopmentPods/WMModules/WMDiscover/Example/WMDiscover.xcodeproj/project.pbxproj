@@ -13,8 +13,8 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		98CB1C3A5BD4113A262C2EC1 /* Pods_WMDiscover_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5983FF3BEB7F5A10E9995699 /* Pods_WMDiscover_Tests.framework */; };
-		EE645B6080053EE538CF8989 /* Pods_WMDiscover_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A6D77740F651368A467D039 /* Pods_WMDiscover_Example.framework */; };
+		7BD87BA40B9D2CC07C2954F1 /* Pods_WMDiscover_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6BF355B49F599D239EE4EE /* Pods_WMDiscover_Tests.framework */; };
+		9774980EBFA79799ECFD64BF /* Pods_WMDiscover_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E2D62A4F795AF57F4A1D593 /* Pods_WMDiscover_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,10 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A6D77740F651368A467D039 /* Pods_WMDiscover_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WMDiscover_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2FABCB6743D7D7ECFC7FEA94 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		3DCF9F38A11B4AB8654002F5 /* Pods-WMDiscover_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMDiscover_Tests.debug.xcconfig"; path = "Target Support Files/Pods-WMDiscover_Tests/Pods-WMDiscover_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		5983FF3BEB7F5A10E9995699 /* Pods_WMDiscover_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WMDiscover_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0375A8442FB78A746AA8A6BC /* Pods-WMDiscover_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMDiscover_Tests.debug.xcconfig"; path = "Target Support Files/Pods-WMDiscover_Tests/Pods-WMDiscover_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		0C200F1393D34482FE5B990B /* Pods-WMDiscover_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMDiscover_Tests.release.xcconfig"; path = "Target Support Files/Pods-WMDiscover_Tests/Pods-WMDiscover_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* WMDiscover_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WMDiscover_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,11 +40,10 @@
 		607FACE51AFB9204008FA782 /* WMDiscover_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WMDiscover_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		8F7E3940441C388D2FA7E9A4 /* WMDiscover.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = WMDiscover.podspec; path = ../WMDiscover.podspec; sourceTree = "<group>"; };
-		A310FFAA3A7B00AC377922BE /* Pods-WMDiscover_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMDiscover_Example.release.xcconfig"; path = "Target Support Files/Pods-WMDiscover_Example/Pods-WMDiscover_Example.release.xcconfig"; sourceTree = "<group>"; };
-		A7E64ECB9F8FAC41CFB83A23 /* Pods-WMDiscover_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMDiscover_Tests.release.xcconfig"; path = "Target Support Files/Pods-WMDiscover_Tests/Pods-WMDiscover_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		C332BA50B8C1136EF0A66AF0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		F0630837D12DCF7E919DB52D /* Pods-WMDiscover_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMDiscover_Example.debug.xcconfig"; path = "Target Support Files/Pods-WMDiscover_Example/Pods-WMDiscover_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		6F46A305D38704E3C83C0D70 /* Pods-WMDiscover_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMDiscover_Example.release.xcconfig"; path = "Target Support Files/Pods-WMDiscover_Example/Pods-WMDiscover_Example.release.xcconfig"; sourceTree = "<group>"; };
+		7BC474A9617FC0C15B0AE519 /* Pods-WMDiscover_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WMDiscover_Example.debug.xcconfig"; path = "Target Support Files/Pods-WMDiscover_Example/Pods-WMDiscover_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		7D6BF355B49F599D239EE4EE /* Pods_WMDiscover_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WMDiscover_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E2D62A4F795AF57F4A1D593 /* Pods_WMDiscover_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WMDiscover_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE645B6080053EE538CF8989 /* Pods_WMDiscover_Example.framework in Frameworks */,
+				9774980EBFA79799ECFD64BF /* Pods_WMDiscover_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98CB1C3A5BD4113A262C2EC1 /* Pods_WMDiscover_Tests.framework in Frameworks */,
+				7BD87BA40B9D2CC07C2954F1 /* Pods_WMDiscover_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +69,11 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for WMDiscover */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				F0A50994E2311A5AD57E5901 /* Pods */,
-				A44D6E1FCF08ADD7B30B30DA /* Frameworks */,
+				EDB61EFF522F3443D60BFE12 /* Pods */,
+				6EC3EB0CBD96D1450DDE6BD6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,32 +125,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
+		6EC3EB0CBD96D1450DDE6BD6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8F7E3940441C388D2FA7E9A4 /* WMDiscover.podspec */,
-				C332BA50B8C1136EF0A66AF0 /* README.md */,
-				2FABCB6743D7D7ECFC7FEA94 /* LICENSE */,
-			);
-			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		A44D6E1FCF08ADD7B30B30DA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1A6D77740F651368A467D039 /* Pods_WMDiscover_Example.framework */,
-				5983FF3BEB7F5A10E9995699 /* Pods_WMDiscover_Tests.framework */,
+				7E2D62A4F795AF57F4A1D593 /* Pods_WMDiscover_Example.framework */,
+				7D6BF355B49F599D239EE4EE /* Pods_WMDiscover_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F0A50994E2311A5AD57E5901 /* Pods */ = {
+		EDB61EFF522F3443D60BFE12 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F0630837D12DCF7E919DB52D /* Pods-WMDiscover_Example.debug.xcconfig */,
-				A310FFAA3A7B00AC377922BE /* Pods-WMDiscover_Example.release.xcconfig */,
-				3DCF9F38A11B4AB8654002F5 /* Pods-WMDiscover_Tests.debug.xcconfig */,
-				A7E64ECB9F8FAC41CFB83A23 /* Pods-WMDiscover_Tests.release.xcconfig */,
+				7BC474A9617FC0C15B0AE519 /* Pods-WMDiscover_Example.debug.xcconfig */,
+				6F46A305D38704E3C83C0D70 /* Pods-WMDiscover_Example.release.xcconfig */,
+				0375A8442FB78A746AA8A6BC /* Pods-WMDiscover_Tests.debug.xcconfig */,
+				0C200F1393D34482FE5B990B /* Pods-WMDiscover_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -167,10 +153,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "WMDiscover_Example" */;
 			buildPhases = (
-				5C4380CFCF9E5F65AB480A76 /* [CP] Check Pods Manifest.lock */,
+				AACB85FFBFEE9B47187542E1 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
+				010AE5150E386539F45FB6CD /* [CP] Embed Pods Frameworks */,
+				C494594E74C885F4A232EC81 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,7 +173,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "WMDiscover_Tests" */;
 			buildPhases = (
-				2F6B7B87EF37087CFC07D7DE /* [CP] Check Pods Manifest.lock */,
+				DEC3687BF2BEAE0A1A28EA31 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
@@ -213,6 +201,7 @@
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -226,6 +215,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -261,29 +251,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2F6B7B87EF37087CFC07D7DE /* [CP] Check Pods Manifest.lock */ = {
+		010AE5150E386539F45FB6CD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"${PODS_ROOT}/Target Support Files/Pods-WMDiscover_Example/Pods-WMDiscover_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
+				"${BUILT_PRODUCTS_DIR}/HBDNavigationBar/HBDNavigationBar.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WMDiscover_Tests-checkManifestLockResult.txt",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HBDNavigationBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WMDiscover_Example/Pods-WMDiscover_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5C4380CFCF9E5F65AB480A76 /* [CP] Check Pods Manifest.lock */ = {
+		AACB85FFBFEE9B47187542E1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,6 +309,50 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-WMDiscover_Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C494594E74C885F4A232EC81 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WMDiscover_Example/Pods-WMDiscover_Example-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Harbeth/Harbeth.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Rickenbacker/Rickenbacker.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/WMDiscover/WMDiscover.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Harbeth.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Rickenbacker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WMDiscover.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WMDiscover_Example/Pods-WMDiscover_Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DEC3687BF2BEAE0A1A28EA31 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WMDiscover_Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -400,7 +454,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -446,7 +500,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -456,37 +510,45 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0630837D12DCF7E919DB52D /* Pods-WMDiscover_Example.debug.xcconfig */;
+			baseConfigurationReference = 7BC474A9617FC0C15B0AE519 /* Pods-WMDiscover_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WMDiscover/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A310FFAA3A7B00AC377922BE /* Pods-WMDiscover_Example.release.xcconfig */;
+			baseConfigurationReference = 6F46A305D38704E3C83C0D70 /* Pods-WMDiscover_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WMDiscover/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DCF9F38A11B4AB8654002F5 /* Pods-WMDiscover_Tests.debug.xcconfig */;
+			baseConfigurationReference = 0375A8442FB78A746AA8A6BC /* Pods-WMDiscover_Tests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -508,7 +570,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7E64ECB9F8FAC41CFB83A23 /* Pods-WMDiscover_Tests.release.xcconfig */;
+			baseConfigurationReference = 0C200F1393D34482FE5B990B /* Pods-WMDiscover_Tests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",

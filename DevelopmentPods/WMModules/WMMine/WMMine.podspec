@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint WMMine.podspec' to ensure this is a
+# Be sure to run 'pod lib lint WMMine.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WMMine'
-  s.version          = '0.0.1'
+  s.version          = '1.0.0'
   s.summary          = 'A short description of WMMine.'
   
   # This description is used to generate tags and improve search results.
@@ -19,9 +19,8 @@ Pod::Spec.new do |s|
   
   s.homepage         = 'https://github.com/Condy/WMMine'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'ykj310@126.com' }
+  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
   s.source           = { :git => 'https://github.com/Condy/WMMine.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   
   s.ios.deployment_target = '10.0'
   s.swift_version    = '5.0'
@@ -31,9 +30,31 @@ Pod::Spec.new do |s|
   s.dependency 'FeatBox'
   
   s.subspec 'Resources' do |xx|
-    xx.resource_bundles = { 'WMMine' => ['WMMine/Classes/Resources/*.{xcassets,lproj}'] }
+    xx.resource_bundles = { 'WMMine' => ['Sources/Resources/*.{xcassets,lproj}'] }
   end
   
-  s.source_files = 'WMMine/Classes/**/*.swift'
+  s.subspec 'Util' do |xx|
+    xx.source_files = 'Sources/Util/**/*.swift'
+  end
+  
+  s.subspec 'Api' do |xx|
+    xx.source_files = 'Sources/Api/**/*.swift'
+  end
+  
+  s.subspec 'Controller' do |xx|
+    xx.source_files = 'Sources/Controller/**/*.swift'
+  end
+  
+  s.subspec 'ViewModel' do |xx|
+    xx.source_files = 'Sources/ViewModel/**/*.swift'
+  end
+  
+  s.subspec 'View' do |xx|
+    xx.source_files = 'Sources/View/**/*.swift'
+  end
+  
+  s.subspec 'Model' do |xx|
+    xx.source_files = 'Sources/Model/**/*.swift'
+  end
   
 end

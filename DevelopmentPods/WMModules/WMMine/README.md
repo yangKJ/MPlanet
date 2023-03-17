@@ -22,7 +22,7 @@ pod 'WMMine'
 
 ## Author
 
-Condy, ykj310@126.com
+Condy, yangkj310@gmail.com
 
 ## License
 
