@@ -18,8 +18,8 @@ class WalletHomeView: UIView, UIScrollViewDelegate {
     lazy var topView = WalletHomeTopView()
     lazy var tokenHeaderView = WalletHomeTokenHeaderView()
     
-    lazy var tableView: TableView = {
-        let tableView = TableView.init(frame: .zero, style: .plain)
+    lazy var tableView: UITableView = {
+        let tableView = UITableView.init(frame: .zero, style: .plain)
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         tableView.rx.itemSelected.bind {
             tableView.deselectRow(at: $0, animated: false)

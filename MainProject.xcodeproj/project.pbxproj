@@ -198,10 +198,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = AAHMKJNWLX;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = AAHMKJNWLX;
 						LastSwiftMigration = 1320;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -323,7 +325,7 @@
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/WCDB.swift/WCDBSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/WCDBOptimizedSQLCipher/sqlcipher.framework",
-				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -345,7 +347,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WCDBSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/sqlcipher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -533,7 +535,9 @@
 			baseConfigurationReference = FE2722661069635A429178F4 /* Pods-MainProject_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AAHMKJNWLX;
 				INFOPLIST_FILE = MainProject/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MainProject;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -549,7 +553,9 @@
 			baseConfigurationReference = 1CFE5A108DB61F2C729FF40C /* Pods-MainProject_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AAHMKJNWLX;
 				INFOPLIST_FILE = MainProject/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MainProject;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -564,6 +570,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7F9ADAD775B40B8EEF64FB7F /* Pods-MainProject_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = AAHMKJNWLX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -586,6 +593,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3BA2DB747BC6723C66D55EE7 /* Pods-MainProject_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = AAHMKJNWLX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",

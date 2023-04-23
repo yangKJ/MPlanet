@@ -11,27 +11,23 @@ import Moya
 internal struct NetworkUtil {
     
     static func defaultPlugin(_ plugins: inout APIPlugins, api: NetworkAPI) {
-        var temp = plugins
-        if let injection = NetworkConfig.injectionPlugins, !injection.isEmpty {
-            temp += injection
+        var plugins_ = plugins
+        if let others = NetworkConfig.injectionPlugins {
+            plugins_ += others
         }
-        if NetworkConfig.addIndicator {
-            #if RxNetworks_MoyaPlugins_Indicator
-            if !temp.contains(where: { $0 is NetworkIndicatorPlugin}) {
-                let Indicator = NetworkIndicatorPlugin.init()
-                temp.insert(Indicator, at: 0)
-            }
-            #endif
+        #if RxNetworks_MoyaPlugins_Indicator
+        if NetworkConfig.addIndicator, !plugins_.contains(where: { $0 is NetworkIndicatorPlugin}) {
+            let Indicator = NetworkIndicatorPlugin.init()
+            plugins_.insert(Indicator, at: 0)
         }
-        if NetworkConfig.addDebugging {
-            #if DEBUG && RxNetworks_MoyaPlugins_Debugging
-            if !temp.contains(where: { $0 is NetworkDebuggingPlugin}) {
-                let Debugging = NetworkDebuggingPlugin.init()
-                temp.append(Debugging)
-            }
-            #endif
+        #endif
+        #if DEBUG && RxNetworks_MoyaPlugins_Debugging
+        if NetworkConfig.addDebugging, !plugins_.contains(where: { $0 is NetworkDebuggingPlugin}) {
+            let Debugging = NetworkDebuggingPlugin.init()
+            plugins_.append(Debugging)
         }
-        plugins = temp
+        #endif
+        plugins = plugins_
     }
     
     static func handyConfigurationPlugin(_ plugins: APIPlugins, target: TargetType) -> ConfigurationTuple {
@@ -78,7 +74,7 @@ internal struct NetworkUtil {
             guard let plugins = base.plugins as? [PluginSubType] else {
                 // 主线程回调
                 DispatchQueue.main.async {
-                    NetworkUtil.handleResult(result, nil, onSuccess: success, onFailure: failure)
+                    Self.handleResult(result, nil, onSuccess: success, onFailure: failure)
                 }
                 return
             }
@@ -90,18 +86,20 @@ internal struct NetworkUtil {
                 }
                 // 主线程回调
                 DispatchQueue.main.async {
-                    NetworkUtil.handleResult(tuple.result, tuple.mapResult, onSuccess: success, onFailure: failure)
+                    Self.handleResult(tuple.result, tuple.mapResult, onSuccess: success, onFailure: failure)
                 }
             }
         })
     }
-    
-    private static func handleResult(
-        _ result: MoyaResult,
-        _ jsonResult: MapJSONResult?,
-        onSuccess: (_ json: Any) -> Void,
-        onFailure: (_ error: Swift.Error) -> Void
-    ) {
+}
+
+// MARK: - private methods
+
+extension NetworkUtil {
+    private static func handleResult(_ result: MoyaResult,
+                                     _ jsonResult: MapJSONResult?,
+                                     onSuccess: (_ json: Any) -> Void,
+                                     onFailure: (_ error: Swift.Error) -> Void) {
         guard let _jsonResult = jsonResult else {
             switch result {
             case let .success(response):

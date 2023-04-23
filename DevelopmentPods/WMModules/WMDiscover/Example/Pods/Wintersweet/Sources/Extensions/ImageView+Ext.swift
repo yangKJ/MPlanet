@@ -98,7 +98,10 @@ extension Queen where Base: ImageView {
     ) -> URLSessionDataTask? {
         let options = options.setDisplayed(placeholder: true)
         options.placeholder.display(to: base, contentMode: options.contentMode)
-        if let data = options.cacheOption.read(key: url.absoluteString, crypto: options.cacheCrypto, zip: options.cacheDataZip) {
+        let key = options.cacheCrypto.encryptedString(with: url.absoluteString)
+        let storager = Cached.shared.storage
+        if let object = storager.fetchCached(forKey: key, options: options.cacheOption), var data = object.data {
+            data = options.cacheDataZip.decompress(data: data)
             self.displayImage(data: data, filters: filters, options: options)
             return nil
         }
@@ -110,7 +113,9 @@ extension Queen where Base: ImageView {
                 DispatchQueue.main.async {
                     self.displayImage(data: data, filters: filters, options: options)
                 }
-                options.cacheOption.write(key: url.absoluteString, value: data, crypto: options.cacheCrypto, zip: options.cacheDataZip)
+                let zipData = options.cacheDataZip.compressed(data: data)
+                let model = CacheModel(data: zipData)
+                storager.storeCached(model, forKey: key, options: options.cacheOption)
             }
         }
         task.resume()

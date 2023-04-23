@@ -5,70 +5,87 @@
 //  Created by Condy on 2021/10/6.
 //  https://github.com/yangKJ/RxNetworks
 
-///`YYCache`文档
-/// https://github.com/ibireme/YYCache
+///`Cache`文档
+/// https://github.com/hyperoslo/Cache
 
 import Foundation
-import YYCache
+import CoreFoundation
+import Lemons
 
 public struct CacheManager {
-    public static let name = "ykj.Network.cache.plugin"
-    /// The maximum number of objects the cache should hold. default 100
-    public static var maxCountLimit: UInt = 100
-    /// The maximum total cost that the cache can hold before it starts evicting objects. default 20kb
-    public static var maxCostLimit: UInt = 20 * 1024
-    /// The maximum expiry time of objects in cache.
-    public static var maxAgeLimit: TimeInterval = TimeInterval(MAXFLOAT)
-    /// The minimum free disk space (in bytes) which the cache should kept.
-    public static var freeDiskSpaceLimit: UInt = 0
-}
-
-extension CacheManager {
     
-    /// Current cached size
-    public static var totalCost: Int {
-        if let cache = YYCache.init(name: CacheManager.name) {
-            return cache.diskCache.totalCost()
-        }
-        return 0
+    public static let `default` = CacheManager()
+    
+    public let storage: Storage<CacheModel>
+    
+    private init() {
+        self.named = "RxNetworksCached"
+        self.expiry = .seconds(60 * 60 * 24 * 7)
+        self.maxCostLimit = 0
+        self.maxCountLimit = 20 * 1024
+        let background = DispatchQueue(label: "com.condy.rx.networks.cached.queue", qos: .background, attributes: [.concurrent])
+        storage = Storage<CacheModel>.init(queue: background)
+        storage.disk.named = self.named
+        storage.disk.expiry = self.expiry
+        storage.disk.maxCountLimit = self.maxCountLimit
+        storage.memory.maxCostLimit = self.maxCostLimit
     }
     
-    /// The current number of cached items
-    public static var totalCount: Int {
-        if let cache = YYCache.init(name: CacheManager.name) {
-            return cache.diskCache.totalCount()
-        }
-        return 0
-    }
-    
-    /// Delete the disk cache
-    public static func removeAllCache() {
-        if let cache = YYCache.init(name: CacheManager.name) {
-            cache.diskCache.removeAllObjects()
+    /// The name of disk storage, this will be used as folder name within directory.
+    public var named: String {
+        didSet {
+            storage.disk.named = named
         }
     }
     
-    /// Cache data
-    /// - Parameters:
-    ///   - dict: The cached object
-    ///   - key: Cache key name
-    public static func saveCacheWithDictionary(_ dict: NSDictionary, key: String) {
-        if let cache = YYCache.init(name: CacheManager.name) {
-            cache.diskCache.countLimit = CacheManager.maxCountLimit
-            cache.diskCache.costLimit = CacheManager.maxCostLimit
-            cache.diskCache.ageLimit = CacheManager.maxAgeLimit
-            cache.diskCache.freeDiskSpaceLimit = CacheManager.freeDiskSpaceLimit
-            cache.setObject(dict, forKey: key)
+    /// The longest time duration in second of the cache being stored in disk.
+    /// Default is 1 week ``60 * 60 * 24 * 7 seconds``.
+    public var expiry: Lemons.Expiry {
+        didSet {
+            storage.disk.expiry = expiry
         }
     }
     
-    /// Read cache data
-    /// - Parameter key: Cache key name
-    /// - Returns: Cache object
-    public static func fetchCachedWithKey(_ key: String) -> NSDictionary? {
-        if let cache = YYCache.init(name: CacheManager.name) {
-            return cache.object(forKey: key) as? NSDictionary
+    /// The maximum total cost that the cache can hold before it starts evicting objects. default 20kb.
+    public var maxCountLimit: Lemons.Disk.Byte {
+        didSet {
+            storage.disk.maxCountLimit = maxCountLimit
         }
-        return nil
+    }
+    
+    /// The largest cache cost of memory cache. The total cost is pixel count of all cached images in memory.
+    /// Default is unlimited. Memory cache will be purged automatically when a memory warning notification is received.
+    public var maxCostLimit: UInt = 0 {
+        didSet {
+            storage.memory.maxCostLimit = maxCostLimit
+        }
+    }
+    
+    /// Get the disk cache size.
+    public var totalCost: UInt64 {
+        mutating get {
+            return UInt64(storage.disk.totalCost)
+        }
+    }
+    
+    /// Clear all caches.
+    public func removeAllCache(completion: ((_ isSuccess: Bool) -> ())? = nil) {
+        storage.removedDiskAndMemoryCached(completion: completion)
+    }
+    
+    /// Clear the cache according to key value.
+    @discardableResult public func removeObjectCache(_ key: String) -> Bool {
+        let _ = storage.memory.removeCache(key: key)
+        return storage.disk.removeCache(key: key)
+    }
+    
+    /// Read disk data or memory data.
+    public func read(key: String) -> Data? {
+        storage.read(key: key, options: .all)
+    }
+    
+    /// Storage data asynchronously to disk and memory.
+    public func store(key: String, value: Data) {
+        storage.write(key: key, value: value, options: .all)
     }
 }

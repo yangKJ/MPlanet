@@ -7,12 +7,12 @@ PODS:
     - WCDB.swift
   - Database/Wallet (0.0.4):
     - Database/Manager
-  - SQLiteRepairKit (1.2.2):
-    - WCDBOptimizedSQLCipher (~> 1.2.0)
-  - WCDB.swift (1.0.8.2):
-    - SQLiteRepairKit (~> 1.2.0)
-    - WCDBOptimizedSQLCipher (~> 1.2.0)
-  - WCDBOptimizedSQLCipher (1.2.1)
+  - SQLiteRepairKit (1.3.0):
+    - WCDBOptimizedSQLCipher (~> 1.3.0)
+  - WCDB.swift (1.1.0):
+    - SQLiteRepairKit (~> 1.3.0)
+    - WCDBOptimizedSQLCipher (~> 1.3.0)
+  - WCDBOptimizedSQLCipher (1.3.0)
 
 DEPENDENCIES:
   - Database (from `../`)
@@ -31,9 +31,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Database: 355454140a4ee255e5cb49a159758d655d0dfffd
-  SQLiteRepairKit: 35aaae5a8838adb85f5b1eb4d796055be6060a4b
-  WCDB.swift: 05d509d7a0e60fb6e11c34eb7e4027c0fab5849f
-  WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
+  SQLiteRepairKit: a66145aadae91886c800f75e16f5cc6476af1a93
+  WCDB.swift: 39e28fe29b5a3bf2927d9fb9218978f19bd49ff0
+  WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
 
 PODFILE CHECKSUM: cc8dff666dc50c9853c8a3f5a8ef8ab5fe9e8226
 
