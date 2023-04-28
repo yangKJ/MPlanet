@@ -3,9 +3,11 @@ PODS:
   - AppMain (0.0.1):
     - AppMain/Resources (= 0.0.1)
     - FeatBox
+    - HBDNavigationBar
     - Mediator
   - AppMain/Resources (0.0.1):
     - FeatBox
+    - HBDNavigationBar
     - Mediator
   - Database (0.0.4):
     - Database/Manager (= 0.0.4)
@@ -17,11 +19,14 @@ PODS:
   - DZNEmptyDataSet (1.8.1)
   - FeatBox (0.1.0):
     - Harbeth
+    - HBDNavigationBar
     - Rickenbacker
     - RxCocoa
     - RxNetworks
     - SnapKit
     - Wintersweet
+    - YYText
+  - FSPagerView (0.8.3)
   - HandyJSON (5.0.2)
   - Harbeth (0.6.7):
     - Harbeth/Basic (= 0.6.7)
@@ -46,30 +51,27 @@ PODS:
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
-  - Rickenbacker (1.0.8):
-    - Rickenbacker/Adapter (= 1.0.8)
-    - Rickenbacker/BeeBox (= 1.0.8)
-    - Rickenbacker/CatHome (= 1.0.8)
-    - Rickenbacker/DZNEmptyDataSet (= 1.0.8)
-    - Rickenbacker/HBDNavigationBar (= 1.0.8)
-    - Rickenbacker/Mediator (= 1.0.8)
-    - Rickenbacker/MJRefresh (= 1.0.8)
-  - Rickenbacker/Adapter (1.0.8):
-    - Rickenbacker/BeeBox
-    - Rickenbacker/CatHome
-  - Rickenbacker/BeeBox (1.0.8):
-    - RxCocoa
-    - RxSwift
-  - Rickenbacker/CatHome (1.0.8)
-  - Rickenbacker/DZNEmptyDataSet (1.0.8):
+  - Rickenbacker (1.0.9):
+    - Rickenbacker/Adapter (= 1.0.9)
+    - Rickenbacker/Boxs (= 1.0.9)
+    - Rickenbacker/DZNEmptyDataSet (= 1.0.9)
+    - Rickenbacker/Mediator (= 1.0.9)
+    - Rickenbacker/MJRefresh (= 1.0.9)
+    - Rickenbacker/RxTools (= 1.0.9)
+  - Rickenbacker/Adapter (1.0.9):
+    - Rickenbacker/RxTools
+  - Rickenbacker/Boxs (1.0.9)
+  - Rickenbacker/DZNEmptyDataSet (1.0.9):
     - DZNEmptyDataSet
     - Rickenbacker/Adapter
-  - Rickenbacker/HBDNavigationBar (1.0.8):
-    - HBDNavigationBar
-  - Rickenbacker/Mediator (1.0.8)
-  - Rickenbacker/MJRefresh (1.0.8):
+  - Rickenbacker/Mediator (1.0.9)
+  - Rickenbacker/MJRefresh (1.0.9):
     - MJRefresh
     - Rickenbacker/Adapter
+  - Rickenbacker/RxTools (1.0.9):
+    - Rickenbacker/Boxs
+    - RxCocoa
+    - RxSwift
   - RootManager (0.1.0):
     - AppMain
     - FeatBox
@@ -135,6 +137,7 @@ PODS:
     - Lemons
   - WMDiscover (1.0.0):
     - FeatBox
+    - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
     - WMDiscover/Api (= 1.0.0)
@@ -146,30 +149,37 @@ PODS:
     - WMDiscover/ViewModel (= 1.0.0)
   - WMDiscover/Api (1.0.0):
     - FeatBox
+    - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
   - WMDiscover/Controller (1.0.0):
     - FeatBox
+    - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
   - WMDiscover/Model (1.0.0):
     - FeatBox
+    - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
   - WMDiscover/Resources (1.0.0):
     - FeatBox
+    - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
   - WMDiscover/Util (1.0.0):
     - FeatBox
+    - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
   - WMDiscover/View (1.0.0):
     - FeatBox
+    - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
   - WMDiscover/ViewModel (1.0.0):
     - FeatBox
+    - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
   - WMMine (1.0.0):
@@ -234,6 +244,7 @@ PODS:
     - Database/Wallet
     - FeatBox
     - RxDataSources
+  - YYText (1.0.7)
 
 DEPENDENCIES:
   - AppMain (from `DevelopmentPods/AppMain`)
@@ -250,6 +261,7 @@ SPEC REPOS:
     - Alamofire
     - Differentiator
     - DZNEmptyDataSet
+    - FSPagerView
     - HandyJSON
     - Harbeth
     - HBDNavigationBar
@@ -270,6 +282,7 @@ SPEC REPOS:
     - WCDB.swift
     - WCDBOptimizedSQLCipher
     - Wintersweet
+    - YYText
 
 EXTERNAL SOURCES:
   AppMain:
@@ -291,11 +304,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  AppMain: b601344e96402fe06965b9e64889cacdf899620f
+  AppMain: 2f4aba28f791fdc5e60ec0b832ccd8c3f518bffb
   Database: 355454140a4ee255e5cb49a159758d655d0dfffd
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FeatBox: 8e01e49b8bc79d13674a8bc4c6734830721605c2
+  FeatBox: 949d4791e08e34102a187f01ca143a2ccedc4a16
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Harbeth: ead84e8d57cf182453a0f1f8bc32aef97636ffaf
   HBDNavigationBar: a997b65ab7194271e5584b87a952fc851832f692
@@ -305,7 +319,7 @@ SPEC CHECKSUMS:
   Mediator: 1041c92464e21654183ffe800240cae2180a7890
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
-  Rickenbacker: 9d96cf28203472b9250ca724ff127d5c9333041c
+  Rickenbacker: 9b8d3128fcb1a6f66b3b251da4771c62f6a40751
   RootManager: 4b2ef9e640b928c904558d27e7cb90a3d47d10ff
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
@@ -318,9 +332,10 @@ SPEC CHECKSUMS:
   WCDB.swift: 39e28fe29b5a3bf2927d9fb9218978f19bd49ff0
   WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
   Wintersweet: 03c79dd8775c974823b65809e98c4c9ee37ed578
-  WMDiscover: 93acb31023fe8589d415f6325da74828fa6329f8
+  WMDiscover: 2faeb17b83c94c77d0c4dd517fc38d7b9ed88fcc
   WMMine: d1a02b5ef8ce995428da0386f90919c918155972
   WMWallet: 1ff4edf5e06d0c1ad7b8791f874a4c5186c35e76
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
 PODFILE CHECKSUM: 7061785815220528bcb101bfe3f2e1675dcf236e
 

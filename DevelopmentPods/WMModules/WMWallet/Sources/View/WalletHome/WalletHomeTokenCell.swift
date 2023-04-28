@@ -12,6 +12,8 @@ import Database
 /// 代币列表Item
 class WalletHomeTokenCell: UITableViewCell {
     
+    static let identifier = "WalletHomeTokenCell"
+    
     var tokenData: WalletTokenData? {
         didSet {
             guard let tokenData = tokenData else { return }

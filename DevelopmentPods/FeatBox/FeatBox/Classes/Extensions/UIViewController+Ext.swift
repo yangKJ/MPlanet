@@ -27,7 +27,7 @@ extension BoxWrapper where Base: UIViewController {
     }
     
     // Extended status call changes the bounds of the presented view
-    var extendedStatusBarDifference: CGFloat {
+    public var extendedStatusBarDifference: CGFloat {
         return abs(base.view.bounds.height - (UIApplication.shared.delegate?.window??.frame.size.height ?? UIScreen.main.bounds.height))
     }
     

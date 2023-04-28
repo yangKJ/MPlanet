@@ -7,92 +7,97 @@
 
 import Foundation
 
-extension Bool {
+extension BoxWrapper where Base == Bool {
+    
     public func toInt() -> Int {
-        return (self == true) ? 1 : 0
+        return (base == true) ? 1 : 0
     }
     
     public func toCGFloat() -> CGFloat {
-        return toInt().toCGFloat()
+        return toInt().cdy.toCGFloat()
     }
     
     public func toDouble() -> Double {
-        return toInt().toDouble()
+        return toInt().cdy.toDouble()
     }
     
     public func toString() -> String {
-        return (self == true) ? "true" : "false"
+        return (base == true) ? "true" : "false"
     }
 }
 
-extension Int {
+extension BoxWrapper where Base == Int {
+    
     public func toBool() -> Bool {
-        return self != 0
+        return base != 0
     }
     
     public func toCGFloat() -> CGFloat {
-        return CGFloat(self)
+        return CGFloat(base)
     }
     
     public func toDouble() -> Double {
-        return Double(self)
+        return Double(base)
     }
     
     public func toString() -> String {
-        return String(self)
+        return String(base)
     }
 }
 
-extension CGFloat {
+extension BoxWrapper where Base == CGFloat {
+    
     public func toBool() -> Bool {
-        return self != 0
+        return base != 0
     }
     
     public func toInt() -> Int {
-        return Int(self)
+        return Int(base)
     }
     
     public func toDouble() -> Double {
-        return Double(self)
+        return Double(base)
     }
     
     public func toString() -> String {
-        return String(self.toDouble())
+        return String(toDouble())
     }
 }
 
-extension Double {
+extension BoxWrapper where Base == Double {
+    
     public func toBool() -> Bool {
-        return self != 0
+        return base != 0
     }
     
     public func toCGFloat() -> CGFloat {
-        return CGFloat(self)
+        return CGFloat(base)
     }
     
     public func toInt() -> Int {
-        return Int(self)
+        return Int(base)
     }
     
     public func toString() -> String {
-        return String(self)
+        return String(base)
     }
 }
 
-extension String {
+extension BoxWrapper where Base == String {
+    
     public func toBool() -> Bool {
-        return toDouble().toBool()
+        return toDouble().cdy.toBool()
     }
     
     public func toInt() -> Int {
-        return Int(self) ?? 0
+        return Int(base) ?? 0
     }
     
     public func toDouble() -> Double {
-        return Double(self) ?? 0
+        return Double(base) ?? 0
     }
     
     public func toCGFloat() -> CGFloat {
-        return CGFloat(self.toDouble())
+        return CGFloat(toDouble())
     }
 }

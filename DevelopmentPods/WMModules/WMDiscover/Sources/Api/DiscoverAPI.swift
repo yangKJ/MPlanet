@@ -1,0 +1,68 @@
+//
+//  DiscoverAPI.swift
+//  WMWallet
+//
+//  Created by Condy on 2020/12/28.
+//
+
+import FeatBox
+import RxNetworks
+
+enum DiscoverAPI {
+    /// 发现列表数据
+    case banner
+    /// 详情
+    case detail(Banner)
+}
+
+extension DiscoverAPI: NetworkAPI {
+    
+    var ip: APIHost {
+        return "https://www.httpbin.org"
+    }
+    
+    var path: APIPath {
+        switch self {
+        case .banner:
+            return "banner/json"
+        case .detail:
+            return "detail/json"
+        }
+    }
+    
+    var method: APIMethod {
+        switch self {
+        case .banner:
+            return .get
+        case .detail:
+            return .post
+        }
+    }
+    
+    var parameters: APIParameters? {
+        switch self {
+        case .banner:
+            return nil
+        case .detail(let banner):
+            return ["id": banner.id ?? ""]
+        }
+    }
+    
+    var plugins: APIPlugins {
+        let loading = NetworkLoadingPlugin.init(delay: 0.5)
+        return [loading]
+    }
+    
+    var stubBehavior: APIStubBehavior {
+        return .delayed(seconds: 2.5)
+    }
+    
+    var sampleData: Data {
+        switch self {
+        case .banner:
+            return R.jsonData("Banner")
+        case .detail(let banner):
+            return Data()
+        }
+    }
+}

@@ -30,12 +30,10 @@ Pod::Spec.new do |s|
   s.dependency 'FeatBox'
   s.dependency 'Rickenbacker/Adapter' # 响应式基础架构
   s.dependency 'Rickenbacker/Mediator' # 组件化模块
-  #s.dependency 'RxNetworks' # 网络架构
-  #s.dependency 'SnapKit' # 布局架构
-  #s.dependency 'Wintersweet' # 图像框架，支持GIF和Image
+  s.dependency 'FSPagerView' # 轮播图
   
   s.subspec 'Resources' do |xx|
-    xx.resource_bundles = { 'WMDiscover' => ['Sources/Resources/*.{xcassets,lproj}'] }
+    xx.resource_bundles = { 'WMDiscover' => ['Sources/Resources/*.{xcassets,lproj,json,gif}'] }
   end
   
   s.subspec 'Util' do |xx|

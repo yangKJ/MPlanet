@@ -29,6 +29,9 @@
     ],
     "Rickenbacker/Mediator": [
 
+    ],
+    "FSPagerView": [
+
     ]
   },
   "subspecs": [
@@ -36,7 +39,7 @@
       "name": "Resources",
       "resource_bundles": {
         "WMDiscover": [
-          "Sources/Resources/*.{xcassets,lproj}"
+          "Sources/Resources/*.{xcassets,lproj,json,gif}"
         ]
       }
     },

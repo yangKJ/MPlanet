@@ -12,6 +12,8 @@ import Database
 /// 我的资产Item
 class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
+    static let identifier = "WalletHomeAssetCell"
+    
     var walletData: WalletData? {
         didSet {
             guard let walletData = walletData else { return }

@@ -9,11 +9,20 @@ import UIKit
 import Rickenbacker
 
 struct DiscoverUtil {
-    internal static let moduleName = "WMDiscover"
+    static let moduleName = "WMDiscover"
 }
 
 extension Rickenbacker.R {
-    internal static func image(_ named: String) -> UIImage {
+    
+    static func image(_ named: String) -> UIImage {
         self.image(named, forResource: DiscoverUtil.moduleName)
+    }
+    
+    static func jsonData(_ named: String) -> Data {
+        self.jsonData(named, forResource: DiscoverUtil.moduleName) ?? Data()
+    }
+    
+    static func text(_ string: String) -> String {
+        self.text(string, forResource: DiscoverUtil.moduleName)
     }
 }

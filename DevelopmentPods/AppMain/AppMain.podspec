@@ -30,6 +30,7 @@ Pod::Spec.new do |s|
   
   s.dependency 'FeatBox'
   s.dependency 'Mediator'
+  s.dependency 'HBDNavigationBar'
   
   s.subspec 'Resources' do |xx|
     xx.resource_bundles = { 'AppMain' => ['AppMain/Classes/Resources/*.xcassets'] }

@@ -26,6 +26,9 @@
     ],
     "Mediator": [
 
+    ],
+    "HBDNavigationBar": [
+
     ]
   },
   "source_files": "AppMain/Classes/*.swift",

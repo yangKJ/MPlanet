@@ -12,6 +12,8 @@ import Database
 /// 小工具应用Item
 class WalletHomeApplicationCell: UITableViewCell {
     
+    static let identifier = "WalletHomeApplicationCell"
+    
     var applicationDatas: [WalletApplicationData]? {
         didSet {
             

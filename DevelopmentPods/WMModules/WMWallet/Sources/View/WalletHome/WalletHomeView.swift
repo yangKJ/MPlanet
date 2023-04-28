@@ -24,9 +24,9 @@ class WalletHomeView: UIView, UIScrollViewDelegate {
         tableView.rx.itemSelected.bind {
             tableView.deselectRow(at: $0, animated: false)
         }.disposed(by: rx.disposeBag)
-        tableView.register(WalletHomeAssetCell.self, forCellReuseIdentifier: "WalletHomeAssetCell")
-        tableView.register(WalletHomeApplicationCell.self, forCellReuseIdentifier: "WalletHomeApplicationCell")
-        tableView.register(WalletHomeTokenCell.self, forCellReuseIdentifier: "WalletHomeTokenCell")
+        tableView.register(WalletHomeAssetCell.self, forCellReuseIdentifier: WalletHomeAssetCell.identifier)
+        tableView.register(WalletHomeApplicationCell.self, forCellReuseIdentifier: WalletHomeApplicationCell.identifier)
+        tableView.register(WalletHomeTokenCell.self, forCellReuseIdentifier: WalletHomeTokenCell.identifier)
         return tableView
     }()
     
@@ -61,19 +61,19 @@ extension WalletHomeView {
             configureCell: { [weak self] (dataSource, tableView, indexPath, sectionItem) in
                 switch sectionItem {
                 case .asset(let item):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "WalletHomeAssetCell") as! WalletHomeAssetCell
-                    if let `self` = self {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: WalletHomeAssetCell.identifier) as! WalletHomeAssetCell
+                    if let weakself = self {
                         cell.disposeBag = DisposeBag() // 解决Cell重用导致订阅取消或者多次订阅问题
-                        cell.rx.tapDetails.bind(to: self.detailsEvent).disposed(by: cell.disposeBag)
+                        cell.rx.tapDetails.bind(to: weakself.detailsEvent).disposed(by: cell.disposeBag)
                     }
                     cell.walletData = item
                     return cell
                 case .application(let item):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "WalletHomeApplicationCell") as! WalletHomeApplicationCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: WalletHomeApplicationCell.identifier) as! WalletHomeApplicationCell
                     cell.applicationDatas = item
                     return cell
                 case .token(let item):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "WalletHomeTokenCell") as! WalletHomeTokenCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: WalletHomeTokenCell.identifier) as! WalletHomeTokenCell
                     cell.tokenData = item
                     return cell
                 }

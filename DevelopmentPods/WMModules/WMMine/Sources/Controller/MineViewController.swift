@@ -29,7 +29,6 @@ class MineViewController: VMTableViewController<MineViewModel> {
     }
     
     func setupInit() {
-        self.hbd_barShadowHidden = true
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = self.resetBarButton
     }

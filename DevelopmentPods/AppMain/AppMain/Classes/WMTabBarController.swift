@@ -24,7 +24,7 @@ final class WMTabBarController: UITabBarController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
-
+    
     override var childForStatusBarStyle: UIViewController? {
         return selectedViewController
     }

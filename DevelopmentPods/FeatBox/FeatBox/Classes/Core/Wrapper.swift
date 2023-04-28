@@ -38,3 +38,9 @@ extension DispatchQueue: BoxCompatible { }
 extension UIButton: BoxCompatible { }
 extension UIImage: BoxCompatible { }
 extension UIViewController: BoxCompatible { }
+extension UIEdgeInsets: BoxCompatible { }
+extension UIView: BoxCompatible { }
+extension Int: BoxCompatible { }
+extension Double: BoxCompatible { }
+extension CGFloat: BoxCompatible { }
+extension NSDecimalNumber: BoxCompatible { }

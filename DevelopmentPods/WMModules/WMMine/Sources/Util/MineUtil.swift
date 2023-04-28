@@ -9,16 +9,16 @@ import UIKit
 import Rickenbacker
 
 struct MineUtil {
-    internal static let moduleName = "WMMine"
+    static let moduleName = "WMMine"
 }
 
 extension Rickenbacker.R {
     
-    internal static func image(_ named: String) -> UIImage {
+    static func image(_ named: String) -> UIImage {
         self.image(named, forResource: MineUtil.moduleName)
     }
     
-    internal static func text(_ string: String) -> String {
+    static func text(_ string: String) -> String {
         self.text(string, forResource: MineUtil.moduleName)
     }
 }

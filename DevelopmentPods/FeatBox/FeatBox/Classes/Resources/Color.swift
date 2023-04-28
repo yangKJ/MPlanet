@@ -12,7 +12,7 @@ public extension BoxWrapper where Base: UIColor {
     
     /// 主色调
     static var mainColor: UIColor {
-        return UIColor.init(red: 23/255.0, green: 23/255.0, blue: 25/255.0, alpha: 1.0)
+        return UIColor.green.withAlphaComponent(0.5)
     }
     
     /// 背景色

@@ -8,6 +8,7 @@
 import UIKit
 import FeatBox
 import Rickenbacker
+import HBDNavigationBar
 
 class WalletViewController: VMViewController<WalletViewModel> {
     

@@ -16,9 +16,9 @@ class MineViewModel: ViewModel, ViewModelEmptiable, ViewModelHeaderAndFooterable
         let driver = NetworkService().randomResult().asObservable()
         driver.bind(to: dataSource).disposed(by: disposeBag)
         driver.map { $0.isEmpty }.bind(to: isEmptyData).disposed(by: disposeBag)
-        driver.subscribe { _ in } onCompleted: {
-            self.refreshSubject.onNext(.endHeaderRefresh)
-        }.disposed(by: disposeBag)
+        driver.subscribe(onCompleted: { [weak self] in
+            self?.refreshSubject.onNext(.endHeaderRefresh)
+        }).disposed(by: disposeBag)
     }
 }
 
