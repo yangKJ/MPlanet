@@ -11,7 +11,8 @@ target 'WMWallet_Example' do
   pod 'WMWallet', :path => '..'
   
   pod 'FeatBox', :path => '../../../FeatBox'
-  pod 'Database/Wallet', :path => '../../../Database'
+  pod 'Database', :path => '../../../Database'
+  pod 'Cabinets', :path => '../../../Cabinets'
   
 end
 
@@ -19,3 +20,23 @@ target 'WMWallet_Tests' do
   inherit! :search_paths
   
 end
+
+## https://github.com/CocoaPods/CocoaPods/issues/11402
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+            target.build_configurations.each do |config|
+                config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+            end
+        end
+    end
+    ## Fixed https://stackoverflow.com/questions/75574268/missing-file-libarclite-iphoneos-a-xcode-14-3
+    installer.generated_projects.each do |project|
+       project.targets.each do |target|
+          target.build_configurations.each do |config|
+              config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
+          end
+       end
+    end
+end
+

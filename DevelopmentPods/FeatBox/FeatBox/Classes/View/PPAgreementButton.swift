@@ -9,6 +9,7 @@ import Foundation
 import YYText
 import SnapKit
 import Rickenbacker
+import Cabinets
 
 public struct PPAgreement {
     public var title: String?
@@ -70,11 +71,11 @@ open class PPAgreementButton: UIView {
         didSet { refresh() }
     }
     
-    public var textColor: UIColor = UIColor.black {
+    public var textColor: UIColor = UIColor.kj.black {
         didSet { refresh() }
     }
     
-    public var linkColor: UIColor = UIColor.blue {
+    public var linkColor: UIColor = UIColor.kj.blue {
         didSet { refresh() }
     }
     
@@ -132,11 +133,11 @@ extension PPAgreementButton {
                                                                            attachmentSize: CGSize(width: 20, height: 20),
                                                                            alignTo: UIFont.systemFont(ofSize: 13),
                                                                            alignment: .center)
-        attributeText0.yy_setTextHighlight(NSMakeRange(0, attributeText0.string.count), color: textColor, backgroundColor: UIColor.clear) { [weak self] (_,_,_,_) in
+        attributeText0.yy_setTextHighlight(NSMakeRange(0, attributeText0.string.count), color: textColor, backgroundColor: UIColor.kj.clear) { [weak self] (_,_,_,_) in
             self?.outTap()
         }
         let attributeText1 = NSMutableAttributedString(string: prefix, color: textColor, font: UIFont.systemFont(ofSize: 14))
-        attributeText1.yy_setTextHighlight(NSMakeRange(0, prefix.count), color: textColor, backgroundColor: UIColor.clear) { [weak self] (_,_,_,_) in
+        attributeText1.yy_setTextHighlight(NSMakeRange(0, prefix.count), color: textColor, backgroundColor: UIColor.kj.clear) { [weak self] (_,_,_,_) in
             self?.outTap()
         }
         let attributeText2: NSMutableAttributedString = {
@@ -149,7 +150,7 @@ extension PPAgreementButton {
                     agreements.enumerated().forEach { (index, agreement) in
                         let name = "《" + (agreement.name ?? "") + "》"
                         let text = NSMutableAttributedString(string: name, color: linkColor, font: UIFont.systemFont(ofSize: 14))
-                        text.yy_setTextHighlight(NSMakeRange(0, name.count), color: linkColor, backgroundColor: UIColor.clear) { [weak self] (_,_,_,_) in
+                        text.yy_setTextHighlight(NSMakeRange(0, name.count), color: linkColor, backgroundColor: UIColor.kj.clear) { [weak self] (_,_,_,_) in
                             self?.agreementTap(index: index)
                         }
                         attributedString.append(text)
@@ -170,7 +171,7 @@ extension PPAgreementButton {
             }
             if let suffix = suffix {
                 let text = NSMutableAttributedString(string: suffix, color: linkColor, font: UIFont.systemFont(ofSize: 14))
-                text.yy_setTextHighlight(NSMakeRange(0, suffix.count), color: linkColor, backgroundColor: UIColor.clear) { [weak self] (_,_,_,_) in
+                text.yy_setTextHighlight(NSMakeRange(0, suffix.count), color: linkColor, backgroundColor: UIColor.kj.clear) { [weak self] (_,_,_,_) in
                     self?.agreementTap(index: 0)
                 }
                 return text

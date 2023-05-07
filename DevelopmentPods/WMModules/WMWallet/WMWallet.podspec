@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint WMWallet.podspec' to ensure this is a
+# Be sure to run 'pod lib lint WMWallet.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   
   s.homepage         = 'https://github.com/Condy/WMWallet'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'ykj310@126.com' }
+  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
   s.source           = { :git => 'https://github.com/Condy/WMWallet.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   
@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   
   s.dependency 'FeatBox'
   s.dependency 'RxDataSources'
-  s.dependency 'Database/Wallet'
+  s.dependency 'Database'
   
   s.subspec 'Resources' do |xx|
     xx.resource_bundles = { 'Demo' => ['Sources/Resources/*.{xcassets,lproj}'] }

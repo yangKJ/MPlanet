@@ -8,7 +8,7 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "ykj310@126.com"
+    "Condy": "yangkj310@gmail.com"
   },
   "source": {
     "git": "https://github.com/Condy/FeatBox.git",
@@ -21,6 +21,9 @@
   "requires_arc": true,
   "static_framework": true,
   "dependencies": {
+    "Cabinets": [
+
+    ],
     "RxNetworks": [
 
     ],

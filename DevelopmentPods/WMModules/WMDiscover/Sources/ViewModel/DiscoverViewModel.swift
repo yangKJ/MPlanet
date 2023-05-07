@@ -5,12 +5,12 @@
 //  Created by Condy on 2020/12/28.
 //
 
-import UIKit
+import FeatBox
 import Rickenbacker
 import RxNetworks
 import RxCocoa
 
-class DiscoverViewModel: ViewModel {
+class DiscoverViewModel: BaseViewModel {
     
     let banners: BehaviorRelay<[Banner]> = BehaviorRelay(value: [])
     

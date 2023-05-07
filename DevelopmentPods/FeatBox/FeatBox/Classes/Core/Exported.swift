@@ -9,7 +9,7 @@ import UIKit
 import Dispatch
 import Foundation
 
-@_exported import RxNetworks
+@_exported import Cabinets
 @_exported import Rickenbacker
 @_exported import SnapKit
 @_exported import RxSwift

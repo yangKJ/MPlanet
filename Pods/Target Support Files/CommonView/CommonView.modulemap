@@ -1,0 +1,6 @@
+framework module CommonView {
+  umbrella header "CommonView-umbrella.h"
+
+  export *
+  module * { export * }
+}

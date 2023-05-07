@@ -8,7 +8,7 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "ykj310@126.com"
+    "Condy": "yangkj310@gmail.com"
   },
   "source": {
     "git": "https://github.com/Condy/Database.git",
@@ -17,34 +17,10 @@
   "platforms": {
     "ios": "9.0"
   },
-  "default_subspecs": "Manager",
-  "subspecs": [
-    {
-      "name": "Manager",
-      "source_files": "Database/Classes/Manager/*.swift",
-      "dependencies": {
-        "WCDB.swift": [
+  "source_files": "Database/Classes/*.swift",
+  "dependencies": {
+    "WCDB.swift": [
 
-        ]
-      }
-    },
-    {
-      "name": "DApp",
-      "source_files": "Database/Classes/DApp/*.swift",
-      "dependencies": {
-        "Database/Manager": [
-
-        ]
-      }
-    },
-    {
-      "name": "Wallet",
-      "source_files": "Database/Classes/Wallet/*.swift",
-      "dependencies": {
-        "Database/Manager": [
-
-        ]
-      }
-    }
-  ]
+    ]
+  }
 }

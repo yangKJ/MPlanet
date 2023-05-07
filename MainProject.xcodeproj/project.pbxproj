@@ -280,6 +280,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MainProject_Example/Pods-MainProject_Example-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/AppMain/AppMain.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/CommonView/CommonView.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Harbeth/Harbeth.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Rickenbacker/Rickenbacker.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/WMDiscover/WMDiscover.bundle",
@@ -289,6 +290,7 @@
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppMain.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CommonView.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Harbeth.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Rickenbacker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WMDiscover.bundle",

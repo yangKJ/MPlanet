@@ -7,7 +7,6 @@
 
 import UIKit
 import FeatBox
-import Database
 
 /// 我的资产Item
 class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
@@ -23,7 +22,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var backView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.cdy.background
+        view.backgroundColor = UIColor.kj.background
         view.layer.cornerRadius = 25
         view.isUserInteractionEnabled = true
         return view
@@ -31,7 +30,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var iconImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = UIColor.cdy.blue
+        view.backgroundColor = UIColor.kj.blue
         view.layer.cornerRadius = 25
         view.isUserInteractionEnabled = true
         return view
@@ -39,7 +38,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var myAssetTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cdy.itemTitle
+        label.textColor = UIColor.kj.itemTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .left
         label.text = R.text("我的资产（$）")
@@ -53,7 +52,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var assetLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cdy.itemTitle
+        label.textColor = UIColor.kj.itemTitle
         label.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         label.textAlignment = .left
         return label
@@ -61,20 +60,20 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var detailsButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.setTitleColor(UIColor.cdy.itemTitle, for: .normal)
+        button.setTitleColor(UIColor.kj.itemTitle, for: .normal)
         button.setTitle(R.text("查看详情"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 14.5
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor.cdy.itemTitle.cgColor
+        button.layer.borderColor = UIColor.kj.itemTitle.cgColor
         return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = UIColor.cdy.background
+        backgroundColor = UIColor.kj.background
         setupConstraint()
         setupBindings()
     }

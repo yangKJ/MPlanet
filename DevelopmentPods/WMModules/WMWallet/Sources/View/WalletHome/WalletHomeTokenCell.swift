@@ -7,7 +7,6 @@
 
 import UIKit
 import FeatBox
-import Database
 
 /// 代币列表Item
 class WalletHomeTokenCell: UITableViewCell {
@@ -25,7 +24,7 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var backView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.cdy.background
+        view.backgroundColor = UIColor.kj.background
         view.layer.cornerRadius = 15
         view.isUserInteractionEnabled = true
         return view
@@ -33,13 +32,13 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var iconImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = UIColor.cdy.blue
+        view.backgroundColor = UIColor.kj.blue
         return view
     }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cdy.itemTitle
+        label.textColor = UIColor.kj.itemTitle
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .left
         return label
@@ -47,7 +46,7 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var amountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cdy.itemTitle
+        label.textColor = UIColor.kj.itemTitle
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .right
         return label
@@ -55,7 +54,7 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var unitLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cdy.itemSubTitle
+        label.textColor = UIColor.kj.itemSubTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .right
         return label
@@ -63,7 +62,7 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var dollarLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cdy.itemSubTitle
+        label.textColor = UIColor.kj.itemSubTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .right
         return label
@@ -72,7 +71,7 @@ class WalletHomeTokenCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = UIColor.cdy.background
+        backgroundColor = UIColor.kj.background
         setupConstraint()
     }
     

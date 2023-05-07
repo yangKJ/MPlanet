@@ -46,11 +46,11 @@ final class WMTabBarController: UITabBarController {
     
     private func appearanceAdjustify() {
         tabBar.isTranslucent = false
-        tabBar.tintColor = UIColor.cdy.background
-        tabBar.barTintColor = UIColor.cdy.background
-        tabBar.backgroundColor = UIColor.cdy.background
+        tabBar.tintColor = UIColor.kj.background
+        tabBar.barTintColor = UIColor.kj.background
+        tabBar.backgroundColor = UIColor.kj.background
         tabBar.shadowImage = FeatBox.Placeholder.itemShadowImage
-        //tabBar.backgroundImage = UIColor.cdy.background.mt.colorImage()
+        //tabBar.backgroundImage = UIColor.kj.background.mt.colorImage()
     }
     
     private func setupChildViewController() {

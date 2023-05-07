@@ -8,7 +8,7 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "ykj310@126.com"
+    "Condy": "yangkj310@gmail.com"
   },
   "source": {
     "git": "https://github.com/Condy/WMWallet.git",
@@ -27,7 +27,7 @@
     "RxDataSources": [
 
     ],
-    "Database/Wallet": [
+    "Database": [
 
     ]
   },

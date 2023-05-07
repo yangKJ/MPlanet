@@ -9,15 +9,22 @@ PODS:
     - FeatBox
     - HBDNavigationBar
     - Mediator
+  - Cabinets (0.1.0)
+  - CommonView (0.0.1):
+    - Cabinets
+    - CommonView/Resources (= 0.0.1)
+    - RxCocoa
+    - SnapKit
+  - CommonView/Resources (0.0.1):
+    - Cabinets
+    - RxCocoa
+    - SnapKit
   - Database (0.0.4):
-    - Database/Manager (= 0.0.4)
-  - Database/Manager (0.0.4):
     - WCDB.swift
-  - Database/Wallet (0.0.4):
-    - Database/Manager
   - Differentiator (5.0.0)
   - DZNEmptyDataSet (1.8.1)
   - FeatBox (0.1.0):
+    - Cabinets
     - Harbeth
     - HBDNavigationBar
     - Rickenbacker
@@ -51,24 +58,24 @@ PODS:
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
-  - Rickenbacker (1.0.9):
-    - Rickenbacker/Adapter (= 1.0.9)
-    - Rickenbacker/Boxs (= 1.0.9)
-    - Rickenbacker/DZNEmptyDataSet (= 1.0.9)
-    - Rickenbacker/Mediator (= 1.0.9)
-    - Rickenbacker/MJRefresh (= 1.0.9)
-    - Rickenbacker/RxTools (= 1.0.9)
-  - Rickenbacker/Adapter (1.0.9):
+  - Rickenbacker (1.1.0):
+    - Rickenbacker/Adapter (= 1.1.0)
+    - Rickenbacker/Boxs (= 1.1.0)
+    - Rickenbacker/DZNEmptyDataSet (= 1.1.0)
+    - Rickenbacker/Mediator (= 1.1.0)
+    - Rickenbacker/MJRefresh (= 1.1.0)
+    - Rickenbacker/RxTools (= 1.1.0)
+  - Rickenbacker/Adapter (1.1.0):
     - Rickenbacker/RxTools
-  - Rickenbacker/Boxs (1.0.9)
-  - Rickenbacker/DZNEmptyDataSet (1.0.9):
+  - Rickenbacker/Boxs (1.1.0)
+  - Rickenbacker/DZNEmptyDataSet (1.1.0):
     - DZNEmptyDataSet
     - Rickenbacker/Adapter
-  - Rickenbacker/Mediator (1.0.9)
-  - Rickenbacker/MJRefresh (1.0.9):
+  - Rickenbacker/Mediator (1.1.0)
+  - Rickenbacker/MJRefresh (1.1.0):
     - MJRefresh
     - Rickenbacker/Adapter
-  - Rickenbacker/RxTools (1.0.9):
+  - Rickenbacker/RxTools (1.1.0):
     - Rickenbacker/Boxs
     - RxCocoa
     - RxSwift
@@ -206,7 +213,7 @@ PODS:
   - WMMine/ViewModel (1.0.0):
     - FeatBox
   - WMWallet (1.0.0):
-    - Database/Wallet
+    - Database
     - FeatBox
     - RxDataSources
     - WMWallet/Api (= 1.0.0)
@@ -217,37 +224,39 @@ PODS:
     - WMWallet/View (= 1.0.0)
     - WMWallet/ViewModel (= 1.0.0)
   - WMWallet/Api (1.0.0):
-    - Database/Wallet
+    - Database
     - FeatBox
     - RxDataSources
   - WMWallet/Controller (1.0.0):
-    - Database/Wallet
+    - Database
     - FeatBox
     - RxDataSources
   - WMWallet/Model (1.0.0):
-    - Database/Wallet
+    - Database
     - FeatBox
     - RxDataSources
   - WMWallet/Resources (1.0.0):
-    - Database/Wallet
+    - Database
     - FeatBox
     - RxDataSources
   - WMWallet/Util (1.0.0):
-    - Database/Wallet
+    - Database
     - FeatBox
     - RxDataSources
   - WMWallet/View (1.0.0):
-    - Database/Wallet
+    - Database
     - FeatBox
     - RxDataSources
   - WMWallet/ViewModel (1.0.0):
-    - Database/Wallet
+    - Database
     - FeatBox
     - RxDataSources
   - YYText (1.0.7)
 
 DEPENDENCIES:
   - AppMain (from `DevelopmentPods/AppMain`)
+  - Cabinets (from `DevelopmentPods/Cabinets`)
+  - CommonView (from `DevelopmentPods/CommonView`)
   - Database (from `DevelopmentPods/Database`)
   - FeatBox (from `DevelopmentPods/FeatBox`)
   - Mediator (from `DevelopmentPods/Mediator`)
@@ -287,6 +296,10 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   AppMain:
     :path: DevelopmentPods/AppMain
+  Cabinets:
+    :path: DevelopmentPods/Cabinets
+  CommonView:
+    :path: DevelopmentPods/CommonView
   Database:
     :path: DevelopmentPods/Database
   FeatBox:
@@ -304,11 +317,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  AppMain: 2f4aba28f791fdc5e60ec0b832ccd8c3f518bffb
-  Database: 355454140a4ee255e5cb49a159758d655d0dfffd
+  AppMain: f0715ecc85c02f4e7323a947db5ba2a1c0e89f3f
+  Cabinets: f16a3b5146697ade1ddb6ab7c330d6d09f26a759
+  CommonView: 78953837cd9f584662637cc94499372bbfd3fcf6
+  Database: bdb5b62e8d3aae26b5a367ebcd2809d1d57f9989
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FeatBox: 949d4791e08e34102a187f01ca143a2ccedc4a16
+  FeatBox: 929b9ac4bdcafadebb1944c4441ab83ab3cbcd27
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Harbeth: ead84e8d57cf182453a0f1f8bc32aef97636ffaf
@@ -316,11 +331,11 @@ SPEC CHECKSUMS:
   Lemons: 9c705456576bb5bd415e82be9542076362b914ee
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  Mediator: 1041c92464e21654183ffe800240cae2180a7890
+  Mediator: 0c3fcebc645effc58ce96872231181e7186aba73
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
-  Rickenbacker: 9b8d3128fcb1a6f66b3b251da4771c62f6a40751
-  RootManager: 4b2ef9e640b928c904558d27e7cb90a3d47d10ff
+  Rickenbacker: f62fee7f025ae2a5b82ee907e239128ea160a261
+  RootManager: b4771ae9d630c0711eafdce809bbbf12b1ce8790
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxNetworks: 11c54e84427d6778e2d10574354d9ee0aac01e70
@@ -334,9 +349,9 @@ SPEC CHECKSUMS:
   Wintersweet: 03c79dd8775c974823b65809e98c4c9ee37ed578
   WMDiscover: 2faeb17b83c94c77d0c4dd517fc38d7b9ed88fcc
   WMMine: d1a02b5ef8ce995428da0386f90919c918155972
-  WMWallet: 1ff4edf5e06d0c1ad7b8791f874a4c5186c35e76
+  WMWallet: 0c98cf5241fa15ab2151887780d8abbae110783a
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 7061785815220528bcb101bfe3f2e1675dcf236e
+PODFILE CHECKSUM: 589fd85c7bcc09e6aad62b75e4b54a2604bdf7f5
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

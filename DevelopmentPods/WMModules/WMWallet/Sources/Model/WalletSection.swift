@@ -7,7 +7,6 @@
 
 import Foundation
 import RxDataSources
-import Database
 
 enum WalletSectionItem {
     case asset(item: WalletData)

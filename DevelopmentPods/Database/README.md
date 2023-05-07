@@ -1,4 +1,4 @@
-# WMDatabaseModules
+# Database
 
 - <font color=red>**数据库相关文档说明：**</font>
 
@@ -10,8 +10,6 @@
 - 创建数据表的时候必须按照规定格式和要求来执行，统一管理。
 
 #### Example -- DApp数据表
-- 模型名称：采用模块名称+Database
-  - Ex：`DAppDatabase`
 - 表名："模块名称_table"
   - Ex：`DApp_table`
 - 字段名：必须采用驼峰命名规则
@@ -35,15 +33,3 @@ public struct DAppDatabase: TableCodable {
 
 - 字段说明：
 ![](screenshots/DApp_table.png)
-
-----
-
-### Podspec
-- 按模块分组，方便别的组件模块按需引入
-
-```
-s.subspec 'DApp' do |xx|
-  xx.source_files = 'WMDatabaseModules/Classes/DApp/*.swift'
-  xx.dependency 'WMDatabaseModules/Manager'
-end
-```

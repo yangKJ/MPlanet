@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import Database
 import Rickenbacker
+import FeatBox
 
-class WalletViewModel: ViewModel {
+class WalletViewModel: BaseViewModel {
     struct Input { }
     struct Output {
         let sections: Observable<[WalletSection]>

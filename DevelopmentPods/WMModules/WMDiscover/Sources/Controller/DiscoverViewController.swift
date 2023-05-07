@@ -8,8 +8,9 @@
 import FeatBox
 import Harbeth
 import FSPagerView
+import Rickenbacker
 
-class DiscoverViewController: VMTableViewController<DiscoverViewModel> {
+class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
     
     private let filters: [C7FilterProtocol] = [
         C7SoulOut(soul: 0.75),
@@ -25,10 +26,10 @@ class DiscoverViewController: VMTableViewController<DiscoverViewModel> {
     
     private lazy var pagerView: FSPagerView = {
         let pagerView = FSPagerView(frame: .zero)
-        pagerView.backgroundColor = UIColor.cdy.mainColor
+        pagerView.backgroundColor = UIColor.kj.mainColor
         pagerView.dataSource = self
         pagerView.delegate = self
-        pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: FSPagerViewCell.cdy.className)
+        pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: FSPagerViewCell.kj.className)
         pagerView.automaticSlidingInterval = 3.0
         pagerView.isInfinite = true
         return pagerView
@@ -55,8 +56,8 @@ class DiscoverViewController: VMTableViewController<DiscoverViewModel> {
     }
     
     func setupUI() {
-        tableView.estimatedRowHeight = (C.width) * 9 / 16
-        pagerView.frame = CGRect(x: 0, y: 0, width: C.width, height: (C.width) * 9 / 16)
+        tableView.estimatedRowHeight = (C.width) * 200 / 375
+        pagerView.frame = CGRect(x: 0, y: 0, width: C.width, height: (C.width) * 200 / 375)
         tableView.tableHeaderView = pagerView
         pagerView.addSubview(pageControl)
         pagerView.bringSubviewToFront(pageControl)
@@ -87,12 +88,12 @@ extension DiscoverViewController: FSPagerViewDataSource {
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: FSPagerViewCell.cdy.className, at: index)
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: FSPagerViewCell.kj.className, at: index)
         if let imagePath = itmes[index].imagePath {
             if (itmes[index].id ?? 0) == 20 {
-                cell.imageView?.cdy.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill)
+                cell.imageView?.kj.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill)
             } else {
-                cell.imageView?.cdy.setImage(with: imagePath, module: DiscoverUtil.moduleName, filters: filters)
+                cell.imageView?.kj.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill, filters: filters)
             }
         }
         return cell

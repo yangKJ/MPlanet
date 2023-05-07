@@ -98,6 +98,7 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AppMain/AppMain.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/CommonView/CommonView.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/Harbeth/Harbeth.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/Rickenbacker/Rickenbacker.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMDiscover/WMDiscover.bundle"
@@ -106,6 +107,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AppMain/AppMain.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/CommonView/CommonView.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/Harbeth/Harbeth.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/Rickenbacker/Rickenbacker.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMDiscover/WMDiscover.bundle"

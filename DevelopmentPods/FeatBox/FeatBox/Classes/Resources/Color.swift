@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Contacts
 
-/// 添加 `cdy` 前缀
+/// 添加 `kj` 前缀，颜色必须走这块方便后续做主题
 public extension BoxWrapper where Base: UIColor {
     
     /// 主色调
     static var mainColor: UIColor {
-        return UIColor.green.withAlphaComponent(0.5)
+        return UIColor.init(hex: "#82C87C")
     }
     
     /// 背景色
@@ -30,6 +31,10 @@ public extension BoxWrapper where Base: UIColor {
     
     static var itemSubTitle: UIColor {
         return UIColor.init(red: 169/255.0, green: 169/255.0, blue: 170/255.0, alpha: 1.0)
+    }
+    
+    static var clear: UIColor {
+        return UIColor.clear
     }
     
     static var black: UIColor {

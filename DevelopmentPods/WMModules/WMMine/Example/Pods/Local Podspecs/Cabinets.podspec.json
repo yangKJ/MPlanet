@@ -1,0 +1,25 @@
+{
+  "name": "Cabinets",
+  "version": "0.1.0",
+  "summary": "A short description of Cabinets.",
+  "homepage": "https://github.com/Condy/Cabinets",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "yangkj310@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/Cabinets.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "source_files": "Cabinets/Classes/**/*",
+  "swift_version": "5.0"
+}

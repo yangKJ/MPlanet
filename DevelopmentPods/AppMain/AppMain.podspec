@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   
   s.homepage         = 'https://github.com/Condy/AppMain'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'ykj310@126.com' }
+  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
   s.source           = { :git => 'https://github.com/Condy/AppMain.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   

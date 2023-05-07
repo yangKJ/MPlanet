@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   
   s.homepage         = 'https://github.com/Condy/FeatBox'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'ykj310@126.com' }
+  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
   s.source           = { :git => 'https://github.com/Condy/FeatBox.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   
@@ -28,12 +28,14 @@ Pod::Spec.new do |s|
   s.requires_arc     = true
   s.static_framework = true
   
+  s.dependency 'Cabinets' ## 百宝箱工具库
+  
   s.dependency 'RxNetworks' # 网络架构
   s.dependency 'RxCocoa' # 响应式架构
   s.dependency 'Rickenbacker' # 基础架构
   s.dependency 'SnapKit' # 布局架构
   s.dependency 'Harbeth' # 滤镜框架
-  s.dependency 'Wintersweet' # GIF和网图显示框架，替代`Kingfisher`
+  s.dependency 'Wintersweet' # 动态图像框架，替代`Kingfisher`
   s.dependency 'YYText' # 富文本
   s.dependency 'HBDNavigationBar' # 导航栏
   

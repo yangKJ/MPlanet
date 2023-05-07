@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint Database.podspec' to ensure this is a
+# Be sure to run 'pod lib lint Database.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -19,27 +19,13 @@ Pod::Spec.new do |s|
   
   s.homepage         = 'https://github.com/Condy/Database'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'ykj310@126.com' }
+  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
   s.source           = { :git => 'https://github.com/Condy/Database.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   
   s.ios.deployment_target = '9.0'
-  s.default_subspec  = "Manager"
   
-  ## 数据库工具模块
-  s.subspec 'Manager' do |xx|
-    xx.source_files = 'Database/Classes/Manager/*.swift'
-    xx.dependency 'WCDB.swift'
-  end
-  
-  s.subspec 'DApp' do |xx|
-    xx.source_files = 'Database/Classes/DApp/*.swift'
-    xx.dependency 'Database/Manager'
-  end
-  
-  s.subspec 'Wallet' do |xx|
-    xx.source_files = 'Database/Classes/Wallet/*.swift'
-    xx.dependency 'Database/Manager'
-  end
+  s.source_files = 'Database/Classes/*.swift'
+  s.dependency 'WCDB.swift' ## 数据库
   
 end

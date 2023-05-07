@@ -22,7 +22,9 @@ extension BoxWrapper where Base: ImageView {
                          placeholder: Wintersweet.Placeholder = .none,
                          contentMode: Wintersweet.ContentMode = .scaleAspectFit,
                          filters: [C7FilterProtocol]? = nil) {
-        base.contentMode = .scaleAspectFit
+        if contentMode != .original {
+            base.contentMode = .scaleAspectFit
+        }
         let options = Wintersweet.AnimatedOptions.init(loop: .forever,
                                                        placeholder: placeholder,
                                                        contentMode: contentMode,
@@ -41,7 +43,6 @@ extension BoxWrapper where Base: ImageView {
     ///   - filters: 是否需要注入滤镜
     public func setImage(with url: URL?, placeholder: Wintersweet.Placeholder = .none, filters: [C7FilterProtocol]? = nil) {
         guard let url = url else { return }
-        base.contentMode = .scaleAspectFit
         let options = Wintersweet.AnimatedOptions.init(loop: .forever,
                                                        placeholder: placeholder,
                                                        contentMode: .scaleAspectFit,

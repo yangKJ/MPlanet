@@ -1,0 +1,6 @@
+framework module Cabinets {
+  umbrella header "Cabinets-umbrella.h"
+
+  export *
+  module * { export * }
+}

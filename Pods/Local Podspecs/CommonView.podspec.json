@@ -8,7 +8,7 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "ykj310@126.com"
+    "Condy": "yangkj310@gmail.com"
   },
   "source": {
     "git": "https://github.com/Condy/CommonView.git",
@@ -20,6 +20,27 @@
   "swift_versions": "5.0",
   "requires_arc": true,
   "static_framework": true,
-  "source_files": "Sources/**/*",
+  "dependencies": {
+    "Cabinets": [
+
+    ],
+    "RxCocoa": [
+
+    ],
+    "SnapKit": [
+
+    ]
+  },
+  "source_files": "CommonView/Classes/*.swift",
+  "subspecs": [
+    {
+      "name": "Resources",
+      "resource_bundles": {
+        "CommonView": [
+          "CommonView/Classes/Resources/*.xcassets"
+        ]
+      }
+    }
+  ],
   "swift_version": "5.0"
 }
