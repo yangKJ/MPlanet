@@ -10,16 +10,25 @@ import Rickenbacker
 import RxNetworks
 import RxCocoa
 
-class DiscoverViewModel: BaseViewModel {
+class DiscoverViewModel: BaseViewModel, ViewModelType {
+    struct Input {
+        let header: Bool
+    }
     
-    let banners: BehaviorRelay<[Banner]> = BehaviorRelay(value: [])
+    struct Output {
+        let banners: Observable<[Banner]>
+    }
     
-    func loadData() {
-        Driver.zip(bannerData(), detailData())
-            .asObservable()
-            .subscribe(onNext: { [weak self] (banner, detail) in
-                self?.banners.accept(banner)
-            }).disposed(by: disposeBag)
+    func transform(input: Input) -> Output {
+        let banners = {
+            if input.header {
+                return bannerData().asObservable()
+            } else {
+                return Observable.of([])
+            }
+        }()
+        
+        return Output(banners: banners)
     }
 }
 

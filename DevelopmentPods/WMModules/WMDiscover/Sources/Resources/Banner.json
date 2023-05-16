@@ -8,7 +8,8 @@
         "order": 0,
         "title": "骑自行车",
         "type": 0,
-        "url": "https://github.com/yangKJ"
+        "github": "https://github.com/yangKJ",
+        "amount": 28.7
     }, {
         "desc": "",
         "id": 6,
@@ -16,7 +17,8 @@
         "order": 1,
         "title": "HEIC图片",
         "type": 1,
-        "url": "https://github.com/yangKJ"
+        "github": "https://github.com/yangKJ",
+        "amount": 297.9
     }, {
         "desc": "随便写的测试数据",
         "id": 20,
@@ -24,6 +26,7 @@
         "order": 2,
         "title": "Harbeth滤镜库",
         "type": 1,
-        "url": "https://github.com/yangKJ/Harbeth"
+        "github": "https://github.com/yangKJ/Harbeth",
+        "amount": 8.8
     }]
 }

@@ -68,16 +68,15 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
     }
     
     func setupBinding() {
-        viewModel.inputs.loadData()
+        let input = DiscoverViewModel.Input(header: true)
+        let output = viewModel.transform(input: input)
         
         // 轮播图数据驱动
-        viewModel.outputs.banners.bind(to: rx.itmes).disposed(by: disposeBag)
+        output.banners.bind(to: rx.itmes).disposed(by: disposeBag)
         // 是否显示轮播图
-        viewModel.outputs.banners
-            .map { $0.isEmpty }
-            .subscribe { [weak self] in
-                self?.tableView.tableHeaderView?.isHidden = $0
-            }.disposed(by: rx.disposeBag)
+        if let tableHeaderView = self.tableView.tableHeaderView {
+            output.banners.map { $0.isEmpty }.bind(to: tableHeaderView.rx.isHidden).disposed(by: rx.disposeBag)
+        }
     }
 }
 
@@ -105,6 +104,7 @@ extension DiscoverViewController: FSPagerViewDelegate {
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
         pagerView.deselectItem(at: index, animated: false)
         let item = itmes[index]
+        
     }
     
     func pagerView(_ pagerView: FSPagerView, willDisplay cell: FSPagerViewCell, forItemAt index: Int) {

@@ -19,6 +19,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Cabinets.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CommonView-CommonView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CommonView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
 		<dict>
 			<key>isShown</key>

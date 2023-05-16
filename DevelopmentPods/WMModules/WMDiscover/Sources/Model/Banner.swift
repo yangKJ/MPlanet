@@ -7,6 +7,7 @@
 
 import Foundation
 import HandyJSON
+import RxNetworks
 
 struct Banner: HandyJSON {
     var id: Int?
@@ -16,4 +17,12 @@ struct Banner: HandyJSON {
     var type: Int?
     var desc: String?
     var imagePath: String?
+    var amount: NSDecimalNumber?
+    
+    mutating func mapping(mapper: HelpingMapper) {
+        mapper <<<
+            url <-- "github"
+        mapper <<<
+            amount <-- DecimalNumberTransform()
+    }
 }
