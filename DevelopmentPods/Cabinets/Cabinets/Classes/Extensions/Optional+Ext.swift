@@ -34,14 +34,14 @@ extension Optional where Wrapped == String {
     public var isBlank: Bool {
         switch self {
         case .some(let value):
-            return value.kj.isBlank
+            return value.ao.isBlank
         case .none:
             return true
         }
     }
     
     public var isNotBlank: Bool {
-        return !(self?.kj.isBlank ?? true)
+        return !(self?.ao.isBlank ?? true)
     }
     
     public var length: Int {
@@ -56,7 +56,7 @@ extension Optional where Wrapped == String {
     public var trimmed: String? {
         switch self {
         case .some(let value):
-            return value.kj.trimmed
+            return value.ao.trimmed
         case .none:
             return nil
         }

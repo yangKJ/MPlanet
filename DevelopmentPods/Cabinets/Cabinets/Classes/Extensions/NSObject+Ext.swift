@@ -18,11 +18,11 @@ extension BoxWrapper where Base: NSObject {
     
     /// 对象获取类的字符串名称
     public var className: String {
-        base.runtimeType.kj.className
+        base.runtimeType.ao.class_name
     }
     
     /// 类获取类的字符串名称
-    public static var className: String {
+    public static var class_name: String {
         String(describing: self)
     }
 }

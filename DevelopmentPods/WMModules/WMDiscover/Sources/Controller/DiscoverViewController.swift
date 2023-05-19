@@ -26,10 +26,10 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
     
     private lazy var pagerView: FSPagerView = {
         let pagerView = FSPagerView(frame: .zero)
-        pagerView.backgroundColor = UIColor.kj.mainColor
+        pagerView.backgroundColor = UIColor.ao.mainColor
         pagerView.dataSource = self
         pagerView.delegate = self
-        pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: FSPagerViewCell.kj.className)
+        pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: FSPagerViewCell.ao.class_name)
         pagerView.automaticSlidingInterval = 3.0
         pagerView.isInfinite = true
         return pagerView
@@ -87,12 +87,12 @@ extension DiscoverViewController: FSPagerViewDataSource {
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: FSPagerViewCell.kj.className, at: index)
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: FSPagerViewCell.ao.class_name, at: index)
         if let imagePath = itmes[index].imagePath {
             if (itmes[index].id ?? 0) == 20 {
-                cell.imageView?.kj.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill)
+                cell.imageView?.ao.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill)
             } else {
-                cell.imageView?.kj.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill, filters: filters)
+                cell.imageView?.ao.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill, filters: filters)
             }
         }
         return cell

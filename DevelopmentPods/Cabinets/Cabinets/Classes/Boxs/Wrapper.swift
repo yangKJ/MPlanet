@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// 添加 `kj` 前缀命名空间
+/// 添加 `ao` 前缀命名空间
 public struct BoxWrapper<Base> {
     public let base: Base
     public init(_ base: Base) {
@@ -18,11 +18,11 @@ public struct BoxWrapper<Base> {
 public protocol BoxCompatible { }
 
 extension BoxCompatible {
-    public var kj: BoxWrapper<Self> {
+    public var ao: BoxWrapper<Self> {
         get { return BoxWrapper(self) }
         set { }
     }
-    public static var kj: BoxWrapper<Self>.Type {
+    public static var ao: BoxWrapper<Self>.Type {
         BoxWrapper<Self>.self
     }
 }

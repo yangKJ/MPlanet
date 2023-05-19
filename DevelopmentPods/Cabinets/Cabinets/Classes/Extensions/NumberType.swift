@@ -14,11 +14,11 @@ extension BoxWrapper where Base == Bool {
     }
     
     public func toCGFloat() -> CGFloat {
-        return toInt().kj.toCGFloat()
+        return toInt().ao.toCGFloat()
     }
     
     public func toDouble() -> Double {
-        return toInt().kj.toDouble()
+        return toInt().ao.toDouble()
     }
     
     public func toString() -> String {
@@ -86,7 +86,7 @@ extension BoxWrapper where Base == Double {
 extension BoxWrapper where Base == String {
     
     public func toBool() -> Bool {
-        return toDouble().kj.toBool()
+        return toDouble().ao.toBool()
     }
     
     public func toInt() -> Int {

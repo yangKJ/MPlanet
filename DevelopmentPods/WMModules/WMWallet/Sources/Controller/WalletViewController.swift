@@ -35,7 +35,7 @@ class WalletViewController: VMViewController<WalletViewModel> {
         self.hbd_barHidden = true
         self.hbd_blackBarStyle = true
         self.navigationItem.leftBarButtonItem = nil
-        self.view.backgroundColor = UIColor.kj.background
+        self.view.backgroundColor = UIColor.ao.background
     }
     
     func setupConstraint() {

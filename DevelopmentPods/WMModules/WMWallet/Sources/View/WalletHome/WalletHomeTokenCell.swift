@@ -24,7 +24,7 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var backView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.kj.background
+        view.backgroundColor = UIColor.ao.background
         view.layer.cornerRadius = 15
         view.isUserInteractionEnabled = true
         return view
@@ -32,13 +32,13 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var iconImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = UIColor.kj.blue
+        view.backgroundColor = UIColor.ao.blue
         return view
     }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.kj.itemTitle
+        label.textColor = UIColor.ao.itemTitle
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .left
         return label
@@ -46,7 +46,7 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var amountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.kj.itemTitle
+        label.textColor = UIColor.ao.itemTitle
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .right
         return label
@@ -54,7 +54,7 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var unitLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.kj.itemSubTitle
+        label.textColor = UIColor.ao.itemSubTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .right
         return label
@@ -62,7 +62,7 @@ class WalletHomeTokenCell: UITableViewCell {
     
     lazy var dollarLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.kj.itemSubTitle
+        label.textColor = UIColor.ao.itemSubTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .right
         return label
@@ -71,7 +71,7 @@ class WalletHomeTokenCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = UIColor.kj.background
+        backgroundColor = UIColor.ao.background
         setupConstraint()
     }
     
