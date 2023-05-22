@@ -25,6 +25,7 @@ PODS:
   - DZNEmptyDataSet (1.8.1)
   - FeatBox (0.1.0):
     - Cabinets
+    - CommonView
     - Harbeth
     - HBDNavigationBar
     - Rickenbacker
@@ -323,7 +324,7 @@ SPEC CHECKSUMS:
   Database: bdb5b62e8d3aae26b5a367ebcd2809d1d57f9989
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FeatBox: 929b9ac4bdcafadebb1944c4441ab83ab3cbcd27
+  FeatBox: 250d4710577c87c1c6cdca20ef057fea7ee1d67e
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Harbeth: ead84e8d57cf182453a0f1f8bc32aef97636ffaf

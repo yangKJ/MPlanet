@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
   
   s.dependency 'Cabinets' ## 百宝箱工具库
+  s.dependency 'CommonView' ## 通用控件
   
   s.dependency 'RxNetworks' # 网络架构
   s.dependency 'RxCocoa' # 响应式架构
