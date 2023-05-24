@@ -9,7 +9,7 @@ import Foundation
 
 extension BoxWrapper where Double == Base {
     
-    var addTopSafeArea: Double {
+    public var addTopSafeArea: Double {
         let safeAreaHeight: CGFloat
         if #available(iOS 11.0, *) {
             safeAreaHeight = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
@@ -19,7 +19,7 @@ extension BoxWrapper where Double == Base {
         return Double(safeAreaHeight) + base
     }
     
-    var addBottomSafeArea: Double {
+    public var addBottomSafeArea: Double {
         let safeAreaHeight: CGFloat
         if #available(iOS 11.0, *) {
             safeAreaHeight = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0
@@ -29,7 +29,7 @@ extension BoxWrapper where Double == Base {
         return Double(safeAreaHeight) + base
     }
     
-    func decimal() -> NSDecimalNumber {
+    public func decimal() -> NSDecimalNumber {
         return NSDecimalNumber(value: base)
     }
 }

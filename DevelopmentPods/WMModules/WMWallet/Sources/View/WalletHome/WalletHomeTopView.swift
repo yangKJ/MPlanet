@@ -11,7 +11,7 @@ class WalletHomeTopView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.ao.mainColor
+        backgroundColor = UIColor.ai.mainColor
         setupConstraint()
     }
     

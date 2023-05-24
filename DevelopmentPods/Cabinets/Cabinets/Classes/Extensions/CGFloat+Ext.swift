@@ -9,7 +9,7 @@ import Foundation
 
 extension BoxWrapper where CGFloat == Base {
     
-    var addTopSafeArea: CGFloat {
+    public var addTopSafeArea: CGFloat {
         let safeAreaHeight: CGFloat
         if #available(iOS 11.0, *) {
             safeAreaHeight = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
@@ -19,7 +19,7 @@ extension BoxWrapper where CGFloat == Base {
         return safeAreaHeight + base
     }
     
-    var addBottomSafeArea: CGFloat {
+    public var addBottomSafeArea: CGFloat {
         let safeAreaHeight: CGFloat
         if #available(iOS 11.0, *) {
             safeAreaHeight = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0

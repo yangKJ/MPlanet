@@ -23,7 +23,7 @@ extension BoxWrapper where Base: UIView {
     }
     
     /// 设置圆角半径
-    var cornerRadius: CGFloat {
+    public var cornerRadius: CGFloat {
         set {
             base.layer.cornerRadius = newValue
             base.layer.masksToBounds = newValue > 0
@@ -36,7 +36,7 @@ extension BoxWrapper where Base: UIView {
     }
     
     /// 设置边框宽度
-    var borderPxwidth: CGFloat {
+    public var borderPxwidth: CGFloat {
         set {
             base.layer.borderWidth = newValue * 1.0 / UIScreen.main.scale
         }
@@ -46,7 +46,7 @@ extension BoxWrapper where Base: UIView {
     }
     
     /// 设置阴影半径
-    var corOfShadow: CGFloat {
+    public var corOfShadow: CGFloat {
         set {
             cornerRadius = newValue
             if newValue == 0 {
@@ -66,5 +66,20 @@ extension BoxWrapper where Base: UIView {
         get {
             return cornerRadius
         }
+    }
+    
+    /// 旋转90度
+    public func rotation90() {
+        base.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+    }
+    
+    /// 旋转180度
+    public func rotation180() {
+        base.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+    }
+    
+    /// 旋转270度
+    public func rotation270() {
+        base.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
     }
 }

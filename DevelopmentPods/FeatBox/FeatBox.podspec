@@ -32,6 +32,9 @@ Pod::Spec.new do |s|
   s.dependency 'CommonView' ## 通用控件
   
   s.dependency 'RxNetworks' # 网络架构
+  s.dependency 'RxNetworks/RxSwift'
+  s.dependency 'RxNetworks/HandyJSON'
+  s.dependency 'RxNetworks/MoyaPlugins' # 网络插件
   s.dependency 'RxCocoa' # 响应式架构
   s.dependency 'Rickenbacker' # 基础架构
   s.dependency 'SnapKit' # 布局架构

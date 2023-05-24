@@ -8,12 +8,12 @@
 import Foundation
 import Contacts
 
-/// 添加 `kj` 前缀，颜色必须走这块方便后续做主题
+/// 添加 `ai` 前缀，颜色必须走这块方便后续做主题
 public extension BoxWrapper where Base: UIColor {
     
     /// 主色调
     static var mainColor: UIColor {
-        return UIColor.init(hex: "#82C87C")
+        return UIColor(hex: "#82C87C")
     }
     
     /// 背景色
@@ -63,5 +63,9 @@ public extension BoxWrapper where Base: UIColor {
     
     static var yellow: UIColor {
         return UIColor.yellow
+    }
+    
+    static var gray_F3F3F3: UIColor {
+        UIColor(hex: "#F3F3F3")
     }
 }

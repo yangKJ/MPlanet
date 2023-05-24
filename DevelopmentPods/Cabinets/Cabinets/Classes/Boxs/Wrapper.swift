@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// 添加 `ao` 前缀命名空间
+/// 添加 `ai` 前缀命名空间
 public struct BoxWrapper<Base> {
     public let base: Base
     public init(_ base: Base) {
@@ -18,11 +18,11 @@ public struct BoxWrapper<Base> {
 public protocol BoxCompatible { }
 
 extension BoxCompatible {
-    public var ao: BoxWrapper<Self> {
+    public var ai: BoxWrapper<Self> {
         get { return BoxWrapper(self) }
         set { }
     }
-    public static var ao: BoxWrapper<Self>.Type {
+    public static var ai: BoxWrapper<Self>.Type {
         BoxWrapper<Self>.self
     }
 }
@@ -44,3 +44,4 @@ extension Int: BoxCompatible { }
 extension Double: BoxCompatible { }
 extension CGFloat: BoxCompatible { }
 extension NSDecimalNumber: BoxCompatible { }
+extension UIFont: BoxCompatible { }

@@ -22,7 +22,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var backView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.ao.background
+        view.backgroundColor = UIColor.ai.background
         view.layer.cornerRadius = 25
         view.isUserInteractionEnabled = true
         return view
@@ -30,7 +30,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var iconImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = UIColor.ao.blue
+        view.backgroundColor = UIColor.ai.blue
         view.layer.cornerRadius = 25
         view.isUserInteractionEnabled = true
         return view
@@ -38,7 +38,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var myAssetTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.ao.itemTitle
+        label.textColor = UIColor.ai.itemTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .left
         label.text = R.text("我的资产（$）")
@@ -52,7 +52,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var assetLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.ao.itemTitle
+        label.textColor = UIColor.ai.itemTitle
         label.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         label.textAlignment = .left
         return label
@@ -60,20 +60,20 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
     
     lazy var detailsButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.setTitleColor(UIColor.ao.itemTitle, for: .normal)
+        button.setTitleColor(UIColor.ai.itemTitle, for: .normal)
         button.setTitle(R.text("查看详情"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 14.5
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor.ao.itemTitle.cgColor
+        button.layer.borderColor = UIColor.ai.itemTitle.cgColor
         return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = UIColor.ao.background
+        backgroundColor = UIColor.ai.background
         setupConstraint()
         setupBindings()
     }

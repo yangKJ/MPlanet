@@ -11,7 +11,7 @@ class WalletHomeTokenHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.ao.blue
+        backgroundColor = UIColor.ai.blue
         setupConstraint()
     }
     

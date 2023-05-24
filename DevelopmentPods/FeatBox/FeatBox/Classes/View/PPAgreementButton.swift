@@ -71,11 +71,11 @@ open class PPAgreementButton: UIView {
         didSet { refresh() }
     }
     
-    public var textColor: UIColor = UIColor.ao.black {
+    public var textColor: UIColor = UIColor.ai.black {
         didSet { refresh() }
     }
     
-    public var linkColor: UIColor = UIColor.ao.blue {
+    public var linkColor: UIColor = UIColor.ai.blue {
         didSet { refresh() }
     }
     
@@ -127,17 +127,17 @@ extension PPAgreementButton {
     }
     
     private func refresh() {
-        let prefix = " " + (protocolPrefix ?? ("我已阅读并同意"))
+        let prefix = " " + (protocolPrefix ?? R.text("我已阅读并同意"))
         let attributeText0 = NSMutableAttributedString.yy_attachmentString(withContent: isChecked ? selectedIcon : unSelectedIcon,
                                                                            contentMode: .center,
                                                                            attachmentSize: CGSize(width: 20, height: 20),
-                                                                           alignTo: UIFont.systemFont(ofSize: 13),
+                                                                           alignTo: UIFont.ai.system_14,
                                                                            alignment: .center)
-        attributeText0.yy_setTextHighlight(NSMakeRange(0, attributeText0.string.count), color: textColor, backgroundColor: UIColor.ao.clear) { [weak self] (_,_,_,_) in
+        attributeText0.yy_setTextHighlight(NSMakeRange(0, attributeText0.string.count), color: textColor, backgroundColor: UIColor.ai.clear) { [weak self] (_,_,_,_) in
             self?.outTap()
         }
-        let attributeText1 = NSMutableAttributedString(string: prefix, color: textColor, font: UIFont.systemFont(ofSize: 14))
-        attributeText1.yy_setTextHighlight(NSMakeRange(0, prefix.count), color: textColor, backgroundColor: UIColor.ao.clear) { [weak self] (_,_,_,_) in
+        let attributeText1 = NSMutableAttributedString(string: prefix, color: textColor, font: UIFont.ai.system_14)
+        attributeText1.yy_setTextHighlight(NSMakeRange(0, prefix.count), color: textColor, backgroundColor: UIColor.ai.clear) { [weak self] (_,_,_,_) in
             self?.outTap()
         }
         let attributeText2: NSMutableAttributedString = {
@@ -149,13 +149,13 @@ extension PPAgreementButton {
                     let attributedString = NSMutableAttributedString()
                     agreements.enumerated().forEach { (index, agreement) in
                         let name = "《" + (agreement.name ?? "") + "》"
-                        let text = NSMutableAttributedString(string: name, color: linkColor, font: UIFont.systemFont(ofSize: 14))
-                        text.yy_setTextHighlight(NSMakeRange(0, name.count), color: linkColor, backgroundColor: UIColor.ao.clear) { [weak self] (_,_,_,_) in
+                        let text = NSMutableAttributedString(string: name, color: linkColor, font: UIFont.ai.system_14)
+                        text.yy_setTextHighlight(NSMakeRange(0, name.count), color: linkColor, backgroundColor: UIColor.ai.clear) { [weak self] (_,_,_,_) in
                             self?.agreementTap(index: index)
                         }
                         attributedString.append(text)
                         if index < agreements.count - 1 {
-                            attributedString.append(NSMutableAttributedString(string: "、", color: textColor, font: UIFont.systemFont(ofSize: 14)))
+                            attributedString.append(NSMutableAttributedString(string: "、", color: textColor, font: UIFont.ai.system_14))
                         }
                     }
                     return attributedString
@@ -170,8 +170,8 @@ extension PPAgreementButton {
                 }
             }
             if let suffix = suffix {
-                let text = NSMutableAttributedString(string: suffix, color: linkColor, font: UIFont.systemFont(ofSize: 14))
-                text.yy_setTextHighlight(NSMakeRange(0, suffix.count), color: linkColor, backgroundColor: UIColor.ao.clear) { [weak self] (_,_,_,_) in
+                let text = NSMutableAttributedString(string: suffix, color: linkColor, font: UIFont.ai.system_14)
+                text.yy_setTextHighlight(NSMakeRange(0, suffix.count), color: linkColor, backgroundColor: UIColor.ai.clear) { [weak self] (_,_,_,_) in
                     self?.agreementTap(index: 0)
                 }
                 return text

@@ -21,7 +21,7 @@ class WalletHomeApplicationCell: UITableViewCell {
     
     lazy var backView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.ao.background
+        view.backgroundColor = UIColor.ai.background
         view.layer.cornerRadius = 25
         view.isUserInteractionEnabled = true
         return view
@@ -30,7 +30,7 @@ class WalletHomeApplicationCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = UIColor.ao.background
+        backgroundColor = UIColor.ai.background
         setupConstraint()
     }
     
