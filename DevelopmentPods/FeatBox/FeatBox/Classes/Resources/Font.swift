@@ -23,6 +23,10 @@ public extension BoxWrapper where Base: UIFont {
         UIFont.ai.systemFont(ofSize: 18)
     }
     
+    static var system_16: UIFont {
+        UIFont.ai.systemFont(ofSize: 16)
+    }
+    
     static var system_14: UIFont {
         UIFont.ai.systemFont(ofSize: 14)
     }

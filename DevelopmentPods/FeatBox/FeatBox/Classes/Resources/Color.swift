@@ -18,7 +18,17 @@ public extension BoxWrapper where Base: UIColor {
     
     /// 背景色
     static var background: UIColor {
-        return .white
+        return UIColor(hex: "F7F7F7")//全局背景色，淡灰色
+    }
+    
+    /// 标题颜色
+    static var title: UIColor {
+        return UIColor.black
+    }
+    
+    /// 副标题颜色
+    static var detailTitle: UIColor {
+        return UIColor(hex: "#999999")
     }
     
     static var itemShadowImageColor: UIColor {
@@ -67,5 +77,13 @@ public extension BoxWrapper where Base: UIColor {
     
     static var gray_F3F3F3: UIColor {
         UIColor(hex: "#F3F3F3")
+    }
+    
+    static var gray_CCCCCC: UIColor {
+        UIColor(hex: "#CCCCCC")
+    }
+    
+    static var gray_999999: UIColor {
+        UIColor(hex: "#999999")
     }
 }

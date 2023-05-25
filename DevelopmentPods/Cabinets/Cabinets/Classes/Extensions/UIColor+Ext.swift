@@ -68,6 +68,25 @@ extension UIColor {
     }
 }
 
+extension BoxWrapper where Base: UIColor {
+    // UIColor -> Hex String
+    public var hexString: String? {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        let multiplier = CGFloat(255.999999)
+        guard base.getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
+            return nil
+        }
+        if alpha == 1.0 {
+            return String(format: "#%02lX%02lX%02lX", Int(red * multiplier), Int(green * multiplier), Int(blue * multiplier))
+        } else {
+            return String(format: "#%02lX%02lX%02lX%02lX", Int(red * multiplier), Int(green * multiplier), Int(blue * multiplier), Int(alpha * multiplier))
+        }
+    }
+}
+
 public func UIGraphicsGradientImageCreate(_ fromColor: UIColor,
                                           _ toColor: UIColor,
                                           _ size: CGSize = .zero,

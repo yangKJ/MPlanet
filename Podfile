@@ -3,7 +3,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 #source 'git@github.com:Condy/PrivatePod.git' # 私有索引
 
-platform :ios, '10.0' # 这个版本为所有CocoaPods里面`s.ios.deployment_target`支持的最低版本
+#platform :ios, '10.0' # 这个版本为所有CocoaPods里面`s.ios.deployment_target`支持的最低版本
 inhibit_all_warnings!
 use_frameworks!
 

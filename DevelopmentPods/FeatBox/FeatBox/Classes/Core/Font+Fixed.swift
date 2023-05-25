@@ -12,7 +12,7 @@ extension BoxWrapper where Base: UIFont {
     
     public var fixedFont: UIFont {
         let fontSize = base.pointSize
-        let fixedSize = min(20, fontSize + UserDefaults.shared.fontSizeType.deltaFontSize)
+        let fixedSize = fontSize + UserDefaults.shared.fontSizeType.deltaFontSize
         return base.withSize(fixedSize)
     }
     

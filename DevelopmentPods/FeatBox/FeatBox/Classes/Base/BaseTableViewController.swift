@@ -10,4 +10,8 @@ import Rickenbacker
 
 open class BaseTableViewController<T: BaseViewModel>: VMTableViewController<T> {
     
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.ai.background
+    }
 }
