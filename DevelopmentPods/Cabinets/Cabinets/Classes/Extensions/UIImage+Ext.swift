@@ -14,7 +14,8 @@ extension UIImage {
         if x < 0 || x > Int(size.width) || y < 0 || y > Int(size.height) {
             return nil
         }
-        guard let provider = self.cgImage?.dataProvider, let data = CFDataGetBytePtr(provider.data) else {
+        guard let provider = self.cgImage?.dataProvider,
+              let data = CFDataGetBytePtr(provider.data) else {
             return nil
         }
         let numberOfComponents = 4
@@ -69,9 +70,70 @@ extension BoxWrapper where Base: UIImage {
         let context = UIGraphicsGetCurrentContext()
         context?.translateBy(x: 0.0, y: image.size.height)
         context?.scaleBy(x: 1.0, y: -1.0)
-        context?.draw(maskedImageRef, in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        context?.draw(maskedImageRef, in: CGRect(origin: .zero, size: image.size))
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return result
+    }
+    
+    /// 将图片裁剪成指定比例（多余部分自动删除）
+    /// - Parameter ratio: 裁剪比例
+    /// - Returns: 裁剪过后的图片
+    public func crop(ratio: CGFloat) -> UIImage {
+        let newSize: CGSize
+        if base.size.width / base.size.height > ratio {
+            newSize = CGSize(width: base.size.height * ratio, height: base.size.height)
+        } else {
+            newSize = CGSize(width: base.size.width, height: base.size.width / ratio)
+        }
+        UIGraphicsBeginImageContext(newSize)
+        base.draw(in: CGRect(x: (newSize.width - base.size.width ) / 2.0,
+                             y: (newSize.height - base.size.height ) / 2.0,
+                             width: base.size.width,
+                             height: base.size.height))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return scaledImage ?? base
+    }
+    
+    /// 将图片缩放成指定尺寸（多余部分自动删除）
+    /// - Parameter newSize: 裁剪尺寸
+    /// - Returns: 裁剪过后的图片
+    public func scaled(to newSize: CGSize) -> UIImage {
+        let aspectWidth = newSize.width / base.size.width
+        let aspectHeight = newSize.height / base.size.height
+        let aspectRatio = max(aspectWidth, aspectHeight)
+        UIGraphicsBeginImageContext(newSize)
+        base.draw(in: CGRect(x: (newSize.width - base.size.width * aspectRatio) / 2.0,
+                             y: (newSize.height - base.size.height * aspectRatio) / 2.0,
+                             width: base.size.width * aspectRatio,
+                             height: base.size.height * aspectRatio))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return scaledImage ?? base
+    }
+    
+    /// 拉升图片
+    /// - Parameter edges: 指定区域进行拉伸
+    /// - Returns: 拉升过后的图像
+    public func stretchImage(edges: UIEdgeInsets) -> UIImage {
+        base.resizableImage(withCapInsets: edges, resizingMode: .stretch)
+    }
+    
+    /// 生成圆形图片
+    public func toCircleImage() -> UIImage {
+        let shotest = min(base.size.width, base.size.height)
+        let outputRect = CGRect(x: 0, y: 0, width: shotest, height: shotest)
+        UIGraphicsBeginImageContextWithOptions(outputRect.size, false, 0)
+        let context = UIGraphicsGetCurrentContext()
+        context?.addEllipse(in: outputRect)
+        context?.clip()
+        base.draw(in: CGRect(x: (shotest - base.size.width) / 2,
+                             y: (shotest - base.size.height) / 2,
+                             width: base.size.width,
+                             height: base.size.height))
+        let maskedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return maskedImage ?? base
     }
 }

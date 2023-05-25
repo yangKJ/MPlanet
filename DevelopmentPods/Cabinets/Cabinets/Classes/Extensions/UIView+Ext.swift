@@ -12,10 +12,13 @@ extension BoxWrapper where Base: UIView {
     /// 设置多个圆角
     ///
     /// - Parameters:
-    ///   - cornerRadii: 圆角幅度
-    ///   - roundingCorners: UIRectCorner(rawValue: (UIRectCorner.topRight.rawValue) | (UIRectCorner.bottomRight.rawValue))
-    public func filletedCorner(_ cornerRadii: CGSize, roundingCorners: UIRectCorner)  {
-        let fieldPath = UIBezierPath(roundedRect: base.bounds, byRoundingCorners: roundingCorners, cornerRadii:cornerRadii)
+    ///   - radii: 圆角幅度
+    ///   - roundingCorners: 圆角方位，[.topLeft, .bottomRight]
+    public func filletedCorner(radii: CGFloat, roundingCorners: UIRectCorner)  {
+        let fieldPath = UIBezierPath(roundedRect: base.bounds,
+                                     byRoundingCorners: roundingCorners,
+                                     cornerRadii: CGSize(width: radii, height: radii))
+        base.layoutIfNeeded()
         let fieldLayer = CAShapeLayer()
         fieldLayer.frame = base.bounds
         fieldLayer.path = fieldPath.cgPath

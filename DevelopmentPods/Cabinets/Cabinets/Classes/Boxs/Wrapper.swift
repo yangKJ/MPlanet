@@ -45,3 +45,4 @@ extension Double: BoxCompatible { }
 extension CGFloat: BoxCompatible { }
 extension NSDecimalNumber: BoxCompatible { }
 extension UIFont: BoxCompatible { }
+extension UILabel: BoxCompatible { }
