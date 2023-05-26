@@ -7,7 +7,7 @@
 
 import Foundation
 import Harbeth
-import Cabinets
+import Extensions
 
 /// 各种占位图
 public struct Placeholder {

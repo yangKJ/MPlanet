@@ -8,7 +8,7 @@
 import Foundation
 import FeatBox
 
-class SignatureViewController: BaseViewController, NavigationBarHiddenable {
+class SignatureViewController: BaseViewController<SignatureViewModel>, NavigationBarHiddenable {
     
     private var agreeBlock: ((_ userSignInfo: String?) -> Void)?
     func setAgreeBlock(block: @escaping ((_ userSignInfo: String?) -> Void)) {
@@ -29,14 +29,14 @@ class SignatureViewController: BaseViewController, NavigationBarHiddenable {
     }()
     
     lazy var backButton: UIButton = {
-        let button = UIButton.init(type: .custom)
+        let button = CustomButton.init(type: .custom)
         button.ai.rotation90()
         button.setImage(R.image("back"), for: .normal)
         return button
     }()
     
     lazy var titleLabel: UILabel = {
-        let label = UILabel.init()
+        let label = DynamicFontSizeLabel.init()
         label.ai.rotation90()
         label.text = R.text("电子签名")
         label.font = UIFont.ai.system_20
@@ -45,58 +45,58 @@ class SignatureViewController: BaseViewController, NavigationBarHiddenable {
     }()
     
     lazy var tipLabel: UILabel = {
-        let label = UILabel.init()
+        let label = DynamicFontSizeLabel.init()
         label.ai.rotation90()
         label.text = R.text("请工整的书写以下文字")
         label.font = UIFont.ai.system_16
         label.textColor = UIColor.ai.gray_CCCCCC
-        label.textAlignment = .right
         return label
     }()
     
     lazy var placeholderLabel: UILabel = {
-        let label = UILabel.init()
+        let label = DynamicFontSizeLabel.init()
         label.ai.rotation90()
-        label.text = R.text("测试文字")
-        label.font = UIFont.ai.boldSystemFont(ofSize: 108)
+        label.text = R.text("测试文字").ai.insert(between: " ")
+        label.font = UIFont.boldSystemFont(ofSize: 120)
         label.textColor = UIColor.ai.gray_999999.withAlphaComponent(0.3)
-        label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         return label
     }()
     
     lazy var rewriteButton: UIButton = {
-        let button = UIButton.init(type: .custom)
+        let button = CustomButton.init(type: .custom)
         button.ai.rotation90()
         button.setTitle(R.text("重写"), for: .normal)
-        button.backgroundColor = UIColor.ai.red.withAlphaComponent(0.5)
+        button.backgroundColor = UIColor.ai.mainColor
         button.titleLabel?.font = UIFont.ai.bold_18
         button.setTitleColor(UIColor.ai.white, for: .normal)
+        button.layer.cornerRadius = 5
         return button
     }()
     
     lazy var agreeButton: UIButton = {
-        let button = UIButton.init(type: .custom)
+        let button = CustomButton.init(type: .custom)
         button.ai.rotation90()
         button.setTitle(R.text("同意"), for: .normal)
-        button.backgroundColor = UIColor.ai.red.withAlphaComponent(0.5)
+        button.backgroundColor = UIColor.ai.mainColor
         button.titleLabel?.font = UIFont.ai.bold_18
         button.setTitleColor(UIColor.ai.white, for: .normal)
         button.addTarget(self, action: #selector(agreeAction), for: .touchUpInside)
+        button.layer.cornerRadius = 5
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.ai.white
-        self.setupUI()
+        self.setupSubviews()
         self.setupBinding()
     }
     
-    var agreeBottomConstraint: Constraint?
-    var agreeLeftConstraint: Constraint?
+    var tipTopConstraint: Constraint?
+    var tipRightConstraint: Constraint?
     
-    func setupUI() {
+    func setupSubviews() {
         self.view.addSubview(signatureView)
         self.view.addSubview(backButton)
         self.view.addSubview(titleLabel)
@@ -120,17 +120,16 @@ class SignatureViewController: BaseViewController, NavigationBarHiddenable {
             make.centerX.equalTo(backButton)
         }
         self.tipLabel.snp.makeConstraints { make in
-            make.top.equalTo(signatureView).offset(15+50)
-            make.right.equalTo(signatureView).offset(20+50)
-            make.width.equalTo(200)
+            self.tipTopConstraint = make.top.equalTo(signatureView).offset(15).constraint
+            self.tipRightConstraint = make.right.equalTo(signatureView).offset(20).constraint
         }
         self.placeholderLabel.snp.makeConstraints { make in
             make.center.equalTo(signatureView.snp.center)
             make.width.lessThanOrEqualTo(signatureView.snp.height)
         }
         self.agreeButton.snp.makeConstraints { make in
-            self.agreeBottomConstraint = make.bottom.equalTo(signatureView).constraint
-            self.agreeLeftConstraint = make.left.equalToSuperview().offset(20).constraint
+            make.bottom.equalTo(signatureView).offset(-35)
+            make.left.equalToSuperview().offset(20-35)
             make.width.equalTo(120)
             make.height.equalTo(50)
         }
@@ -141,9 +140,11 @@ class SignatureViewController: BaseViewController, NavigationBarHiddenable {
             make.height.equalTo(50)
         }
         
-        self.agreeBottomConstraint?.update(offset: -35)
-        self.agreeLeftConstraint?.update(offset: 20-35)
-        self.view.layoutIfNeeded()
+        self.tipLabel.layoutIfNeeded()
+        let width = self.tipLabel.frame.size.width
+        let height = self.tipLabel.frame.size.height
+        self.tipTopConstraint?.update(offset: height/4 + width + 20)
+        self.tipRightConstraint?.update(offset: height/4 + 20)
     }
     
     func setupBinding() {
@@ -159,35 +160,22 @@ class SignatureViewController: BaseViewController, NavigationBarHiddenable {
         
         // 绘制中
         self.drawEvent.bind(to: self.tipLabel.rx.isHidden).disposed(by: rx.disposeBag)
-        self.drawEvent.bind(to: self.placeholderLabel.rx.isHidden).disposed(by: rx.disposeBag)
+        //self.drawEvent.bind(to: self.placeholderLabel.rx.isHidden).disposed(by: rx.disposeBag)
     }
     
     @objc func agreeAction() {
         if self.signatureView.isSigned {
-            screenshotAndMatting { [weak self] image in
-                guard let image = image else {
-                    return
-                }
-                self?.backAction()
-                let base64 = image.pngData()?.base64EncodedString()
-                self?.agreeBlock?(base64)
-            }
+            viewModel.screenshotAndTransformUserSignInfo(signatureView: signatureView)
+                .subscribe(onNext: { [weak self] userSignInfo in
+                    self?.agreeBlock?(userSignInfo)
+                    self?.backAction()
+                }, onError: {
+                    self.view.ai.showHUD(title: $0.localizedDescription)
+                }).disposed(by: rx.disposeBag)
         } else {
             self.view.ai.showHUD(title: R.text("您未签署您的姓名，请签署后提交"), alertCallback: { alert in
                 alert?.ai.rotation90()
             })
         }
-    }
-    
-    // 截图扣除字体以外部分
-    private func screenshotAndMatting(complete: (_ image: UIImage?) -> Void) {
-        guard let image = self.signatureView.saveSignToImage(),
-              let img = image.ai.imageByMakingWhiteBackgroundTransparent(),
-              let cgImage = img.cgImage else {
-            complete(nil)
-            return
-        }
-        let rotatedImage = UIImage.init(cgImage: cgImage, scale: image.scale, orientation: .left)
-        complete(rotatedImage)
     }
 }

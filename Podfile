@@ -38,7 +38,7 @@ target 'MainProject_Example' do
   pod 'CommonView', :path => 'DevelopmentPods/CommonView'
   
   ## 百宝箱工具
-  pod 'Cabinets', :path => 'DevelopmentPods/Cabinets'
+  pod 'Extensions', :path => 'DevelopmentPods/Extensions'
   
   modules_pods
   

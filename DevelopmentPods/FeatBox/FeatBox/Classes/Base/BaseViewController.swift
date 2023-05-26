@@ -7,9 +7,9 @@
 
 import Foundation
 import Rickenbacker
-import Contacts
+import Extensions
 
-open class BaseViewController: Rickenbacker.BasicsViewController {
+open class BaseViewController<T: BaseViewModel>: Rickenbacker.VMViewController<T> {
     
     open override func viewDidLoad() {
         super.viewDidLoad()

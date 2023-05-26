@@ -12,9 +12,6 @@ import FeatBox
 /// 中转站，供外界使用
 public struct Bridge {
     
-    @UserDefault("root_manager_open_mourning_mode", defaultValue: false)
-    public static var mourning: Bool
-    
     public lazy var appDelegate: AppDelegateType = {
         let composite = CompositeAppDelegate.init(appDelegates: appDelegates)
         return composite

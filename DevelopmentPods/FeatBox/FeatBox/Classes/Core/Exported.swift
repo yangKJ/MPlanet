@@ -9,7 +9,7 @@ import UIKit
 import Dispatch
 import Foundation
 
-@_exported import Cabinets
+@_exported import Extensions
 @_exported import CommonView
 @_exported import Rickenbacker
 @_exported import SnapKit

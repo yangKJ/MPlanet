@@ -6,15 +6,15 @@
 //
 
 import Foundation
-import Cabinets
+import Extensions
 
 public struct UserDefaults {
     
-    static let shared = UserDefaults()
+    public static var shared = UserDefaults()
     
-    @UserDefault("root_manager_open_mourning_mode", defaultValue: false)
+    @UserDefault_("root_manager_open_mourning_mode", defaultValue: false)
     public var mourning: Bool
     
-    @UserDefault("golbal_font_size_type", defaultValue: .standard)
-    public var fontSizeType: FontSizeType
+    @UserDefault_("golbal_font_size_type", defaultValue: FontSizeType.standard.deltaFontSize)
+    public var fontSize: CGFloat
 }

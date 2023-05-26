@@ -8,6 +8,6 @@
 import Foundation
 import Rickenbacker
 
-open class BaseViewModel: ViewModel {
+open class BaseViewModel: Rickenbacker.ViewModel {
     
 }

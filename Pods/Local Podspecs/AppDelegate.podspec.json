@@ -1,8 +1,8 @@
 {
-  "name": "RootManager",
+  "name": "AppDelegate",
   "version": "0.1.0",
   "summary": "A short description of AppDelegate.",
-  "homepage": "https://github.com/Condy/RootManager",
+  "homepage": "https://github.com/Condy/AppDelegate",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -11,7 +11,7 @@
     "Condy": "yangkj310@gmail.com"
   },
   "source": {
-    "git": "https://github.com/Condy/RootManager.git",
+    "git": "https://github.com/Condy/AppDelegate.git",
     "tag": "0.1.0"
   },
   "platforms": {
@@ -28,6 +28,6 @@
 
     ]
   },
-  "source_files": "RootManager/Classes/**/*",
+  "source_files": "AppDelegate/Classes/**/*",
   "swift_version": "5.0"
 }

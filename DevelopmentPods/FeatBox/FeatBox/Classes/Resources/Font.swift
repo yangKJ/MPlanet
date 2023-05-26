@@ -6,28 +6,34 @@
 //
 
 import Foundation
-import Contacts
+import Extensions
 
-/// 添加 `ai` 前缀，字体必须走这块方便后续做修改字体大小
 public extension BoxWrapper where Base: UIFont {
     
+    /// 重新设置字体尺寸
+    public var fixedFont: UIFont {
+        let fontSize = base.pointSize
+        let fixedSize = fontSize + UserDefaults.shared.fontSize
+        return base.withSize(fixedSize)
+    }
+    
     static var bold_18: UIFont {
-        UIFont.ai.boldSystemFont(ofSize: 18)
+        UIFont.boldSystemFont(ofSize: 18)
     }
     
     static var system_20: UIFont {
-        UIFont.ai.systemFont(ofSize: 20)
+        UIFont.systemFont(ofSize: 20)
     }
     
     static var system_18: UIFont {
-        UIFont.ai.systemFont(ofSize: 18)
+        UIFont.systemFont(ofSize: 18)
     }
     
     static var system_16: UIFont {
-        UIFont.ai.systemFont(ofSize: 16)
+        UIFont.systemFont(ofSize: 16)
     }
     
     static var system_14: UIFont {
-        UIFont.ai.systemFont(ofSize: 14)
+        UIFont.systemFont(ofSize: 14)
     }
 }

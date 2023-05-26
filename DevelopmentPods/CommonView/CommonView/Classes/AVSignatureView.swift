@@ -9,7 +9,11 @@ import Foundation
 
 open class AVSignatureView: UIView {
     
-    public var lineWidth: CGFloat = 2.0
+    public var lineWidth: CGFloat = 2.0 {
+        didSet {
+            self.path.lineWidth = lineWidth
+        }
+    }
     public var lineColor: UIColor = UIColor.black
     
     private var drawBlock: ((_ isDrawed: Bool) -> Void)?
@@ -17,8 +21,9 @@ open class AVSignatureView: UIView {
         self.drawBlock = block
     }
     
-    var path: UIBezierPath?
-    var pathArray: [UIBezierPath] = []
+    private var path = UIBezierPath()
+    private var pts = [CGPoint](repeating: CGPoint(), count: 5)
+    private var ctr = 0
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,47 +35,60 @@ open class AVSignatureView: UIView {
     }
     
     func setupSubviews() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction(_:)))
-        self.addGestureRecognizer(panGestureRecognizer)
+        self.path.lineWidth = self.lineWidth
     }
     
-    @objc func panGestureRecognizerAction(_ sender: UIPanGestureRecognizer) {
-        let currentPoint = sender.location(in: self)
-        if sender.state == .began {
-            self.path = UIBezierPath()
-            path?.lineWidth = lineWidth
-            path?.move(to: currentPoint)
-            pathArray.append(path!)
-        } else if sender.state == .changed {
-            path?.addLine(to: currentPoint)
+    override open func draw(_ rect: CGRect) {
+        self.drawBlock?(!self.path.isEmpty)
+        self.lineColor.setStroke()
+        self.path.stroke()
+    }
+    
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let firstTouch = touches.first {
+            let touchPoint = firstTouch.location(in: self)
+            self.ctr = 0
+            self.pts[0] = touchPoint
         }
-        self.setNeedsDisplay()
     }
     
-    open override func draw(_ rect: CGRect) {
-        self.drawBlock?(pathArray.count > 0)
-        for path in pathArray {
-            lineColor.set()
-            path.stroke()
+    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let firstTouch = touches.first {
+            let touchPoint = firstTouch.location(in: self)
+            self.ctr += 1
+            self.pts[self.ctr] = touchPoint
+            if (self.ctr == 4) {
+                self.pts[3] = CGPoint(x: (self.pts[2].x + self.pts[4].x)/2.0, y: (self.pts[2].y + self.pts[4].y)/2.0)
+                self.path.move(to: self.pts[0])
+                self.path.addCurve(to: self.pts[3], controlPoint1:self.pts[1], controlPoint2:self.pts[2])
+                self.setNeedsDisplay()
+                self.pts[0] = self.pts[3]
+                self.pts[1] = self.pts[4]
+                self.ctr = 1
+            }
+            self.setNeedsDisplay()
+        }
+    }
+    
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.ctr == 0 {
+            let touchPoint = self.pts[0]
+            self.path.move(to: CGPoint(x: touchPoint.x-1.0,y: touchPoint.y))
+            self.path.addLine(to: CGPoint(x: touchPoint.x+1.0,y: touchPoint.y))
+            self.setNeedsDisplay()
+        } else {
+            self.ctr = 0
         }
     }
     
     public var isSigned: Bool {
         get {
-            pathArray.count > 0
+            return !self.path.isEmpty
         }
     }
     
     public func clearSign() {
-        pathArray.removeAll()
-        self.setNeedsDisplay()
-    }
-    
-    public func undoSign() {
-        guard pathArray.count > 0 else {
-            return
-        }
-        pathArray.removeLast()
+        self.path.removeAllPoints()
         self.setNeedsDisplay()
     }
     

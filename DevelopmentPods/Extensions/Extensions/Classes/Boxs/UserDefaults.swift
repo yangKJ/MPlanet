@@ -9,9 +9,9 @@ import Foundation
 
 /// `UserDefaults`属性包裹器
 ///
-///     @UserDefault("root_manager_open_mourning_mode", defaultValue: false)
+///     @UserDefault_("root_manager_open_mourning_mode", defaultValue: false)
 ///     public static var mourning: Bool
-@propertyWrapper public struct UserDefault<T> {
+@propertyWrapper public struct UserDefault_<T> {
     
     let key: String
     let defaultValue: T

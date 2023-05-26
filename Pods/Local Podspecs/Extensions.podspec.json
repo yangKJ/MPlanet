@@ -1,8 +1,8 @@
 {
-  "name": "RootManager",
+  "name": "Extensions",
   "version": "0.1.0",
-  "summary": "A short description of AppDelegate.",
-  "homepage": "https://github.com/Condy/RootManager",
+  "summary": "A short description of Extensions.",
+  "homepage": "https://github.com/Condy/Extensions",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -11,7 +11,7 @@
     "Condy": "yangkj310@gmail.com"
   },
   "source": {
-    "git": "https://github.com/Condy/RootManager.git",
+    "git": "https://github.com/Condy/Extensions.git",
     "tag": "0.1.0"
   },
   "platforms": {
@@ -20,14 +20,6 @@
   "swift_versions": "5.0",
   "requires_arc": true,
   "static_framework": true,
-  "dependencies": {
-    "AppMain": [
-
-    ],
-    "FeatBox": [
-
-    ]
-  },
-  "source_files": "RootManager/Classes/**/*",
+  "source_files": "Extensions/Classes/**/*",
   "swift_version": "5.0"
 }

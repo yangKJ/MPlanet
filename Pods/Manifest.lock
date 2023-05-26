@@ -9,23 +9,23 @@ PODS:
     - FeatBox
     - HBDNavigationBar
     - Mediator
-  - Cabinets (0.1.0)
   - CommonView (0.0.1):
-    - Cabinets
     - CommonView/Resources (= 0.0.1)
+    - Extensions
     - RxCocoa
     - SnapKit
   - CommonView/Resources (0.0.1):
-    - Cabinets
+    - Extensions
     - RxCocoa
     - SnapKit
   - Database (0.0.4):
     - WCDB.swift
   - Differentiator (5.0.0)
   - DZNEmptyDataSet (1.8.1)
+  - Extensions (0.1.0)
   - FeatBox (0.1.0):
-    - Cabinets
     - CommonView
+    - Extensions
     - Harbeth
     - HBDNavigationBar
     - Rickenbacker
@@ -256,9 +256,9 @@ PODS:
 
 DEPENDENCIES:
   - AppMain (from `DevelopmentPods/AppMain`)
-  - Cabinets (from `DevelopmentPods/Cabinets`)
   - CommonView (from `DevelopmentPods/CommonView`)
   - Database (from `DevelopmentPods/Database`)
+  - Extensions (from `DevelopmentPods/Extensions`)
   - FeatBox (from `DevelopmentPods/FeatBox`)
   - Mediator (from `DevelopmentPods/Mediator`)
   - RootManager (from `DevelopmentPods/RootManager`)
@@ -297,12 +297,12 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   AppMain:
     :path: DevelopmentPods/AppMain
-  Cabinets:
-    :path: DevelopmentPods/Cabinets
   CommonView:
     :path: DevelopmentPods/CommonView
   Database:
     :path: DevelopmentPods/Database
+  Extensions:
+    :path: DevelopmentPods/Extensions
   FeatBox:
     :path: DevelopmentPods/FeatBox
   Mediator:
@@ -319,12 +319,12 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   AppMain: f0715ecc85c02f4e7323a947db5ba2a1c0e89f3f
-  Cabinets: f16a3b5146697ade1ddb6ab7c330d6d09f26a759
-  CommonView: 78953837cd9f584662637cc94499372bbfd3fcf6
+  CommonView: f6c4cebc2ce3284f066128eb4ac4c01d1279d4e2
   Database: bdb5b62e8d3aae26b5a367ebcd2809d1d57f9989
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FeatBox: f0d0ba3693ae995891c46580e44943142e5e7915
+  Extensions: 95f1d54759a3a8b51cf957934d0cc1cfd9b3402c
+  FeatBox: 0b6e98ffd42e333e76b636e8a1c7ff74be862d72
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Harbeth: ead84e8d57cf182453a0f1f8bc32aef97636ffaf
@@ -336,7 +336,7 @@ SPEC CHECKSUMS:
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   Rickenbacker: 1813413ce72f111885ec27168a62da6d0f6b4cf0
-  RootManager: b4771ae9d630c0711eafdce809bbbf12b1ce8790
+  RootManager: 85f936f139a8c21440a0242079390b8b26266151
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxNetworks: 1d207fa99ff47d157387f1fc41d1125f84c713cf
@@ -353,6 +353,6 @@ SPEC CHECKSUMS:
   WMWallet: 0c98cf5241fa15ab2151887780d8abbae110783a
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: e2dee26244d1d2f7405c38de73844d3ad88758ce
+PODFILE CHECKSUM: 7723478e033c6b9049dd17d94a851ca39c2595d6
 
 COCOAPODS: 1.11.3

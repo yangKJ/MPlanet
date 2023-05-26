@@ -7,7 +7,7 @@
 
 import Foundation
 import SnapKit
-import Cabinets
+import Extensions
 
 /// 进度控件
 open class XCProgressView: UIView {

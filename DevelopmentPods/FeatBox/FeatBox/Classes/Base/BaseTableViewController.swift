@@ -7,8 +7,9 @@
 
 import Foundation
 import Rickenbacker
+import Extensions
 
-open class BaseTableViewController<T: BaseViewModel>: VMTableViewController<T> {
+open class BaseTableViewController<T: BaseViewModel>: Rickenbacker.VMTableViewController<T> {
     
     open override func viewDidLoad() {
         super.viewDidLoad()

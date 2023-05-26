@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FeatBox
 
 /// 悼念模式
 class MournAppDelegate: AppDelegateType {
@@ -53,7 +54,7 @@ extension MournAppDelegate {
                 keyWindow?.addSubview(overlay)
             }
         }
-        if Bridge.mourning {
+        if UserDefaults.shared.mourning {
             display()
         }
     }
@@ -64,7 +65,7 @@ extension MournAppDelegate {
                 view.isHidden = true
             }
         }
-        if Bridge.mourning == false {
+        if UserDefaults.shared.mourning == false {
             close()
         }
     }
@@ -79,7 +80,7 @@ extension MournAppDelegate {
                 alert?.addSubview(alertOverlay)
             }
         }
-        if Bridge.mourning {
+        if UserDefaults.shared.mourning {
             display()
         }
     }

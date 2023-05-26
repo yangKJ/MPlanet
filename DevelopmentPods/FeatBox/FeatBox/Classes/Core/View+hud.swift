@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Contacts
+import Extensions
 import MBProgressHUD
 
 extension UIView {
@@ -40,9 +40,11 @@ extension BoxWrapper where Base: UIView {
         base.lastHUDView = MBProgressHUD.showAdded(to: base, animated: true)
         base.lastHUDView?.mode = .text
         base.lastHUDView?.label.text = title
+        base.lastHUDView?.label.font = base.lastHUDView?.label.font?.ai.fixedFont
         base.lastHUDView?.label.numberOfLines = 0
         base.lastHUDView?.detailsLabel.text = detail
         base.lastHUDView?.detailsLabel.numberOfLines = 0
+        base.lastHUDView?.detailsLabel.font = base.lastHUDView?.detailsLabel.font?.ai.fixedFont
         base.lastHUDView?.hide(animated: true, afterDelay: afterDelay)
         alertCallback?(base.lastHUDView)
         base.lastHUDView = nil

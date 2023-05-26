@@ -9,7 +9,7 @@ import Foundation
 import YYText
 import SnapKit
 import Rickenbacker
-import Cabinets
+import Extensions
 
 public struct PPAgreement {
     public var title: String?
@@ -90,8 +90,11 @@ open class PPAgreementButton: UIView {
     }
     
     public func height(of width: CGFloat) -> CGFloat {
+        guard let attributedText = yyLabel.attributedText else {
+            return 0
+        }
         let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        let layout = YYTextLayout.init(containerSize: size, text: yyLabel.attributedText ?? NSAttributedString())
+        let layout = YYTextLayout.init(containerSize: size, text: attributedText)
         return layout?.textBoundingSize.height ?? 0
     }
 }

@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double CabinetsVersionNumber;
-FOUNDATION_EXPORT const unsigned char CabinetsVersionString[];
+FOUNDATION_EXPORT double ExtensionsVersionNumber;
+FOUNDATION_EXPORT const unsigned char ExtensionsVersionString[];
 
