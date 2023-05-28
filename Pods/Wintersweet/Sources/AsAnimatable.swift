@@ -55,9 +55,10 @@ extension AsAnimatable {
             options.placeholder.display(to: self, contentMode: options.contentMode)
         }
         guard let data = data, AssetType(data: data) == .gif else { return }
+        let size = options.confirmSize == .zero ? frame.size : options.confirmSize
         let frameStore = FrameStore(data: data,
                                     filters: filters,
-                                    size: frame.size,
+                                    size: size,
                                     framePreloadCount: options.bufferCount,
                                     contentMode: options.contentMode,
                                     loopCount: options.loop.count)

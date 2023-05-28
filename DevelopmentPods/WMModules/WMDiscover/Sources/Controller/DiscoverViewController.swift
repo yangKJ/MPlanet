@@ -90,9 +90,9 @@ extension DiscoverViewController: FSPagerViewDataSource {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: FSPagerViewCell.ai.class_name, at: index)
         if let imagePath = itmes[index].imagePath {
             if (itmes[index].id ?? 0) == 20 {
-                cell.imageView?.ai.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill)
+                cell.imageView?.ai.setImage(with: imagePath, module: DiscoverUtil.moduleName, size: pagerView.frame.size, contentMode: .scaleAspectFill)
             } else {
-                cell.imageView?.ai.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill, filters: filters)
+                cell.imageView?.ai.setImage(with: imagePath, module: DiscoverUtil.moduleName, size: pagerView.frame.size, contentMode: .scaleAspectFill, filters: filters)
             }
         }
         return cell

@@ -9,9 +9,7 @@ import UIKit
 import FeatBox
 
 /// 小工具应用Item
-class WalletHomeApplicationCell: UITableViewCell {
-    
-    static let identifier = "WalletHomeApplicationCell"
+class WalletHomeApplicationCell: BaseTableViewCell {
     
     var applicationDatas: [WalletApplicationData]? {
         didSet {
@@ -27,18 +25,7 @@ class WalletHomeApplicationCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
-        backgroundColor = UIColor.ai.background
-        setupConstraint()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupConstraint() {
+    override func setupConstraint() {
         contentView.addSubview(backView)
         backView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(contentView).inset(16)

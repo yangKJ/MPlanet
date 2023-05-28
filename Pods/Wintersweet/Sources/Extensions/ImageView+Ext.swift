@@ -21,7 +21,8 @@ extension ImageView: AsAnimatable, ImageContainer, C7Compatible {
             options.placeholder.display(to: self, contentMode: options.contentMode)
         }
         self.hasAnimator?.prepareForReuse()
-        let resizeImage = options.contentMode.resizeImage(image, size: self.frame.size)
+        let size = options.confirmSize == .zero ? self.frame.size : options.confirmSize
+        let resizeImage = options.contentMode.resizeImage(image, size: size)
         let dest = BoxxIO(element: resizeImage, filters: filters)
         if let outImage = try? dest.output() {
             options.placeholder.remove(from: self)

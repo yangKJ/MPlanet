@@ -55,6 +55,9 @@ public struct AnimatedOptions {
     }
     private let modularizationName_: String?
     
+    /// Confirm the size to facilitate follow-up processing.
+    public let confirmSize: CGSize
+    
     /// Instantiation of GIF configuration parameters.
     /// - Parameters:
     ///   - loop: Desired number of loops. Default  is ``forever``.
@@ -65,6 +68,7 @@ public struct AnimatedOptions {
     ///   - cacheCrypto: Network data cache naming encryption method, Default is ``md5``.
     ///   - cacheDataZip: Network data compression or decompression method, this operation is done in the subthread. default ``gzip``.
     ///   - moduleName: Do the component operation to solve the problem that the local GIF cannot read the data in another module.
+    ///   - confirmSize: Confirm the size to facilitate follow-up processing.
     ///   - preparation: Ready to play time callback.
     ///   - animated: Be played GIF.
     public init(loop: Loop = .forever,
@@ -75,6 +79,7 @@ public struct AnimatedOptions {
                 cacheCrypto: Lemons.CryptoType = .md5,
                 cacheDataZip: ZipType = .gzip,
                 moduleName: String? = nil,
+                confirmSize: CGSize = .zero,
                 preparation: PreparationCallback? = nil,
                 animated: AnimatedCallback? = nil) {
         self.loop = loop
@@ -87,6 +92,7 @@ public struct AnimatedOptions {
         self.preparation = preparation
         self.animated = animated
         self.modularizationName_ = moduleName
+        self.confirmSize = confirmSize
     }
     
     internal var displayed: Bool = false // 防止重复设置占位信息

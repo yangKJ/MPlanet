@@ -7,6 +7,7 @@
 
 import Foundation
 import RxDataSources
+import FeatBox
 
 enum WalletSectionItem {
     case asset(item: WalletData)
@@ -53,6 +54,15 @@ extension WalletSection: SectionModelType {
             self = WalletSection.application(items: items)
         case .token:
             self = WalletSection.token(items: items)
+        }
+    }
+    
+    var headerHeight: CGFloat {
+        switch self {
+        case .asset, .application:
+            return 0.0
+        case .token(let items):
+            return items.isEmpty ? 0.0 : 60.0
         }
     }
 }

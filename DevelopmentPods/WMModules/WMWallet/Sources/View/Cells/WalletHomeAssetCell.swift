@@ -9,9 +9,7 @@ import UIKit
 import FeatBox
 
 /// 我的资产Item
-class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
-    
-    static let identifier = "WalletHomeAssetCell"
+class WalletHomeAssetCell: BaseTableViewCell, HasDisposeBag {
     
     var walletData: WalletData? {
         didSet {
@@ -70,19 +68,7 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
         return button
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
-        backgroundColor = UIColor.ai.background
-        setupConstraint()
-        setupBindings()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupConstraint() {
+    override func setupConstraint() {
         contentView.addSubview(backView)
         backView.addSubview(iconImageView)
         iconImageView.addSubview(myAssetTitleLabel)
@@ -117,10 +103,6 @@ class WalletHomeAssetCell: UITableViewCell, HasDisposeBag {
             make.width.equalTo(92)
             make.height.equalTo(29)
         }
-    }
-    
-    func setupBindings() {
-        
     }
 }
 

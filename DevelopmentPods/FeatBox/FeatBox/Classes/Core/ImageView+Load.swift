@@ -19,6 +19,7 @@ extension BoxWrapper where Base: ImageView {
     ///   - filters: 是否需要注入滤镜
     public func setImage(with named: String,
                          module: String,
+                         size: CGSize = .zero,
                          placeholder: Wintersweet.Placeholder = .none,
                          contentMode: Wintersweet.ContentMode = .scaleAspectFit,
                          filters: [C7FilterProtocol]? = nil) {
@@ -32,7 +33,8 @@ extension BoxWrapper where Base: ImageView {
                                                        cacheOption: .disk,
                                                        cacheCrypto: .sha1,
                                                        cacheDataZip: .gzip,
-                                                       moduleName: module)
+                                                       moduleName: module,
+                                                       confirmSize: size)
         base.mt.displayImage(named: named, filters: filters ?? [], options: options)
     }
     

@@ -9,9 +9,7 @@ import UIKit
 import FeatBox
 
 /// 代币列表Item
-class WalletHomeTokenCell: UITableViewCell {
-    
-    static let identifier = "WalletHomeTokenCell"
+class WalletHomeTokenCell: BaseTableViewCell {
     
     var tokenData: WalletTokenData? {
         didSet {
@@ -68,18 +66,7 @@ class WalletHomeTokenCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
-        backgroundColor = UIColor.ai.background
-        setupConstraint()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupConstraint() {
+    override func setupConstraint() {
         contentView.addSubview(backView)
         backView.addSubview(iconImageView)
         backView.addSubview(titleLabel)

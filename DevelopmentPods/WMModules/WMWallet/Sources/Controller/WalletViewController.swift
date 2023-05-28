@@ -7,58 +7,111 @@
 
 import UIKit
 import FeatBox
-import Rickenbacker
-import HBDNavigationBar
+import RxDataSources
 
-class WalletViewController: VMViewController<WalletViewModel> {
+class WalletViewController: BaseTableViewController<WalletViewModel>, NavigationBarHiddenable {
     
-    lazy var emptyView: WalletEmptyView = {
-        let view = WalletEmptyView.init(frame: .zero)
-        view.isHidden = true
+    let detailsEvent = PublishRelay<Void>()
+    
+    lazy var dataSource: RxTableViewSectionedReloadDataSource<WalletSection> = {
+        tableView.ai.register(WalletHomeAssetCell.self)
+        tableView.ai.register(WalletHomeApplicationCell.self)
+        tableView.ai.register(WalletHomeTokenCell.self)
+        return RxTableViewSectionedReloadDataSource(configureCell: { [weak self] (dataSource, tableView, indexPath, sectionItem) in
+            switch sectionItem {
+            case .asset(let item):
+                let cell = tableView.ai.dequeueReusableCell(WalletHomeAssetCell.self)
+                if let weakself = self {
+                    cell.disposeBag = DisposeBag() // 解决Cell重用导致订阅取消或者多次订阅问题
+                    cell.rx.tapDetails.bind(to: weakself.detailsEvent).disposed(by: cell.disposeBag)
+                }
+                cell.walletData = item
+                return cell
+            case .application(let item):
+                let cell = tableView.ai.dequeueReusableCell(WalletHomeApplicationCell.self)
+                cell.applicationDatas = item
+                return cell
+            case .token(let item):
+                let cell = tableView.ai.dequeueReusableCell(WalletHomeTokenCell.self)
+                cell.tokenData = item
+                return cell
+            }
+        })
+    }()
+    
+    lazy var topNavigationBarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.ai.mainColor
         return view
     }()
     
-    lazy var homeView: WalletHomeView = {
-        let view = WalletHomeView.init(frame: .zero)
+    lazy var tokenHeaderView = WalletHomeTokenHeaderView()
+    
+    lazy var emptyView: UIView = {
+        let view = UIView.init(frame: .zero)
         view.isHidden = true
+        view.backgroundColor = UIColor.ai.mainColor.withAlphaComponent(0.3)
         return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initUI()
-        self.setupConstraint()
-        self.bindViewModel()
+        self.setupSubviews()
+        self.setupViewModel()
+        self.setupBindings()
     }
     
-    func initUI() {
-        self.hbd_barHidden = true
-        self.hbd_blackBarStyle = true
-        self.navigationItem.leftBarButtonItem = nil
-        self.view.backgroundColor = UIColor.ai.background
-    }
-    
-    func setupConstraint() {
-        view.addSubview(emptyView)
-        view.addSubview(homeView)
+    func setupSubviews() {
+        self.view.addSubview(emptyView)
+        self.view.addSubview(topNavigationBarView)
         emptyView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        homeView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        topNavigationBarView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(88)
+        }
+        tableView.snp.remakeConstraints { make in
+            make.top.equalTo(topNavigationBarView.snp.bottom)
+            make.bottom.equalTo(self.view.snp.bottomMargin)
+            make.leading.trailing.equalToSuperview()
         }
     }
     
-    func bindViewModel() {
+    func setupViewModel() {
         let input = WalletViewModel.Input()
         let output = viewModel.transform(input: input)
         
-        output.displayHomeView.drive(homeView.rx.isHidden).disposed(by: disposeBag)
+        output.displayHomeView.drive(tableView.rx.isHidden).disposed(by: disposeBag)
+        output.displayHomeView.drive(topNavigationBarView.rx.isHidden).disposed(by: disposeBag)
         output.displayEmptyView.drive(emptyView.rx.isHidden).disposed(by: disposeBag)
-        output.sections.bind(to: homeView.tableView.rx.items(dataSource: homeView.dataSource)).disposed(by: disposeBag)
-        
-        homeView.detailsEvent.subscribe(onNext: {
+        output.sections.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
+    }
+    
+    func setupBindings() {
+        // 点击事件
+        detailsEvent.subscribe(onNext: {
             print("xxsdsd")
         }).disposed(by: disposeBag)
+    }
+}
+
+extension WalletViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return dataSource[indexPath].itemHeight
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return dataSource[section].headerHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch dataSource[section] {
+        case .asset, .application:
+            return nil
+        case .token:
+            return tokenHeaderView
+        }
     }
 }
