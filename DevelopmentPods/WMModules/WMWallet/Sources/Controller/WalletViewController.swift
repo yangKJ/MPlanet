@@ -14,10 +14,7 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
     let detailsEvent = PublishRelay<Void>()
     
     lazy var dataSource: RxTableViewSectionedReloadDataSource<WalletSection> = {
-        tableView.ai.register(WalletHomeAssetCell.self)
-        tableView.ai.register(WalletHomeApplicationCell.self)
-        tableView.ai.register(WalletHomeTokenCell.self)
-        return RxTableViewSectionedReloadDataSource(configureCell: { [weak self] (dataSource, tableView, indexPath, sectionItem) in
+        return RxTableViewSectionedReloadDataSource(configureCell: { [weak self] (ds, tableView, indexPath, sectionItem) in
             switch sectionItem {
             case .asset(let item):
                 let cell = tableView.ai.dequeueReusableCell(WalletHomeAssetCell.self)
@@ -61,6 +58,14 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
         self.setupBindings()
     }
     
+    override func registerTableViewCell() -> [BaseTableViewCell.Type] {
+        return [
+            WalletHomeAssetCell.self,
+            WalletHomeApplicationCell.self,
+            WalletHomeTokenCell.self
+        ]
+    }
+    
     func setupSubviews() {
         self.view.addSubview(emptyView)
         self.view.addSubview(topNavigationBarView)
@@ -85,7 +90,10 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
         output.displayHomeView.drive(tableView.rx.isHidden).disposed(by: disposeBag)
         output.displayHomeView.drive(topNavigationBarView.rx.isHidden).disposed(by: disposeBag)
         output.displayEmptyView.drive(emptyView.rx.isHidden).disposed(by: disposeBag)
-        output.sections.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
+        
+        output.sections
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
     }
     
     func setupBindings() {

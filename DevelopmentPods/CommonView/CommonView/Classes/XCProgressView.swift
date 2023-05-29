@@ -7,7 +7,6 @@
 
 import Foundation
 import SnapKit
-import Extensions
 
 /// 进度控件
 open class XCProgressView: UIView {
@@ -49,7 +48,7 @@ open class XCProgressView: UIView {
         }
     }
     
-    public var backgroundViewColor: UIColor = UIColor(hex: "EEEEEE") {
+    public var backgroundViewColor: UIColor = UIColor.white {
         didSet {
             backgroundView.backgroundColor = backgroundViewColor
         }

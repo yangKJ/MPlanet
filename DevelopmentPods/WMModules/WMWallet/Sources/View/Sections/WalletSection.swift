@@ -17,7 +17,7 @@ enum WalletSectionItem {
     var itemHeight: CGFloat {
         switch self {
         case .asset(let item):
-            return 240
+            return UITableView.automaticDimension
         case .application(let item):
             return 120
         case .token(let item):

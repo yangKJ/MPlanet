@@ -32,54 +32,14 @@ public enum AssetType: String, Hashable, Sendable {
 }
 
 extension AssetType {
-    
     /// Determines a type of the image based on the given data.
     public init(data: Data?) {
-        if let data = data {
-            self = AssetType.make(data: data)
-        } else {
+        guard let data = data else {
             self = .unknow
+            return
         }
+        self = AssetType.make(data: data)
     }
-    
-    /// Synchronize obtain the current link type.
-    /// Tips: this operation will jam the current thread.
-    public init(url: URL) {
-        let data = try? Data.init(contentsOf: url)
-        self = AssetType.init(data: data)
-    }
-    
-    public static func synchronizeAssetType(with url: URL) throws -> (type: AssetType, data: Data) {
-        do {
-            let data = try Data.init(contentsOf: url)
-            return (AssetType.init(data: data), data)
-        } catch {
-            throw error
-        }
-    }
-    
-    public typealias AssetTypeComplete = (_ type: AssetType, _ data: Data?) -> Void
-    
-    /// Asynchronously obtain the current link asset type and Data.
-    /// - Parameters:
-    ///   - url: Link url.
-    ///   - complete: Result callback.
-    public static func asyncAssetType(with url: URL, complete: @escaping AssetTypeComplete) {
-        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-            switch (data, error) {
-            case (.none, let error):
-                complete(.unknow, nil)
-            case (let data?, _):
-                DispatchQueue.main.async {
-                    complete(AssetType(data: data), data)
-                }
-            }
-        }
-        task.resume()
-    }
-}
-
-extension AssetType {
     
     public var isVideo: Bool {
         self == .mp4 || self == .m4v || self == .mov

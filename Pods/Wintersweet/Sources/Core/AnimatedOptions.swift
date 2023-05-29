@@ -9,18 +9,13 @@ import Foundation
 @_exported import Harbeth
 @_exported import Lemons
 
-public typealias PreparationCallback = (() -> Void)
-public typealias AnimatedCallback = ((_ loopDuration: TimeInterval) -> Void)
 public typealias FailedCallback = ((_ error: Error?) -> Void)
 
 /// Other parameters related to GIF playback.
 /// Represents gif playback creating options used in Wintersweet.
 public struct AnimatedOptions {
     
-    public static let `default` = AnimatedOptions()
-    
-    public let preparation: PreparationCallback?
-    public let animated: AnimatedCallback?
+    public static var `default` = AnimatedOptions()
     
     /// Desired number of loops. Default  is ``forever``.
     public let loop: Wintersweet.Loop
@@ -55,7 +50,7 @@ public struct AnimatedOptions {
     }
     private let modularizationName_: String?
     
-    /// Confirm the size to facilitate follow-up processing.
+    /// Confirm the size to facilitate follow-up processing, Default display control size.
     public let confirmSize: CGSize
     
     /// Instantiation of GIF configuration parameters.
@@ -68,9 +63,7 @@ public struct AnimatedOptions {
     ///   - cacheCrypto: Network data cache naming encryption method, Default is ``md5``.
     ///   - cacheDataZip: Network data compression or decompression method, this operation is done in the subthread. default ``gzip``.
     ///   - moduleName: Do the component operation to solve the problem that the local GIF cannot read the data in another module.
-    ///   - confirmSize: Confirm the size to facilitate follow-up processing.
-    ///   - preparation: Ready to play time callback.
-    ///   - animated: Be played GIF.
+    ///   - confirmSize: Confirm the size to facilitate follow-up processing, Default display control size.
     public init(loop: Loop = .forever,
                 placeholder: Placeholder = .none,
                 contentMode: ContentMode = .original,
@@ -79,9 +72,7 @@ public struct AnimatedOptions {
                 cacheCrypto: Lemons.CryptoType = .md5,
                 cacheDataZip: ZipType = .gzip,
                 moduleName: String? = nil,
-                confirmSize: CGSize = .zero,
-                preparation: PreparationCallback? = nil,
-                animated: AnimatedCallback? = nil) {
+                confirmSize: CGSize = .zero) {
         self.loop = loop
         self.contentMode = contentMode
         self.bufferCount = bufferCount
@@ -89,10 +80,22 @@ public struct AnimatedOptions {
         self.cacheCrypto = cacheCrypto
         self.cacheDataZip = cacheDataZip
         self.placeholder = placeholder
-        self.preparation = preparation
-        self.animated = animated
         self.modularizationName_ = moduleName
         self.confirmSize = confirmSize
+    }
+    
+    internal var preparation: (() -> Void)?
+    /// Ready to play time callback.
+    /// - Parameter block: Prepare to play the callback.
+    public mutating func setPreparationBlock(block: @escaping (() -> Void)) {
+        self.preparation = block
+    }
+    
+    internal var animated: ((_ loopDuration: TimeInterval) -> Void)?
+    /// GIF animation playback completed.
+    /// - Parameter block: Complete the callback.
+    public mutating func setAnimatedBlock(block: @escaping ((_ loopDuration: TimeInterval) -> Void)) {
+        self.animated = block
     }
     
     internal var displayed: Bool = false // 防止重复设置占位信息

@@ -18,14 +18,6 @@ class WalletHomeAssetCell: BaseTableViewCell, HasDisposeBag {
         }
     }
     
-    lazy var backView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.ai.background
-        view.layer.cornerRadius = 25
-        view.isUserInteractionEnabled = true
-        return view
-    }()
-    
     lazy var iconImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor.ai.blue
@@ -69,21 +61,16 @@ class WalletHomeAssetCell: BaseTableViewCell, HasDisposeBag {
     }()
     
     override func setupConstraint() {
-        contentView.addSubview(backView)
-        backView.addSubview(iconImageView)
+        contentView.addSubview(iconImageView)
         iconImageView.addSubview(myAssetTitleLabel)
         iconImageView.addSubview(assetLabel)
         iconImageView.addSubview(eyeButton)
         iconImageView.addSubview(detailsButton)
-        backView.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(contentView).inset(16)
-            make.top.equalTo(contentView)
-            make.bottom.equalTo(contentView).offset(-12)
-        }
         iconImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(10)
+            make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(140)
+            make.bottom.equalToSuperview().offset(-10)
         }
         myAssetTitleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(25)

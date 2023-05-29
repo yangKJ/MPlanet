@@ -15,7 +15,7 @@ final class Animator {
     /// A delegate responsible for displaying the GIF frames.
     weak var delegate: AsAnimatable!
     
-    var animationBlock: AnimatedCallback?
+    var animationBlock: ((_ loopDuration: TimeInterval) -> Void)?
     
     /// Responsible for loading individual frames and resizing them if necessary.
     var frameStore: FrameStore?

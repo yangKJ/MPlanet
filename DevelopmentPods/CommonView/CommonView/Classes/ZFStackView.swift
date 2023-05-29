@@ -7,7 +7,6 @@
 
 import Foundation
 import SnapKit
-import Contacts
 
 /// 堆栈视图
 open class ZFStackView: UIView {
@@ -88,13 +87,13 @@ open class ZFStackView: UIView {
             return
         }
         var currentIndex = max(0, min(startIndex, self.views.count))
-        if let previousView = self.views[safe: currentIndex-1] {
+        if let previousView = self.view(with: currentIndex-1) {
             self.removeConstraintsExceptWithAndHeight(view: previousView)
             self.setConstrsetConstraintHead(view: previousView)
             self.setAlignConstraint(view: previousView)
         }
         views.enumerated().forEach { (offset, element) in
-            if currentIndex > 0, let aboveView = self.views[safe: currentIndex-1] {
+            if currentIndex > 0, let aboveView = self.view(with: currentIndex-1) {
                 self.insertSubview(element, aboveSubview: aboveView)
             } else {
                 self.addSubview(element)
@@ -104,7 +103,7 @@ open class ZFStackView: UIView {
             self.setAlignConstraint(view: element)
             currentIndex += 1
         }
-        if let nextView = self.views[safe: currentIndex] {
+        if let nextView = self.view(with: currentIndex) {
             self.setConstrsetConstraintHead(view: nextView)
         }
         if currentIndex == self.views.count {
@@ -114,15 +113,15 @@ open class ZFStackView: UIView {
     
     @discardableResult
     public func delete(at index: Int) -> UIView? {
-        guard let view = self.views[safe: index] else {
+        guard let view = self.view(with: index) else {
             return nil
         }
         self.removeConstraintsExceptWithAndHeight(view: view)
         view.removeFromSuperview()
         self.views.remove(at: index)
-        if let nextView = self.views[safe: index] {
+        if let nextView = self.view(with: index) {
             self.setConstrsetConstraintHead(view: nextView)
-        } else if self.views[safe: index-1] != nil {
+        } else if let _ = self.view(with: index-1) {
             self.setConstraintLastViewLastTail()
         }
         return view
@@ -130,6 +129,13 @@ open class ZFStackView: UIView {
 }
 
 extension ZFStackView {
+    private func view(with index: Int) -> UIView? {
+        guard self.views.indices.contains(index) else {
+            return nil
+        }
+        return self.views[index]
+    }
+    
     private func setConstrsetConstraintHead(view: UIView) {
         guard let index = self.views.firstIndex(of: view) else {
             return

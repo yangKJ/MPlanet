@@ -21,9 +21,6 @@
   "requires_arc": true,
   "static_framework": true,
   "dependencies": {
-    "Extensions": [
-
-    ],
     "RxCocoa": [
 
     ],

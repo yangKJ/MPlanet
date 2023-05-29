@@ -29,7 +29,6 @@ extension UIImage {
 }
 
 extension BoxWrapper where Base: UIImage {
-    
     /// 类似Android中的setColorFilter，可以给图片换颜色。
     /// UI给了一张绿色的图，实际效果却是红色，这时候要么重新换一张红色的图，要么就可以使用这个方法。
     ///
@@ -56,26 +55,43 @@ extension BoxWrapper where Base: UIImage {
         return image
     }
     
-    /// 白色背景透明化
+    /// 白色背景透明化，色值在[222...255]之间均可祛除
+    /// The white background is transparent, and the color value can be removed between [222...255].
     public func imageByMakingWhiteBackgroundTransparent() -> UIImage? {
+        // RGB color range to mask (make transparent) R-Low, R-High, G-Low, G-High, B-Low, B-High
+        let colorMasking: [CGFloat] = [222, 255, 222, 255, 222, 255]
+        return transparentColor(colorMasking: colorMasking)
+    }
+    
+    /// 黑色背景透明化，色值在[0...32]之间均可祛除
+    public func imageByRemoveBlackBg() -> UIImage? {
+        let colorMasking: [CGFloat] = [0, 32, 0, 32, 0, 32]
+        return transparentColor(colorMasking: colorMasking)
+    }
+    
+    /// Transparent background.
+    /// - Parameter colorMasking: RGB color range to mask [R-Low, R-High, G-Low, G-High, B-Low, B-High]
+    /// - Returns: Remove the picture of the background.
+    public func transparentColor(colorMasking: [CGFloat]) -> UIImage? {
         guard let data = base.jpegData(compressionQuality: 1.0), let image = UIImage(data: data) else {
             return nil
         }
-        // RGB color range to mask (make transparent)  R-Low, R-High, G-Low, G-High, B-Low, B-High
-        let colorMasking: [CGFloat] = [222, 255, 222, 255, 222, 255]
         UIGraphicsBeginImageContext(image.size)
         guard let maskedImageRef = image.cgImage?.copy(maskingColorComponents: colorMasking) else {
             return nil
         }
-        let context = UIGraphicsGetCurrentContext()
-        context?.translateBy(x: 0.0, y: image.size.height)
-        context?.scaleBy(x: 1.0, y: -1.0)
-        context?.draw(maskedImageRef, in: CGRect(origin: .zero, size: image.size))
+        let rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        UIGraphicsGetCurrentContext()?.translateBy(x: 0.0, y: image.size.height)
+        UIGraphicsGetCurrentContext()?.scaleBy(x: 1.0, y: -1.0)
+        UIGraphicsGetCurrentContext()?.draw(maskedImageRef, in: rect)
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return result
     }
-    
+}
+
+// MARK: - edit image
+extension BoxWrapper where Base: UIImage {
     /// 将图片裁剪成指定比例（多余部分自动删除）
     /// - Parameter ratio: 裁剪比例
     /// - Returns: 裁剪过后的图片

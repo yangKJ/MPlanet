@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 open class AVSignatureView: UIView {
     
@@ -92,8 +93,8 @@ open class AVSignatureView: UIView {
         self.setNeedsDisplay()
     }
     
-    public func saveSignToImage() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
+    public func saveSignToImage(scale: CGFloat = UIScreen.main.scale) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, scale)
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil
         }

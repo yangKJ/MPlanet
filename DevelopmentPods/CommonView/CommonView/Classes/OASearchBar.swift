@@ -9,7 +9,6 @@ import Foundation
 import SnapKit
 import RxSwift
 import RxCocoa
-import Contacts
 
 /// 搜索控件
 open class OASearchBar: UIView {
@@ -59,7 +58,7 @@ open class OASearchBar: UIView {
         }
     }
     
-    public var placeholderColor: UIColor = UIColor(hex: "CCCCCC") {
+    public var placeholderColor: UIColor = UIColor.init(red: 204, green: 204, blue: 204, alpha: 1) {
         didSet {
             refresh()
         }
@@ -129,7 +128,7 @@ extension OASearchBar {
 extension OASearchBar {
     
     private func setup() {
-        backgroundColor = UIColor(hex: "F7F7F7")
+        backgroundColor = UIColor.init(red: 247, green: 247, blue: 247, alpha: 1)
         addSubview(leftIconView)
         addSubview(rightIconView)
         addSubview(textField)
@@ -138,7 +137,7 @@ extension OASearchBar {
         leftIconView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(leftIconTap)))
         rightIconView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(rightIconTap)))
         textField.font = UIFont.systemFont(ofSize: 15)
-        textField.textColor = UIColor(hex: "666666")
+        textField.textColor = UIColor.init(red: 102, green: 102, blue: 102, alpha: 1)
         textField.returnKeyType = .search
         refresh()
     }

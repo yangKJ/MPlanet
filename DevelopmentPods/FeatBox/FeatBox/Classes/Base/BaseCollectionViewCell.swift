@@ -18,7 +18,10 @@ open class BaseCollectionViewCell: UICollectionViewCell, Identifierable {
     }
     
     public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        backgroundColor = UIColor.ai.background
+        self.setupConstraint()
+        self.setupBindings()
     }
     
     // MARK: - 子类实现

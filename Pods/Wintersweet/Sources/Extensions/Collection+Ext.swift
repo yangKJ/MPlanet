@@ -15,7 +15,7 @@ extension Collection {
     ///        arr[safe: 10] -> nil
     ///
     /// - Parameter index: index of element to access element.
-    subscript(safe index: Index) -> Element? {
+    public subscript(safe index: Index) -> Element? {
         //return indices ~= index ? self[index] : nil
         return indices.contains(index) ? self[index] : nil
     }
@@ -28,5 +28,28 @@ extension Collection {
             return element
         }
         return nil
+    }
+    
+    /// Find the first element and index that meets a specific condition in a array.
+    /// - Parameter predicate: Find the conditions.
+    /// - Returns: Finded element and index.
+    public func find(where predicate: (Element) -> Bool) -> (Element?, index: Int) {
+        for (index, element) in enumerated() where predicate(element) {
+            return (element, index)
+        }
+        return (nil, 0)
+    }
+    
+    /// Find the all element and index that meets a specific condition in a array.
+    /// - Parameter predicate: Find the conditions.
+    /// - Returns: Finded elements and indexs.
+    public func findAll(where predicate: (Element) -> Bool) -> ([Element], [Int]) {
+        var elements = [Element]()
+        var indexs = [Int]()
+        for (index, element) in enumerated() where predicate(element) {
+            indexs.append(index)
+            elements.append(element)
+        }
+        return (elements, indexs)
     }
 }

@@ -1,21 +1,14 @@
 //
-//  WalletHomeApplicationCell.swift
-//  WMWallet
+//  BannerDetailTopListCell.swift
+//  WMDiscover
 //
-//  Created by Condy on 2021/1/19.
+//  Created by Condy on 2023/5/29.
 //
 
-import UIKit
+import Foundation
 import FeatBox
 
-/// 小工具应用Item
-class WalletHomeApplicationCell: BaseTableViewCell {
-    
-    var applicationDatas: [WalletApplicationData]? {
-        didSet {
-            
-        }
-    }
+class BannerDetailTopListCell: BaseTableViewCell {
     
     lazy var backView: UIView = {
         let view = UIView()

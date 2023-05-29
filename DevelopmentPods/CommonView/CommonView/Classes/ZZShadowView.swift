@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// 阴影视图控件
 open class ZZShadowView: UIView {

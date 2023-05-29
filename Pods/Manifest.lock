@@ -11,11 +11,9 @@ PODS:
     - Mediator
   - CommonView (0.0.1):
     - CommonView/Resources (= 0.0.1)
-    - Extensions
     - RxCocoa
     - SnapKit
   - CommonView/Resources (0.0.1):
-    - Extensions
     - RxCocoa
     - SnapKit
   - Database (0.0.4):
@@ -140,7 +138,7 @@ PODS:
     - SQLiteRepairKit (~> 1.3.0)
     - WCDBOptimizedSQLCipher (~> 1.3.0)
   - WCDBOptimizedSQLCipher (1.3.0)
-  - Wintersweet (0.0.8):
+  - Wintersweet (0.0.9):
     - Harbeth
     - Lemons
   - WMDiscover (1.0.0):
@@ -319,7 +317,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   AppMain: f0715ecc85c02f4e7323a947db5ba2a1c0e89f3f
-  CommonView: f6c4cebc2ce3284f066128eb4ac4c01d1279d4e2
+  CommonView: 030c7044cf6fdd383082845bf8eca0996fc132c2
   Database: bdb5b62e8d3aae26b5a367ebcd2809d1d57f9989
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
@@ -347,7 +345,7 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   WCDB.swift: 39e28fe29b5a3bf2927d9fb9218978f19bd49ff0
   WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
-  Wintersweet: 03c79dd8775c974823b65809e98c4c9ee37ed578
+  Wintersweet: 74c40c9d39dadbc1ecb0df8dc532f452905426cb
   WMDiscover: 2faeb17b83c94c77d0c4dd517fc38d7b9ed88fcc
   WMMine: d1a02b5ef8ce995428da0386f90919c918155972
   WMWallet: 0c98cf5241fa15ab2151887780d8abbae110783a
@@ -355,4 +353,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 7723478e033c6b9049dd17d94a851ca39c2595d6
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.11.3
