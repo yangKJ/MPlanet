@@ -61,7 +61,9 @@ class MineViewController: VMTableViewController<MineViewModel> {
         .disposed(by: disposeBag)
         
         viewModel.isEmptyData.subscribe { (empty) in
-            print("没有数据呢！！！")
+            if empty {
+                print("没有数据呢！！！")
+            }
         }.disposed(by: disposeBag)
         
         if let header = tableView.mj_header {

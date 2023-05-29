@@ -18,7 +18,7 @@ class WalletViewModel: BaseViewModel, ViewModelType, ViewModelHeaderable {
         let displayHomeView: Driver<Bool>
     }
     
-    func transform(input: WalletViewModel.Input) -> WalletViewModel.Output {
+    func transform(input: Input) -> Output {
         let wallet = input.queryWalletDatabase()
         
         let displeyEmptyView = wallet.map { $0 != nil }.asDriver(onErrorJustReturn: true)

@@ -8,19 +8,15 @@
 import Foundation
 import FeatBox
 
-class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>, NavigationBarHiddenable {
+class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel> {
     
     public var list: [Banner] = []
-    public var selectIndex: Int = 0
-    
-    private lazy var topNavigationBarView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.ai.mainColor
-        return view
-    }()
+    public var index: Int = 0
+    public var banner: Banner?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupInit()
         self.setupSubviews()
         self.setupViewModel()
         self.setupBindings()
@@ -30,21 +26,16 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
         return [BannerDetailTopListCell.self]
     }
     
+    func setupInit() {
+        self.title = self.banner?.title
+    }
+    
     func setupSubviews() {
-        self.view.addSubview(topNavigationBarView)
-        topNavigationBarView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(88)
-        }
-        tableView.snp.remakeConstraints { make in
-            make.top.equalTo(topNavigationBarView.snp.bottom)
-            make.bottom.equalTo(self.view.snp.bottomMargin)
-            make.leading.trailing.equalToSuperview()
-        }
+        
     }
     
     func setupViewModel() {
-        let input = BannerDetailViewModel.Input(banners: list)
+        let input = BannerDetailViewModel.Input(banners: list, index: index)
         let output = viewModel.transform(input: input)
         
 //        output.sections

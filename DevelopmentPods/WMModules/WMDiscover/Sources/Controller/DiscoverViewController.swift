@@ -24,11 +24,6 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
         }
     }
     
-    private lazy var resetBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem.init(title: "test", style: .plain, target: nil, action: nil)
-        return barButton
-    }()
-    
     private lazy var pagerView: FSPagerView = {
         let pagerView = FSPagerView(frame: .zero)
         pagerView.backgroundColor = UIColor.ai.mainColor
@@ -62,7 +57,6 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
     func setupInit() {
         self.title = R.text("首页")
         self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = resetBarButton
     }
     
     func setupUI() {
@@ -113,10 +107,10 @@ extension DiscoverViewController: FSPagerViewDelegate {
     
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
         pagerView.deselectItem(at: index, animated: false)
-        let item = itmes[index]
         let vc = BannerDetailViewController()
         vc.list = itmes
-        vc.selectIndex = index
+        vc.index = index
+        vc.banner = itmes[safe: index]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
