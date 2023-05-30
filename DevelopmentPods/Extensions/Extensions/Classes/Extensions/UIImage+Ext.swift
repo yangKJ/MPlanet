@@ -88,6 +88,24 @@ extension BoxWrapper where Base: UIImage {
         UIGraphicsEndImageContext()
         return result
     }
+    
+    public func rotation() -> UIImage {
+        guard let maskedImageRef = base.cgImage else {
+            return base
+        }
+        let rect = CGRectMake(0, 0, base.size.width , base.size.height)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, base.scale)
+        let currentContext = UIGraphicsGetCurrentContext()
+        currentContext?.clip(to: rect)
+        currentContext?.rotate(by: (CGFloat.pi / 2))
+        currentContext?.translateBy(x: -rect.size.width, y: -rect.size.height);
+        currentContext?.draw(maskedImageRef, in: rect)
+        let drawImage = UIGraphicsGetImageFromCurrentImageContext()
+        guard let drawCGImage = drawImage?.cgImage else {
+            return base
+        }
+        return UIImage(cgImage: drawCGImage, scale: base.scale, orientation: base.imageOrientation)
+    }
 }
 
 // MARK: - edit image

@@ -15,33 +15,18 @@ extension Array {
         return self[Index(arc4random_uniform(UInt32(count)))]
     }
     
-    /// 测试序列中是不是所有元素都满足某个标准
-    public func all(matching predicate: (Element) throws -> Bool) rethrows -> Bool {
-        // 对于一个条件，如果没有元素不满足它的话，那意味着所有元素都满足它：
-        return try !contains { try !predicate($0) }
-    }
-    
-    /// 测试序列中是不是没有任何元素满足某个标准
-    public func none(matching predicate: (Element) throws -> Bool) rethrows -> Bool {
-        return try !contains { try predicate($0) }
-    }
-    
-    /// 计算满足条件的元素的个数，和 filter 相似，但是不会构建数组
-    public func count(where predicate: (Element) throws -> Bool) rethrows -> Int {
-        var count = 0
-        for element in self where try predicate(element) {
-            count += 1
+    /// 移动索引元素
+    public mutating func move(_ index: Int, toIndex: Int? = nil) {
+        guard self.indices.contains(index) else {
+            return
         }
-        return count;
-    }
-    
-    /// 返回一个包含满足某个标准的所有元素的索引的列表，和 index(where:) 类似，但是不会在遇到首个元素时就停止
-    public func indices(where predicate: (Element) throws -> Bool) rethrows -> [Int] {
-        var indices = [Int]()
-        for (index, element) in enumerated() where try predicate(element) {
-            indices.append(index)
+        let element = self[index]
+        remove(at: index)
+        if let toIndex = toIndex, toIndex < self.count - 1 {
+            insert(element, at: toIndex)
+        } else {
+            append(element)
         }
-        return indices
     }
     
     /// 在一个逆序数组中寻找第一个满足特定条件的元素
@@ -61,7 +46,7 @@ extension Array {
     }
     
     /// 筛选出第一个指定数据
-    public func boltingFristObject(where predicate: (Element) throws -> Bool) rethrows -> (Element?, index: Int) {
+    public func frist(where predicate: (Element) throws -> Bool) rethrows -> (Element?, index: Int) {
         for (index, element) in enumerated() where try predicate(element) {
             return (element, index)
         }
@@ -69,6 +54,11 @@ extension Array {
     }
     
     /// 替换数据，有则替换，无则插入在最后
+    /// - Parameters:
+    ///   - predicate: 筛选条件
+    ///   - object: 待替换对象
+    ///   - replaceAll: 是否替换全部
+    /// - Returns: 替换之后的数组
     public func replace(where predicate: (Element) -> Bool, with object: Element, replaceAll: Bool = false) -> [Element] {
         var array = self
         var isInsert = true
@@ -86,5 +76,28 @@ extension Array {
             array.append(object)
         }
         return array
+    }
+}
+
+extension Array where Element: Equatable {
+    
+    public mutating func removeFirst(_ element: Element) {
+        if let index = firstIndex(of: element) {
+            remove(at: index)
+        }
+    }
+    
+    public mutating func removeLast(_ element: Element) {
+        if let index = lastIndex(of: element) {
+            remove(at: index)
+        }
+    }
+}
+
+extension Array where Element: Hashable {
+    
+    /// 去重复
+    public var unique: [Element] {
+        return Array(Set(self))
     }
 }

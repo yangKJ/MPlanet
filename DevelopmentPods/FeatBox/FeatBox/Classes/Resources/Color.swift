@@ -90,4 +90,21 @@ public extension BoxWrapper where Base: UIColor {
     static var gray_999999: UIColor {
         UIColor(hex: "#999999")
     }
+    
+    /// 青蓝
+    static var lightBlue: UIColor {
+        UIColor(hex: "#29B5FE")
+    }
+    /// 亮橙
+    static var lightOrange: UIColor {
+        UIColor(hex: "#FFBB50")
+    }
+    /// 浅绿
+    static var lightGreen: UIColor {
+        UIColor(hex: "#1AC756")
+    }
+    /// 浅红
+    static var lightRed: UIColor {
+        UIColor(hex: "#FA6D5B")
+    }
 }

@@ -54,7 +54,7 @@ extension MournAppDelegate {
                 keyWindow?.addSubview(overlay)
             }
         }
-        if UserDefaults.shared.mourning {
+        if UserSettings.shared.mourning {
             display()
         }
     }
@@ -65,7 +65,7 @@ extension MournAppDelegate {
                 view.isHidden = true
             }
         }
-        if UserDefaults.shared.mourning == false {
+        if UserSettings.shared.mourning == false {
             close()
         }
     }
@@ -80,7 +80,7 @@ extension MournAppDelegate {
                 alert?.addSubview(alertOverlay)
             }
         }
-        if UserDefaults.shared.mourning {
+        if UserSettings.shared.mourning {
             display()
         }
     }
