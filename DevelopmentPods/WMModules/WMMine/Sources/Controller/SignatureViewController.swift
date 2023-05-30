@@ -170,7 +170,9 @@ class SignatureViewController: BaseViewController<SignatureViewModel>, Navigatio
                     self?.agreeBlock?(userSignInfo)
                     self?.backAction()
                 }, onError: {
-                    self.view.ai.showHUD(title: $0.localizedDescription)
+                    self.view.ai.showHUD(title: $0.localizedDescription) { alert in
+                        alert?.ai.rotation90()
+                    }
                 }).disposed(by: rx.disposeBag)
         } else {
             self.view.ai.showHUD(title: R.text("您未签署您的姓名，请签署后提交"), alertCallback: { alert in

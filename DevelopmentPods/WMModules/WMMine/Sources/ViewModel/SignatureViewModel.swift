@@ -24,11 +24,10 @@ extension SignatureViewModel {
     // 截图扣除字体以外部分
     private func screenshotAndMatting(_ signatureView: AVSignatureView) -> Observable<UIImage?> {
         guard let image = signatureView.saveSignToImage(),
-              let img = image.ai.imageByMakingWhiteBackgroundTransparent(),
-              let cgImage = img.cgImage else {
+              let img = image.ai.imageByMakingWhiteBackgroundTransparent() else {
             return Observable.of(nil)
         }
-        let rotatedImage = UIImage.init(cgImage: cgImage, scale: image.scale, orientation: .left)
+        let rotatedImage = img.ai.rotate(degrees: -90)
         return Observable.of(rotatedImage)
     }
     

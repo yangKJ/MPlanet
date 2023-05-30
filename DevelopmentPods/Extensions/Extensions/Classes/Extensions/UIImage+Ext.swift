@@ -81,30 +81,39 @@ extension BoxWrapper where Base: UIImage {
             return nil
         }
         let rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        UIGraphicsGetCurrentContext()?.translateBy(x: 0.0, y: image.size.height)
-        UIGraphicsGetCurrentContext()?.scaleBy(x: 1.0, y: -1.0)
-        UIGraphicsGetCurrentContext()?.draw(maskedImageRef, in: rect)
+        let context = UIGraphicsGetCurrentContext()
+        context?.translateBy(x: 0.0, y: image.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        context?.draw(maskedImageRef, in: rect)
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return result
     }
     
-    public func rotation() -> UIImage {
-        guard let maskedImageRef = base.cgImage else {
-            return base
-        }
-        let rect = CGRectMake(0, 0, base.size.width , base.size.height)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, base.scale)
-        let currentContext = UIGraphicsGetCurrentContext()
-        currentContext?.clip(to: rect)
-        currentContext?.rotate(by: (CGFloat.pi / 2))
-        currentContext?.translateBy(x: -rect.size.width, y: -rect.size.height);
-        currentContext?.draw(maskedImageRef, in: rect)
-        let drawImage = UIGraphicsGetImageFromCurrentImageContext()
-        guard let drawCGImage = drawImage?.cgImage else {
-            return base
-        }
-        return UIImage(cgImage: drawCGImage, scale: base.scale, orientation: base.imageOrientation)
+    /// 旋转图片
+    /// Fixed `UIImage(cgImage:scale:orientation:)` 在绘制过bitmap之后失效问题
+    /// - Parameter degrees: Rotation angle.
+    /// - Returns: The picture after rotation.
+    public func rotate(degrees: Float) -> UIImage {
+        let radians = CGFloat(degrees) / 180.0 * CGFloat.pi
+        let width  = base.size.width
+        let height = base.size.height
+        var newSize = CGRect(origin: CGPoint.zero, size: base.size)
+            .applying(CGAffineTransform(rotationAngle: radians)).size
+        // Trim off the extremely small float value to prevent core graphics from rounding it up
+        newSize.width = floor(newSize.width)
+        newSize.height = floor(newSize.height)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, base.scale)
+        let context = UIGraphicsGetCurrentContext()
+        // Move origin to middle
+        context?.translateBy(x: newSize.width/2, y: newSize.height/2)
+        // Rotate around middle
+        context?.rotate(by: radians)
+        // Draw the image at its center
+        base.draw(in: CGRect(x: -width/2, y: -height/2, width: width, height: height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage ?? base
     }
 }
 
