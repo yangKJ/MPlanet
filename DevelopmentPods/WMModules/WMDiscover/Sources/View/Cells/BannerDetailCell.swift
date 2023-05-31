@@ -10,6 +10,8 @@ import FeatBox
 
 class BannerDetailCell: BaseTableViewCell {
     
+    let detail = BehaviorRelay<BannerDetail?>(value: nil)
+    
     lazy var backView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.ai.mainColor
@@ -24,7 +26,13 @@ class BannerDetailCell: BaseTableViewCell {
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().offset(-12)
-            make.height.equalTo(400)
+            make.height.equalTo(1000)
         }
+    }
+    
+    override func setupBindings() {
+        detail.subscribe(onNext: { [weak self] in
+            self?.backView.backgroundColor = $0?.background
+        }).disposed(by: rx.disposeBag)
     }
 }

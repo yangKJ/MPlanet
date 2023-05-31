@@ -25,12 +25,17 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
                     return self!.topCell!
                 }
                 let cell = tableView.ai.dequeueReusableCell(BannerDetailTopCell.self)
-                cell.disposeBag = DisposeBag() // 解决Cell重用导致订阅取消或者多次订阅问题
-                cell.banners.accept(item)
                 self?.topCell = cell
+                if let weakself = self {
+                    cell.disposeBag = DisposeBag() // 解决Cell重用导致订阅取消或者多次订阅问题
+                    cell.currentIndex.bind(to: weakself.viewModel.currentIndex).disposed(by: cell.disposeBag)
+                }
+                cell.bannersAndIndex.accept((self?.index, item))
+                //cell.bannersAndIndex = (self?.index, item)
                 return cell
             case .detail(let item):
                 let cell = tableView.ai.dequeueReusableCell(BannerDetailCell.self)
+                cell.detail.accept(item)
                 return cell
             }
         })
@@ -57,6 +62,14 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
     }
     
     func setupViewModel() {
+        // 列表滚动监听
+        viewModel.outputs.currentIndex.distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                print("index: - \($0)")
+                self?.index = $0
+                self?.viewModel.requestBannerDetail(with: $0, banners: self?.list)
+            }).disposed(by: rx.disposeBag)
+        
         // 监听卡列表变化
         viewModel.outputs.banners.subscribe(onNext: { [weak self] in
             self?.list = $0
@@ -79,13 +92,7 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
     }
     
     func setupBindings() {
-        // 列表滚动
-        topCell?.currentIndex.distinctUntilChanged()
-            .subscribe(onNext: { [weak self] in
-                self?.index = $0
-                print("index: - \($0)")
-                //self?.viewModel.requestBannerDetail(with: $0, banners: self?.list)
-            }).disposed(by: rx.disposeBag)
+        
     }
 }
 

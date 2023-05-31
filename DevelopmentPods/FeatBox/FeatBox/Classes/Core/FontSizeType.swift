@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum FontSizeType: Int, RawRepresentable {
+public enum FontSizeType: Int {
     case standard = 0
     case large
     case huge

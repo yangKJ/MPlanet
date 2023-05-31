@@ -17,6 +17,7 @@ class BannerDetailViewModel: BaseViewModel, ViewModelEmptiable {
     private let tempBanners = BehaviorRelay<[Banner]>(value: [])
     
     public let banners = PublishRelay<[Banner]>()
+    public let currentIndex = PublishRelay<Int>()
     public let datas = PublishRelay<[BannerDetailSection]>()
     
     func requestBannerDetail(with index: Int, banners: [Banner]?) {
@@ -76,10 +77,12 @@ extension BannerDetailViewModel {
             .mapHandyJSON(HandyDataModel<BannerDetail>.self)
             .observe(on: MainScheduler.instance)
             .map { [weak self] in
-                guard let detail = $0.data else {
+                guard var detail = $0.data else {
                     return $0.data
                 }
-                if let key = detail.id?.ai.toString() {
+                detail.id = banner.id
+                detail.background = UIColor.ai.random
+                if let key = banner.id?.ai.toString() {
                     self?.cacheBannerDetail[key] = detail
                 }
                 return detail

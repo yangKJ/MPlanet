@@ -15,3 +15,4 @@ import Foundation
 @_exported import SnapKit
 @_exported import RxSwift
 @_exported import RxCocoa
+@_exported import HandyJSON

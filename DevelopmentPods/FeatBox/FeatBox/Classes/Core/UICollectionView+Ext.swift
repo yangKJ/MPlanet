@@ -21,4 +21,13 @@ extension BoxWrapper where Base: UICollectionView {
         }
         return item as! T
     }
+    
+    public func dequeueReusableCell<T: BaseCollectionViewCell>(_ type: T.Type, row: Int) -> T {
+        let indexPath = IndexPath.init(index: row)
+        let item = base.dequeueReusableCell(withReuseIdentifier: T.identifier, for: indexPath)
+        guard item.isKind(of: T.self) else {
+            fatalError("Cell class must be subclass of BaseCollectionViewCell")
+        }
+        return item as! T
+    }
 }
