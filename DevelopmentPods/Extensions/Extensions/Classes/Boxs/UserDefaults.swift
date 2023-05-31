@@ -31,23 +31,6 @@ import Foundation
     }
 }
 
-extension UserDefault_ where T: RawRepresentable {
-    
-    public init(_ key: String, defaultValue: T) {
-        self.key = key
-        self.defaultValue = defaultValue
-    }
-    
-    public var wrappedValue: T {
-        get {
-            return UserDefaults.standard[self.key] ?? defaultValue
-        }
-        set {
-            UserDefaults.standard[self.key] = newValue
-        }
-    }
-}
-
 extension UserDefaults {
     
     public subscript<T>(key: String) -> T? {

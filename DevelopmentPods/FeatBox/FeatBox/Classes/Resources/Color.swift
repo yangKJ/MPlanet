@@ -11,6 +11,11 @@ import Extensions
 /// 添加 `ai` 前缀，颜色必须走这块方便后续做主题
 public extension BoxWrapper where Base: UIColor {
     
+    /// 随机颜色
+    static var random: UIColor {
+        return UIColor.random
+    }
+    
     /// 主色调
     static var mainColor: UIColor {
         return UIColor(hex: "#82C87C")

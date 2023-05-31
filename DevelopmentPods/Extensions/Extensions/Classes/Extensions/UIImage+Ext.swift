@@ -70,10 +70,14 @@ extension BoxWrapper where Base: UIImage {
     }
     
     /// Transparent background.
-    /// - Parameter colorMasking: RGB color range to mask [R-Low, R-High, G-Low, G-High, B-Low, B-High]
+    /// - Parameters:
+    ///   - colorMasking: RGB color range to mask [R-Low, R-High, G-Low, G-High, B-Low, B-High]
+    ///   - compressionQuality: Compression ratio.
     /// - Returns: Remove the picture of the background.
-    public func transparentColor(colorMasking: [CGFloat]) -> UIImage? {
-        guard let data = base.jpegData(compressionQuality: 1.0), let image = UIImage(data: data) else {
+    public func transparentColor(colorMasking: [CGFloat], compressionQuality: CGFloat = 1.0) -> UIImage? {
+        // 解决前面有绘制过Bitmap《UIGraphicsGetCurrentContext》，导致失效问题
+        guard let data = base.jpegData(compressionQuality: compressionQuality),
+              let image = UIImage(data: data) else {
             return nil
         }
         UIGraphicsBeginImageContext(image.size)

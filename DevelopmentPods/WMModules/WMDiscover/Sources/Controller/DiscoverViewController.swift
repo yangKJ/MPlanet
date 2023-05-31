@@ -108,9 +108,8 @@ extension DiscoverViewController: FSPagerViewDelegate {
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
         pagerView.deselectItem(at: index, animated: false)
         let vc = BannerDetailViewController()
-        vc.list = itmes
         vc.index = index
-        vc.banner = itmes[safe: index]
+        vc.list = itmes
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

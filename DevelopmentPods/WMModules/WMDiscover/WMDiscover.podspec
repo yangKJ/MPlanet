@@ -31,6 +31,7 @@ Pod::Spec.new do |s|
   s.dependency 'Rickenbacker/Adapter' # 响应式基础架构
   s.dependency 'Rickenbacker/Mediator' # 组件化模块
   s.dependency 'FSPagerView' # 轮播图
+  s.dependency 'RxDataSources' # 列表响应式
   
   s.subspec 'Resources' do |xx|
     xx.resource_bundles = { 'WMDiscover' => ['Sources/Resources/*.{xcassets,lproj,json,gif}'] }

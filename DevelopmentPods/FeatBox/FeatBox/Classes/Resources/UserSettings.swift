@@ -16,6 +16,11 @@ public struct UserSettings {
     @UserDefault_("root_manager_open_mourning_mode", defaultValue: false)
     public var mourning: Bool
     
+    public var fontSizeType: FontSizeType {
+        get { FontSizeType(rawValue: Int(fontSize)) ?? .standard }
+        set { self.fontSize = newValue.deltaFontSize }
+    }
+    
     @UserDefault_("set_user_font_size_type", defaultValue: FontSizeType.standard.deltaFontSize)
-    public var fontSize: CGFloat
+    private var fontSize: CGFloat
 }

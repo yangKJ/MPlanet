@@ -146,6 +146,7 @@ PODS:
     - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
+    - RxDataSources
     - WMDiscover/Api (= 1.0.0)
     - WMDiscover/Controller (= 1.0.0)
     - WMDiscover/Model (= 1.0.0)
@@ -158,36 +159,43 @@ PODS:
     - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
+    - RxDataSources
   - WMDiscover/Controller (1.0.0):
     - FeatBox
     - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
+    - RxDataSources
   - WMDiscover/Model (1.0.0):
     - FeatBox
     - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
+    - RxDataSources
   - WMDiscover/Resources (1.0.0):
     - FeatBox
     - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
+    - RxDataSources
   - WMDiscover/Util (1.0.0):
     - FeatBox
     - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
+    - RxDataSources
   - WMDiscover/View (1.0.0):
     - FeatBox
     - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
+    - RxDataSources
   - WMDiscover/ViewModel (1.0.0):
     - FeatBox
     - FSPagerView
     - Rickenbacker/Adapter
     - Rickenbacker/Mediator
+    - RxDataSources
   - WMMine (1.0.0):
     - FeatBox
     - WMMine/Api (= 1.0.0)
@@ -346,7 +354,7 @@ SPEC CHECKSUMS:
   WCDB.swift: 39e28fe29b5a3bf2927d9fb9218978f19bd49ff0
   WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
   Wintersweet: 74c40c9d39dadbc1ecb0df8dc532f452905426cb
-  WMDiscover: 2faeb17b83c94c77d0c4dd517fc38d7b9ed88fcc
+  WMDiscover: d7af453f428aae2ff7dd3cadad9cb6d7fae4b205
   WMMine: d1a02b5ef8ce995428da0386f90919c918155972
   WMWallet: 0c98cf5241fa15ab2151887780d8abbae110783a
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849

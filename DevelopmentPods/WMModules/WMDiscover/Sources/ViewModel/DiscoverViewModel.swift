@@ -42,8 +42,4 @@ extension DiscoverViewModel {
             .observe(on: MainScheduler.instance)
             .asDriver(onErrorJustReturn: [])
     }
-    
-    func detailData() -> Driver<String> {
-        Driver.of("amp")
-    }
 }

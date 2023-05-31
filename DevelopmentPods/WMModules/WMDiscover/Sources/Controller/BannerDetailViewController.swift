@@ -7,12 +7,34 @@
 
 import Foundation
 import FeatBox
+import RxDataSources
 
 class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel> {
     
-    public var list: [Banner] = []
     public var index: Int = 0
-    public var banner: Banner?
+    public var list: [Banner] = []
+    
+    // 防止刷新列表变动
+    private var topCell: BannerDetailTopCell?
+    
+    lazy var dataSource: RxTableViewSectionedReloadDataSource<BannerDetailSection> = {
+        return RxTableViewSectionedReloadDataSource(configureCell: { [weak self] (ds, tableView, indexPath, sectionItem) in
+            switch sectionItem {
+            case .top(let item):
+                if self?.topCell != nil {
+                    return self!.topCell!
+                }
+                let cell = tableView.ai.dequeueReusableCell(BannerDetailTopCell.self)
+                cell.disposeBag = DisposeBag() // 解决Cell重用导致订阅取消或者多次订阅问题
+                cell.banners.accept(item)
+                self?.topCell = cell
+                return cell
+            case .detail(let item):
+                let cell = tableView.ai.dequeueReusableCell(BannerDetailCell.self)
+                return cell
+            }
+        })
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +45,11 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
     }
     
     override func registerTableViewCell() -> [BaseTableViewCell.Type] {
-        return [BannerDetailTopListCell.self]
+        return [BannerDetailTopCell.self, BannerDetailCell.self]
     }
     
     func setupInit() {
-        self.title = self.banner?.title
+        self.title = self.list[safe: self.index]?.title
     }
     
     func setupSubviews() {
@@ -35,22 +57,52 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
     }
     
     func setupViewModel() {
-        let input = BannerDetailViewModel.Input(banners: list, index: index)
-        let output = viewModel.transform(input: input)
+        // 监听卡列表变化
+        viewModel.outputs.banners.subscribe(onNext: { [weak self] in
+            self?.list = $0
+        }).disposed(by: rx.disposeBag)
         
-//        output.sections
-//            .bind(to: tableView.rx.items(dataSource: dataSource))
-//            .disposed(by: disposeBag)
+        // 错误提示
+        viewModel.outputs.datas.subscribe(onError: { [weak self] error in
+            self?.view.ai.showHUD(title: error.localizedDescription)
+        }).disposed(by: rx.disposeBag)
+        
+        // 绑定数据
+        viewModel.outputs.datas
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: rx.disposeBag)
+        
+        //viewModel.outputs.isEmptyData.bind(to: tableView.rx.isHidden).disposed(by: rx.disposeBag)
+        
+        // 驱动网络请求
+        viewModel.inputs.requestBannerDetail(with: self.index, banners: self.list)
     }
     
     func setupBindings() {
-        
+        // 列表滚动
+        topCell?.currentIndex.distinctUntilChanged()
+            .subscribe(onNext: { [weak self] in
+                self?.index = $0
+                print("index: - \($0)")
+                //self?.viewModel.requestBannerDetail(with: $0, banners: self?.list)
+            }).disposed(by: rx.disposeBag)
     }
 }
 
 extension BannerDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return dataSource[indexPath].itemHeight
+    }
+}
+
+extension BannerDetailViewController: DZNEmptyDataSetable {
+    
+    func DZNEmptyDataSetImage(scrollView: UIScrollView) -> UIImage {
+        Rickenbacker.R.image("base_network_error_black", forResource: "Rickenbacker")
+    }
+    
+    func DZNEmptyDataSetImageTintColor(scrollView: UIScrollView) -> UIColor? {
+        return UIColor.ai.mainColor
     }
 }

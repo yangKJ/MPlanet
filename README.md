@@ -24,7 +24,7 @@
 - 如何对AppDelegate瘦身分类处理，例如根控制器管理、悼念模式等；
 - 如何使用开屏动画并切换根控制器；
 - 如何使用RxSwift实现数据驱动视图，数据双向绑定，以及RxSwift高级用法等；
-- 如何使用Swift部分高级用法，例如属性包装器、范型协议、前缀命名空间等；
+- 如何使用Swift部分高级用法，例如属性包装器、范型协议、前缀命名空间、下标语法、操作符等；
 - 如何使用滤镜 [Harbeth](https://github.com/yangKJ/Harbeth)，代码零侵入处理图像和视频等；
 - 如何使用图像框架 [Wintersweet](https://github.com/yangKJ/Wintersweet)，快速实现网图和本地图，以及GIF混播等；
 - 如何使用微信开源的数据库 [WCDB](https://github.com/Tencent/wcdb)，加密增删改查等；

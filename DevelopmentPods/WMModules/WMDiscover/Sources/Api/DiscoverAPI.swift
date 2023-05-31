@@ -49,8 +49,14 @@ extension DiscoverAPI: NetworkAPI {
     }
     
     var plugins: APIPlugins {
-        let loading = NetworkLoadingPlugin.init(delay: 0.5)
-        return [loading]
+        switch self {
+        case .detail(let banner):
+            let loading = NetworkLoadingPlugin.init(delay: 0.5, autoHide: false)
+            return [loading]
+        default:
+            let loading = NetworkLoadingPlugin.init(delay: 0.5)
+            return [loading]
+        }
     }
     
     var stubBehavior: APIStubBehavior {
@@ -62,7 +68,7 @@ extension DiscoverAPI: NetworkAPI {
         case .banner:
             return R.jsonData("Banner")
         case .detail(let banner):
-            return Data()
+            return R.jsonData("BannerDetail")
         }
     }
 }

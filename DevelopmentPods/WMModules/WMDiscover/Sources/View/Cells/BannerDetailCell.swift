@@ -1,14 +1,14 @@
 //
-//  BannerDetailTopListCell.swift
+//  BannerDetailCell.swift
 //  WMDiscover
 //
-//  Created by Condy on 2023/5/29.
+//  Created by Condy on 2023/5/31.
 //
 
 import Foundation
 import FeatBox
 
-class BannerDetailTopListCell: BaseTableViewCell {
+class BannerDetailCell: BaseTableViewCell {
     
     lazy var backView: UIView = {
         let view = UIView()
@@ -21,9 +21,10 @@ class BannerDetailTopListCell: BaseTableViewCell {
     override func setupConstraint() {
         contentView.addSubview(backView)
         backView.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(contentView).inset(16)
-            make.top.equalTo(contentView)
-            make.bottom.equalTo(contentView).offset(-12)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-12)
+            make.height.equalTo(400)
         }
     }
 }
