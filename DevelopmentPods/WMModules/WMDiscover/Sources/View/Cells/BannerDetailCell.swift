@@ -20,19 +20,23 @@ class BannerDetailCell: BaseTableViewCell {
         return view
     }()
     
+    var heightConstraint: Constraint?
+    
     override func setupConstraint() {
         contentView.addSubview(backView)
         backView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().offset(-12)
-            make.height.equalTo(1000)
+            self.heightConstraint = make.height.equalTo(300).constraint
         }
     }
     
     override func setupBindings() {
         detail.subscribe(onNext: { [weak self] in
             self?.backView.backgroundColor = $0?.background
+            //self?.backView.layoutIfNeeded()
+            self?.heightConstraint?.update(offset: $0?.height ?? 300)
         }).disposed(by: rx.disposeBag)
     }
 }

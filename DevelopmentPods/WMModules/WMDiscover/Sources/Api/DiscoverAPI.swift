@@ -60,7 +60,12 @@ extension DiscoverAPI: NetworkAPI {
     }
     
     var stubBehavior: APIStubBehavior {
-        return .delayed(seconds: 2.5)
+        switch self {
+        case .banner:
+            return .delayed(seconds: 0.2)
+        case .detail(let banner):
+            return .delayed(seconds: 2.0)
+        }
     }
     
     var sampleData: Data {

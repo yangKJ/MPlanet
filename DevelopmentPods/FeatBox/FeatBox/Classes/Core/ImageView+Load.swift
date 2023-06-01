@@ -26,6 +26,8 @@ extension BoxWrapper where Base: ImageView {
         if contentMode != .original {
             base.contentMode = .scaleAspectFit
         }
+        base.layoutIfNeeded()
+        let confirmSize = size == .zero ? base.frame.size : size
         let options = Wintersweet.AnimatedOptions.init(loop: .forever,
                                                        placeholder: placeholder,
                                                        contentMode: contentMode,
@@ -34,7 +36,7 @@ extension BoxWrapper where Base: ImageView {
                                                        cacheCrypto: .sha1,
                                                        cacheDataZip: .gzip,
                                                        moduleName: module,
-                                                       confirmSize: size)
+                                                       confirmSize: confirmSize)
         base.mt.displayImage(named: named, filters: filters ?? [], options: options)
     }
     

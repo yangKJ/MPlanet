@@ -31,7 +31,6 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
                     cell.currentIndex.bind(to: weakself.viewModel.currentIndex).disposed(by: cell.disposeBag)
                 }
                 cell.bannersAndIndex.accept((self?.index, item))
-                //cell.bannersAndIndex = (self?.index, item)
                 return cell
             case .detail(let item):
                 let cell = tableView.ai.dequeueReusableCell(BannerDetailCell.self)
@@ -74,6 +73,12 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
         viewModel.outputs.banners.subscribe(onNext: { [weak self] in
             self?.list = $0
         }).disposed(by: rx.disposeBag)
+        
+        // 卡详情数据
+        viewModel.outputs.bannerDetail
+            .map { $0?.title }
+            .bind(to: self.rx.title)
+            .disposed(by: rx.disposeBag)
         
         // 错误提示
         viewModel.outputs.datas.subscribe(onError: { [weak self] error in

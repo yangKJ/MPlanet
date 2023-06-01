@@ -8,18 +8,21 @@
 import Foundation
 import FeatBox
 
-class BannerDetailTopCell: BaseTableViewCell, HasDisposeBag, UICollectionViewDelegate {
+class BannerDetailTopCell: BaseTableViewCell, HasDisposeBag {
+    
+    static let spaceing = 15.0
     
     typealias BannerAndIndexType = (index: Int?, banners: [Banner])
     public let bannersAndIndex = BehaviorRelay<BannerAndIndexType>(value: (0, []))
     public let currentIndex = PublishRelay<Int>()
     
     lazy var layout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
-        layout.minimumLineSpacing = 15
+        let layout = BannerDetailTopCellFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = BannerDetailTopCell.spaceing
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: C.width - 60, height: (C.width-60)*250.0/375.0)
+        let width = C.width - BannerDetailTopCell.spaceing * 4
+        layout.itemSize = CGSize(width: width, height: width * 250.0 / 375.0)
         return layout
     }()
     
@@ -28,65 +31,90 @@ class BannerDetailTopCell: BaseTableViewCell, HasDisposeBag, UICollectionViewDel
         view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
         view.isPagingEnabled = true
         view.isScrollEnabled = true
-        view.delegate = self
+        view.scrollsToTop = false
         view.clipsToBounds = false
         view.ai.register(BannerDetailTopCellCollectionViewCell.self)
         return view
     }()
     
     override func setupConstraint() {
-        self.clipsToBounds = false
-        contentView.clipsToBounds = false
         contentView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            //make.top.bottom.equalToSuperview()
-            //make.left.right.equalToSuperview().inset(30)
             make.height.equalTo(collectionView.snp.width).multipliedBy(250.0/375.0).priority(999)
         }
     }
     
     override func setupBindings() {
         
+        bannersAndIndex.map { $0.banners.count > 1 }
+            .bind(to: collectionView.rx.isScrollEnabled)
+            .disposed(by: rx.disposeBag)
+        
         bannersAndIndex.map { $0.banners }
             .bind(to: collectionView.rx.items) { (collectionView, row, element) in
                 let indexPath = IndexPath(row: row, section: 0)
                 let item = collectionView.ai.dequeueReusableCell(BannerDetailTopCellCollectionViewCell.self, indexPath: indexPath)
                 item.banner = element
-                item.backgroundColor = UIColor.ai.random
                 return item
             }.disposed(by: rx.disposeBag)
         
         bannersAndIndex
-            .delaySubscription(.milliseconds(10), scheduler: MainScheduler.instance)
+            .delaySubscription(.milliseconds(5), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 guard let index = $0.index, $0.banners.count > index else {
                     return
                 }
-                let indexPath = IndexPath(row: index, section: 0)
-                self?.collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+                self?.gotoIndex(at: index)
             }).disposed(by: rx.disposeBag)
+        
+        self.collectionView.rx.didEndDecelerating.subscribe(onNext: { [weak self] _ in
+            guard let page = self?.page else {
+                return
+            }
+            self?.gotoIndex(at: page)
+            self?.currentIndex.accept(page)
+        }).disposed(by: rx.disposeBag)
     }
     
-    private func index(for cell: UICollectionViewCell) -> Int {
-        guard let indexPath = self.collectionView.indexPath(for: cell) else {
-            return NSNotFound
+    private var page: Int {
+        get {
+            let content = layout.minimumLineSpacing + layout.itemSize.width
+            let dex = (self.collectionView.contentOffset.x + content * 0.5) / content
+            return Int(max(0, dex))
         }
-        return indexPath.item
     }
     
-    //MARK: - UICollectionViewDelegate
+    private func gotoIndex(at page: Int) {
+        let content = layout.minimumLineSpacing + layout.itemSize.width
+        let x = CGFloat(page) * content
+        collectionView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+    }
+}
+
+fileprivate class BannerDetailTopCellFlowLayout: UICollectionViewFlowLayout {
     
-    private var index_ = 0
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.index_ = indexPath.item
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return true
     }
     
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.currentIndex.accept(self.index_)
+    override func prepare() {
+        super.prepare()
+    }
+    
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let elements = super.layoutAttributesForElements(in: rect)
+        //let centerX = collectionView.contentOffset.x + collectionView.bounds.size.width / 2
+        elements?.forEach({ attributes in
+            //let centerDistance = abs(attributes.center.x - centerX)
+            //let scale = 1.0 / (1 + centerDistance * 0.001)
+            //attributes.transform = CGAffineTransformMakeScale(scale, scale)
+            attributes.center.x = attributes.center.x + self.minimumLineSpacing * 2 // 向右偏移
+        })
+        return elements
     }
 }
 
@@ -105,7 +133,8 @@ fileprivate class BannerDetailTopCellCollectionViewCell: BaseCollectionViewCell 
     }
     
     lazy var backImageView: UIImageView = {
-        let view = UIImageView()
+        var view = UIImageView()
+        view.ai.cornerRadius = 22
         return view
     }()
     
@@ -116,14 +145,33 @@ fileprivate class BannerDetailTopCellCollectionViewCell: BaseCollectionViewCell 
         return label
     }()
     
+    lazy var seeCardNoButton: UIButton = {
+        var button = CustomButton.init(type: .custom)
+        button.setTitle(R.text("查看卡号"), for: .normal)
+        button.setTitleColor(UIColor.ai.gray_666666, for: .normal)
+        button.titleLabel?.font = UIFont.ai.system_14
+        button.backgroundColor = UIColor.ai.gray_F7F7F7
+        button.ai.corOfShadow = 20
+        return button
+    }()
+    
     override func setupConstraint() {
         contentView.addSubview(backImageView)
+        contentView.addSubview(seeCardNoButton)
         backImageView.addSubview(titleLabel)
         backImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalToSuperview().offset(-BannerDetailTopCell.spaceing)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(backImageView.snp.width).multipliedBy(230.0/375.0).priority(999)
         }
         titleLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
+        }
+        seeCardNoButton.snp.makeConstraints { make in
+            make.top.equalTo(backImageView.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(75)
+            make.height.equalTo(22)
         }
     }
 }

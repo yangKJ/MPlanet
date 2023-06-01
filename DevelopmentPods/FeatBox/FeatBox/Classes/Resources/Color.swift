@@ -95,6 +95,10 @@ public extension BoxWrapper where Base: UIColor {
         UIColor(hex: "#CCCCCC")
     }
     
+    static var gray_666666: UIColor {
+        UIColor(hex: "#666666")
+    }
+    
     static var gray_999999: UIColor {
         UIColor(hex: "#999999")
     }

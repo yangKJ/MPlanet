@@ -18,6 +18,7 @@ class BannerDetailViewModel: BaseViewModel, ViewModelEmptiable {
     
     public let banners = PublishRelay<[Banner]>()
     public let currentIndex = PublishRelay<Int>()
+    public let bannerDetail = PublishRelay<BannerDetail?>()
     public let datas = PublishRelay<[BannerDetailSection]>()
     
     func requestBannerDetail(with index: Int, banners: [Banner]?) {
@@ -33,13 +34,16 @@ class BannerDetailViewModel: BaseViewModel, ViewModelEmptiable {
         }
         .flatMapLatest(detail(banner:))
         .subscribe(onNext: { [weak self] in
-            NetworkLoadingPlugin.hideMBProgressHUD() //链式需主动关闭loading
             guard let banners = self?.tempBanners.value else {
                 return
             }
+            self?.bannerDetail.accept($0)
             let top = BannerDetailSection.top(items: [.top(item: banners)])
             let detail = BannerDetailSection.detail(items: [.detail(item: $0)])
             self?.datas.accept([top, detail])
+        }, onCompleted: {
+            //链式需主动关闭loading
+            NetworkLoadingPlugin.hideMBProgressHUD()
         }).disposed(by: rx.disposeBag)
     }
     
@@ -81,7 +85,10 @@ extension BannerDetailViewModel {
                     return $0.data
                 }
                 detail.id = banner.id
+                detail.title = banner.title
                 detail.background = UIColor.ai.random
+                let height = CGFloat(arc4random() % UInt32(detail.max ?? 0))
+                detail.height = height >= 120 ? height : 120.0
                 if let key = banner.id?.ai.toString() {
                     self?.cacheBannerDetail[key] = detail
                 }

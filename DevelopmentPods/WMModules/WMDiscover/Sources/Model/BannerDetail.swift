@@ -18,12 +18,10 @@ struct BannerDetail: HandyJSON {
     var desc: String?
     var imagePath: String?
     var amount: NSDecimalNumber?
-    var max: Int?
+    var max: Float?
     
     var background: UIColor?
-    var count: Int {
-        Int(arc4random()) % (max ?? 0)
-    }
+    var height: CGFloat?
     
     mutating func mapping(mapper: HelpingMapper) {
         mapper <<<

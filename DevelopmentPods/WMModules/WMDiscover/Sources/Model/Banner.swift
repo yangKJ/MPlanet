@@ -11,6 +11,7 @@ import RxNetworks
 
 struct Banner: HandyJSON {
     var id: Int?
+    var cardNo: String?
     var url: String?
     var title: String?
     var order: Int?
