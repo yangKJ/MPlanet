@@ -18,7 +18,7 @@ public extension DBManager {
                                    objects: [T],
                                    on propertyConvertibleList: [PropertyConvertible]? = nil) {
         do {
-            try dataBase?.insert(objects: objects, on: propertyConvertibleList, intoTable: table)
+            try dataBase?.insert(objects, on: propertyConvertibleList, intoTable: table)
         } catch let error {
             debugPrint(" insert obj error \(error.localizedDescription)")
         }
@@ -32,7 +32,7 @@ public extension DBManager {
                                             objects: [T],
                                             on propertyConvertibleList: [PropertyConvertible]? = nil) {
         do {
-            try dataBase?.insertOrReplace(objects: objects, on: propertyConvertibleList, intoTable: table)
+            try dataBase?.insertOrReplace(objects, on: propertyConvertibleList, intoTable: table)
         } catch let error {
             debugPrint(" insert obj error \(error.localizedDescription)")
         }

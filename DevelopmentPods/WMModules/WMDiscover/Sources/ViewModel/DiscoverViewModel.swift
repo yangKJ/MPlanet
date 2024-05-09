@@ -6,29 +6,25 @@
 //
 
 import FeatBox
-import Rickenbacker
 import RxNetworks
 import RxCocoa
 
-class DiscoverViewModel: BaseViewModel, ViewModelType {
-    struct Input {
-        let header: Bool
-    }
+class DiscoverViewModel: BaseViewModel, ViewModelEmptiable {
+    public let banners = PublishRelay<[Banner]>()
+    public let datas = PublishRelay<[DiscoverSection]>()
     
-    struct Output {
-        let banners: Observable<[Banner]>
-    }
-    
-    func transform(input: Input) -> Output {
-        let banners = {
-            if input.header {
-                return bannerData().asObservable()
-            } else {
-                return Observable.of([])
-            }
-        }()
+    func request() {
+        let progressItems = progressItems().asObservable()
+        let banners = bannerData().asObservable()
         
-        return Output(banners: banners)
+        let zip = Observable.zip(banners, progressItems)
+        
+        banners.bind(to: self.banners).disposed(by: rx.disposeBag)
+        
+        zip.subscribe(onNext: { [weak self] in
+            let progressItems = DiscoverSection.progress(items: [.progress(item: $1)])
+            self?.datas.accept([progressItems])
+        }).disposed(by: rx.disposeBag)
     }
 }
 
@@ -41,5 +37,15 @@ extension DiscoverViewModel {
             .compactMap { $0 }
             .observe(on: MainScheduler.instance)
             .asDriver(onErrorJustReturn: [])
+    }
+    
+    func progressItems() -> Observable<[DiscoverProgressItem]> {
+        let items = ["开放期开始", "开放期结束", "确认日", "下一开放期开始", "下一开放期结束"]
+        let itemss = items.map { name in
+            var item = DiscoverProgressItem.init()
+            item.title = name
+            return item
+        }
+        return Observable.of(itemss)
     }
 }

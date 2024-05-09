@@ -12,13 +12,16 @@ internal struct Rendering {
     public static let kOneInputVertex: String = "oneInputVertex"
     public static let kTwoInputVertex: String = "twoInputVertex"
     
-    static func makeRenderPipelineState(with vertex: String, fragment: String) -> MTLRenderPipelineState? {
+    static func makeRenderPipelineState(with vertex: String, fragment: String) throws -> MTLRenderPipelineState {
         let descriptor = MTLRenderPipelineDescriptor()
         descriptor.colorAttachments[0].pixelFormat = MTLPixelFormat.bgra8Unorm
         descriptor.rasterSampleCount = 1
-        descriptor.vertexFunction = try? Device.readMTLFunction(vertex)
-        descriptor.fragmentFunction = try? Device.readMTLFunction(fragment)
-        return try? Device.device().makeRenderPipelineState(descriptor: descriptor)
+        descriptor.vertexFunction = try Device.readMTLFunction(vertex)
+        descriptor.fragmentFunction = try Device.readMTLFunction(fragment)
+        guard let pipelineState = try? Device.device().makeRenderPipelineState(descriptor: descriptor) else {
+            throw HarbethError.renderPipelineState(vertex, fragment)
+        }
+        return pipelineState
     }
     
     static func drawingProcess(_ pipelineState: MTLRenderPipelineState,
@@ -32,7 +35,7 @@ internal struct Rendering {
         renderPass.colorAttachments[0].clearColor = MTLClearColorMake(0.5, 0.65, 0.8, 1)
         
         guard let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPass) else {
-            C7FailedErrorInDebug("Could not create render encoder")
+            HarbethError.failed("Could not create render encoder")
             return
         }
         let device = Device.device()
@@ -48,7 +51,7 @@ internal struct Rendering {
         //renderEncoder.setFragmentTexture(texture, index: 0)
         
         var vertexCount: Int = 1
-        if let filter = filter as? RenderFiltering, let buffer = filter.setupVertexUniformBuffer(for: device) {
+        if let filter = filter as? RenderProtocol, let buffer = filter.setupVertexUniformBuffer(for: device) {
             renderEncoder.setVertexBuffer(buffer, offset: 0, index: vertexCount)
             vertexCount += 1
         }

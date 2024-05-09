@@ -8,6 +8,7 @@
 import Foundation
 import HandyJSON
 import RxNetworks
+import Harbeth
 
 struct Banner: HandyJSON {
     var id: Int?
@@ -25,5 +26,22 @@ struct Banner: HandyJSON {
             url <-- "github"
         mapper <<<
             amount <-- DecimalNumberTransform()
+    }
+    
+    var filters: [C7FilterProtocol]? {
+        switch id {
+        case 20:
+            return [
+                C7ColorMatrix4x4(matrix: Matrix4x4.Color.polaroid),
+                C7Granularity(grain: 0.8),
+            ]
+        case 29:
+            return [
+                C7SoulOut(soul: 0.75),
+                C7Storyboard(ranks: 2),
+            ]
+        default:
+            return nil
+        }
     }
 }

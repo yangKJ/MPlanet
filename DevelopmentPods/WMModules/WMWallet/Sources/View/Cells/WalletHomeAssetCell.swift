@@ -20,7 +20,7 @@ class WalletHomeAssetCell: BaseTableViewCell, HasDisposeBag {
     
     lazy var iconImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = UIColor.ai.blue
+        view.backgroundColor = UIColor.fy.blue
         view.layer.cornerRadius = 25
         view.isUserInteractionEnabled = true
         return view
@@ -28,10 +28,10 @@ class WalletHomeAssetCell: BaseTableViewCell, HasDisposeBag {
     
     lazy var myAssetTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.ai.itemTitle
+        label.textColor = UIColor.fy.itemTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .left
-        label.text = R.text("我的资产（$）")
+        label.text = Res.text("我的资产（$）")
         return label
     }()
     
@@ -42,7 +42,7 @@ class WalletHomeAssetCell: BaseTableViewCell, HasDisposeBag {
     
     lazy var assetLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.ai.itemTitle
+        label.textColor = UIColor.fy.itemTitle
         label.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         label.textAlignment = .left
         return label
@@ -50,13 +50,13 @@ class WalletHomeAssetCell: BaseTableViewCell, HasDisposeBag {
     
     lazy var detailsButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.setTitleColor(UIColor.ai.itemTitle, for: .normal)
-        button.setTitle(R.text("查看详情"), for: .normal)
+        button.setTitleColor(UIColor.fy.itemTitle, for: .normal)
+        button.setTitle(Res.text("查看详情"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 14.5
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor.ai.itemTitle.cgColor
+        button.layer.borderColor = UIColor.fy.itemTitle.cgColor
         return button
     }()
     

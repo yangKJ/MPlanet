@@ -40,4 +40,9 @@ public final class CompositeAppDelegate: AppDelegateType {
     public func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         appDelegates.forEach { _ = $0.application?(application, performActionFor: shortcutItem, completionHandler: completionHandler) }
     }
+    
+    public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        appDelegates.forEach { _ = $0.application?(app, open: url, options: options) }
+        return true
+    }
 }

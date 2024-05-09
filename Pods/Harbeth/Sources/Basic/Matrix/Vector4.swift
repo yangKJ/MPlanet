@@ -11,19 +11,21 @@ import simd
 /// 4维向量
 public struct Vector4: Matrix {
     
+    public static let zero: Vector4 = .init(values: [0, 0, 0, 0])
+    
     public typealias MatrixType = vector_float4
     
     public var values: [Float]
     
     public init(values: [Float]) {
         if values.count != 4 {
-            C7FailedErrorInDebug("There must be four values for Vector4.")
+            HarbethError.failed("There must be four values for Vector4.")
         }
         self.values = values
     }
     
     public init(color: C7Color) {
-        let (red, green, blue, alpha) = color.mt.toRGBA()
+        let (red, green, blue, alpha) = color.c7.toRGBA()
         self.init(values: [red, green, blue, alpha])
     }
     
@@ -32,7 +34,12 @@ public struct Vector4: Matrix {
     }
 }
 
-extension Vector4 { public struct Color { } }
+// MARK: - color vector
+
+extension Vector4 {
+    /// 常见颜色四维向量
+    public struct Color { }
+}
 
 extension Vector4.Color {
     

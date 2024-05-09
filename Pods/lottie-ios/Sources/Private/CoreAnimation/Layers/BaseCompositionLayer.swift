@@ -63,10 +63,19 @@ class BaseCompositionLayer: BaseAnimationLayer {
     if renderLayerContents {
       try contentsLayer.addOpacityAnimation(for: baseLayerModel.transform, context: transformContext)
 
-      contentsLayer.addVisibilityAnimation(
+      try contentsLayer.addVisibilityAnimation(
         inFrame: CGFloat(baseLayerModel.inFrame),
         outFrame: CGFloat(baseLayerModel.outFrame),
         context: context)
+
+      // There are two different drop shadow schemas, either using `DropShadowEffect` or `DropShadowStyle`.
+      // If both happen to be present, prefer the `DropShadowEffect` (which is the drop shadow schema
+      // supported on other platforms).
+      let dropShadowEffect = baseLayerModel.effects.first(where: { $0 is DropShadowEffect }) as? DropShadowModel
+      let dropShadowStyle = baseLayerModel.styles.first(where: { $0 is DropShadowStyle }) as? DropShadowModel
+      if let dropShadowModel = dropShadowEffect ?? dropShadowStyle {
+        try contentsLayer.addDropShadowAnimations(for: dropShadowModel, context: context)
+      }
     }
   }
 

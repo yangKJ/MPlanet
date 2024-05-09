@@ -7,13 +7,13 @@
 
 import UIKit
 import HBDNavigationBar
-import Extensions
+import FeatBox
 
 class WMNavigationController: HBDNavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.ai.background
+        self.view.backgroundColor = UIColor.fy.background
         self.interactivePopGestureRecognizer?.delegate = self
         self.interactivePopGestureRecognizer?.delaysTouchesBegan = false
         self.extendedLayoutIncludesOpaqueBars = true

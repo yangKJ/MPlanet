@@ -1,6 +1,6 @@
 {
   "name": "FeatBox",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "summary": "A short description of FeatBox.",
   "homepage": "https://github.com/Condy/FeatBox",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/Condy/FeatBox.git",
-    "tag": "0.1.0"
+    "tag": "2.0.0"
   },
   "platforms": {
     "ios": "10.0"
@@ -21,25 +21,25 @@
   "requires_arc": true,
   "static_framework": true,
   "dependencies": {
-    "Extensions": [
+    "ProductLib": [
 
     ],
-    "CommonView": [
+    "Booming": [
 
     ],
     "RxNetworks": [
 
     ],
-    "RxNetworks/RxSwift": [
-
-    ],
-    "RxNetworks/HandyJSON": [
-
-    ],
-    "RxNetworks/MoyaPlugins": [
-
-    ],
     "RxCocoa": [
+
+    ],
+    "RxGesture": [
+
+    ],
+    "RxDataSources": [
+
+    ],
+    "RxSkeletonView": [
 
     ],
     "Rickenbacker": [
@@ -51,16 +51,35 @@
     "Harbeth": [
 
     ],
-    "Wintersweet": [
+    "ImageX": [
+
+    ],
+    "SDWebImage": [
 
     ],
     "YYText": [
 
     ],
-    "HBDNavigationBar": [
+    "UITableView+FDTemplateLayoutCell": [
+
+    ],
+    "HandyJSON": [
+
+    ],
+    "FSCalendar": [
 
     ]
   },
-  "source_files": "FeatBox/Classes/**/*",
+  "source_files": "FeatBox/**/**/*.{h,swift}",
+  "subspecs": [
+    {
+      "name": "Resources",
+      "resource_bundles": {
+        "FeatBox": [
+          "FeatBox/**/**/*.{xcassets,Lproj}"
+        ]
+      }
+    }
+  ],
   "swift_version": "5.0"
 }

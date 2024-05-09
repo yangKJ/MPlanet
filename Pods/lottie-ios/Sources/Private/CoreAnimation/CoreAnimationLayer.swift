@@ -1,7 +1,6 @@
 // Created by Cal Stephens on 12/13/21.
 // Copyright © 2021 Airbnb Inc. All rights reserved.
 
-import Foundation
 import QuartzCore
 
 // MARK: - CoreAnimationLayer
@@ -17,7 +16,7 @@ final class CoreAnimationLayer: BaseAnimationLayer {
   init(
     animation: LottieAnimation,
     imageProvider: AnimationImageProvider,
-    textProvider: AnimationTextProvider,
+    textProvider: AnimationKeypathTextProvider,
     fontProvider: AnimationFontProvider,
     maskAnimationToBounds: Bool,
     compatibilityTrackerMode: CompatibilityTracker.Mode,
@@ -94,8 +93,8 @@ final class CoreAnimationLayer: BaseAnimationLayer {
     }
   }
 
-  /// The parent `LottieAnimationView` that manages this layer
-  weak var animationView: LottieAnimationView?
+  /// The parent `LottieAnimationLayer` that manages this layer
+  weak var lottieAnimationLayer: LottieAnimationLayer?
 
   /// A closure that is called after this layer sets up its animation.
   /// If the animation setup was unsuccessful and encountered compatibility issues,
@@ -108,9 +107,9 @@ final class CoreAnimationLayer: BaseAnimationLayer {
     didSet { reloadImages() }
   }
 
-  /// The `AnimationTextProvider` that `TextLayer`'s use to retrieve texts,
+  /// The `AnimationKeypathTextProvider` that `TextLayer`'s use to retrieve texts,
   /// that they should use to render their text context
-  var textProvider: AnimationTextProvider {
+  var textProvider: AnimationKeypathTextProvider {
     didSet {
       // We need to rebuild the current animation after updating the text provider,
       // since this is used in `TextLayer.setupAnimations(context:)`
@@ -161,7 +160,7 @@ final class CoreAnimationLayer: BaseAnimationLayer {
     //    allocate a very large amount of memory (400mb+).
     //  - Alternatively this layer could subclass `CATransformLayer`,
     //    but this causes Core Animation to emit unnecessary logs.
-    if var pendingAnimationConfiguration = pendingAnimationConfiguration {
+    if var pendingAnimationConfiguration {
       pendingAnimationConfigurationModification?(&pendingAnimationConfiguration.animationConfiguration)
       pendingAnimationConfigurationModification = nil
       self.pendingAnimationConfiguration = nil
@@ -209,6 +208,7 @@ final class CoreAnimationLayer: BaseAnimationLayer {
   private let valueProviderStore: ValueProviderStore
   private let compatibilityTracker: CompatibilityTracker
   private let logger: LottieLogger
+  private let loggingState = LoggingState()
 
   /// The current playback state of the animation that is displayed in this layer
   private var currentPlaybackState: PlaybackState? {
@@ -248,6 +248,8 @@ final class CoreAnimationLayer: BaseAnimationLayer {
     try setupLayerHierarchy(
       for: animation.layers,
       context: layerContext)
+
+    try validateReasonableNumberOfTimeRemappingLayers()
   }
 
   /// Immediately builds and begins playing `CAAnimation`s for each sublayer
@@ -265,6 +267,7 @@ final class CoreAnimationLayer: BaseAnimationLayer {
       valueProviderStore: valueProviderStore,
       compatibilityTracker: compatibilityTracker,
       logger: logger,
+      loggingState: loggingState,
       currentKeypath: AnimationKeypath(keys: []),
       textProvider: textProvider,
       recordHierarchyKeypath: configuration.recordHierarchyKeypath)
@@ -316,7 +319,7 @@ final class CoreAnimationLayer: BaseAnimationLayer {
     else { return }
 
     if isAnimationPlaying == true {
-      animationView?.updateInFlightAnimation()
+      lottieAnimationLayer?.updateInFlightAnimation()
     } else {
       let currentFrame = currentFrame
       removeAnimations()
@@ -385,7 +388,10 @@ extension CoreAnimationLayer: RootAnimationLayer {
       let requiredAnimationConfiguration = AnimationConfiguration(
         animationContext: AnimationContext(
           playFrom: animation.startFrame,
-          playTo: animation.endFrame,
+          // Normal animation playback (like when looping) skips the last frame.
+          // However when the animation is paused, we need to be able to render the final frame.
+          // To allow this we have to extend the length of the animation by one frame.
+          playTo: animation.endFrame + 1,
           closure: nil),
         timingConfiguration: CAMediaTimingConfiguration(speed: 0))
 
@@ -449,7 +455,9 @@ extension CoreAnimationLayer: RootAnimationLayer {
   }
 
   func forceDisplayUpdate() {
-    // Unimplemented / unused
+    // Unimplemented
+    //  - We can't call `display()` here, because it would cause unexpected frame animations:
+    //    https://github.com/airbnb/lottie-ios/issues/2193
   }
 
   func logHierarchyKeypaths() {
@@ -525,6 +533,18 @@ extension CoreAnimationLayer: RootAnimationLayer {
     }
   }
 
+  /// Time remapping in the Core Animation rendering engine requires manually interpolating
+  /// every frame of every animation. For very large animations with a huge number of layers,
+  /// this can be prohibitively expensive.
+  func validateReasonableNumberOfTimeRemappingLayers() throws {
+    try layerContext.compatibilityAssert(
+      numberOfLayersWithTimeRemapping < 500,
+      """
+      This animation has a very large number of layers with time remapping (\(numberOfLayersWithTimeRemapping)),
+      so will perform poorly with the Core Animation rendering engine.
+      """)
+  }
+
 }
 
 // MARK: - CALayer + allSublayers
@@ -541,5 +561,24 @@ extension CALayer {
     }
 
     return allSublayers
+  }
+
+  /// The number of layers in this layer hierarchy that have a time remapping applied
+  @nonobjc
+  var numberOfLayersWithTimeRemapping: Int {
+    var numberOfSublayersWithTimeRemapping = 0
+
+    for sublayer in sublayers ?? [] {
+      if 
+        let preCompLayer = sublayer as? PreCompLayer,
+        preCompLayer.preCompLayer.timeRemapping != nil
+      {
+        numberOfSublayersWithTimeRemapping += preCompLayer.allSublayers.count
+      } else {
+        numberOfSublayersWithTimeRemapping += sublayer.numberOfLayersWithTimeRemapping
+      }
+    }
+
+    return numberOfSublayersWithTimeRemapping
   }
 }

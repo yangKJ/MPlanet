@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import Harbeth
 import Mediator
-import Rickenbacker
+import RAMAnimatedTabBarController
+import FeatBox
 
 enum WMTabBarItem: Int {
     case dicover
@@ -21,33 +21,58 @@ extension WMTabBarItem {
     private var title: String {
         switch self {
         case .dicover:
-            return R.text("发现", forResource: AppMainUtil.moduleName)
+            return Res.text("发现", forResource: AppMainUtil.moduleName)
         case .wallet:
-            return R.text("钱包", forResource: AppMainUtil.moduleName)
+            return Res.text("钱包", forResource: AppMainUtil.moduleName)
         case .mine:
-            return R.text("个人主页", forResource: AppMainUtil.moduleName)
+            return Res.text("个人主页", forResource: AppMainUtil.moduleName)
         }
     }
     
     private var image: UIImage? {
         switch self {
         case .dicover:
-            return R.image("tab_find", forResource: AppMainUtil.moduleName)
+            return Res.image("tab_find", forResource: AppMainUtil.moduleName)
         case .wallet:
-            return R.image("tab_book", forResource: AppMainUtil.moduleName)
+            return Res.image("tab_book", forResource: AppMainUtil.moduleName)
         case .mine:
-            return R.image("tab_mine", forResource: AppMainUtil.moduleName)
+            return Res.image("tab_mine", forResource: AppMainUtil.moduleName)
         }
     }
     
     private var selectImage: UIImage? {
         switch self {
         case .dicover:
-            return R.image("tab_find_selected", forResource: AppMainUtil.moduleName)
+            return Res.image("tab_find_selected", forResource: AppMainUtil.moduleName)
         case .wallet:
-            return R.image("tab_book_selected", forResource: AppMainUtil.moduleName)
+            return Res.image("tab_book_selected", forResource: AppMainUtil.moduleName)
         case .mine:
-            return R.image("tab_mine_selected", forResource: AppMainUtil.moduleName)
+            return Res.image("tab_mine_selected", forResource: AppMainUtil.moduleName)
+        }
+    }
+    
+    private var animation: RAMItemAnimation {
+        let image = image?.withRenderingMode(.alwaysOriginal)
+        let selectImage = selectImage?.withRenderingMode(.alwaysOriginal)
+        switch self {
+        case .dicover:
+            let animation = WMBounceAnimation.init()
+            animation.iconImage = image
+            animation.iconSelectedImage = selectImage
+            animation.textSelectedColor = UIColor.fy.mainColor
+            return animation
+        case .wallet:
+            let animation = WMBounceAnimation.init()
+            animation.iconImage = image
+            animation.iconSelectedImage = selectImage
+            animation.textSelectedColor = UIColor.fy.mainColor
+            return animation
+        case .mine:
+            let animation = WMBounceAnimation.init()
+            animation.iconImage = image
+            animation.iconSelectedImage = selectImage
+            animation.textSelectedColor = UIColor.fy.mainColor
+            return animation
         }
     }
     
@@ -58,18 +83,24 @@ extension WMTabBarItem {
         case .wallet:
             return Mediator.Wallet_viewController()
         case .mine:
-            return Mediator.Mine_viewController(userId: "Condy_21335932940")
+            return Mediator.Mine_viewController(userId: "yangKJ")
         }
     }
     
+    private func setupViewController(_ vc: UIViewController) {
+        let item = RAMAnimatedTabBarItem(title: title, image: image, tag: rawValue)
+        item.textColor = UIColor.clear//UIColor.fy.gray
+        item.animation = animation
+        item.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -5, right: 0)
+        vc.title = title
+        vc.tabBarItem = item
+    }
+    
     func childViewController() -> WMNavigationController? {
-        guard let viewController = itemViewController else { return nil }
-        let image = image?.withRenderingMode(.alwaysOriginal)
-        let selectImage = selectImage?.withRenderingMode(.alwaysOriginal)
-        let item = UITabBarItem(title: nil, image: image, selectedImage: selectImage)
-        item.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -5, right: 0)
-        viewController.tabBarItem = item
-        //viewController.title = title
+        guard let viewController = itemViewController else {
+            return nil
+        }
+        setupViewController(viewController)
         return WMNavigationController(rootViewController: viewController)
     }
 }

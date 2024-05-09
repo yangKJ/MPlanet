@@ -6,16 +6,20 @@
 //
 
 import UIKit
-import Rickenbacker
+import FeatBox
 
 struct MineUtil {
     static let moduleName = "WMMine"
 }
 
-extension Rickenbacker.R {
+extension Res {
     
     static func image(_ named: String) -> UIImage {
         self.image(named, forResource: MineUtil.moduleName)
+    }
+    
+    static func jsonData(_ named: String) -> Data {
+        self.jsonData(named, forResource: MineUtil.moduleName) ?? Data()
     }
     
     static func text(_ string: String) -> String {

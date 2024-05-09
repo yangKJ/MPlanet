@@ -1,16 +1,34 @@
 PODS:
   - Alamofire (5.6.4)
-  - Cabinets (0.1.0)
+  - Differentiator (5.0.0)
   - DZNEmptyDataSet (1.8.1)
-  - FeatBox (0.1.0):
-    - Cabinets
+  - Extensions (0.1.0)
+  - FeatBox (2.0.0):
+    - Extensions
+    - FeatBox/Assets (= 2.0.0)
+    - HandyJSON
     - Harbeth
-    - HBDNavigationBar
+    - ImageX
     - Rickenbacker
     - RxCocoa
+    - RxDataSources
+    - RxGesture
     - RxNetworks
     - SnapKit
-    - Wintersweet
+    - "UITableView+FDTemplateLayoutCell"
+    - YYText
+  - FeatBox/Assets (2.0.0):
+    - Extensions
+    - HandyJSON
+    - Harbeth
+    - ImageX
+    - Rickenbacker
+    - RxCocoa
+    - RxDataSources
+    - RxGesture
+    - RxNetworks
+    - SnapKit
+    - "UITableView+FDTemplateLayoutCell"
     - YYText
   - HandyJSON (5.0.2)
   - Harbeth (0.6.6):
@@ -26,6 +44,10 @@ PODS:
   - Harbeth/CoreImage (0.6.6):
     - Harbeth/Basic
   - HBDNavigationBar (1.9.6)
+  - ImageX (1.0.9):
+    - Harbeth
+    - Lemons
+  - Lemons (0.0.8)
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.7.5)
   - Moya (15.0.0):
@@ -59,6 +81,13 @@ PODS:
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxGesture (4.0.4):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxNetworks (0.2.5):
     - RxNetworks/HandyJSON (= 0.2.5)
     - RxNetworks/MoyaNetwork (= 0.2.5)
@@ -99,8 +128,7 @@ PODS:
   - RxSwift (6.5.0)
   - SnapKit (5.6.0)
   - Toast-Swift (5.0.1)
-  - Wintersweet (0.0.6):
-    - Harbeth
+  - "UITableView+FDTemplateLayoutCell (1.6)"
   - WMMine (1.0.0):
     - FeatBox
     - WMMine/Api (= 1.0.0)
@@ -128,34 +156,39 @@ PODS:
   - YYText (1.0.7)
 
 DEPENDENCIES:
-  - Cabinets (from `../../../Cabinets`)
+  - Extensions (from `../../../Extensions`)
   - FeatBox (from `../../../FeatBox`)
   - WMMine (from `..`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - Differentiator
     - DZNEmptyDataSet
     - HandyJSON
     - Harbeth
     - HBDNavigationBar
+    - ImageX
+    - Lemons
     - MBProgressHUD
     - MJRefresh
     - Moya
     - Rickenbacker
     - RxCocoa
+    - RxDataSources
+    - RxGesture
     - RxNetworks
     - RxRelay
     - RxSwift
     - SnapKit
     - Toast-Swift
-    - Wintersweet
+    - "UITableView+FDTemplateLayoutCell"
     - YYCache
     - YYText
 
 EXTERNAL SOURCES:
-  Cabinets:
-    :path: "../../../Cabinets"
+  Extensions:
+    :path: "../../../Extensions"
   FeatBox:
     :path: "../../../FeatBox"
   WMMine:
@@ -163,27 +196,32 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  Cabinets: f16a3b5146697ade1ddb6ab7c330d6d09f26a759
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FeatBox: 929b9ac4bdcafadebb1944c4441ab83ab3cbcd27
+  Extensions: 95f1d54759a3a8b51cf957934d0cc1cfd9b3402c
+  FeatBox: ea8c50c78ecd7f011abe6b2a3c5e7e1bec43d61a
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Harbeth: 91b33a393a5a0d78e117c3973ae9623b270e4cc3
   HBDNavigationBar: a997b65ab7194271e5584b87a952fc851832f692
+  ImageX: 6fa4747f9f6f0f644f2c9915ca057642e034e2f9
+  Lemons: 6b7cc5ad1eeb2d5b635f01c0c8bbbbb309502bfa
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   Rickenbacker: 3006b379aaa33e3613852cbc5e3b2c86d00e7176
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
   RxNetworks: ee9e67081361555755d48d3460209841ccc34ec2
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  Wintersweet: ace5dca474ec7e9562c03c2f7ad3dbe7f45824cc
-  WMMine: d1a02b5ef8ce995428da0386f90919c918155972
+  "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
+  WMMine: e937c8d530e2c10d49b1f6779a0d1f8f80115632
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: f9fe046a311c764af03de094e41af97e5fe4a632
+PODFILE CHECKSUM: 2b84ea9bb04bba55f113c6ca0b2697ab977fccd5
 
 COCOAPODS: 1.12.1

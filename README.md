@@ -19,14 +19,14 @@
 - 如何使用组件资源文件，包括图片、多语言、颜色、字体图标等；
 - 如何使用响应式搭建MVVM项目架构，基础架构 [Rickenbacker](https://github.com/yangKJ/Rickenbacker)，包括自动刷新、空视图等；
 - 如何搭建网络架构 [RxNetworks](https://github.com/yangKJ/RxNetworks)，包括处理链式和批量网络请求等；
-- 如何使用插件实现网络请求，包括数据缓存、密钥验证、动画加载、压缩等插件；
+- 如何使用插件实现网络请求，包括数据缓存、密钥验证、动画加载、压缩、共享、下载等插件；
 - 如何快速自动生成组件化模块 [PT](https://github.com/yangKJ/PT)，单元测试等；
 - 如何对AppDelegate瘦身分类处理，例如根控制器管理、悼念模式等；
 - 如何使用开屏动画并切换根控制器；
 - 如何使用RxSwift实现数据驱动视图，数据双向绑定，以及RxSwift高级用法等；
 - 如何使用Swift部分高级用法，例如属性包装器、范型协议、前缀命名空间、下标语法、操作符等；
 - 如何使用滤镜 [Harbeth](https://github.com/yangKJ/Harbeth)，代码零侵入处理图像和视频等；
-- 如何使用图像框架 [Wintersweet](https://github.com/yangKJ/Wintersweet)，快速实现网图和本地图，以及GIF混播等；
+- 如何使用图像框架 [ImageX](https://github.com/yangKJ/ImageX)，快速实现网图和本地图GIF混播，以及加入滤镜；
 - 如何使用微信开源的数据库 [WCDB](https://github.com/Tencent/wcdb)，加密增删改查等；
 - 如何使用 [RxDataSources](https://github.com/RxSwiftCommunity/RxDataSources)，列表数据源绑定等；
 
@@ -79,38 +79,43 @@ Ex: 导入空数据自动展示模块
 基于 **RxSwift + Moya** 搭建响应式数据绑定网络API架构
 
 - 提供网络数据解析HandyJSON并支持RxSwift封装；
-- 提供简单易用插件供您使用：
-    - [Cache](https://github.com/yangKJ/RxNetworks/blob/master/Sources/MoyaPlugins/Cache/NetworkCachePlugin.swift)：网络数据缓存插件
-    - [Loading](https://github.com/yangKJ/RxNetworks/blob/master/Sources/MoyaPlugins/Loading/NetworkLoadingPlugin.swift)：加载动画插件
-    - [Indicator](https://github.com/yangKJ/RxNetworks/blob/master/Sources/MoyaPlugins/Indicator/NetworkIndicatorPlugin.swift)：指示器插件
-    - [Warning](https://github.com/yangKJ/RxNetworks/blob/master/Sources/MoyaPlugins/Warning/NetworkWarningPlugin.swift)：网络失败提示插件
-    - [Debugging](https://github.com/yangKJ/RxNetworks/blob/master/Sources/MoyaPlugins/Debugging/NetworkDebuggingPlugin.swift)：网络打印，内置插件
-    - [GZip](https://github.com/yangKJ/RxNetworks/blob/master/Sources/MoyaPlugins/GZip/NetworkGZipPlugin.swift)：解压缩插件
-    - [AnimatedLoading](https://github.com/yangKJ/RxNetworks/blob/master/Sources/MoyaPlugins/AnimatedLoading/AnimatedLoadingPlugin.swift)：动画加载插件
+- 目前已封装10款插件供您使用：
+    - [Cache](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Cache/NetworkCachePlugin.swift)：网络数据缓存插件
+    - [Loading](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Loading/NetworkLoadingPlugin.swift)：加载动画插件
+    - [Indicator](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Indicator/NetworkIndicatorPlugin.swift)：指示器插件
+    - [Warning](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Warning/NetworkWarningPlugin.swift)：网络失败提示插件
+    - [Debugging](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Debugging/NetworkDebuggingPlugin.swift): 网络打印，内置插件
+    - [GZip](https://github.com/yangKJ/RxNetworks/blob/master/Sources/GZip/NetworkGZipPlugin.swift): 解压缩插件
+    - [Shared](https://github.com/yangKJ/RxNetworks/blob/master/Sources/Shared/NetworkSharedPlugin.swift): 网络共享插件
+    - [Lottie](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Lottie/AnimatedLoadingPlugin.swift): 基于lottie动画加载插件
+    - [Header](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Header/NetworkHttpHeaderPlugin.swift): 网络HTTP头插件
+    - [Files](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Files/NetworkFilesPlugin.swift): 网络下载文件和上传资源插件
 
 ### Harbeth滤镜框架
 
 基于GPU快速实现图片or视频注入滤镜特效，代码零侵入实现图像显示and视频导出功能；
 
-- 支持运算符函数式操作
-- 支持多种模式数据源 UIImage, CIImage, CGImage, CMSampleBuffer, CVPixelBuffer.
-- 支持快速设计滤镜
-- 支持合并多种滤镜效果
-- 支持输出源的快速扩展
-- 支持相机采集特效
-- 支持视频添加滤镜特效
-- 支持已有视频添加滤镜并导出
-- 支持使用系统 MetalPerformanceShaders.
-- 支持兼容 CoreImage.
+- 支持macOS和iOS平台系统，也支持SwiftUI使用；
+- 高性能在如下数据源快速添加过滤器效果：  
+  UIImage, NSImage, CIImage, CGImage, CMSampleBuffer, CVPixelBuffer
+- 支持两种查找滤镜 [LUTs](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Lookup/C7LookupTable.swift) 和 [Cube](https://github.com/yangKJ/Harbeth/tree/master/Sources/CoreImage/CIColorCube.swift) 来定制专属滤镜；
+- 支持相机采集特效和视频播放加入滤镜效果；
+- Metal滤镜部分大致分为以下几个模块：  
+  [Blend](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Blend), [Blur](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Blur), [Pixel](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Pixel), [Coordinate](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Coordinate), [Lookup](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Lookup), [Matrix](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Matrix), [Shape](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Shape), [Generator](https://github.com/yangKJ/Harbeth/tree/master/Sources/Compute/Generator).
+- 支持使用 [Kakapos](https://github.com/yangKJ/Kakapos) 库对已有视频添加滤镜并导出；
+- 支持系统 MetalPerformanceShaders 和 CoreImage 滤镜混合使用；
 
-### Wintersweet图像框架
+### ImageX图像框架
 
 快速让控件播放GIF和添加滤镜的框架，核心其实就是使用CADisplayLink不断刷新和更新GIF帧图。
 
-- 支持播放本地和网络GIF动画；
-- 支持 [**NSImageView 或 UIImageView**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Extensions/ImageView+Ext.swift) 显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
-- 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
-- 支持六种 [**ContentMode**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/ContentMode.swift) 图片或GIF内容填充模式；
-- 支持缓存 [**Cached**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
-- 支持磁盘和内存缓存网络数据，磁盘数据采用 [**GZip**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/GZip.swift) 压缩处理并提供多种命名加密 [**Crypto**](https://github.com/yangKJ/Wintersweet/blob/master/Sources/Core/CryptoType.swift) 方式；
-
+- 支持播放本地和网络GIF动图；
+- 支持同链接地址网络共享，不会多次下载同一资源数据；
+- 支持 [**NSImageView 或 UIImageView**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIImageView+Ext.swift) 显示网络图像或GIF并添加 [**Harbeth**](https://github.com/yangKJ/Harbeth) 滤镜；
+- 支持 [**UIButton 或 NSButton**](https://github.com/yangKJ/ImageX/blob/master/Sources/Extensions/UIButton+Ext.swift) 显示和下载图像并添加滤镜；
+- 支持任何控件并使用协议 [**AsAnimatable**](https://github.com/yangKJ/ImageX/blob/master/Sources/Animated/AsAnimatable.swift) 即可快速达到支持播放GIF功能；
+- 支持六种 [**ContentMode**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/ResizingMode.swift) 图片或GIF内容填充模式；
+- 支持缓存 [**Cached**](https://github.com/yangKJ/ImageX/blob/master/Sources/Cache/Cached.swift) 网络图片或GIF数据，指定时间空闲时刻清理过期数据；
+- 支持磁盘和内存缓存网络数据，提供多种命名加密 [**Crypto**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/CryptoType.swift) 方式；
+- 支持缓存数据再次压缩，占用更小的磁盘空间，例如 [**GZip**](https://github.com/yangKJ/ImageX/blob/master/Sources/Base/Zip.swift) 压缩方式；
+- 支持断点续传下载网络资源数据，支持设置下载进度间隔响应时间；

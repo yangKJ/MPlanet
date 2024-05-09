@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Rickenbacker
 
 class MineTarget: NSObject {
     /// 备注提示，这里必须加上`@objc`
@@ -14,6 +13,7 @@ class MineTarget: NSObject {
     @objc public func setupMineViewController(_ params: NSDictionary) -> UIViewController? {
         let userId = params["userId"] as? String
         let vc = MineViewController.init()
+        vc.userId = userId
         return vc
     }
 }

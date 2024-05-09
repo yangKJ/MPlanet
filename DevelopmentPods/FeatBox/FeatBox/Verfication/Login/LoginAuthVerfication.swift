@@ -1,0 +1,40 @@
+//
+//  LoginAuthVerfication.swift
+//  FeatBox
+//
+//  Created by Condy on 2023/8/30.
+//
+
+import Foundation
+import ProductLib
+
+/// 登陆验证，内部会主动拉起登陆控件
+public class LoginAuthVerfication: NSObject, AuthVerificationable {
+    
+    public typealias AuthElement = Void
+    
+    public var authVerificationPassedInfo: Void {
+        ()
+    }
+    
+    public func isAuthVerificationPassed() -> Bool {
+        return Session.shared.loginState == .logged
+    }
+    
+    public func authVerificationAction(authCompletion: AuthCompletion?, uiCompletion: AuthCompletion?, canceled: Canceled?) {
+        if Session.shared.loginState == .logging {
+            UIWindow.fy.keyWindow()?.fy.showHUD(title: Res.text("正在登录中，请稍后"))
+            return
+        }
+        // 登陆处理...
+        Session.shared.loginState = .logging
+        let vc = UIViewController.fy.currentViewController()
+        vc?.view.fy.showHUD(title: Res.text("模拟登陆ing.."), afterDelay: 5)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            Session.shared.loginState = .logged
+            authCompletion?(())
+            vc?.view.fy.hideHUD()
+            uiCompletion?(())
+        }
+    }
+}

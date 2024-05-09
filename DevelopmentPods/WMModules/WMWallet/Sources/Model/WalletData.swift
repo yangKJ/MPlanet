@@ -40,12 +40,9 @@ extension WalletData: TableCodable {
         case walletDetailsID
         
         typealias Root = WalletData
-        static let objectRelationalMapping = TableBinding(CodingKeys.self)
-        
-        static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
-            return [
-                .ID: ColumnConstraintBinding(isPrimary: true, isAutoIncrement: true),
-            ]
+        static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+            BindColumnConstraint(ID, isPrimary: true, isAutoIncrement: true)
+            //BindColumnConstraint(walletName, isNotNull: true, defaultTo: "defaultDescription")
         }
     }
 }

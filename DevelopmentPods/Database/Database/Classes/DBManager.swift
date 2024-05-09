@@ -30,7 +30,7 @@ public struct DBManager {
     /// 创建数据库
     private func createDatabase() -> Database {
         debugPrint("🎷数据库路径:\(dataBasePath.absoluteString)")
-        return Database(withFileURL: dataBasePath)
+        return Database(at: dataBasePath)
     }
     /// 创建数据表
     public func createTable<T: TableDecodable>(_ table: String, of type: T.Type) -> Void {

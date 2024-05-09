@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppMain'
-  s.version          = '0.0.1'
+  s.version          = '1.0.0'
   s.summary          = 'A short description of AppMain.'
   
   # This description is used to generate tags and improve search results.
@@ -30,10 +30,11 @@ Pod::Spec.new do |s|
   
   s.dependency 'FeatBox'
   s.dependency 'Mediator'
-  s.dependency 'HBDNavigationBar'
+  s.dependency 'HBDNavigationBar' # 导航栏，https://github.com/listenzz/HBDNavigationBar
+  s.dependency 'RAMAnimatedTabBarController'
   
   s.subspec 'Resources' do |xx|
-    xx.resource_bundles = { 'AppMain' => ['AppMain/Classes/Resources/*.xcassets'] }
+    xx.resource_bundles = { 'AppMain' => ['AppMain/Classes/*.xcassets'] }
   end
   
   s.source_files = 'AppMain/Classes/*.swift'

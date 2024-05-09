@@ -19,7 +19,7 @@ class WalletHomeApplicationCell: BaseTableViewCell {
     
     lazy var backView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.ai.mainColor
+        view.backgroundColor = UIColor.fy.mainColor
         view.layer.cornerRadius = 25
         view.isUserInteractionEnabled = true
         return view

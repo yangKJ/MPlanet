@@ -8,6 +8,8 @@
 import CoreGraphics
 import Foundation
 
+// MARK: - ColorValueProvider
+
 /// A `ValueProvider` that returns a CGColor Value
 public final class ColorValueProvider: ValueProvider {
 
@@ -18,6 +20,7 @@ public final class ColorValueProvider: ValueProvider {
     self.block = block
     color = LottieColor(r: 0, g: 0, b: 0, a: 1)
     keyframes = nil
+    identity = UUID()
   }
 
   /// Initializes with a single color.
@@ -26,6 +29,7 @@ public final class ColorValueProvider: ValueProvider {
     block = nil
     keyframes = nil
     hasUpdate = true
+    identity = color
   }
 
   /// Initializes with multiple colors, with timing information
@@ -34,6 +38,7 @@ public final class ColorValueProvider: ValueProvider {
     color = LottieColor(r: 0, g: 0, b: 0, a: 1)
     block = nil
     hasUpdate = true
+    identity = keyframes
   }
 
   // MARK: Public
@@ -55,12 +60,12 @@ public final class ColorValueProvider: ValueProvider {
   }
 
   public var storage: ValueProviderStorage<LottieColor> {
-    if let block = block {
+    if let block {
       return .closure { frame in
         self.hasUpdate = false
         return block(frame)
       }
-    } else if let keyframes = keyframes {
+    } else if let keyframes {
       return .keyframes(keyframes)
     } else {
       hasUpdate = false
@@ -81,4 +86,13 @@ public final class ColorValueProvider: ValueProvider {
 
   private var block: ColorValueBlock?
   private var keyframes: [Keyframe<LottieColor>]?
+  private var identity: AnyHashable
+}
+
+// MARK: Equatable
+
+extension ColorValueProvider: Equatable {
+  public static func ==(_ lhs: ColorValueProvider, _ rhs: ColorValueProvider) -> Bool {
+    lhs.identity == rhs.identity
+  }
 }

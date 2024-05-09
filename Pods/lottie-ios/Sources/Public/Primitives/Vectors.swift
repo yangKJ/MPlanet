@@ -5,11 +5,9 @@
 //  Created by Brandon Withrow on 2/4/19.
 //
 
-import Foundation
-
 // MARK: - LottieVector1D
 
-public struct LottieVector1D: Hashable {
+public struct LottieVector1D: Hashable, Sendable {
 
   public init(_ value: Double) {
     self.value = value
@@ -23,7 +21,7 @@ public struct LottieVector1D: Hashable {
 
 /// A three dimensional vector.
 /// These vectors are encoded and decoded from [Double]
-public struct LottieVector3D: Hashable {
+public struct LottieVector3D: Hashable, Sendable {
 
   public let x: Double
   public let y: Double

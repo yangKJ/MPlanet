@@ -1,0 +1,6 @@
+framework module RxSkeletonView {
+  umbrella header "RxSkeletonView-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FeatBox'
-  s.version          = '0.1.0'
+  s.version          = '2.0.0'
   s.summary          = 'A short description of FeatBox.'
   
   # This description is used to generate tags and improve search results.
@@ -28,21 +28,30 @@ Pod::Spec.new do |s|
   s.requires_arc     = true
   s.static_framework = true
   
-  s.dependency 'Extensions' ## 百宝箱工具库
-  s.dependency 'CommonView' ## 通用控件
+  s.dependency 'ProductLib' ## 百宝箱工具库
   
-  s.dependency 'RxNetworks' # 网络架构
-  s.dependency 'RxNetworks/RxSwift'
-  s.dependency 'RxNetworks/HandyJSON'
-  s.dependency 'RxNetworks/MoyaPlugins' # 网络插件
-  s.dependency 'RxCocoa' # 响应式架构
-  s.dependency 'Rickenbacker' # 基础架构
-  s.dependency 'SnapKit' # 布局架构
-  s.dependency 'Harbeth' # 滤镜框架
-  s.dependency 'Wintersweet' # 动态图像框架，替代`Kingfisher`
-  s.dependency 'YYText' # 富文本
-  s.dependency 'HBDNavigationBar' # 导航栏
+  s.dependency 'Booming' # 插件网络架构，https://github.com/yangKJ/RxNetworks
+  s.dependency 'RxNetworks' # 响应式网络架构，https://github.com/yangKJ/RxNetworks
+  s.dependency 'RxCocoa' # 响应式架构，https://github.com/ReactiveX/RxSwift
+  s.dependency 'RxGesture' # 手势响应式，https://github.com/RxSwiftCommunity/RxGesture
+  s.dependency 'RxDataSources' # 列表响应式，https://github.com/RxSwiftCommunity/RxDataSources
+  s.dependency 'RxSkeletonView' # 骨架架构，https://github.com/yangKJ/RxSkeletonView
+  s.dependency 'Rickenbacker' # 基础架构，https://github.com/yangKJ/Rickenbacker
+  s.dependency 'SnapKit' # 布局架构，https://github.com/SnapKit/SnapKit
+  s.dependency 'Harbeth' # 滤镜框架，https://github.com/yangKJ/Harbeth
+  s.dependency 'ImageX' # 图像框架，https://github.com/yangKJ/ImageX
+  s.dependency 'SDWebImage' # 图像框架，https://github.com/SDWebImage/SDWebImage
+  s.dependency 'YYText' # 富文本，https://github.com/ibireme/YYText
+  s.dependency 'UITableView+FDTemplateLayoutCell' # Cell高度缓存，https://github.com/forkingdog/UITableView-FDTemplateLayoutCell
+  s.dependency 'HandyJSON' # JSON解析，https://github.com/alibaba/HandyJSON
+  s.dependency 'FSCalendar' # 日历框架，https://github.com/WenchaoD/FSCalendar
   
-  s.source_files = 'FeatBox/Classes/**/*'
+  
+  s.source_files = 'FeatBox/**/**/*.{h,swift}'
+  #s.resource = 'FeatBox/**/*.bundle'
+  
+  s.subspec 'Resources' do |xx|
+    xx.resource_bundles = { s.name => [ 'FeatBox/**/**/*.{xcassets,Lproj}' ] }
+  end
   
 end

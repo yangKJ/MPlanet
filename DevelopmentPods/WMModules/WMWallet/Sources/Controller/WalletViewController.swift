@@ -17,7 +17,7 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
         return RxTableViewSectionedReloadDataSource(configureCell: { [weak self] (ds, tableView, indexPath, sectionItem) in
             switch sectionItem {
             case .asset(let item):
-                let cell = tableView.ai.dequeueReusableCell(WalletHomeAssetCell.self)
+                let cell = tableView.fy.dequeueReusableCell(WalletHomeAssetCell.self)
                 if let weakself = self {
                     cell.disposeBag = DisposeBag() // 解决Cell重用导致订阅取消或者多次订阅问题
                     cell.rx.tapDetails.bind(to: weakself.detailsEvent).disposed(by: cell.disposeBag)
@@ -25,11 +25,11 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
                 cell.walletData = item
                 return cell
             case .application(let item):
-                let cell = tableView.ai.dequeueReusableCell(WalletHomeApplicationCell.self)
+                let cell = tableView.fy.dequeueReusableCell(WalletHomeApplicationCell.self)
                 cell.applicationDatas = item
                 return cell
             case .token(let item):
-                let cell = tableView.ai.dequeueReusableCell(WalletHomeTokenCell.self)
+                let cell = tableView.fy.dequeueReusableCell(WalletHomeTokenCell.self)
                 cell.tokenData = item
                 return cell
             }
@@ -38,7 +38,7 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
     
     lazy var topNavigationBarView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.ai.mainColor
+        view.backgroundColor = UIColor.fy.mainColor
         return view
     }()
     
@@ -47,7 +47,7 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
     lazy var emptyView: UIView = {
         let view = UIView.init(frame: .zero)
         view.isHidden = true
-        view.backgroundColor = UIColor.ai.mainColor.withAlphaComponent(0.3)
+        view.backgroundColor = UIColor.fy.mainColor.withAlphaComponent(0.3)
         return view
     }()
     

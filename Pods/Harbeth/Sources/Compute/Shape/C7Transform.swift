@@ -8,7 +8,7 @@
 import Foundation
 import simd
 
-public struct C7Transform: C7FilterProtocol, ComputeFiltering {
+public struct C7Transform: C7FilterProtocol {
     
     public var transform: CGAffineTransform
     public var anchorPoint: C7Point2D = C7Point2D.zero
@@ -35,9 +35,9 @@ public struct C7Transform: C7FilterProtocol, ComputeFiltering {
         computeEncoder.setBytes(&factor, length: MemoryLayout<matrix_float3x2>.size, index: index + 1)
     }
     
-    private var mode: ShapeMode = .fitSize
+    private var mode: Placement = .fit
     
-    public init(mode: ShapeMode = .fitSize, transform: CGAffineTransform) {
+    public init(mode: Placement = .fit, transform: CGAffineTransform) {
         self.transform = transform
         self.mode = mode
     }

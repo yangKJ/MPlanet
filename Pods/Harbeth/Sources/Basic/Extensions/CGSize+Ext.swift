@@ -8,7 +8,9 @@
 import Foundation
 import CoreGraphics
 
-extension CGSize: C7Compatible {
+extension CGSize: HarbethCompatible {
+    
+    public static let onePixel = CGSizeMake(1.0, 1.0)
     
     public static func * (lhs: Self, rhs: Double) -> Self {
         .init(width: lhs.width * rhs, height: lhs.height * rhs)
@@ -23,7 +25,7 @@ extension CGSize: C7Compatible {
     }
 }
 
-extension Queen where Base == CGSize {
+extension HarbethWrapper where Base == CGSize {
     
     public func toC7Size() -> C7Size {
         C7Size(width: Int(base.width), height: Int(base.height))
@@ -33,7 +35,7 @@ extension Queen where Base == CGSize {
         let ratio = min(boundingSize.width / base.width, boundingSize.height / base.height)
         return CGSize(width: base.width * ratio, height: base.height * ratio)
     }
-
+    
     public func aspectFit(to widthHeight: Double) -> CGSize {
         aspectFit(to: CGSize(width: widthHeight, height: widthHeight))
     }
@@ -81,5 +83,11 @@ extension Queen where Base == CGSize {
         let r = CGRect(x: x, y: y, width: size.width, height: size.height)
         let origin = CGRect(origin: .zero, size: base)
         return origin.intersection(r)
+    }
+    
+    public func distance(to: CGSize) -> CGFloat {
+        let xDist = to.width - base.width
+        let yDist = to.height - base.height
+        return sqrt((xDist * xDist) + (yDist * yDist))
     }
 }

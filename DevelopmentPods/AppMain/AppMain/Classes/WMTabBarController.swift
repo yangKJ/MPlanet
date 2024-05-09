@@ -7,8 +7,9 @@
 
 import UIKit
 import FeatBox
+import RAMAnimatedTabBarController
 
-final class WMTabBarController: UITabBarController {
+final class WMTabBarController: RAMAnimatedTabBarController {
     
     var tabBarItems: [WMTabBarItem] = []
     
@@ -46,11 +47,11 @@ final class WMTabBarController: UITabBarController {
     
     private func appearanceAdjustify() {
         tabBar.isTranslucent = false
-        tabBar.tintColor = UIColor.ai.background
-        tabBar.barTintColor = UIColor.ai.background
-        tabBar.backgroundColor = UIColor.ai.background
+        tabBar.tintColor = UIColor.fy.background
+        tabBar.barTintColor = UIColor.fy.background
+        tabBar.backgroundColor = UIColor.fy.background
         tabBar.shadowImage = FeatBox.Placeholder.itemShadowImage
-        //tabBar.backgroundImage = UIColor.ai.background.mt.colorImage()
+        //tabBar.backgroundImage = UIColor.fy.background.mt.colorImage()
     }
     
     private func setupChildViewController() {

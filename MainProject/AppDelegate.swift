@@ -44,4 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         bridge.appDelegate.application?(application, performActionFor: shortcutItem, completionHandler: completionHandler)
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let _ = bridge.appDelegate.application?(app, open: url, options: options)
+        return true
+    }
 }

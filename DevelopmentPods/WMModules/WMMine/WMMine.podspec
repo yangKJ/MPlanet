@@ -28,9 +28,10 @@ Pod::Spec.new do |s|
   s.static_framework = true
   
   s.dependency 'FeatBox'
+  #s.dependency 'ZLPhotoBrowser' # 相册框架，https://github.com/longitachi/ZLPhotoBrowser
   
   s.subspec 'Resources' do |xx|
-    xx.resource_bundles = { 'WMMine' => ['Sources/Resources/*.{xcassets,lproj}'] }
+    xx.resource_bundles = { 'WMMine' => ['Sources/Resources/*.{xcassets,lproj,json}'] }
   end
   
   s.subspec 'Util' do |xx|

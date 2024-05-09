@@ -11,7 +11,7 @@ target 'WMDiscover_Example' do
   pod 'WMDiscover', :path => '..'
   
   pod 'FeatBox', :path => '../../../FeatBox'
-  pod 'Cabinets', :path => '../../../Cabinets'
+  pod 'Extensions', :path => '../../../Extensions'
   
 end
 

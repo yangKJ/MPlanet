@@ -1,6 +1,0 @@
-framework module WMMine {
-  umbrella header "WMMine-umbrella.h"
-
-  export *
-  module * { export * }
-}

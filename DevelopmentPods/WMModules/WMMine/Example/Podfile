@@ -11,8 +11,8 @@ target 'WMMine_Example' do
   pod 'WMMine', :path => '..'
 
   pod 'FeatBox', :path => '../../../FeatBox'
-  pod 'Cabinets', :path => '../../../Cabinets'
-  
+  pod 'Extensions', :path => '../../../Extensions'
+
 end
 
 target 'WMMine_Tests' do

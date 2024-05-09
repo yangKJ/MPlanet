@@ -14,15 +14,15 @@ public struct C7LookupSplit: C7FilterProtocol {
         case top, left, center
         case topLeft, bottomLeft
     }
-
-    public static let progressRange: ParameterRange<Float, Self> = .init(min: 0.0, max: 1.0, value: 1.0)
     
-    public let lookupTexture1: MTLTexture?
-    public let lookupTexture2: MTLTexture?
+    /// Split progress range.
+    public static let range: ParameterRange<Float, Self> = .init(min: 0.0, max: 1.0, value: 1.0)
     
-    @ZeroOneRange public var intensity: Float = 1.0
+    @ZeroOneRange public var intensity: Float = R.iRange.value
+    
     /// Split range, from 0.0 to 1.0, with a default of 0.0
-    @ZeroOneRange public var progress: Float = progressRange.value
+    @ZeroOneRange public var progress: Float = range.value
+    
     public var orientation: Orientation = .center
     
     public var modifier: Modifier {
@@ -40,9 +40,12 @@ public struct C7LookupSplit: C7FilterProtocol {
         return []
     }
     
+    private let lookupTexture1: MTLTexture?
+    private let lookupTexture2: MTLTexture?
+    
     public init(_ lookupImage: C7Image, lookupImage2: C7Image) {
-        self.lookupTexture1 = lookupImage.cgImage?.mt.toTexture()
-        self.lookupTexture2 = lookupImage2.cgImage?.mt.toTexture()
+        self.lookupTexture1 = lookupImage.cgImage?.c7.toTexture()
+        self.lookupTexture2 = lookupImage2.cgImage?.c7.toTexture()
     }
     
     public init(_ lookupTexture: MTLTexture, lookupTexture2: MTLTexture) {

@@ -22,7 +22,7 @@ class WalletHomeTokenCell: BaseTableViewCell {
     
     lazy var backView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.ai.background
+        view.backgroundColor = UIColor.fy.background
         view.layer.cornerRadius = 15
         view.isUserInteractionEnabled = true
         return view
@@ -30,13 +30,13 @@ class WalletHomeTokenCell: BaseTableViewCell {
     
     lazy var iconImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = UIColor.ai.blue
+        view.backgroundColor = UIColor.fy.blue
         return view
     }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.ai.itemTitle
+        label.textColor = UIColor.fy.itemTitle
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .left
         return label
@@ -44,7 +44,7 @@ class WalletHomeTokenCell: BaseTableViewCell {
     
     lazy var amountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.ai.itemTitle
+        label.textColor = UIColor.fy.itemTitle
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .right
         return label
@@ -52,7 +52,7 @@ class WalletHomeTokenCell: BaseTableViewCell {
     
     lazy var unitLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.ai.itemSubTitle
+        label.textColor = UIColor.fy.itemSubTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .right
         return label
@@ -60,7 +60,7 @@ class WalletHomeTokenCell: BaseTableViewCell {
     
     lazy var dollarLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.ai.itemSubTitle
+        label.textColor = UIColor.fy.itemSubTitle
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .right
         return label

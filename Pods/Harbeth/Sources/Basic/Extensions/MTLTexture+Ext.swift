@@ -11,23 +11,97 @@ import ImageIO
 import Accelerate
 
 extension MTLTexture {
-    /// Add the `mt` prefix namespace
-    public var mt: MTLTextureCompatible_ {
+    /// Add the `c7` prefix namespace
+    public var c7: MTLTextureCompatible_ {
         MTLTextureCompatible_(target: self)
     }
 }
 
 public struct MTLTextureCompatible_ {
     
-    public let target: MTLTexture
+    weak var target: MTLTexture!
     
-    var size: C7Size {
-        C7Size(width: self.target.width, height: self.target.height)
+    init(target: MTLTexture) {
+        self.target = target
+    }
+    
+    public var size: MTLSize {
+        .init(width: target.width, height: target.height, depth: target.depth)
+    }
+    
+    public var region: MTLRegion {
+        .init(origin: MTLOrigin(x: 0, y: 0, z: 0), size: size)
+    }
+    
+    public var descriptor: MTLTextureDescriptor {
+        let descriptor = MTLTextureDescriptor()
+        descriptor.width = target.width
+        descriptor.height = target.height
+        descriptor.depth = target.depth
+        descriptor.arrayLength = target.arrayLength
+        descriptor.storageMode = target.storageMode
+        descriptor.cpuCacheMode = target.cpuCacheMode
+        descriptor.usage = target.usage
+        descriptor.textureType = target.textureType
+        descriptor.sampleCount = target.sampleCount
+        descriptor.mipmapLevelCount = target.mipmapLevelCount
+        descriptor.pixelFormat = target.pixelFormat
+        if #available(iOS 12, macOS 10.14, *) {
+            descriptor.allowGPUOptimizedContents = target.allowGPUOptimizedContents
+        }
+        return descriptor
+    }
+    
+    public func isBlank() -> Bool {
+        let width = target.width
+        let height = target.height
+        let bytesPerRow = width * 4
+        let data = UnsafeMutableRawPointer.allocate(byteCount: bytesPerRow * height, alignment: 4)
+        defer { data.deallocate() }
+        let region = MTLRegionMake2D(0, 0, width, height)
+        target.getBytes(data, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
+        var bind = data.assumingMemoryBound(to: UInt8.self)
+        var sum: UInt8 = 0
+        for _ in 0..<width*height {
+            sum += bind.pointee
+            bind = bind.advanced(by: 1)
+        }
+        return sum != 0
+    }
+    
+    public func toC7Size() -> C7Size {
+        C7Size(width: target.width, height: target.height)
     }
     
     public func toImage() -> C7Image? {
-        guard let cgImage = toCGImage() else { return nil }
-        return cgImage.mt.toC7Image()
+        guard let cgImage = toCGImage() else {
+            return nil
+        }
+        return cgImage.c7.toC7Image()
+    }
+    
+    public func toCIImage() -> CIImage? {
+        CIImage.init(mtlTexture: target)
+    }
+    
+    public func toCIImage(mirrored: Bool) throws -> CIImage {
+        guard let ciImage = toCIImage() else {
+            throw HarbethError.texture2CIImage
+        }
+        if mirrored, #available(iOS 11.0, macOS 10.13, *) {
+            // When the CIImage is created, it is mirrored and flipped upside down.
+            // But upon inspecting the texture, it still renders the CIImage as expected.
+            // Nevertheless, we can fix this by simply transforming the CIImage with the downMirrored orientation.
+            return ciImage.oriented(.downMirrored)
+        }
+        return ciImage
+    }
+    
+    public func fixImageOrientation(refImage: C7Image) throws -> C7Image {
+        guard let cgImage = target.c7.toCGImage() else {
+            throw HarbethError.texture2Image
+        }
+        return cgImage.c7.drawing(refImage: refImage).c7.flattened()
     }
     
     /// Create a CGImage with the data and information we provided.
@@ -39,7 +113,7 @@ public struct MTLTextureCompatible_ {
     ///   - pixelFormat: Current Metal texture pixel format.
     /// - Returns: CGImage
     public func toCGImage(colorSpace: CGColorSpace? = nil, pixelFormat: MTLPixelFormat? = nil) -> CGImage? {
-        let width = target.width
+        let width  = target.width
         let height = target.height
         let region = MTLRegionMake3D(0, 0, 0, width, height, 1)
         switch pixelFormat ?? self.target.pixelFormat {
@@ -139,17 +213,11 @@ public struct MTLTextureCompatible_ {
         }
     }
     
-    /// Create a texture with similar properties.
-    func matchingTexture(to texture: MTLTexture) -> MTLTexture {
-        let matchingDescriptor = MTLTextureDescriptor()
-        matchingDescriptor.width = texture.width
-        matchingDescriptor.height = texture.height
-        matchingDescriptor.usage = texture.usage
-        matchingDescriptor.pixelFormat = texture.pixelFormat
-        matchingDescriptor.storageMode = texture.storageMode
-        
-        let loader = Shared.shared.device?.textureLoader
-        let matchingTexture = loader?.device.makeTexture(descriptor: matchingDescriptor)
-        return matchingTexture ?? texture
+    public func bytes() -> UnsafeMutableRawPointer {
+        let rowBytes = target.width * 4
+        let bytes = malloc(target.width * target.height * 4)
+        let reg = MTLRegionMake2D(0, 0, target.width, target.height)
+        target.getBytes(bytes!, bytesPerRow: rowBytes, from: reg, mipmapLevel: 0)
+        return bytes!
     }
 }

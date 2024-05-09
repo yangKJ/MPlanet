@@ -36,25 +36,8 @@ final class ShapeLayer: BaseCompositionLayer {
   private let shapeLayer: ShapeLayerModel
 
   private func setUpGroups(context: LayerContext) throws {
-    // If the layer has a `Repeater`, the `Group`s are duplicated and offset
-    // based on the copy count of the repeater.
-    if let repeater = shapeLayer.items.first(where: { $0 is Repeater }) as? Repeater {
-      try setUpRepeater(repeater, context: context)
-    } else {
-      try setupGroups(from: shapeLayer.items, parentGroup: nil, parentGroupPath: [], context: context)
-    }
-  }
-
-  private func setUpRepeater(_ repeater: Repeater, context: LayerContext) throws {
-    let items = shapeLayer.items.filter { !($0 is Repeater) }
-    let copyCount = Int(try repeater.copies.exactlyOneKeyframe(context: context, description: "repeater copies").value)
-
-    for index in 0..<copyCount {
-      for groupLayer in try makeGroupLayers(from: items, parentGroup: nil, parentGroupPath: [], context: context) {
-        let repeatedLayer = RepeaterLayer(repeater: repeater, childLayer: groupLayer, index: index)
-        addSublayer(repeatedLayer)
-      }
-    }
+    let shapeItems = shapeLayer.items.map { ShapeItemLayer.Item(item: $0, groupPath: []) }
+    try setupGroups(from: shapeItems, parentGroup: nil, parentGroupPath: [], context: context)
   }
 
 }
@@ -127,7 +110,7 @@ final class GroupLayer: BaseAnimationLayer {
   private func setupLayerHierarchy(context: LayerContext) throws {
     // Groups can contain other groups, so we may have to continue
     // recursively creating more `GroupLayer`s
-    try setupGroups(from: group.items, parentGroup: group, parentGroupPath: groupPath, context: context)
+    try setupGroups(from: items, parentGroup: group, parentGroupPath: groupPath, context: context)
 
     // Create `ShapeItemLayer`s for each subgroup of shapes that should be rendered as a single unit
     //  - These groups are listed from front-to-back, so we have to add the sublayers in reverse order
@@ -179,54 +162,111 @@ final class GroupLayer: BaseAnimationLayer {
 }
 
 extension CALayer {
+
+  // MARK: Fileprivate
+
   /// Sets up `GroupLayer`s for each `Group` in the given list of `ShapeItem`s
   ///  - Each `Group` item becomes its own `GroupLayer` sublayer.
   ///  - Other `ShapeItem` are applied to all sublayers
   fileprivate func setupGroups(
-    from items: [ShapeItem],
+    from items: [ShapeItemLayer.Item],
     parentGroup: Group?,
     parentGroupPath: [String],
     context: LayerContext)
     throws
   {
-    let groupLayers = try makeGroupLayers(
-      from: items,
-      parentGroup: parentGroup,
-      parentGroupPath: parentGroupPath,
-      context: context)
+    // If the layer has any `Repeater`s, set up each repeater
+    // and then handle any remaining groups like normal.
+    if items.contains(where: { $0.item is Repeater }) {
+      let repeaterGroupings = items.split(whereSeparator: { $0.item is Repeater })
 
-    for groupLayer in groupLayers {
-      addSublayer(groupLayer)
+      // Iterate through the groupings backwards to preserve the expected rendering order
+      for repeaterGrouping in repeaterGroupings.reversed() {
+        // Each repeater applies to the previous items in the list
+        if let repeater = repeaterGrouping.trailingSeparator?.item as? Repeater {
+          try setUpRepeater(
+            repeater,
+            items: repeaterGrouping.grouping,
+            parentGroupPath: parentGroupPath,
+            context: context)
+        }
+
+        // Any remaining items after the last repeater are handled like normal
+        else {
+          try setupGroups(
+            from: repeaterGrouping.grouping,
+            parentGroup: parentGroup,
+            parentGroupPath: parentGroupPath,
+            context: context)
+        }
+      }
+    }
+
+    else {
+      let groupLayers = try makeGroupLayers(
+        from: items,
+        parentGroup: parentGroup,
+        parentGroupPath: parentGroupPath,
+        context: context)
+
+      for groupLayer in groupLayers {
+        addSublayer(groupLayer)
+      }
+    }
+  }
+
+  // MARK: Private
+
+  /// Sets up this layer using the given `Repeater`
+  private func setUpRepeater(
+    _ repeater: Repeater,
+    items allItems: [ShapeItemLayer.Item],
+    parentGroupPath: [String],
+    context: LayerContext)
+    throws
+  {
+    let items = allItems.filter { !($0.item is Repeater) }
+    let copyCount = Int(try repeater.copies.exactlyOneKeyframe(context: context, description: "repeater copies").value)
+
+    for index in 0..<copyCount {
+      let groupLayers = try makeGroupLayers(
+        from: items,
+        parentGroup: nil, // The repeater layer acts as the parent of its sublayers
+        parentGroupPath: parentGroupPath,
+        context: context)
+
+      for groupLayer in groupLayers {
+        let repeatedLayer = RepeaterLayer(repeater: repeater, childLayer: groupLayer, index: index)
+        addSublayer(repeatedLayer)
+      }
     }
   }
 
   /// Creates a `GroupLayer` for each `Group` in the given list of `ShapeItem`s
   ///  - Each `Group` item becomes its own `GroupLayer` sublayer.
   ///  - Other `ShapeItem` are applied to all sublayers
-  fileprivate func makeGroupLayers(
-    from items: [ShapeItem],
+  private func makeGroupLayers(
+    from items: [ShapeItemLayer.Item],
     parentGroup: Group?,
     parentGroupPath: [String],
     context: LayerContext)
     throws -> [GroupLayer]
   {
-    var (groupItems, otherItems) = items
-      .filter { !$0.hidden }
-      .grouped(by: { $0 is Group })
+    var groupItems = items.compactMap { $0.item as? Group }.filter { !$0.hidden }
+    var otherItems = items.filter { !($0.item is Group) && !$0.item.hidden }
 
     // Handle the top-level `shapeLayer.items` array. This is typically just a single `Group`,
     // but in practice can be any combination of items. The implementation expects all path-drawing
     // shape items to be managed by a `GroupLayer`, so if there's a top-level path item we
     // have to create a placeholder group.
-    if parentGroup == nil, otherItems.contains(where: { $0.drawsCGPath }) {
-      groupItems = [Group(items: items, name: "")]
+    if parentGroup == nil, otherItems.contains(where: { $0.item.drawsCGPath }) {
+      groupItems = [Group(items: items.map { $0.item }, name: "")]
       otherItems = []
     }
 
     // Any child items that wouldn't be included in a valid shape render group
     // need to be applied to child groups (otherwise they'd be silently ignored).
     let inheritedItemsForChildGroups = otherItems
-      .map { ShapeItemLayer.Item(item: $0, groupPath: parentGroupPath) }
       .shapeRenderGroups(groupHasChildGroupsToInheritUnusedItems: !groupItems.isEmpty)
       .unusedItems
 
@@ -235,8 +275,6 @@ extension CALayer {
     let groupsInZAxisOrder = groupItems.reversed()
 
     return try groupsInZAxisOrder.compactMap { group in
-      guard let group = group as? Group else { return nil }
-
       var pathForChildren = parentGroupPath
       if !group.name.isEmpty {
         pathForChildren.append(group.name)
@@ -348,6 +386,32 @@ extension Collection {
 
     return (trueElements, falseElements)
   }
+
+  /// Splits this collection into an array of grouping separated by the given separator.
+  /// For example, `[A, B, C]` split by `B` returns an array with two elements:
+  ///  1. `(grouping: [A], trailingSeparator: B)`
+  ///  2. `(grouping: [C], trailingSeparator: nil)`
+  func split(whereSeparator separatorPredicate: (Element) -> Bool)
+    -> [(grouping: [Element], trailingSeparator: Element?)]
+  {
+    guard !isEmpty else { return [] }
+
+    var groupings: [(grouping: [Element], trailingSeparator: Element?)] = []
+
+    for element in self {
+      if groupings.isEmpty || groupings.last?.trailingSeparator != nil {
+        groupings.append((grouping: [], trailingSeparator: nil))
+      }
+
+      if separatorPredicate(element) {
+        groupings[groupings.indices.last!].trailingSeparator = element
+      } else {
+        groupings[groupings.indices.last!].grouping.append(element)
+      }
+    }
+
+    return groupings
+  }
 }
 
 // MARK: - ShapeRenderGroup
@@ -361,7 +425,7 @@ struct ShapeRenderGroup {
   var otherItems: [ShapeItemLayer.Item] = []
 }
 
-extension Array where Element == ShapeItemLayer.Item {
+extension [ShapeItemLayer.Item] {
   /// Splits this list of `ShapeItem`s into groups that should be rendered together as individual units,
   /// plus the remaining items that were not included in any group.
   ///  - groupHasChildGroupsToInheritUnusedItems: whether or not this group has child groups

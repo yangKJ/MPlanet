@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Alamofire-Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -19,7 +24,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>CommonView-CommonView.xcscheme</key>
+		<key>Booming.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CacheX.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -49,7 +59,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FSCalendar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FSPagerView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FeatBox-FeatBox.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -79,12 +99,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Lemons.xcscheme</key>
+		<key>ImageX.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MJRefresh-MJRefresh.Privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -114,7 +139,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Rickenbacker-Rickenbacker.xcscheme</key>
+		<key>RAMAnimatedTabBarController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -139,6 +164,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RxGesture.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>RxNetworks.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -154,7 +184,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SQLiteRepairKit.xcscheme</key>
+		<key>SDWebImage-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SnapKit-SnapKit_Privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -164,7 +204,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Toast-Swift.xcscheme</key>
+		<key>UITableView+FDTemplateLayoutCell.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -209,12 +249,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Wintersweet.xcscheme</key>
+		<key>YYText.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>YYText.xcscheme</key>
+		<key>lottie-ios-LottiePrivacyInfo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

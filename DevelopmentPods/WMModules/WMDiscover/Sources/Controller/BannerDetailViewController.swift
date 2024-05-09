@@ -24,7 +24,7 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
                 if self?.topCell != nil {
                     return self!.topCell!
                 }
-                let cell = tableView.ai.dequeueReusableCell(BannerDetailTopCell.self)
+                let cell = tableView.fy.dequeueReusableCell(BannerDetailTopCell.self)
                 self?.topCell = cell
                 if let weakself = self {
                     cell.disposeBag = DisposeBag() // 解决Cell重用导致订阅取消或者多次订阅问题
@@ -33,7 +33,7 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
                 cell.bannersAndIndex.accept((self?.index, item))
                 return cell
             case .detail(let item):
-                let cell = tableView.ai.dequeueReusableCell(BannerDetailCell.self)
+                let cell = tableView.fy.dequeueReusableCell(BannerDetailCell.self)
                 cell.detail.accept(item)
                 return cell
             }
@@ -82,7 +82,7 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
         
         // 错误提示
         viewModel.outputs.datas.subscribe(onError: { [weak self] error in
-            self?.view.ai.showHUD(title: error.localizedDescription)
+            self?.view.fy.showHUD(title: error.localizedDescription)
         }).disposed(by: rx.disposeBag)
         
         // 绑定数据
@@ -111,10 +111,10 @@ extension BannerDetailViewController: UITableViewDelegate {
 extension BannerDetailViewController: DZNEmptyDataSetable {
     
     func DZNEmptyDataSetImage(scrollView: UIScrollView) -> UIImage {
-        Rickenbacker.R.image("base_network_error_black", forResource: "Rickenbacker")
+        Res.base_network_error_black
     }
     
     func DZNEmptyDataSetImageTintColor(scrollView: UIScrollView) -> UIColor? {
-        return UIColor.ai.mainColor
+        return UIColor.fy.mainColor
     }
 }

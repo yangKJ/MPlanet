@@ -12,7 +12,7 @@ struct WalletUtil {
     static let moduleName = "WMWallet"
 }
 
-extension Rickenbacker.R {
+extension Res {
     
     static func image(_ named: String) -> UIImage {
         self.image(named, forResource: WalletUtil.moduleName)

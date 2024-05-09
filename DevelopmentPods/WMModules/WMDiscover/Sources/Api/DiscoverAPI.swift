@@ -18,7 +18,7 @@ enum DiscoverAPI {
 extension DiscoverAPI: NetworkAPI {
     
     var ip: APIHost {
-        return "https://www.httpbin.org"
+        return Environment.host
     }
     
     var path: APIPath {
@@ -51,10 +51,10 @@ extension DiscoverAPI: NetworkAPI {
     var plugins: APIPlugins {
         switch self {
         case .detail(let banner):
-            let loading = NetworkLoadingPlugin.init(delay: 0.5, autoHide: false)
+            let loading = NetworkLoadingPlugin.init(options: .init(delay: 0.5, autoHide: false))
             return [loading]
         default:
-            let loading = NetworkLoadingPlugin.init(delay: 0.5)
+            let loading = NetworkLoadingPlugin.init(options: .init(delay: 0.5))
             return [loading]
         }
     }
@@ -71,9 +71,9 @@ extension DiscoverAPI: NetworkAPI {
     var sampleData: Data {
         switch self {
         case .banner:
-            return R.jsonData("Banner")
+            return Res.jsonData("Banner")
         case .detail(let banner):
-            return R.jsonData("BannerDetail")
+            return Res.jsonData("BannerDetail")
         }
     }
 }

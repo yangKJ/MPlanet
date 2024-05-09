@@ -1,13 +1,11 @@
 //
-//  RootManager.swift
+//  Bridge.swift
 //  RootManager
 //
-//  Created by Condy on 2020/12/29.
+//  Created by Condy on 2023/3/13.
 //
 
-import UIKit
-import AppMain
-import FeatBox
+import Foundation
 
 /// 中转站，供外界使用
 public struct Bridge {
@@ -31,9 +29,17 @@ public struct Bridge {
 
 extension Bridge {
     
+    private func delegate<T: AppDelegateType>(type: T.Type) -> T? {
+        guard let delegate = appDelegates.first(where: { $0 is T }) as? T else {
+            return nil
+        }
+        return delegate
+    }
+    
     /// 解决双窗口`Alert`并没有悼念模式问题
     /// - Parameter alert: 其他窗口`Alert`
     public func alertDisplayMorun(alert: UIView?) {
-        appDelegates.bolting(type: MournAppDelegate.self)?.alertDisplayMorun(alert: alert)
+        let delegate = delegate(type: MournAppDelegate.self)
+        delegate?.alertDisplayMorun(alert: alert)
     }
 }

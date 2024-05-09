@@ -32,12 +32,8 @@ extension WalletApplicationData: TableCodable {
         case selected
         
         typealias Root = WalletApplicationData
-        static let objectRelationalMapping = TableBinding(CodingKeys.self)
-        
-        static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
-            return [
-                .ID: ColumnConstraintBinding(isPrimary: true, isAutoIncrement: false),
-            ]
+        static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+            BindColumnConstraint(ID, isPrimary: true)
         }
     }
 }

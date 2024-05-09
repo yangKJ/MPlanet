@@ -1,5 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 
+#source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git' # 清华镜像源
 source 'https://github.com/CocoaPods/Specs.git'
 #source 'git@github.com:Condy/PrivatePod.git' # 私有索引
 
@@ -15,6 +16,21 @@ def modules_pods
   pod 'WMMine', :path => 'DevelopmentPods/WMModules/WMMine'
   ## 钱包首页
   pod 'WMWallet', :path => 'DevelopmentPods/WMModules/WMWallet'
+end
+
+def test_tools_pods
+  
+  # DiDi开发工具
+  pod 'DoraemonKit/Core', :configurations => ['Debug']
+  #  pod 'DoraemonKit/WithMLeaksFinder', :configurations => ['Debug'] # 查找内存泄漏
+  #  pod 'DoraemonKit/WithGPS', :configurations => ['Debug'] # 模拟定位功能
+  #  pod 'DoraemonKit/WithLoad', :configurations => ['Debug'] # 集成Load耗时检测
+  #  pod 'DoraemonKit/WithDatabase', :configurations => ['Debug'] # 网页端调式数据库
+  #  pod 'DoraemonKit/WithLogger', :configurations => ['Debug'] # 基于CocoaLumberjack的日志
+  #  pod 'GDPerformanceView', :configurations => ['Debug']
+  
+  # 猴子调试工具<UI压力测试>
+  #pod "SwiftMonkeyPaws", :configurations => ['Debug']
 end
 
 target 'MainProject_Example' do
@@ -38,9 +54,11 @@ target 'MainProject_Example' do
   pod 'CommonView', :path => 'DevelopmentPods/CommonView'
   
   ## 百宝箱工具
-  pod 'Extensions', :path => 'DevelopmentPods/Extensions'
+  pod 'ProductLib', :path => 'DevelopmentPods/ProductLib'
   
   modules_pods
+  
+  #test_tools_pods
   
 end
 
@@ -48,6 +66,8 @@ target 'MainProject_Tests' do
   inherit! :search_paths
   
 end
+
+$static_framework = ['SnapKit']
 
 ## https://github.com/CocoaPods/CocoaPods/issues/11402
 post_install do |installer|
@@ -67,5 +87,14 @@ post_install do |installer|
           end
        end
     end
+    ## Fixed read framework library
+    ## See: https://juejin.cn/post/7012995777727299591
+#    puts install
+#    install.pod_targets.each { | pod |
+#      if $static_framework.include?(pod.name)
+#        def pod.build_type;
+#          Pod::BuildType.static_framework # 使用静态库
+#        end
+#      end
+#    }
 end
-

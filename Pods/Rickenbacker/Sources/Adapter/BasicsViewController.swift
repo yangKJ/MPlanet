@@ -15,7 +15,7 @@ open class BasicsViewController: UIViewController {
     public var wasForceRemoved = false
     
     public lazy var backBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(image: R.image("base_black_back"),
+        let barButton = UIBarButtonItem(image: R.base_black_back,
                                         style: .plain,
                                         target: self,
                                         action: #selector(BasicsViewController.backAction))
@@ -38,11 +38,11 @@ open class BasicsViewController: UIViewController {
         
         self.navigationItem.hidesBackButton = true
         self.navigationItem.leftBarButtonItem = self.backBarButton
+        self.view.backgroundColor = UIColor.white
         if #available(iOS 11.0, *) {
-            self.view.backgroundColor = R.color("background")
+            //self.view.backgroundColor = R.color("background")
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         } else {
-            self.view.backgroundColor = UIColor.white
             automaticallyAdjustsScrollViewInsets = false
         }
     }

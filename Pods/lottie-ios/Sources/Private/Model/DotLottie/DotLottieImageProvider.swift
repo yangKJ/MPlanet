@@ -5,10 +5,9 @@
 //  Created by Evandro Hoffmann on 20/10/22.
 //
 
-import Foundation
-#if os(iOS) || os(tvOS) || os(watchOS) || targetEnvironment(macCatalyst)
+#if canImport(UIKit)
 import UIKit
-#elseif os(macOS)
+#elseif canImport(AppKit)
 import AppKit
 #endif
 
@@ -23,12 +22,12 @@ class DotLottieImageProvider: AnimationImageProvider {
   ///
   /// - Parameter filepath: The absolute filepath containing the images.
   ///
-  init(filepath: String) {
-    self.filepath = URL(fileURLWithPath: filepath)
-    loadImages()
+  convenience init?(filepath: String) {
+    self.init(filepath: URL(fileURLWithPath: filepath))
   }
 
-  init(filepath: URL) {
+  init?(filepath: URL) {
+    guard filepath.urls.count > 0 else { return nil }
     self.filepath = filepath
     loadImages()
   }
@@ -38,7 +37,11 @@ class DotLottieImageProvider: AnimationImageProvider {
   let filepath: URL
 
   func imageForAsset(asset: ImageAsset) -> CGImage? {
-    images[asset.name]
+    if let base64Image = asset.base64Image {
+      return base64Image
+    }
+
+    return images[asset.name]
   }
 
   // MARK: Private
@@ -51,23 +54,36 @@ class DotLottieImageProvider: AnimationImageProvider {
   private var images = [String: CGImage]()
 
   private func loadImages() {
-    filepath.urls.forEach {
-      #if os(iOS) || os(tvOS) || os(watchOS) || targetEnvironment(macCatalyst)
+    for url in filepath.urls {
+      #if canImport(UIKit)
       if
-        let data = try? Data(contentsOf: $0),
+        let data = try? Data(contentsOf: url),
         let image = UIImage(data: data)?.cgImage
       {
-        images[$0.lastPathComponent] = image
+        images[url.lastPathComponent] = image
       }
-      #elseif os(macOS)
+      #elseif canImport(AppKit)
       if
-        let data = try? Data(contentsOf: $0),
+        let data = try? Data(contentsOf: url),
         let image = NSImage(data: data)?.lottie_CGImage
       {
-        images[$0.lastPathComponent] = image
+        images[url.lastPathComponent] = image
       }
       #endif
     }
+  }
+
+}
+
+// MARK: Hashable
+
+extension DotLottieImageProvider: Hashable {
+  static func ==(_ lhs: DotLottieImageProvider, _ rhs: DotLottieImageProvider) -> Bool {
+    lhs.filepath == rhs.filepath
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(filepath)
   }
 
 }

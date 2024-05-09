@@ -1,6 +1,0 @@
-framework module Wintersweet {
-  umbrella header "Wintersweet-umbrella.h"
-
-  export *
-  module * { export * }
-}

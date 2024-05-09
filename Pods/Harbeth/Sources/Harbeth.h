@@ -37,8 +37,33 @@
 // If you find it easy to use, I hope you can support STAR. Your ⭐️ is my motivation for updating!
 // Portal: https://github.com/YangKJ/Harbeth <Note: Open the browser command quickly, command + left mouse button>
 
+// 关于加载和缓存网络图像or动态图像，你也可以使用另外的库[ImageX](https://github.com/YangKJ/ImageX)
+
+// If you need downloading and caching images or GIFs from the web.
+// You can also use another library [ImageX](https://github.com/YangKJ/ImageX)
+
+// 关于视频添加滤镜并编辑导出，你也可以使用另外的库[Kakapos](https://github.com/YangKJ/Kakapos)
+
+// Add filters about the video and edit export.
+// You can also use another library [Kakapos](https://github.com/YangKJ/Kakapos)
+
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXPORT double HarbethVersionNumber;
 
 FOUNDATION_EXPORT const unsigned char HarbethVersionString[];
+
+/// Quickly add filters to sources.
+/// Support use `UIImage/NSImage, CGImage, CIImage, MTLTexture, CMSampleBuffer, CVPixelBuffer/CVImageBuffer`
+///
+/// For example:
+///
+///     let filter = C7Storyboard(ranks: 2)
+///     let dest = HarbethIO.init(element: originImage, filter: filter)
+///     ImageView.image = try? dest.output()
+///
+///     // Asynchronous add filters to sources.
+///     dest.transmitOutput(success: { [weak self] image in
+///         // do somthing..
+///     })
+///

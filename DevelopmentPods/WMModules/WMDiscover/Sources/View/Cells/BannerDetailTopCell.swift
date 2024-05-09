@@ -21,7 +21,7 @@ class BannerDetailTopCell: BaseTableViewCell, HasDisposeBag {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = BannerDetailTopCell.spaceing
         layout.scrollDirection = .horizontal
-        let width = C.width - BannerDetailTopCell.spaceing * 4
+        let width = Ces.width - BannerDetailTopCell.spaceing * 4
         layout.itemSize = CGSize(width: width, height: width * 250.0 / 375.0)
         return layout
     }()
@@ -36,7 +36,7 @@ class BannerDetailTopCell: BaseTableViewCell, HasDisposeBag {
         view.isScrollEnabled = true
         view.scrollsToTop = false
         view.clipsToBounds = false
-        view.ai.register(BannerDetailTopCellCollectionViewCell.self)
+        view.fy.register(BannerDetailTopCellCollectionViewCell.self)
         return view
     }()
     
@@ -57,7 +57,7 @@ class BannerDetailTopCell: BaseTableViewCell, HasDisposeBag {
         bannersAndIndex.map { $0.banners }
             .bind(to: collectionView.rx.items) { (collectionView, row, element) in
                 let indexPath = IndexPath(row: row, section: 0)
-                let item = collectionView.ai.dequeueReusableCell(BannerDetailTopCellCollectionViewCell.self, indexPath: indexPath)
+                let item = collectionView.fy.dequeueReusableCell(BannerDetailTopCellCollectionViewCell.self, indexPath: indexPath)
                 item.banner = element
                 return item
             }.disposed(by: rx.disposeBag)
@@ -126,32 +126,30 @@ fileprivate class BannerDetailTopCellCollectionViewCell: BaseCollectionViewCell 
                 return
             }
             titleLabel.text = banner.title
-            if let imagePath = banner.imagePath {
-                backImageView.ai.setImage(with: imagePath, module: DiscoverUtil.moduleName, contentMode: .scaleAspectFill)
-            }
+            backImageView.fy.setImage(with: banner.imagePath, filters: banner.filters)
         }
     }
     
     lazy var backImageView: UIImageView = {
         var view = UIImageView()
-        view.ai.cornerRadius = 22
+        view.fy.cornerRadius = 22
         return view
     }()
     
     lazy var titleLabel: UILabel = {
-        let label = DynamicFontSizeLabel.init()
-        label.font = UIFont.ai.system_20
-        label.textColor = UIColor.ai.title
+        let label = BaseLabel.init()
+        label.font = UIFont.fy.system_20
+        label.textColor = UIColor.fy.title
         return label
     }()
     
     lazy var seeCardNoButton: UIButton = {
-        var button = CustomButton.init(type: .custom)
-        button.setTitle(R.text("查看卡号"), for: .normal)
-        button.setTitleColor(UIColor.ai.gray_666666, for: .normal)
-        button.titleLabel?.font = UIFont.ai.system_14
-        button.backgroundColor = UIColor.ai.gray_F7F7F7
-        button.ai.corOfShadow = 20
+        var button = BaseButton.init(type: .custom)
+        button.setTitle(Res.text("查看卡号"), for: .normal)
+        button.setTitleColor(UIColor.fy.gray_666666, for: .normal)
+        button.titleLabel?.font = UIFont.fy.system_14
+        button.backgroundColor = UIColor.fy.gray_F7F7F7
+        button.fy.corOfShadow = 20
         return button
     }()
     

@@ -8,9 +8,9 @@
 import Foundation
 import MetalKit
 
-extension Data: C7Compatible { }
+extension Data: HarbethCompatible { }
 
-extension Queen where Base == Data {
+extension HarbethWrapper where Base == Data {
     
     /// Image data to texture
     ///
@@ -31,6 +31,6 @@ extension Queen where Base == Data {
         if let texture = try? loader?.newTexture(data: base, options: options) {
             return texture
         }
-        return C7Image.init(data: base)?.mt.toTexture()
+        return C7Image.init(data: base)?.c7.toTexture()
     }
 }

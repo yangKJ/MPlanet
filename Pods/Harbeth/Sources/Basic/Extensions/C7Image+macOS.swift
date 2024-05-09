@@ -15,19 +15,52 @@ import AppKit
 extension C7Image {
     
     public convenience init(cgImage: CGImage) {
+        //self.init(cgImage: cgImage, scale: 1.0, orientation: .up)
         self.init(cgImage: cgImage, size: .zero)
     }
     
+    public convenience init(cgImage: CGImage, scale: CGFloat, orientation: C7ImageOrientation) {
+        let cgImage: CGImage = {
+            orientation != .up ? cgImage.c7.fixOrientation(from: orientation) : cgImage
+        }()
+        let imageRep = NSBitmapImageRep(cgImage: cgImage)
+        let scale = max(1.0, scale)
+        let width = CGFloat(imageRep.pixelsWide) / scale
+        let height = CGFloat(imageRep.pixelsHigh) / scale
+        self.init(cgImage: cgImage, size: .init(width: width, height: height))
+        self.addRepresentation(imageRep)
+    }
+    
     public var cgImage: CGImage? {
-        return self.cgImage(forProposedRect: nil, context: nil, hints: nil)
+        var rect = NSRect(origin: .zero, size: self.size)
+        return self.cgImage(forProposedRect: &rect, context: nil, hints: nil)
     }
     
     public var scale: CGFloat {
-        return 1.0
+        guard let pixelsWide = representations.first?.pixelsWide else {
+            return 1.0
+        }
+        let scale: CGFloat = CGFloat(pixelsWide) / size.width
+        return scale
+    }
+    
+    public func pngData() -> Data? {
+        guard let rep = tiffRepresentation, let bitmap = NSBitmapImageRep(data: rep) else {
+            return nil
+        }
+        return bitmap.representation(using: .png, properties: [:])
+    }
+    
+    public func jpegData(compressionQuality: CGFloat) -> Data? {
+        guard let representation = tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: representation) else {
+            return nil
+        }
+        return bitmap.representation(using: .jpeg, properties: [.compressionFactor: compressionQuality])
     }
 }
 
-extension Queen where Base: C7Image {
+extension HarbethWrapper where Base: C7Image {
     
     public var size: CGSize {
         return base.representations.reduce(.zero) { (size, rep) in
@@ -37,17 +70,12 @@ extension Queen where Base: C7Image {
         }
     }
     
-    /// Fixed image rotation direction.
-    public func fixOrientation() -> C7Image {
-        base
-    }
-    
     /// Flip image, Need to be used in `base.lockFocus()`
     ///
     /// Example:
     ///
     ///     image.lockFocus()
-    ///     image.mt.flip(horizontal: true, vertical: true)
+    ///     image.c7.flip(horizontal: true, vertical: true)
     ///
     /// - Parameters:
     ///   - horizontal: Flip 180 degrees from left to right or right to left.

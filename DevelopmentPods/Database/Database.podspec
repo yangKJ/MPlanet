@@ -26,6 +26,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
   
   s.source_files = 'Database/Classes/*.swift'
-  s.dependency 'WCDB.swift' ## 数据库
+  s.dependency 'WCDB.swift' ## 数据库，https://github.com/Tencent/wcdb
   
 end

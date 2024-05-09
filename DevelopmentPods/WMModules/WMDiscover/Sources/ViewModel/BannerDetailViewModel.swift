@@ -41,15 +41,12 @@ class BannerDetailViewModel: BaseViewModel, ViewModelEmptiable {
             let top = BannerDetailSection.top(items: [.top(item: banners)])
             let detail = BannerDetailSection.detail(items: [.detail(item: $0)])
             self?.datas.accept([top, detail])
-        }, onCompleted: {
-            //链式需主动关闭loading
-            NetworkLoadingPlugin.hideMBProgressHUD()
         }).disposed(by: rx.disposeBag)
     }
     
     // 删除缓存数据
     func removeCacheBannerDetail(with detail: BannerDetail) {
-        if let key = detail.id?.ai.toString() {
+        if let key = detail.id?.fy.toString() {
             self.cacheBannerDetail[key] = nil
         }
     }
@@ -73,7 +70,7 @@ extension BannerDetailViewModel {
             return Observable.of(nil)
         }
         // 先读取缓存数据
-        if let key = banner.id?.ai.toString(), let detail = self.cacheBannerDetail[key] {
+        if let key = banner.id?.fy.toString(), let detail = self.cacheBannerDetail[key] {
             return Observable.from(optional: detail) //Tip:这种方式传nil会导致后面订阅不响应
         }
         // 没有则去获取卡详情数据
@@ -86,10 +83,10 @@ extension BannerDetailViewModel {
                 }
                 detail.id = banner.id
                 detail.title = banner.title
-                detail.background = UIColor.ai.random
+                detail.background = UIColor.fy.random
                 let height = CGFloat(arc4random() % UInt32(detail.max ?? 0))
                 detail.height = height >= 120 ? height : 120.0
-                if let key = banner.id?.ai.toString() {
+                if let key = banner.id?.fy.toString() {
                     self?.cacheBannerDetail[key] = detail
                 }
                 return detail

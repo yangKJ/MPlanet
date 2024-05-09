@@ -30,7 +30,7 @@
       "name": "Resources",
       "resource_bundles": {
         "WMMine": [
-          "Sources/Resources/*.{xcassets,lproj}"
+          "Sources/Resources/*.{xcassets,lproj,json}"
         ]
       }
     },

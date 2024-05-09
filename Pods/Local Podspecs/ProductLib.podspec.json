@@ -1,0 +1,25 @@
+{
+  "name": "ProductLib",
+  "version": "0.1.0",
+  "summary": "A short description of ProductLib.",
+  "homepage": "https://github.com/Condy/ProductLib",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Condy": "yangkj310@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Condy/ProductLib.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "static_framework": true,
+  "source_files": "ProductLib/Classes/**/*",
+  "swift_version": "5.0"
+}

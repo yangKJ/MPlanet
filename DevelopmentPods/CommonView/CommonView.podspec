@@ -31,10 +31,6 @@ Pod::Spec.new do |s|
   s.dependency 'RxCocoa' # 响应式架构
   s.dependency 'SnapKit' # 布局架构
   
-  s.subspec 'Resources' do |xx|
-    xx.resource_bundles = { 'CommonView' => ['CommonView/Classes/Resources/*.xcassets'] }
-  end
-  
   s.source_files = 'CommonView/Classes/*.swift'
   
 end

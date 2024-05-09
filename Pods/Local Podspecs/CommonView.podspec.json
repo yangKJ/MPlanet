@@ -29,15 +29,5 @@
     ]
   },
   "source_files": "CommonView/Classes/*.swift",
-  "subspecs": [
-    {
-      "name": "Resources",
-      "resource_bundles": {
-        "CommonView": [
-          "CommonView/Classes/Resources/*.xcassets"
-        ]
-      }
-    }
-  ],
   "swift_version": "5.0"
 }

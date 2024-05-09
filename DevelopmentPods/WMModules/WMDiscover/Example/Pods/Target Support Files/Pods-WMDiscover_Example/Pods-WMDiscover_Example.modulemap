@@ -1,6 +1,0 @@
-framework module Pods_WMDiscover_Example {
-  umbrella header "Pods-WMDiscover_Example-umbrella.h"
-
-  export *
-  module * { export * }
-}

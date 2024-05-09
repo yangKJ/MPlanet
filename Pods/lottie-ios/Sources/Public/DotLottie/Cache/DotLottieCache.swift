@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - DotLottieCache
+
 /// A DotLottie Cache that will store lottie files up to `cacheSize`.
 ///
 /// Once `cacheSize` is reached, the least recently used lottie will be ejected.
@@ -33,21 +35,32 @@ public class DotLottieCache: DotLottieCacheProvider {
 
   /// Clears the Cache.
   public func clearCache() {
-    cache.removeAllObjects()
+    cache.removeAllValues()
   }
 
   public func file(forKey key: String) -> DotLottieFile? {
-    cache.object(forKey: key as NSString)
+    cache.value(forKey: key)
   }
 
   public func setFile(_ lottie: DotLottieFile, forKey key: String) {
-    cache.setObject(lottie, forKey: key as NSString)
+    cache.setValue(lottie, forKey: key)
   }
 
   // MARK: Private
 
   private static let defaultCacheCountLimit = 100
 
-  private var cache = NSCache<NSString, DotLottieFile>()
+  /// The underlying storage of this cache.
+  ///  - We use the `LRUCache` library instead of `NSCache`, because `NSCache`
+  ///    clears all cached values when the app is backgrounded instead of
+  ///    only when the app receives a memory warning notification.
+  private var cache = LRUCache<String, DotLottieFile>()
 
 }
+
+// MARK: Sendable
+
+// DotLottieCacheProvider has a Sendable requirement, but we can't
+// redesign DotLottieCache to be properly Sendable without making breaking changes.
+// swiftlint:disable:next no_unchecked_sendable
+extension DotLottieCache: @unchecked Sendable { }

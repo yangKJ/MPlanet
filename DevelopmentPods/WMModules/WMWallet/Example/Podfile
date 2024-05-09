@@ -12,7 +12,7 @@ target 'WMWallet_Example' do
   
   pod 'FeatBox', :path => '../../../FeatBox'
   pod 'Database', :path => '../../../Database'
-  pod 'Cabinets', :path => '../../../Cabinets'
+  pod 'Extensions', :path => '../../../Extensions'
   
 end
 

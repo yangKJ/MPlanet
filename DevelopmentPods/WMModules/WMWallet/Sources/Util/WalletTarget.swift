@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Rickenbacker
 
 class WalletTarget: NSObject {
     /// 备注提示，这里必须加上`@objc`

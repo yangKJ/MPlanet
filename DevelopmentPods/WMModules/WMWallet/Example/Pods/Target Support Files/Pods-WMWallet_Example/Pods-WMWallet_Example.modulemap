@@ -1,6 +1,0 @@
-framework module Pods_WMWallet_Example {
-  umbrella header "Pods-WMWallet_Example-umbrella.h"
-
-  export *
-  module * { export * }
-}

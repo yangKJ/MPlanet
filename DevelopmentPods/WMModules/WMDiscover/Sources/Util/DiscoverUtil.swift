@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import Rickenbacker
+import FeatBox
 
 struct DiscoverUtil {
     static let moduleName = "WMDiscover"
 }
 
-extension Rickenbacker.R {
+extension Res {
     
     static func image(_ named: String) -> UIImage {
         self.image(named, forResource: DiscoverUtil.moduleName)

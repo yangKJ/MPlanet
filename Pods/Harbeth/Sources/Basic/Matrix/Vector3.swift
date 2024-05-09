@@ -17,13 +17,13 @@ public struct Vector3: Matrix {
     
     public init(values: [Float]) {
         if values.count != 3 {
-            C7FailedErrorInDebug("There must be three values for Vector3.")
+            HarbethError.failed("There must be three values for Vector3.")
         }
         self.values = values
     }
     
     public init(color: C7Color) {
-        let (red, green, blue, _) = color.mt.toRGBA()
+        let (red, green, blue, _) = color.c7.toRGBA()
         self.init(values: [red, green, blue])
     }
     

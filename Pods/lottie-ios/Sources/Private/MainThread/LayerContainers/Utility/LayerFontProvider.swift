@@ -6,8 +6,6 @@
 //  Copyright © 2020 YurtvilleProds. All rights reserved.
 //
 
-import Foundation
-
 /// Connects a LottieFontProvider to a group of text layers
 final class LayerFontProvider {
 
@@ -34,8 +32,8 @@ final class LayerFontProvider {
   }
 
   func reloadTexts() {
-    textLayers.forEach {
-      $0.fontProvider = fontProvider
+    for textLayer in textLayers {
+      textLayer.fontProvider = fontProvider
     }
   }
 }

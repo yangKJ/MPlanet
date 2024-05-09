@@ -1,0 +1,6 @@
+framework module ProductLib {
+  umbrella header "ProductLib-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Rickenbacker
 
 class DiscoverTarget: NSObject {
     

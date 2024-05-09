@@ -7,6 +7,7 @@
 
 import Foundation
 import AppMain
+import FeatBox
 
 /// 根控制器配置
 class RootViewControllerAppDelegate: AppDelegateType {
@@ -21,7 +22,7 @@ class RootViewControllerAppDelegate: AppDelegateType {
     
     init(window: UIWindow?) {
         if let window = window {
-            window.backgroundColor = UIColor.white
+            window.backgroundColor = UIColor.fy.white
         }
         self.keyWindow = window
     }

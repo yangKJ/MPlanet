@@ -5,8 +5,6 @@
 //  Created by Brandon Withrow on 1/25/19.
 //
 
-import Foundation
-
 /// Connects a LottieImageProvider to a group of image layers
 final class LayerImageProvider {
 
@@ -15,7 +13,7 @@ final class LayerImageProvider {
   init(imageProvider: AnimationImageProvider, assets: [String: ImageAsset]?) {
     self.imageProvider = imageProvider
     imageLayers = [ImageCompositionLayer]()
-    if let assets = assets {
+    if let assets {
       imageAssets = assets
     } else {
       imageAssets = [:]
@@ -47,6 +45,7 @@ final class LayerImageProvider {
     for imageLayer in imageLayers {
       if let asset = imageAssets[imageLayer.imageReferenceID] {
         imageLayer.image = imageProvider.imageForAsset(asset: asset)
+        imageLayer.imageContentsGravity = imageProvider.contentsGravity(for: asset)
       }
     }
   }

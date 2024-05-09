@@ -5,8 +5,6 @@
 //  Created by Brandon Withrow on 2/19/19.
 //
 
-import CoreGraphics
-import Foundation
 import QuartzCore
 
 // MARK: - TextAnimatorNodeProperties
@@ -99,7 +97,7 @@ final class TextAnimatorNodeProperties: NodePropertyMap, KeypathSearchable {
 
     if let keyframeGroup = textAnimator.strokeWidth {
       strokeWidth = NodeProperty(provider: KeyframeInterpolator(keyframes: keyframeGroup.keyframes))
-      properties["Stroke Width"] = strokeWidth
+      properties[PropertyName.strokeWidth.rawValue] = strokeWidth
     } else {
       strokeWidth = nil
     }

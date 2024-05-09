@@ -5,8 +5,6 @@
 //  Created by Brandon Withrow on 1/14/19.
 //
 
-import Foundation
-
 // MARK: - KeyframeGroup
 
 /// Used for coding/decoding a group of Keyframes by type.
@@ -14,7 +12,6 @@ import Foundation
 /// Keyframe data is wrapped in a dictionary { "k" : KeyframeData }.
 /// The keyframe data can either be an array of keyframes or, if no animation is present, the raw value.
 /// This helper object is needed to properly decode the json.
-
 final class KeyframeGroup<T> {
 
   // MARK: Lifecycle
@@ -86,8 +83,8 @@ extension KeyframeGroup: Decodable where T: Decodable {
 
         guard
           let value: T = keyframeData.startValue ?? previousKeyframeData?.endValue,
-          let time = keyframeData.time else
-        {
+          let time = keyframeData.time
+        else {
           /// Missing keyframe data. JSON must be corrupt.
           throw DecodingError.dataCorruptedError(
             forKey: KeyframeWrapperKey.keyframeData,
@@ -165,9 +162,9 @@ extension KeyframeGroup: DictionaryInitializable where T: AnyInitializable {
         let data = try KeyframeData<T>(dictionary: frameDictionary)
         guard
           let value: T = data.startValue ?? previousKeyframeData?.endValue,
-          let time = data.time else
-        {
-          throw InitializableError.invalidInput
+          let time = data.time
+        else {
+          throw InitializableError.invalidInput()
         }
         keyframes.append(Keyframe<T>(
           value: value,
@@ -202,6 +199,10 @@ extension KeyframeGroup: Hashable where T: Hashable {
     hasher.combine(keyframes)
   }
 }
+
+// MARK: Sendable
+
+extension KeyframeGroup: Sendable where T: Sendable { }
 
 extension Keyframe {
   /// Creates a copy of this `Keyframe` with the same timing data, but a different value
