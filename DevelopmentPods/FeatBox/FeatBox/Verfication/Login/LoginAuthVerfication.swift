@@ -29,9 +29,13 @@ public class LoginAuthVerfication: NSObject, AuthVerificationable {
         // 登陆处理...
         Session.shared.loginState = .logging
         let vc = UIViewController.fy.currentViewController()
-        vc?.view.fy.showHUD(title: Res.text("模拟登陆ing.."), afterDelay: 5)
+        vc?.view.fy.showHUD(title: Res.text("模拟登陆ing.."), afterDelay: 3)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            Session.shared.loginState = .logged
+            var userDTO = UserDTO()
+            userDTO.token = "PH00278922k35C77"
+            userDTO.hasPrivilegeBarItem = "WALLET" // 模拟增加一个钱包TabBar
+            userDTO.accountStatus = .normal
+            Session.shared.loggedSuccess(userDTO)
             authCompletion?(())
             vc?.view.fy.hideHUD()
             uiCompletion?(())

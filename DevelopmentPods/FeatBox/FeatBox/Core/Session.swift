@@ -12,7 +12,8 @@ public class Session {
     
     public private(set) static var shared = Session()
     
-    public var loggedDTO: LoggedDTO?
+    /// 登陆成功之后的用户数据
+    public private(set) var loggedUserDTO: UserDTO?
     
     public var loginState: Session.LoginState = .none {
         didSet {
@@ -20,10 +21,12 @@ public class Session {
             case .logged:
                 if oldValue != .logged {
                     // 可发送登陆成功通知
+                    NotificationCenter.default.post(name: Notify.Login.didLogin, object: nil)
                 }
             case .none:
                 if oldValue == .logged {
                     // 可发送退出登陆通知
+                    NotificationCenter.default.post(name: Notify.Login.didLogout, object: nil)
                 }
             case .logging:
                 break
@@ -41,15 +44,16 @@ public class Session {
     }
     
     /// 登陆成功
-    public func loggedSuccess(_ loggedDTO: LoggedDTO) {
-        self.loggedDTO = loggedDTO
+    public func loggedSuccess(_ userDTO: UserDTO) {
+        self.loggedUserDTO = userDTO
+        UserSettings.token = userDTO.token
         self.loginState = .logged
     }
     
     /// 退出登陆
     public func logout() {
         self.loginState = .none
-        self.loggedDTO = nil
+        self.loggedUserDTO = nil
     }
 }
 

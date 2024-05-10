@@ -2,15 +2,15 @@ PODS:
   - Alamofire (5.9.1)
   - AppMain (1.0.0):
     - AppMain/Resources (= 1.0.0)
+    - ESTabBarController-swift
     - FeatBox
     - HBDNavigationBar
     - Mediator
-    - RAMAnimatedTabBarController
   - AppMain/Resources (1.0.0):
+    - ESTabBarController-swift
     - FeatBox
     - HBDNavigationBar
     - Mediator
-    - RAMAnimatedTabBarController
   - Booming (1.0.2):
     - Booming/Core (= 1.0.2)
   - Booming/Cache (1.0.2):
@@ -47,6 +47,7 @@ PODS:
     - WCDB.swift
   - Differentiator (5.0.0)
   - DZNEmptyDataSet (1.8.1)
+  - ESTabBarController-swift (2.8.0)
   - FeatBox (2.0.0):
     - Booming
     - FeatBox/Resources (= 2.0.0)
@@ -114,7 +115,6 @@ PODS:
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - ProductLib (0.1.0)
-  - RAMAnimatedTabBarController (5.2.0)
   - Rickenbacker (1.1.4):
     - Rickenbacker/Adapter (= 1.1.4)
     - Rickenbacker/Boxs (= 1.1.4)
@@ -315,6 +315,7 @@ SPEC REPOS:
     - CacheX
     - Differentiator
     - DZNEmptyDataSet
+    - ESTabBarController-swift
     - FSCalendar
     - FSPagerView
     - HandyJSON
@@ -325,7 +326,6 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - Moya
-    - RAMAnimatedTabBarController
     - Rickenbacker
     - RxCocoa
     - RxDataSources
@@ -366,13 +366,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
-  AppMain: 86c6046c25980655e771a260bddacd3f83ece10a
+  AppMain: 7a0597053617e089802f431c57476c151d40b0d4
   Booming: 65aca14fb2c6c291fff07bf967d6a31da6ac09f7
   CacheX: 9665503a86f9e38b3eb0c4ab14251649a79d292d
   CommonView: 51de1394b0df560d28fc11685eb4b47d2a2caa33
   Database: bdb5b62e8d3aae26b5a367ebcd2809d1d57f9989
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   FeatBox: dd61f37569009bf6e255715ab4dcf7f8b41394ef
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
@@ -386,7 +387,6 @@ SPEC CHECKSUMS:
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ProductLib: a91ff41f306a05b518273664efd064833c732187
-  RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   Rickenbacker: 6b45f4820831ec710c57fa5ea468c5c85b60e7e2
   RootManager: 85f936f139a8c21440a0242079390b8b26266151
   RxCocoa: f5609cb4637587a7faa99c5d5787e3ad582b75a4

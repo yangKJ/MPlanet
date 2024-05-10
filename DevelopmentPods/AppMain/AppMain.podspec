@@ -31,7 +31,8 @@ Pod::Spec.new do |s|
   s.dependency 'FeatBox'
   s.dependency 'Mediator'
   s.dependency 'HBDNavigationBar' # 导航栏，https://github.com/listenzz/HBDNavigationBar
-  s.dependency 'RAMAnimatedTabBarController'
+  #s.dependency 'RAMAnimatedTabBarController' # TabBarController组件，https://github.com/Ramotion/animated-tab-bar
+  s.dependency 'ESTabBarController-swift' # TabBarController组件，https://github.com/eggswift/ESTabBarController
   
   s.subspec 'Resources' do |xx|
     xx.resource_bundles = { 'AppMain' => ['AppMain/Classes/*.xcassets'] }

@@ -7,18 +7,29 @@
 
 import Foundation
 import Mediator
-import RAMAnimatedTabBarController
 import FeatBox
+import ESTabBarController_swift
 
-enum WMTabBarItem: Int {
-    case dicover
-    case wallet
-    case mine
+public enum WMTabBarItem: String, Equatable {
+    case dicover = "DICOVER"
+    case wallet = "WALLET"
+    case mine = "MINE"
 }
 
 extension WMTabBarItem {
     
-    private var title: String {
+    var tag: Int {
+        switch self {
+        case .dicover:
+            return 0
+        case .wallet:
+            return 1
+        case .mine:
+            return 2
+        }
+    }
+    
+    var title: String {
         switch self {
         case .dicover:
             return Res.text("发现", forResource: AppMainUtil.moduleName)
@@ -29,7 +40,7 @@ extension WMTabBarItem {
         }
     }
     
-    private var image: UIImage? {
+    var image: UIImage? {
         switch self {
         case .dicover:
             return Res.image("tab_find", forResource: AppMainUtil.moduleName)
@@ -40,7 +51,7 @@ extension WMTabBarItem {
         }
     }
     
-    private var selectImage: UIImage? {
+    var selectImage: UIImage? {
         switch self {
         case .dicover:
             return Res.image("tab_find_selected", forResource: AppMainUtil.moduleName)
@@ -51,32 +62,7 @@ extension WMTabBarItem {
         }
     }
     
-    private var animation: RAMItemAnimation {
-        let image = image?.withRenderingMode(.alwaysOriginal)
-        let selectImage = selectImage?.withRenderingMode(.alwaysOriginal)
-        switch self {
-        case .dicover:
-            let animation = WMBounceAnimation.init()
-            animation.iconImage = image
-            animation.iconSelectedImage = selectImage
-            animation.textSelectedColor = UIColor.fy.mainColor
-            return animation
-        case .wallet:
-            let animation = WMBounceAnimation.init()
-            animation.iconImage = image
-            animation.iconSelectedImage = selectImage
-            animation.textSelectedColor = UIColor.fy.mainColor
-            return animation
-        case .mine:
-            let animation = WMBounceAnimation.init()
-            animation.iconImage = image
-            animation.iconSelectedImage = selectImage
-            animation.textSelectedColor = UIColor.fy.mainColor
-            return animation
-        }
-    }
-    
-    private var itemViewController: UIViewController? {
+    var itemViewController: UIViewController? {
         switch self {
         case .dicover:
             return Mediator.Discover_viewController()
@@ -87,20 +73,33 @@ extension WMTabBarItem {
         }
     }
     
-    private func setupViewController(_ vc: UIViewController) {
-        let item = RAMAnimatedTabBarItem(title: title, image: image, tag: rawValue)
-        item.textColor = UIColor.clear//UIColor.fy.gray
-        item.animation = animation
-        item.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -5, right: 0)
-        vc.title = title
-        vc.tabBarItem = item
+    var itemContentView: ESTabBarItemContentView {
+        var contentView: ESTabBarItemContentView!
+        switch self {
+        case .dicover:
+            contentView = WMTabBarItemContentView()
+        case .wallet:
+            contentView = WMTabBarItemContentView()
+        case .mine:
+            contentView = WMTabBarItemContentView()
+        }
+        contentView.textColor = UIColor.fy.itemSubTitle
+        contentView.highlightTextColor = UIColor.fy.mainColor
+        contentView.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        contentView.iconColor = UIColor.fy.itemSubTitle
+        contentView.highlightIconColor = UIColor.fy.mainColor
+        contentView.insets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        return contentView
     }
     
-    func childViewController() -> WMNavigationController? {
+    func setupSubViewController() -> WMNavigationController? {
         guard let viewController = itemViewController else {
             return nil
         }
-        setupViewController(viewController)
+        let item = ESTabBarItem(itemContentView, title: title, image: image, selectedImage: selectImage, tag: tag)
+        //viewController.title = title
+        viewController.tabBarItem = item
+        viewController.hidesBottomBarWhenPushed = false
         return WMNavigationController(rootViewController: viewController)
     }
 }

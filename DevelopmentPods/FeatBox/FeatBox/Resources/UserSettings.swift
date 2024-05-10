@@ -11,12 +11,10 @@ import ProductLib
 /// 存储在`UserDefaults`当中的数据
 public struct UserSettings {
     
-    public static var shared = UserSettings()
-    
     @UserDefault_("root_manager_open_mourning_mode", defaultValue: false)
-    public var mourning: Bool
+    public static var mourning: Bool
     
-    public var fontSizeType: FontSizeType {
+    public static var fontSizeType: FontSizeType {
         get {
             return FontSizeType(rawValue: Int(fontSize)) ?? .standard
         }
@@ -26,5 +24,8 @@ public struct UserSettings {
     }
     
     @UserDefault_("set_user_font_size_type", defaultValue: FontSizeType.standard.deltaFontSize)
-    private var fontSize: CGFloat
+    private static var fontSize: CGFloat
+    
+    @UserDefault_("mine_user_logged_token", defaultValue: nil)
+    public static var token: String?
 }

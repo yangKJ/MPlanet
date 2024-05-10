@@ -174,6 +174,12 @@ class MineViewController: BaseTableViewController<MineViewModel> {
             self?.title = delta > 0.9 ? Res.text("个人中心") : ""
         }).disposed(by: rx.disposeBag)
         
+        // 消息中心
+        messageBarButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            Session.shared.logout()
+        }).disposed(by: rx.disposeBag)
+        
         // 设置中心
         settingBarButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }

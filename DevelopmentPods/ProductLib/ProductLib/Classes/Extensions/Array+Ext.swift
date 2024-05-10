@@ -77,6 +77,25 @@ extension Array {
         }
         return array
     }
+    
+    /// 安全插入新数据
+    public mutating func safeInsert(_ newElement: Element, at: Int) {
+        var realIndex = at
+        if realIndex < 0 {
+            realIndex = 0
+        } else if realIndex > count {
+            realIndex = count
+        }
+        insert(newElement, at: realIndex)
+    }
+    
+    /// 安全移除特定索引的元素
+    public mutating func safeRemoveSpecifiedIndices(_ indexs: [Int]) {
+        for i in indexs.sorted().reversed() {
+            guard i < count else { return }
+            remove(at: i)
+        }
+    }
 }
 
 extension Array where Element: Equatable {

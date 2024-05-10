@@ -11,8 +11,10 @@ public struct AppMainUtil {
     
     internal static let moduleName = "AppMain"
     
+    /// 标准主题用户默认TabBar
+    public static var standardTabBarItems: [WMTabBarItem] = [.dicover, .mine]
+    
     public static func rootViewController() -> UIViewController {
-        let items: [WMTabBarItem] = [.dicover, .wallet, .mine]
-        return WMTabBarController(tabBarItems: items)
+        return WMTabBarController(tabBarItems: standardTabBarItems)
     }
 }
