@@ -51,7 +51,7 @@ class SignatureViewController: BaseViewController<BaseViewModel>, NavigationBarH
     lazy var backButton: UIButton = {
         let button = BaseButton.init(type: .custom)
         button.fy.rotation90()
-        button.setImage(Res.image("back", forResource: FeatBoxUtil.moduleName), for: .normal)
+        button.setImage(Res.black_back_arrow, for: .normal)
         return button
     }()
     

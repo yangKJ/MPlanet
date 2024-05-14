@@ -26,5 +26,8 @@ extension Mediator {
 
 /// 组件之间访问
 extension Mediator {
-    
+    /// Banner详情
+    public static func bannerDetailViewController(params: MediatorParams?) -> UIViewController? {
+        performTarget("DiscoverTarget", action: "bannerDetailViewController:", module: "WMDiscover", params: params) as? UIViewController
+    }
 }

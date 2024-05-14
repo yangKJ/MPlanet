@@ -1,5 +1,5 @@
 //
-//  DiscoverProgressCell.swift
+//  DiscoverVideoClassifyCell.swift
 //  WMDiscover
 //
 //  Created by Condy on 2023/10/7.
@@ -8,9 +8,9 @@
 import Foundation
 import FeatBox
 
-class DiscoverProgressCell: BaseTableViewCell, HasDisposeBag {
+class DiscoverVideoClassifyCell: BaseTableViewCell, HasDisposeBag {
     
-    var items: [DiscoverProgressItem] = [] {
+    var items: [Discover.VideoClassify] = [] {
         didSet {
             print(items)
         }

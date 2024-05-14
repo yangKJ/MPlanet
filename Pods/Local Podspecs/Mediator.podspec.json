@@ -23,6 +23,9 @@
   "dependencies": {
     "Rickenbacker/Mediator": [
 
+    ],
+    "HandyJSON": [
+
     ]
   },
   "source_files": "Mediator/Classes/**/*",

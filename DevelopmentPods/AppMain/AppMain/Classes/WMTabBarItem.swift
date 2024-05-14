@@ -85,7 +85,7 @@ extension WMTabBarItem {
         }
         contentView.textColor = UIColor.fy.itemSubTitle
         contentView.highlightTextColor = UIColor.fy.mainColor
-        contentView.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        contentView.titleLabel.font = UIFont.fy.system_13
         contentView.iconColor = UIColor.fy.itemSubTitle
         contentView.highlightIconColor = UIColor.fy.mainColor
         contentView.insets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)

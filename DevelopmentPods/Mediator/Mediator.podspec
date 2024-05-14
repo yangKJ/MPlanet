@@ -30,6 +30,8 @@ Pod::Spec.new do |s|
   
   s.dependency 'Rickenbacker/Mediator'
   
+  s.dependency 'HandyJSON'
+  
   s.source_files = 'Mediator/Classes/**/*'
   
 end

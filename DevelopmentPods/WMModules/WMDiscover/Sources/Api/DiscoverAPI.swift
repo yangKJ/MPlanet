@@ -11,6 +11,8 @@ import RxNetworks
 enum DiscoverAPI {
     /// 发现列表数据
     case banner
+    /// 发现首页
+    case discoverHome
     /// 详情
     case detail(Banner)
 }
@@ -25,6 +27,8 @@ extension DiscoverAPI: NetworkAPI {
         switch self {
         case .banner:
             return "banner/json"
+        case .discoverHome:
+            return "discover/json"
         case .detail:
             return "detail/json"
         }
@@ -34,6 +38,8 @@ extension DiscoverAPI: NetworkAPI {
         switch self {
         case .banner:
             return .get
+        case .discoverHome:
+            return .get
         case .detail:
             return .post
         }
@@ -42,6 +48,8 @@ extension DiscoverAPI: NetworkAPI {
     var parameters: APIParameters? {
         switch self {
         case .banner:
+            return nil
+        case .discoverHome:
             return nil
         case .detail(let banner):
             return ["id": banner.id ?? ""]
@@ -63,7 +71,7 @@ extension DiscoverAPI: NetworkAPI {
         switch self {
         case .banner:
             return .delayed(seconds: 0.2)
-        case .detail(let banner):
+        default:
             return .delayed(seconds: 2.0)
         }
     }
@@ -72,6 +80,8 @@ extension DiscoverAPI: NetworkAPI {
         switch self {
         case .banner:
             return Res.jsonData("Banner")
+        case .discoverHome:
+            return Res.jsonData("DiscoverHome")
         case .detail(let banner):
             return Res.jsonData("BannerDetail")
         }

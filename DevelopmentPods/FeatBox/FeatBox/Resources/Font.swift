@@ -48,6 +48,10 @@ public extension BoxWrapper where Base: UIFont {
         UIFont.boldSystemFont(ofSize: 18)
     }
     
+    static var bold_20: UIFont {
+        UIFont.boldSystemFont(ofSize: 20)
+    }
+    
     static var system_20: UIFont {
         UIFont.systemFont(ofSize: 20)
     }
@@ -62,6 +66,10 @@ public extension BoxWrapper where Base: UIFont {
     
     static var system_14: UIFont {
         UIFont.systemFont(ofSize: 14)
+    }
+    
+    static var system_13: UIFont {
+        UIFont.systemFont(ofSize: 13)
     }
     
     static var system_10: UIFont {

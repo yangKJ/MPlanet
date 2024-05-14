@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FeatBox
 
 public struct AppMainUtil {
     
@@ -15,6 +16,7 @@ public struct AppMainUtil {
     public static var standardTabBarItems: [WMTabBarItem] = [.dicover, .mine]
     
     public static func rootViewController() -> UIViewController {
+        Configs.initStandardConfigs() // 初始化配置
         return WMTabBarController(tabBarItems: standardTabBarItems)
     }
 }

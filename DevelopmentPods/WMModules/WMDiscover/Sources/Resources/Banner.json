@@ -9,6 +9,8 @@
         "order": 0,
         "title": "骑自行车",
         "type": 0,
+        "gotoType": "FUNCTION",
+        "gotoObject": "FUNCTION_BANNER_DETAIL",
         "github": "https://github.com/yangKJ",
         "amount": 28.7
     }, {
@@ -19,6 +21,8 @@
         "order": 1,
         "title": "HEIC图片",
         "type": 1,
+        "gotoType": "FUNCTION",
+        "gotoObject": "FUNCTION_BANNER_DETAIL",
         "github": "https://github.com/yangKJ",
         "amount": 297.9
     }, {
@@ -29,6 +33,8 @@
         "order": 2,
         "title": "Harbeth滤镜库",
         "type": 1,
+        "gotoType": "FUNCTION",
+        "gotoObject": "FUNCTION_BANNER_DETAIL",
         "github": "https://github.com/yangKJ/Harbeth",
         "amount": 8.8
     }]

@@ -6,46 +6,35 @@
 //
 
 import FeatBox
-import Harbeth
-import FSPagerView
 import RxDataSources
 
 class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
     
-    private var itmes: [Banner] = [] {
-        didSet {
-            pageControl.numberOfPages = itmes.count
-            pagerView.reloadData()
-        }
-    }
+    let tapBannerIndex = PublishRelay<(Int, [Banner])>()
     
     lazy var dataSource: RxTableViewSectionedReloadDataSource<DiscoverSection> = {
         return RxTableViewSectionedReloadDataSource(configureCell: { [weak self] (ds, tableView, indexPath, sectionItem) in
             switch sectionItem {
-            case .progress(let item):
-                let cell = tableView.fy.dequeueReusableCell(DiscoverProgressCell.self)
+            case .banner(let items):
+                let cell = tableView.fy.dequeueReusableCell(DiscoverBannerCell.self)
+                cell.items = items
+                if let weakself = self {
+                    cell.disposeBag = DisposeBag()
+                    cell.tapIndex.map({
+                        ($0, items)
+                    }).bind(to: weakself.tapBannerIndex).disposed(by: cell.disposeBag)
+                }
+                return cell
+            case .videoClassify(let item):
+                let cell = tableView.fy.dequeueReusableCell(DiscoverVideoClassifyCell.self)
+                cell.items = item
+                return cell
+            case .decorativeRail(let item):
+                let cell = tableView.fy.dequeueReusableCell(DiscoverDecorativeRailCell.self)
                 cell.items = item
                 return cell
             }
         })
-    }()
-    
-    private lazy var pagerView: FSPagerView = {
-        let pagerView = FSPagerView(frame: .zero)
-        pagerView.backgroundColor = UIColor.fy.mainColor
-        pagerView.dataSource = self
-        pagerView.delegate = self
-        pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: FSPagerViewCell.fy.class_name)
-        pagerView.automaticSlidingInterval = 3.0
-        pagerView.isInfinite = true
-        return pagerView
-    }()
-    
-    private lazy var pageControl: FSPageControl = {
-        let pageControl = FSPageControl(frame: CGRect.zero)
-        pageControl.currentPage = 0
-        pageControl.hidesForSinglePage = true
-        return pageControl
     }()
     
     override func viewDidLoad() {
@@ -57,7 +46,9 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
     
     override func registerTableViewCell() -> [BaseTableViewCell.Type] {
         return [
-            DiscoverProgressCell.self,
+            DiscoverBannerCell.self,
+            DiscoverVideoClassifyCell.self,
+            DiscoverDecorativeRailCell.self,
         ]
     }
     
@@ -67,64 +58,28 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
     }
     
     func setupUI() {
-        tableView.estimatedRowHeight = (Ces.width) * 200 / 375
-        pagerView.frame = CGRect(x: 0, y: 0, width: Ces.width, height: (Ces.width) * 200 / 375)
-        tableView.tableHeaderView = pagerView
-        pagerView.addSubview(pageControl)
-        pagerView.bringSubviewToFront(pageControl)
-        pageControl.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalTo(pagerView)
-            make.height.equalTo(40)
-        }
+        //tableView.estimatedRowHeight = (Ces.width) * 200 / 375
     }
     
     func setupBinding() {
         // 绑定数据
-        viewModel.outputs.datas
+        viewModel.outputs.sections
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
         
-        // 轮播图数据驱动
-        viewModel.outputs.banners.bind(to: rx.itmes).disposed(by: rx.disposeBag)
-        // 是否显示轮播图
-        if let header = self.tableView.tableHeaderView {
-            viewModel.outputs.banners.map { $0.isEmpty }
-                .bind(to: header.rx.isHidden).disposed(by: rx.disposeBag)
-        }
+        // 点击Banner
+        tapBannerIndex.subscribe(onNext: { [weak self] index, banners in
+            guard let banner = banners[safe: index] else {
+                return
+            }
+            banner.goto(from: self, additional: [
+                "index": index,
+                "banners": banners
+            ])
+        }).disposed(by: rx.disposeBag)
         
         // 请求数据
         viewModel.inputs.request()
-    }
-}
-
-extension DiscoverViewController: FSPagerViewDataSource {
-    
-    func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return itmes.count
-    }
-    
-    func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: FSPagerViewCell.fy.class_name, at: index)
-        cell.imageView?.fy.setImage(with: itmes[index].imagePath)
-        return cell
-    }
-}
-
-extension DiscoverViewController: FSPagerViewDelegate {
-    
-    func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        pagerView.deselectItem(at: index, animated: false)
-        let vc = BannerDetailViewController()
-        vc.index = index
-        vc.list = itmes
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func pagerView(_ pagerView: FSPagerView, willDisplay cell: FSPagerViewCell, forItemAt index: Int) {
-        guard let pageControl = pagerView.subviews.last as? FSPageControl else {
-            return
-        }
-        pageControl.currentPage = index
     }
 }
 
@@ -133,12 +88,20 @@ extension DiscoverViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return dataSource[indexPath].itemHeight
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return dataSource[section].headerHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return dataSource[section].headerView
+    }
 }
 
 extension DiscoverViewController: DZNEmptyDataSetable {
     
     func DZNEmptyDataSetImage(scrollView: UIScrollView) -> UIImage {
-        Res.base_network_error_black
+        Res.no_search_result_image
     }
     
     func DZNEmptyDataSetImageTintColor(scrollView: UIScrollView) -> UIColor? {

@@ -39,6 +39,11 @@ public extension BoxWrapper where Base: UIColor {
         return UIColor(hex: "#999999")
     }
     
+    /// 线条颜色
+    static var line: UIColor {
+        return UIColor(hex: "#EFEFEF")
+    }
+    
     static var itemShadowImageColor: UIColor {
         return UIColor(white: 230/255.0, alpha: 1.0)
     }

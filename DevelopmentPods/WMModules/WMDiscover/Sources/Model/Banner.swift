@@ -6,11 +6,12 @@
 //
 
 import Foundation
-import HandyJSON
-import RxNetworks
+import FeatBox
 import Harbeth
+import RxNetworks
+import HandyJSON
 
-struct Banner: HandyJSON {
+struct Banner: HandyJSON, CustomizedGotoable {
     var id: Int?
     var cardNo: String?
     var url: String?
@@ -21,9 +22,17 @@ struct Banner: HandyJSON {
     var imagePath: String?
     var amount: NSDecimalNumber?
     
+    var height: CGFloat?
+    var fixedHeight: Bool? // 是否固定高度，固定高度则取`height`字段
+    
+    var gotoType: String?
+    var gotoObject: String?
+    
     mutating func mapping(mapper: HelpingMapper) {
         mapper <<<
             url <-- "github"
+        mapper <<<
+            fixedHeight <-- "fixed_height"
         mapper <<<
             amount <-- DecimalNumberTransform()
     }
@@ -43,5 +52,11 @@ struct Banner: HandyJSON {
         default:
             return nil
         }
+    }
+}
+
+extension Banner: Equatable {
+    public static func == (lhs: Banner, rhs: Banner) -> Bool {
+        return lhs.id == rhs.id && lhs.imagePath == rhs.imagePath
     }
 }

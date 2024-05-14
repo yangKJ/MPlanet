@@ -24,6 +24,9 @@
     "ProductLib": [
 
     ],
+    "Mediator": [
+
+    ],
     "Booming": [
 
     ],
@@ -76,7 +79,7 @@
       "name": "Resources",
       "resource_bundles": {
         "FeatBox": [
-          "FeatBox/**/**/*.{xcassets,Lproj}"
+          "FeatBox/**/**/*.{xcassets,Lproj,json}"
         ]
       }
     }
