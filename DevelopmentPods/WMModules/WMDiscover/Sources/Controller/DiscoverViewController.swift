@@ -17,7 +17,7 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
             switch sectionItem {
             case .banner(let items):
                 let cell = tableView.fy.dequeueReusableCell(DiscoverBannerCell.self)
-                cell.items = items
+                cell.banners = items
                 if let weakself = self {
                     cell.disposeBag = DisposeBag()
                     cell.tapIndex.map({
