@@ -9,7 +9,7 @@ import Foundation
 import ProductLib
 
 /// 登陆验证，内部会主动拉起登陆控件
-public class LoginAuthVerfication: NSObject, AuthVerificationable {
+public final class LoginAuthVerfication: NSObject, AuthVerificationable {
     
     public typealias AuthElement = Void
     

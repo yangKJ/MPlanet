@@ -7,10 +7,9 @@
 
 import Foundation
 import ProductLib
-import Rickenbacker
 
 /// 签名验证，内部封装的有签名控件
-public class SignatureAuthVerfication: NSObject, AuthVerificationable {
+public final class SignatureAuthVerfication: NSObject, AuthVerificationable {
     public typealias AuthElement = String?
     
     public var authVerificationPassedInfo: String? {
@@ -27,8 +26,8 @@ public class SignatureAuthVerfication: NSObject, AuthVerificationable {
     
     public var placeholder: String?
     
-    private(set) var willCloseByUserBlock: ((BasicsViewController) -> Void)?
-    public func setWillCloseByUserBlock(_ block: @escaping (BasicsViewController) -> Void) {
+    private(set) var willCloseByUserBlock: ((SignatureViewController) -> Void)?
+    public func setWillCloseByUserBlock(_ block: @escaping (SignatureViewController) -> Void) {
         self.willCloseByUserBlock = block
     }
     
@@ -54,7 +53,11 @@ public class SignatureAuthVerfication: NSObject, AuthVerificationable {
             }
         })
         if let willCloseByUserBlock = willCloseByUserBlock {
-            vc.setWillCloseByUserBlock(willCloseByUserBlock)
+            vc.setWillCloseByUserBlock({ [weak self] vc_ in
+                if let vc_ = vc_ as? SignatureViewController {
+                    willCloseByUserBlock(vc_)
+                }
+            })
         }
         let navigationController = navigationController ?? {
             UIViewController.fy.currentViewController()?.navigationController

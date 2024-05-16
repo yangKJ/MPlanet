@@ -9,13 +9,12 @@ import Foundation
 import SnapKit
 import Rickenbacker
 import ProductLib
-import Harbeth
 import RxSwift
 
-class SignatureViewController: BaseViewController<BaseViewModel>, NavigationBarHiddenable {
+public final class SignatureViewController: BaseViewController<BaseViewModel>, NavigationBarHiddenable {
     
     private var imageBase64Block: ((_ base64: String) -> Void)?
-    func setImageBase64Block(block: @escaping ((_ base64: String) -> Void)) {
+    public func setImageBase64Block(block: @escaping ((_ base64: String) -> Void)) {
         self.imageBase64Block = block
     }
     
@@ -106,7 +105,7 @@ class SignatureViewController: BaseViewController<BaseViewModel>, NavigationBarH
         return button
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.fy.white
         self.setupSubviews()
@@ -202,13 +201,61 @@ class SignatureViewController: BaseViewController<BaseViewModel>, NavigationBarH
     private func screenshotAndMatting(signatureView: SignatureView, complete: (String?) -> Void) {
         guard signatureView.isSigned,
               let image = signatureView.saveSignToImage(),
-              let img = image.c7.imageByMakingWhiteBackgroundTransparent() else {
+              let img = imageByMakingWhiteBackgroundTransparent(image: image) else {
             complete(nil)
             return
         }
         let cropImage = img.fy.cropAlpha()
-        let rotatedImage = cropImage.c7.rotate(degrees: -90)
+        let rotatedImage = rotate(cropImage, degrees: -90)
         let base64 = rotatedImage.pngData()?.base64EncodedString()
         complete(base64)
+    }
+    
+    /// 白色背景透明化，色值在[222...255]之间均可祛除
+    /// The white background is transparent, and the color value can be removed between [222...255].
+    private func imageByMakingWhiteBackgroundTransparent(image: UIImage) -> UIImage? {
+        // RGB color range to mask (make transparent) R-Low, R-High, G-Low, G-High, B-Low, B-High
+        let colorMasking: [CGFloat] = [222, 255, 222, 255, 222, 255]
+        return transparentColor(image, colorMasking: colorMasking)
+    }
+    
+    /// Transparent background.
+    /// - Parameters:
+    ///   - colorMasking: RGB color range to mask [R-Low, R-High, G-Low, G-High, B-Low, B-High]
+    ///   - compressionQuality: Compression ratio.
+    /// - Returns: Remove the picture of the background.
+    private func transparentColor(_ base: UIImage, colorMasking: [CGFloat], compressionQuality: CGFloat = 1.0) -> UIImage? {
+        UIGraphicsBeginImageContext(base.size)
+        guard let maskedImageRef = base.cgImage?.copy(maskingColorComponents: colorMasking) else {
+            return nil
+        }
+        let rect = CGRect(x: 0, y: 0, width: base.size.width, height: base.size.height)
+        let context = UIGraphicsGetCurrentContext()
+        context?.translateBy(x: 0.0, y: base.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        context?.draw(maskedImageRef, in: rect)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
+    
+    /// Rotate the picture.
+    /// - Parameter degrees: Rotation angle.
+    /// - Returns: The picture after rotation.
+    private func rotate(_ base: UIImage, degrees: Float) -> UIImage {
+        let radians = CGFloat(degrees) / 180.0 * .pi
+        let tran = CGAffineTransform(rotationAngle: radians)
+        var size = CGRect(origin: .zero, size: base.size).applying(tran).size
+        size.width  = floor(size.width)
+        size.height = floor(size.height)
+        let rect = CGRect(x: -base.size.width/2, y: -base.size.height/2, width: base.size.width, height: base.size.height)
+        UIGraphicsBeginImageContext(size)
+        let context = UIGraphicsGetCurrentContext()
+        context?.translateBy(x: size.width/2, y: size.height/2)
+        context?.rotate(by: radians)
+        base.draw(in: rect)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result ?? base
     }
 }
