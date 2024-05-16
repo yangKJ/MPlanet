@@ -17,10 +17,7 @@ enum DiscoverSectionItem {
     var itemHeight: CGFloat {
         switch self {
         case .banner(let item):
-            if let banner = item.first, banner.fixedHeight ?? false {
-                return banner.height ?? 50.0 // 固定高度的横条
-            }
-            return item.count == 0 ? 0.00002 : (Ces.width) * 200 / 375
+            return UITableView.automaticDimension
         case .videoClassify(let item):
             if item.count == 0 {
                 return 0.00002
