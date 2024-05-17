@@ -69,10 +69,7 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
         
         // 点击Banner
         tapBannerIndex.subscribe(onNext: { [weak self] index, banners in
-            guard let banner = banners[safe: index] else {
-                return
-            }
-            banner.goto(from: self, additional: [
+            banners[safe: index]?.goto(from: self, additional: [
                 "index": index,
                 "banners": banners
             ])

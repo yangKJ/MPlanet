@@ -8,6 +8,7 @@
 import Foundation
 
 @_exported import ProductLib
+@_exported import CommonView
 @_exported import Rickenbacker
 @_exported import SnapKit
 @_exported import RxSwift

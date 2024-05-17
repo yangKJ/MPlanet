@@ -14,6 +14,10 @@ public class Session {
     
     /// 登陆成功之后的用户数据
     public private(set) var loggedUserDTO: UserDTO?
+    /// 退出登陆不会清空该数据
+    public var token: String? {
+        get { AppUserSettings.token }
+    }
     
     public var loginState: Session.LoginState = .none {
         didSet {
@@ -46,7 +50,7 @@ public class Session {
     /// 登陆成功
     public func loggedSuccess(_ userDTO: UserDTO) {
         self.loggedUserDTO = userDTO
-        UserSettings.token = userDTO.token
+        AppUserSettings.token = userDTO.token
         self.loginState = .logged
     }
     

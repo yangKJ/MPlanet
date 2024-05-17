@@ -1,6 +1,6 @@
 //
 //  SignatureViewController.swift
-//  WMDiscover
+//  FeatBox
 //
 //  Created by Condy on 2023/5/20.
 //

@@ -9,6 +9,22 @@ import Foundation
 
 extension Array {
     
+    /// Array to tuple.
+    ///
+    ///     And tuple to array:
+    ///     let tuple = (1, 2, 3, 4, 5)
+    ///     let mirror = Mirror(reflecting: tuple)
+    ///     let array = mirror.children.map({ $0.value }) as! [Any]
+    ///
+    /// - Parameter type: Tuple type.
+    /// - Returns: Tuple.
+    public func toTuple<T>(_ type: T.Type = T.self) -> T {
+        let tuple = self.withUnsafeBytes {
+            return $0.bindMemory(to: T.self)[0]
+        }
+        return tuple
+    }
+    
     /// 随机返回数组中的一个元素
     public func randomElement() -> Element? {
         if isEmpty { return nil }

@@ -76,11 +76,11 @@ extension WMTabBarItem {
     var itemViewController: UIViewController? {
         switch self {
         case .dicover:
-            return Mediator.Discover_viewController()
+            return Mediator.discoverTabBarViewController()
         case .wallet:
-            return Mediator.Wallet_viewController()
+            return Mediator.walletTabBarViewController()
         case .mine:
-            return Mediator.Mine_viewController(userId: "yangKJ")
+            return Mediator.mineTabBarViewController(userId: "yangKJ")
         }
     }
     

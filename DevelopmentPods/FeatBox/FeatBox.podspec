@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
   
   s.dependency 'ProductLib' ## 百宝箱工具库
+  s.dependency 'CommonView' ## 独立公共控件
   s.dependency 'Mediator' ## 路由
   
   s.dependency 'Booming' # 插件网络架构，https://github.com/yangKJ/RxNetworks

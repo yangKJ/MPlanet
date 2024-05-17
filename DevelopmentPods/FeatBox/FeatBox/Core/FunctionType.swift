@@ -16,10 +16,11 @@ public enum FunctionType: String {
 extension FunctionType {
     
     @discardableResult
-    public func goto(from viewController: UIViewController? = nil, additional: [String: Any]? = nil, logined: Bool = false) -> Bool {
+    public func goto(from viewController: UIViewController? = nil, additional: Any? = nil, logined: Bool = false) -> Bool {
         switch self {
         case .banner_detail:
-            let vc = Mediator.bannerDetailViewController(params: additional)
+            let params = additional as? [String: Any]
+            let vc = Mediator.bannerDetailViewController(params: params)
             return push(from: viewController, vc: vc)
         default:
             return false

@@ -53,20 +53,21 @@ extension CustomizedGotoable {
         }
         switch gotoTypeEnum {
         case .web:
-            break
+            return true
         case .url:
-            break
+            return true
         case .function:
-            if let functionType = functionType, let additional = additional as? [String: Any] {
-                return functionType.goto(from: vc, additional: additional, logined: logined)
+            guard let functionType = functionType else {
+                return false
             }
+            return functionType.goto(from: vc, additional: additional, logined: logined)
         case .applets:
-            break
+            return true
         case .tabBar:
-            return Mediator.gotoTabBarIndex(with: gotoObject) ?? false
+            return Mediator.gotoTabBarIndex(with: gotoObject)
         case .none:
-            break
+            return true
         }
-        return true
+        return false
     }
 }

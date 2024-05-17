@@ -33,7 +33,7 @@ public final class LoginAuthVerfication: NSObject, AuthVerificationable {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             var userDTO = UserDTO()
             userDTO.token = "PH00278922k35C77"
-            userDTO.hasPrivilegeBarItem = "WALLET" // 模拟增加一个钱包TabBar
+            userDTO.hasPrivilegeBarItem = "WALLET_TAB_BAR" // 模拟增加一个钱包TabBar
             userDTO.accountStatus = .normal
             Session.shared.loggedSuccess(userDTO)
             authCompletion?(())

@@ -50,6 +50,7 @@ PODS:
   - ESTabBarController-swift (2.8.0)
   - FeatBox (2.0.0):
     - Booming
+    - CommonView
     - ESTabBarController-swift
     - FeatBox/Resources (= 2.0.0)
     - FSCalendar
@@ -70,6 +71,7 @@ PODS:
     - YYText
   - FeatBox/Resources (2.0.0):
     - Booming
+    - CommonView
     - ESTabBarController-swift
     - FSCalendar
     - HandyJSON
@@ -379,7 +381,7 @@ SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
-  FeatBox: 14b523f2f84e308d459460bd5580b82532728fa6
+  FeatBox: b63c89021c371c7e55f4e78b3f8128ef8981a6fc
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03

@@ -47,31 +47,25 @@ class MournAppDelegate: AppDelegateType {
 extension MournAppDelegate {
     
     func displayMournMode() {
-        func display() {
+        if MournType.hasMourning() {
             if let view = keyWindow?.viewWithTag(Self.overlayTag) {
                 view.isHidden = false
             } else {
                 keyWindow?.addSubview(overlay)
             }
         }
-        if UserSettings.mourning {
-            display()
-        }
     }
     
     func closeMournMode() {
-        func close() {
+        if MournType.closeMourned() {
             if let view = keyWindow?.viewWithTag(Self.overlayTag) {
                 view.isHidden = true
             }
         }
-        if UserSettings.mourning == false {
-            close()
-        }
     }
     
     func alertDisplayMorun(alert: UIView?) {
-        func display() {
+        if MournType.hasMourning() {
             alert?.layoutIfNeeded()
             alertOverlay.frame = alert?.bounds ?? .zero
             if let view = alert?.viewWithTag(Self.alertOverlayTag) {
@@ -79,9 +73,6 @@ extension MournAppDelegate {
             } else {
                 alert?.addSubview(alertOverlay)
             }
-        }
-        if UserSettings.mourning {
-            display()
         }
     }
 }

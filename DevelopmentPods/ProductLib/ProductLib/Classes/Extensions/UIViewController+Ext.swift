@@ -10,22 +10,30 @@ import UIKit
 extension BoxWrapper where Base: UIViewController {
     
     public static func currentViewController() -> UIViewController? {
-        var vc = UIWindow.fy.keyWindow()?.rootViewController
-        if let presentedController = vc as? UITabBarController {
-            vc = presentedController.selectedViewController
+        let window = UIApplication.shared.delegate?.window
+        guard window != nil, let rootViewController = window?!.rootViewController else {
+            return nil
         }
-        while let presentedController = vc?.presentedViewController {
-            if let presentedController = presentedController as? UITabBarController {
-                vc = presentedController.selectedViewController
-            } else {
-                vc = presentedController
-            }
-        }
-        return vc
+        return getTopViewController(controller: rootViewController)
     }
-}
-
-extension BoxWrapper where Base: UIViewController {
+    
+    public static func getTopViewController(controller: UIViewController) -> UIViewController {
+        if let presentedViewController = controller.presentedViewController {
+            return self.getTopViewController(controller: presentedViewController)
+        } else if let navigationController = controller as? UINavigationController {
+            if let topViewController = navigationController.topViewController {
+                return self.getTopViewController(controller: topViewController)
+            }
+            return navigationController
+        } else if let tabbarController = controller as? UITabBarController {
+            if let selectedViewController = tabbarController.selectedViewController {
+                return self.getTopViewController(controller: selectedViewController)
+            }
+            return tabbarController
+        } else {
+            return controller
+        }
+    }
     
     public var fullNavbarHeight: CGFloat {
         return navbarHeight + statusBarHeight
@@ -77,11 +85,11 @@ extension BoxWrapper where Base: UIViewController {
     public func popToViewController(advancedBy: Int, animated: Bool = true) -> Bool {
         assert(advancedBy < 0, "non positive")
         guard let navigationVc = base.navigationController else {
-            print("FeatBox warning: no navigation controller exists")
+            print("ProductLib warning: no navigation controller exists")
             return false
         }
         guard advancedBy < navigationVc.children.count else {
-            print("FeatBox warning: iligal advancedBy value")
+            print("ProductLib warning: iligal advancedBy value")
             return false
         }
         let index = navigationVc.children.index(of: base)!
@@ -93,11 +101,11 @@ extension BoxWrapper where Base: UIViewController {
     @discardableResult
     public func popToViewController(metaType: UIViewController.Type, animated: Bool = true) -> Bool {
         guard let navigationVc = base.navigationController else {
-            print("FeatBox warning: no navigation controller exists")
+            print("ProductLib warning: no navigation controller exists")
             return false
         }
         guard let dstVc = navigationVc.children.last(where: { $0.isKind(of: metaType) }) else {
-            print("FeatBox warning: no view controller(\(metaType)) exists in its navigation controller's stack")
+            print("ProductLib warning: no view controller(\(metaType)) exists in its navigation controller's stack")
             return false
         }
         navigationVc.popToViewController(dstVc, animated: animated)

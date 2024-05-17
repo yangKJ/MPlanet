@@ -40,7 +40,7 @@ public extension BoxWrapper where Base: UIFont {
     
     /// 重新设置字体尺寸
     public var fixedFont: UIFont {
-        let fixedSize = base.pointSize + UserSettings.fontSizeType.deltaFontSize
+        let fixedSize = base.pointSize + AppUserSettings.fontSizeType.deltaFontSize
         return base.withSize(fixedSize)
     }
     

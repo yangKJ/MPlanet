@@ -9,6 +9,10 @@ import Foundation
 
 extension BoxWrapper where Base == Date {
     
+    public var millisecondTimeIntervalSince1970: TimeInterval {
+        return ceil(base.timeIntervalSince1970*1000)
+    }
+    
     public static var calendar: Calendar {
         Calendar(identifier: Calendar.current.identifier)
     }
