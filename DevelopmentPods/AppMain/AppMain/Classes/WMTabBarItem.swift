@@ -11,9 +11,9 @@ import FeatBox
 import ESTabBarController_swift
 
 public enum WMTabBarItem: String, Equatable {
-    case dicover = "DICOVER"
-    case wallet = "WALLET"
-    case mine = "MINE"
+    case dicover = "TAB_BAR_DICOVER"
+    case wallet = "TAB_BAR_WALLET"
+    case mine = "TAB_BAR_MINE"
 }
 
 extension WMTabBarItem {
@@ -59,6 +59,17 @@ extension WMTabBarItem {
             return Res.image("tab_book_selected", forResource: AppMainUtil.moduleName)
         case .mine:
             return Res.image("tab_mine_selected", forResource: AppMainUtil.moduleName)
+        }
+    }
+    
+    var viewControllerType: UIViewController.Type? {
+        switch self {
+        case .dicover:
+            return Mediator.discoverViewControllerType()
+        case .wallet:
+            return Mediator.walletViewControllerType()
+        case .mine:
+            return Mediator.mineViewControllerType()
         }
     }
     

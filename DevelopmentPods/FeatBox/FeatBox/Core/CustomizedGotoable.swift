@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Mediator
 
 public enum CustomizedGotoType: String {
     case web = "WEB"
@@ -17,9 +18,9 @@ public enum CustomizedGotoType: String {
 }
 
 public protocol CustomizedGotoable {
-    // 跳转类型 WEB-网址链接、FUNCTION-原生功能、APPLETS-小程序、TAB_BAR-(0,1,2)
+    // 跳转类型 WEB-网址链接、FUNCTION-原生功能、APPLETS-小程序、TAB_BAR-标签页
     var gotoType: String? { get set }
-    // 跳转对象，WEB对应链接；FUNCTION对应App功能标识
+    // 跳转对象，WEB对应链接；FUNCTION对应App功能标识；TAB_BAR对应的名称；
     var gotoObject: String? { get set }
 }
 
@@ -62,7 +63,7 @@ extension CustomizedGotoable {
         case .applets:
             break
         case .tabBar:
-            break
+            return Mediator.gotoTabBarIndex(with: gotoObject) ?? false
         case .none:
             break
         }

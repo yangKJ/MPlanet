@@ -10,6 +10,10 @@ import UIKit
 /// 配置`Target`供外界组件调用
 class DiscoverTarget: NSObject {
     
+    @objc public func getDiscoverViewControllerType() -> UIViewController.Type {
+        return DiscoverViewController.self
+    }
+    
     @objc public func setupDiscoverViewController() -> UIViewController? {
         let vc = DiscoverViewController.init()
         return vc

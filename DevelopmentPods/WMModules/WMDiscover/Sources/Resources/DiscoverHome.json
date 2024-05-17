@@ -69,6 +69,8 @@
             "order": 2,
             "title": "固定高度的横条",
             "type": 1,
+            "gotoType": "TAB_BAR",
+            "gotoObject": "TAB_BAR_MINE",
             "height": 50.0,
             "fixed_height": 1
         }]

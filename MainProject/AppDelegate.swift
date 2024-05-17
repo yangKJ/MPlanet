@@ -8,9 +8,18 @@
 
 import UIKit
 import RootManager
+import FeatBox
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, BridgeAppDelegateable {
+    
+    var bridgeUIWindow: UIWindow? {
+        window
+    }
+    
+    var bridgeRootViewController: UIViewController? {
+        window?.rootViewController
+    }
     
     var window: UIWindow?
     lazy var bridge: Bridge = Bridge(window)

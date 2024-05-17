@@ -71,6 +71,9 @@
     ],
     "FSCalendar": [
 
+    ],
+    "ESTabBarController-swift": [
+
     ]
   },
   "source_files": "FeatBox/**/**/*.{h,swift}",

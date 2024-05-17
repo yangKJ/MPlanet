@@ -38,6 +38,7 @@ extension DispatchQueue: BoxCompatible { }
 extension UIButton: BoxCompatible { }
 extension UIImage: BoxCompatible { }
 extension UIViewController: BoxCompatible { }
+extension UINavigationController: BoxCompatible { }
 extension UIEdgeInsets: BoxCompatible { }
 extension UIView: BoxCompatible { }
 extension Int: BoxCompatible { }

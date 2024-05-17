@@ -46,7 +46,7 @@ Pod::Spec.new do |s|
   s.dependency 'UITableView+FDTemplateLayoutCell' # Cell高度缓存，https://github.com/forkingdog/UITableView-FDTemplateLayoutCell
   s.dependency 'HandyJSON' # JSON解析，https://github.com/alibaba/HandyJSON
   s.dependency 'FSCalendar' # 日历框架，https://github.com/WenchaoD/FSCalendar
-  
+  s.dependency 'ESTabBarController-swift' # 标签栏组件，https://github.com/eggswift/ESTabBarController
   
   s.source_files = 'FeatBox/**/**/*.{h,swift}'
   #s.resource = 'FeatBox/**/*.bundle'
