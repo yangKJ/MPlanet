@@ -8,8 +8,9 @@
 import Foundation
 import Rickenbacker
 import ProductLib
+import UITableView_FDTemplateLayoutCell
 
-open class BaseTableViewController<T: BaseViewModel>: Rickenbacker.VMTableViewController<T>, UIScrollViewDelegate {
+open class BaseTableViewController<T: BaseViewModel>: VMTableViewController<T>, UIScrollViewDelegate, UITableViewDelegate {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +27,13 @@ open class BaseTableViewController<T: BaseViewModel>: Rickenbacker.VMTableViewCo
         self.tableView.separatorStyle = .none
         self.tableView.sectionIndexBackgroundColor = UIColor.fy.clear
         self.tableView.sectionIndexColor = UIColor.fy.gray_999999
-        self.tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
-        self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
+        self.tableView.tableFooterView = nil//UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
+        self.tableView.tableHeaderView = nil//UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
         self.registerTableViewCell().forEach { [weak self] in
             self?.tableView.fy.register($0)
         }
         self.tableView.estimatedRowHeight = 44
+        //self.tableView.rowHeight = UITableView.automaticDimension
     }
     
     // MARK: - 子类重写实现
@@ -40,83 +42,64 @@ open class BaseTableViewController<T: BaseViewModel>: Rickenbacker.VMTableViewCo
     open func registerTableViewCell() -> [BaseTableViewCell.Type] {
         fatalError("Subclass must override and set register table view cell class.")
     }
+    
+    /// 配置Cell高度
+    open func tableViewCellHeight(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        /// 返回`UITableView.automaticDimension`则动态适配高度，Cell必须制定`高度`和`顶部`和`底部`距离方可自动撑开
+        return UITableView.automaticDimension
+    }
+    
+    /// 配置Header高度
+    open func tableViewHeaderHeight(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    /// 配置HeaderView
+    open func tableViewHeaderView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    /// 配置Footer高度
+    open func tableViewFooterHeight(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    /// 配置FooterView
+    open func tableViewFooterView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableViewCellHeight(tableView, heightForRowAt: indexPath)
+//        let customizedHeight = tableViewCellHeight(tableView, heightForRowAt: indexPath)
+//        switch customizedHeight {
+//        case UITableView.automaticDimension, ...0.0:
+//            guard let cell = tableView.cellForRow(at: indexPath) as? BaseTableViewCell else {
+//                return customizedHeight
+//            }
+//            // https://blog.sunnyxx.com/2015/05/17/cell-height-calculation/
+//            let cacheHeight = tableView.fd_heightForCell(withIdentifier: cell.fy.identifier, configuration: nil)
+//            return cacheHeight == 0.0 ? 0.00002 : cacheHeight
+//        default:
+//            return customizedHeight
+//        }
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        tableViewHeaderHeight(tableView, heightForHeaderInSection: section)
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        tableViewHeaderView(tableView, viewForHeaderInSection: section)
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        tableViewFooterHeight(tableView, heightForFooterInSection: section)
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        tableViewFooterView(tableView, viewForFooterInSection: section)
+    }
 }
-
-//extension TableViewAutomaticDimension {
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let height = tableViewCellHeight(tableView, indexPath: indexPath)
-//        return height <= 0 ? UITableView.automaticDimension : height
-//    }
-//}
-//    public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 44
-//    }
-//
-//    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let height = tableViewCellHeight(tableView, indexPath: indexPath)
-//        return height <= 0 ? UITableView.automaticDimension : height
-//    }
-//
-//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableViewDidSelectRow(tableView, indexPath: indexPath)
-//    }
-//
-//    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        tableViewHeaderHeight(tableView, section: section)
-//    }
-//
-//    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        tableViewFooterHeight(tableView, section: section)
-//    }
-//
-//    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        tableViewHeaderTitle(tableView, section: section)
-//    }
-//
-//    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-//        tableViewFooterTitle(tableView, section: section)
-//    }
-//
-//    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        tableViewHeaderView(tableView, section: section)
-//    }
-//
-//    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        tableViewFooterView(tableView, section: section)
-//    }
-//
-//    /// 设置Cell高度，返回零则动态适配高度，Cell必须制定`高度`和`顶部`和`底部`距离方可自动撑开
-//    open func tableViewCellHeight(_ tableView: UITableView, indexPath: IndexPath) -> CGFloat {
-//        return 0.0
-//    }
-//
-//    /// 点击Cell
-//    open func tableViewDidSelectRow(_ tableView: UITableView, indexPath: IndexPath) {
-//
-//    }
-//
-//    open func tableViewHeaderHeight(_ tableView: UITableView, section: Int) -> CGFloat {
-//        return 0.0
-//    }
-//
-//    open func tableViewFooterHeight(_ tableView: UITableView, section: Int) -> CGFloat {
-//        return 0.0
-//    }
-//
-//    open func tableViewHeaderTitle(_ tableView: UITableView, section: Int) -> String? {
-//        return nil
-//    }
-//
-//    open func tableViewFooterTitle(_ tableView: UITableView, section: Int) -> String? {
-//        return nil
-//    }
-//
-//    open func tableViewHeaderView(_ tableView: UITableView, section: Int) -> UIView? {
-//        return nil
-//    }
-//
-//    open func tableViewFooterView(_ tableView: UITableView, section: Int) -> UIView? {
-//        return nil
-//    }
-//}

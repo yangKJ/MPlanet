@@ -66,6 +66,23 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
         ]
     }
     
+    override func tableViewCellHeight(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return dataSource[indexPath].itemHeight
+    }
+    
+    override func tableViewHeaderHeight(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return dataSource[section].headerHeight
+    }
+    
+    override func tableViewHeaderView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch dataSource[section] {
+        case .asset, .application:
+            return nil
+        case .token:
+            return tokenHeaderView
+        }
+    }
+    
     func setupSubviews() {
         self.view.addSubview(emptyView)
         self.view.addSubview(topNavigationBarView)
@@ -101,25 +118,5 @@ class WalletViewController: BaseTableViewController<WalletViewModel>, Navigation
         detailsEvent.subscribe(onNext: {
             print("xxsdsd")
         }).disposed(by: disposeBag)
-    }
-}
-
-extension WalletViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return dataSource[indexPath].itemHeight
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return dataSource[section].headerHeight
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch dataSource[section] {
-        case .asset, .application:
-            return nil
-        case .token:
-            return tokenHeaderView
-        }
     }
 }

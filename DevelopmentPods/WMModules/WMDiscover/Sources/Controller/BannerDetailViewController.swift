@@ -101,13 +101,6 @@ class BannerDetailViewController: BaseTableViewController<BannerDetailViewModel>
     }
 }
 
-extension BannerDetailViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return dataSource[indexPath].itemHeight
-    }
-}
-
 extension BannerDetailViewController: DZNEmptyDataSetable {
     
     func DZNEmptyDataSetImage(scrollView: UIScrollView) -> UIImage {

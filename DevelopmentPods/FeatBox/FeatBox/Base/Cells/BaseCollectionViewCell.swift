@@ -8,7 +8,7 @@
 import Foundation
 import ProductLib
 
-open class BaseCollectionViewCell: UICollectionViewCell, Identifierable {
+open class BaseCollectionViewCell: UICollectionViewCell {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)

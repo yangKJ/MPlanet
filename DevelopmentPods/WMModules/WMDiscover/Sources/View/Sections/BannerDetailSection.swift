@@ -12,15 +12,6 @@ import FeatBox
 enum BannerDetailSectionItem {
     case top(item: [Banner])
     case detail(item: BannerDetail?)
-    
-    var itemHeight: CGFloat {
-        switch self {
-        case .top(let item):
-            return UITableView.automaticDimension
-        case .detail(let item):
-            return UITableView.automaticDimension
-        }
-    }
 }
 
 enum BannerDetailSection {

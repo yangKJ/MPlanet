@@ -110,6 +110,10 @@ class MineViewController: BaseTableViewController<MineViewModel> {
         ]
     }
     
+    override func tableViewCellHeight(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return dataSource[indexPath].itemHeight
+    }
+    
     func setupInit() {
         self.navigationItem.leftBarButtonItem = nil
         self.barImageView = self.navigationController?.navigationBar.subviews.first
@@ -219,13 +223,6 @@ class MineViewController: BaseTableViewController<MineViewModel> {
             })
             vc.show()
         }).disposed(by: rx.disposeBag)
-    }
-}
-
-extension MineViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return dataSource[indexPath].itemHeight
     }
 }
 

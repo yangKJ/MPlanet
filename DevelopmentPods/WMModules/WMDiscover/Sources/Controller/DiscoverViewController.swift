@@ -52,6 +52,18 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
         ]
     }
     
+    override func tableViewCellHeight(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return dataSource[indexPath].itemHeight
+    }
+    
+    override func tableViewHeaderHeight(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return dataSource[section].headerHeight
+    }
+    
+    override func tableViewHeaderView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return dataSource[section].headerView
+    }
+    
     func setupInit() {
         self.title = Res.text("首页")
         self.navigationItem.leftBarButtonItem = nil
@@ -77,21 +89,6 @@ class DiscoverViewController: BaseTableViewController<DiscoverViewModel> {
         
         // 请求数据
         viewModel.inputs.request()
-    }
-}
-
-extension DiscoverViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return dataSource[indexPath].itemHeight
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return dataSource[section].headerHeight
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return dataSource[section].headerView
     }
 }
 
