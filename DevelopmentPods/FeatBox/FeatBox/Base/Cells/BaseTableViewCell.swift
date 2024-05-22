@@ -11,7 +11,7 @@ import RxCocoa
 import Rickenbacker
 import SnapKit
 
-open class BaseTableViewCell: UITableViewCell, Identifierable {
+open class BaseTableViewCell: UITableViewCell {
     
     public let lineHeight = BehaviorRelay<CGFloat>(value: 0.0002)
     public let lineConstraint = PublishRelay<(top: CGFloat?, leading: CGFloat?, trailing: CGFloat?)>()

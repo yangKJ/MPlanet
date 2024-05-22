@@ -9,21 +9,21 @@ import Foundation
 
 extension BoxWrapper where Base: UICollectionView {
     
-    public func register<T: BaseCollectionViewCell>(_ type: T.Type) {
-        base.register(type, forCellWithReuseIdentifier: T.identifier)
+    public func register<T: UICollectionViewCell>(_ type: T.Type) {
+        base.register(type, forCellWithReuseIdentifier: T.fy.identifier)
     }
     
-    public func dequeueReusableCell<T: BaseCollectionViewCell>(_ type: T.Type, indexPath: IndexPath) -> T {
-        let item = base.dequeueReusableCell(withReuseIdentifier: T.identifier, for: indexPath)
+    public func dequeueReusableCell<T: UICollectionViewCell>(_ type: T.Type, indexPath: IndexPath) -> T {
+        let item = base.dequeueReusableCell(withReuseIdentifier: T.fy.identifier, for: indexPath)
         guard item.isKind(of: T.self) else {
             fatalError("Cell class must be subclass of BaseCollectionViewCell")
         }
         return item as! T
     }
     
-    public func dequeueReusableCell<T: BaseCollectionViewCell>(_ type: T.Type, row: Int) -> T {
+    public func dequeueReusableCell<T: UICollectionViewCell>(_ type: T.Type, row: Int) -> T {
         let indexPath = IndexPath.init(index: row)
-        let item = base.dequeueReusableCell(withReuseIdentifier: T.identifier, for: indexPath)
+        let item = base.dequeueReusableCell(withReuseIdentifier: T.fy.identifier, for: indexPath)
         guard item.isKind(of: T.self) else {
             fatalError("Cell class must be subclass of BaseCollectionViewCell")
         }

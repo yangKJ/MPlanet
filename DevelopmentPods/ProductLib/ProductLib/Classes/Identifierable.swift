@@ -9,13 +9,18 @@ import Foundation
 
 public protocol Identifierable {
     
-    /// 标识符号
     static var identifier: String { get }
+    
+    var identifier: String { get }
 }
 
 extension Identifierable {
     
     public static var identifier: String {
+        String(describing: self)
+    }
+    
+    public var identifier: String {
         String(describing: self)
     }
 }
