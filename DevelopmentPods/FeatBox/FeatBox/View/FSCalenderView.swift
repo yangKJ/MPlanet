@@ -42,9 +42,9 @@ public class FSCalenderView<Cell: FSCalendarViewCellable>: UIView, FSCalendarDat
     public lazy var titleLabel: UILabel = {
         let label = BaseLabel.init()
         label.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: titleLabelHeight)
-        label.backgroundColor = UIColor.white
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = UIColor.init(hex: "#333333")
+        label.backgroundColor = UIColor.fy.white
+        label.font = UIFont.fy.system_18
+        label.textColor = UIColor.fy.gray_333333
         label.textAlignment = .center
         let corners: UIRectCorner = [.topLeft, .topRight]
         let maskPath = UIBezierPath(roundedRect: label.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: 10, height: 10))
@@ -75,7 +75,7 @@ public class FSCalenderView<Cell: FSCalendarViewCellable>: UIView, FSCalendarDat
     
     public lazy var calender: FSCalendar = {
         let calendar = FSCalendar(frame: CGRect(x: 0, y: titleLabelHeight, width: self.frame.size.width, height: calenderHeight))
-        calendar.backgroundColor = UIColor.white
+        calendar.backgroundColor = UIColor.fy.white
         calendar.accessibilityIdentifier = "calendar"
         calendar.dataSource = self
         calendar.delegate = self
@@ -92,24 +92,24 @@ public class FSCalenderView<Cell: FSCalendarViewCellable>: UIView, FSCalendarDat
         calendar.firstWeekday = 1
         
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
-        calendar.appearance.eventSelectionColor = UIColor.clear
+        calendar.appearance.eventSelectionColor = UIColor.fy.clear
         calendar.appearance.eventOffset = CGPoint(x: 0, y: 0)
-        calendar.appearance.eventDefaultColor = UIColor.clear
-        calendar.appearance.headerTitleColor = UIColor.init(hex: "333333")
-        calendar.appearance.headerTitleFont = UIFont.systemFont(ofSize: 18)
+        calendar.appearance.eventDefaultColor = UIColor.fy.clear
+        calendar.appearance.headerTitleColor = UIColor.fy.gray_333333
+        calendar.appearance.headerTitleFont = UIFont.fy.system_18
         calendar.appearance.headerDateFormat = "yyyy年MM月"
-        calendar.appearance.weekdayTextColor = UIColor.init(hex: "#000000").withAlphaComponent(0.45)
-        calendar.appearance.selectionColor = UIColor.init(hex: "#000000").withAlphaComponent(0.45)
-        calendar.appearance.todayColor = UIColor.red
+        calendar.appearance.weekdayTextColor = UIColor.fy.black.withAlphaComponent(0.45)
+        calendar.appearance.selectionColor = UIColor.fy.black.withAlphaComponent(0.45)
+        calendar.appearance.todayColor = UIColor.fy.red
         calendar.appearance.borderRadius = 1.0
         calendar.appearance.caseOptions = [.headerUsesUpperCase, .weekdayUsesSingleUpperCase]
         calendar.appearance.separators = .none
         calendar.appearance.headerTitleOffset = CGPoint(x: 0, y: 0)
         calendar.appearance.titleOffset = CGPoint(x: 0, y: -5)
-        calendar.appearance.headerSeparatorColor = UIColor.clear
+        calendar.appearance.headerSeparatorColor = UIColor.fy.clear
         
-        calendar.calendarHeaderView.backgroundColor = UIColor.white
-        calendar.calendarWeekdayView.backgroundColor = UIColor.clear
+        calendar.calendarHeaderView.backgroundColor = UIColor.fy.white
+        calendar.calendarWeekdayView.backgroundColor = UIColor.fy.clear
         
         calendar.today = nil // Hide the today circle
         calendar.register(Cell.self, forCellReuseIdentifier: "CalenderCell")

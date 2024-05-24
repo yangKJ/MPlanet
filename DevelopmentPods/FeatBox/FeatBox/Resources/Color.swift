@@ -88,6 +88,10 @@ public extension BoxWrapper where Base: UIColor {
         return UIColor.yellow
     }
     
+    static var gray_333333: UIColor {
+        UIColor(hex: "#333333")
+    }
+    
     static var gray_F3F3F3: UIColor {
         UIColor(hex: "#F3F3F3")
     }

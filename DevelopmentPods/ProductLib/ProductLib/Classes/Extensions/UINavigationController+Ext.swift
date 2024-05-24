@@ -9,6 +9,19 @@ import Foundation
 
 extension BoxWrapper where Base: UINavigationController {
     
+    public static func navigationHeight() -> CGFloat {
+        statusBarHeight() + 44.0
+    }
+    
+    public static func statusBarHeight() -> CGFloat {
+        if #available(iOS 13.0, *) {
+            let statusManager = UIApplication.shared.windows.first?.windowScene?.statusBarManager
+            return statusManager?.statusBarFrame.height ?? 20.0
+        } else {
+            return UIApplication.shared.statusBarFrame.height
+        }
+    }
+    
     public func popToRootViewController(animated: Bool, completion: (() -> Void)?) {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completion)

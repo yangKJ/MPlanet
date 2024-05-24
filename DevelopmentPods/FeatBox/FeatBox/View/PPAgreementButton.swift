@@ -19,7 +19,12 @@ public struct PPAgreement {
 /// 协议控件，例如：我已阅读并同意《某某某协议》
 open class PPAgreementButton: UIView {
     
-    private let yyLabel = YYLabel()
+    private lazy var yyLabel: YYLabel = {
+        let label = YYLabel.init()
+        label.numberOfLines = 0
+        label.lineBreakMode = .byTruncatingTail
+        return label
+    }()
     
     private var agreementTapBlock: (([PPAgreement], Int) -> Void)?
     public func setAgreementTapBlock(agreementTapBlock: (([PPAgreement], Int) -> Void)?) {
@@ -126,10 +131,7 @@ open class PPAgreementButton: UIView {
 extension PPAgreementButton {
     
     private func setup() {
-        isChecked = false
-        yyLabel.numberOfLines = 0
-        yyLabel.lineBreakMode = .byTruncatingTail
-        addSubview(yyLabel)
+        self.addSubview(yyLabel)
         yyLabel.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview()
@@ -231,7 +233,7 @@ extension PPAgreementButton {
 }
 
 extension NSAttributedString {
-    convenience init(string: String, color: UIColor, font: UIFont, lineSpace: CGFloat? = nil, baseLineOffset: CGFloat? = nil) {
+    fileprivate convenience init(string: String, color: UIColor, font: UIFont, lineSpace: CGFloat? = nil, baseLineOffset: CGFloat? = nil) {
         var attributes = [NSAttributedString.Key: Any]()
         attributes[NSAttributedString.Key.foregroundColor] = color
         attributes[NSAttributedString.Key.font] = font

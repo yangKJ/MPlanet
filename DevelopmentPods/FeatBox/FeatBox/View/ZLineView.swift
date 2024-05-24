@@ -12,9 +12,9 @@ import ProductLib
 public final class ZLineView: UIView {
     
     private var asix: NSLayoutConstraint.Axis = .horizontal
-    private var thickness: CGFloat = Ces.px1
+    private var thickness: CGFloat = CGFloat.fy.px1
     
-    public convenience init(asix: NSLayoutConstraint.Axis = .horizontal, thickness: CGFloat = Ces.px1) {
+    public convenience init(asix: NSLayoutConstraint.Axis = .horizontal, thickness: CGFloat = CGFloat.fy.px1) {
         self.init()
         self.asix = asix
         self.thickness = thickness
