@@ -17,7 +17,7 @@ public struct PPAgreement {
 }
 
 /// 协议控件，例如：我已阅读并同意《某某某协议》
-open class PPAgreementButton: UIView {
+open class PPAgreementButton: BaseView {
     
     private lazy var yyLabel: YYLabel = {
         let label = YYLabel.init()

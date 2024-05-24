@@ -12,6 +12,31 @@ import UITableView_FDTemplateLayoutCell
 
 open class BaseTableViewController<T: BaseViewModel>: VMTableViewController<T>, UIScrollViewDelegate, UITableViewDelegate {
     
+    public convenience init(_ style: UITableView.Style = .plain) {
+        self.init(style: style, viewModel: T.init())
+    }
+    
+    public convenience init(style: UITableView.Style = .plain, viewModel: T) {
+        let table = BaseTableView.init(frame: .zero, style: style)
+        //table.rowHeight = UITableView.automaticDimension
+        //table.estimatedRowHeight = 44
+        //table.sectionHeaderHeight = 0.00001
+        //table.sectionFooterHeight = 0.00001
+        table.showsVerticalScrollIndicator = false
+        table.showsHorizontalScrollIndicator = false
+        table.cellLayoutMarginsFollowReadableWidth = false
+        table.tableFooterView = UIView()
+        table.separatorStyle = UITableViewCell.SeparatorStyle.none
+        table.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
+        if #available(iOS 11, *) {
+            table.contentInsetAdjustmentBehavior = UIScrollView.ContentInsetAdjustmentBehavior.never
+        }
+        if #available(iOS 15.0, *) {
+            table.sectionHeaderTopPadding = 0
+        }
+        self.init(tableView: table, viewModel: viewModel)
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.setupViews__()
@@ -27,13 +52,17 @@ open class BaseTableViewController<T: BaseViewModel>: VMTableViewController<T>, 
         self.tableView.separatorStyle = .none
         self.tableView.sectionIndexBackgroundColor = UIColor.fy.clear
         self.tableView.sectionIndexColor = UIColor.fy.gray_999999
-        self.tableView.tableFooterView = nil//UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
-        self.tableView.tableHeaderView = nil//UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
+        //self.tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
+        //self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
         self.registerTableViewCell().forEach { [weak self] in
             self?.tableView.fy.register($0)
         }
         self.tableView.estimatedRowHeight = 44
         //self.tableView.rowHeight = UITableView.automaticDimension
+        if tableView.style == .grouped && tableView.tableHeaderView == nil {
+            let header = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.1))
+            tableView.tableHeaderView = header
+        }
     }
     
     // MARK: - 子类重写实现
@@ -51,7 +80,8 @@ open class BaseTableViewController<T: BaseViewModel>: VMTableViewController<T>, 
     
     /// 配置Header高度
     open func tableViewHeaderHeight(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
+        // 使用后者`UITableView.automaticDimension`会出现白色Header导致布局尺寸变宽的问题
+        return 0.1//UITableView.automaticDimension
     }
     
     /// 配置HeaderView
@@ -61,7 +91,7 @@ open class BaseTableViewController<T: BaseViewModel>: VMTableViewController<T>, 
     
     /// 配置Footer高度
     open func tableViewFooterHeight(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
+        return 0.1//UITableView.automaticDimension
     }
     
     /// 配置FooterView

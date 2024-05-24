@@ -14,12 +14,12 @@ open class BaseImageView: UIImageView {
         self.setupInit()
     }
     
-    override init(image: UIImage?) {
+    public override init(image: UIImage?) {
         super.init(image: image)
         self.setupInit()
     }
     
-    override init(image: UIImage?, highlightedImage: UIImage?) {
+    public override init(image: UIImage?, highlightedImage: UIImage?) {
         super.init(image: image, highlightedImage: highlightedImage)
         self.setupInit()
     }
@@ -31,6 +31,6 @@ open class BaseImageView: UIImageView {
     
     private func setupInit() {
         layer.masksToBounds = true
-        contentMode = .center
+        //contentMode = .scaleAspectFit
     }
 }

@@ -20,7 +20,7 @@ public protocol CalendarCellDatasourceable {
 }
 
 /// 日历控件
-public class FSCalenderView<Cell: FSCalendarViewCellable>: UIView, FSCalendarDataSource, FSCalendarDelegate {
+public class FSCalenderView<Cell: FSCalendarViewCellable>: BaseView, FSCalendarDataSource, FSCalendarDelegate {
     
     private let calenderHeight: CGFloat
     private let titleLabelHeight: CGFloat

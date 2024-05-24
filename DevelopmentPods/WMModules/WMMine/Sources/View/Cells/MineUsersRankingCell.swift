@@ -24,13 +24,13 @@ class MineUsersRankingCell: BaseTableViewCell, HasDisposeBag {
     }()
     
     lazy var arrow: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = Res.image("")
+        let imageView = BaseImageView()
+        imageView.image = Res.next_arrow.c7.tinted(color: .fy.white)
         return imageView
     }()
     
     override func setupConstraint() {
-        self.lineHeight.accept(10)
+        self.sepratorLineHeight.accept(10)
         backgroundColor = UIColor.fy.mainColor
         contentView.addSubview(titleLabel)
         contentView.addSubview(arrow)

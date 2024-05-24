@@ -34,7 +34,7 @@ class MineUsersPhotoCell: BaseTableViewCell, HasDisposeBag {
     }()
     
     lazy var lastAddView: UIView = {
-        var view = UIView()
+        var view = BaseView()
         view.fy.cornerRadius = 2
         view.fy.borderPxwidthAndColor(UIColor.fy.gray_999999, px: 6)
         view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
@@ -67,7 +67,7 @@ class MineUsersPhotoCell: BaseTableViewCell, HasDisposeBag {
     }()
     
     override func setupConstraint() {
-        self.lineHeight.accept(10)
+        self.sepratorLineHeight.accept(10)
         backgroundColor = UIColor.fy.mainColor
         contentView.addSubview(titleLabel)
         contentView.addSubview(photoScrollView)
@@ -97,8 +97,9 @@ class MineUsersPhotoCell: BaseTableViewCell, HasDisposeBag {
         var lastImageView: UIImageView?
         let count = photos.count
         for (index, photo) in photos.enumerated() {
-            let imageView = UIImageView.init()
+            let imageView = BaseImageView.init()
             imageView.backgroundColor = UIColor.fy.white
+            imageView.contentMode = .scaleAspectFill
             imageView.tag = 520 + index
             photoScrollView.addSubview(imageView)
             imageView.snp.makeConstraints { (make) in
@@ -116,7 +117,7 @@ class MineUsersPhotoCell: BaseTableViewCell, HasDisposeBag {
                 }
             }
             lastImageView = imageView
-            imageView.fy.setImage(with: photo.imagePahth)
+            imageView.fy.setImage(with: photo.imagePahth, placeholder: Placeholder.webImage)
         }
         if count < Self.maxPhotos {
             if let label = lastAddView.viewWithTag(480) as? BaseLabel {

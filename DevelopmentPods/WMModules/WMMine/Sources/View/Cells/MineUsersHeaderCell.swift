@@ -15,7 +15,7 @@ class MineUsersHeaderCell: BaseTableViewCell, HasDisposeBag {
     public let signInEvent = PublishRelay<Void>()
     
     lazy var headerImageView: UIImageView = {
-        var imageView = UIImageView()
+        var imageView = BaseImageView()
         imageView.fy.cornerRadius = 30
         imageView.fy.borderPxwidthAndColor(UIColor.fy.white, px: 5)
         return imageView
@@ -33,16 +33,6 @@ class MineUsersHeaderCell: BaseTableViewCell, HasDisposeBag {
         label.font = UIFont.fy.system_18
         label.textColor = UIColor.fy.white
         return label
-    }()
-    
-    lazy var line: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.fy.white
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.frame.size = view.frame.size
-        view.addSubview(blurView)
-        return view
     }()
     
     lazy var signInButton: UIButton = {
@@ -67,7 +57,6 @@ class MineUsersHeaderCell: BaseTableViewCell, HasDisposeBag {
         contentView.addSubview(headerImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(starNoteLabel)
-        contentView.addSubview(line)
         contentView.addSubview(signInButton)
         headerImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
@@ -82,11 +71,6 @@ class MineUsersHeaderCell: BaseTableViewCell, HasDisposeBag {
             make.left.equalTo(nameLabel.snp.left)
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
         }
-        line.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(headerImageView.snp.bottom).offset(15)
-            make.height.equalTo(CGFloat.fy.px1)
-        }
         signInButton.snp.makeConstraints { make in
             make.centerY.equalTo(headerImageView.snp.centerY)
             make.right.equalToSuperview().offset(-40)
@@ -96,12 +80,12 @@ class MineUsersHeaderCell: BaseTableViewCell, HasDisposeBag {
     }
     
     override func setupBindings() {
-        users.subscribe(onNext: { [weak self] in
-            self?.nameLabel.text = $0?.name
-            if let starNote = $0?.starNote {
+        users.subscribe(onNext: { [weak self] user in
+            self?.nameLabel.text = user?.name
+            if let starNote = user?.starNote {
                 self?.starNoteLabel.text = Res.text("星币：") + starNote
             }
-            self?.headerImageView.fy.setImage(with: $0?.avatar_url)
+            self?.headerImageView.fy.setImage(with: user?.avatar_url, placeholder: Placeholder.webImage)
         }).disposed(by: rx.disposeBag)
     }
 }

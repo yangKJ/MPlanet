@@ -8,27 +8,48 @@
 import Foundation
 import ProductLib
 import RxCocoa
-import Rickenbacker
 import SnapKit
 
 open class BaseTableViewCell: UITableViewCell {
     
-    public let lineHeight = BehaviorRelay<CGFloat>(value: 0.0002)
-    public let lineConstraint = PublishRelay<(top: CGFloat?, leading: CGFloat?, trailing: CGFloat?)>()
-    public let lineColor = BehaviorRelay<UIColor>(value: UIColor.fy.white)
+    public let sepratorLineHeight = BehaviorRelay<CGFloat>(value: CGFloat.fy.px1)
+    public let sepratorLineInsets = BehaviorRelay<UIEdgeInsets>(value: .zero)
+    
+    public lazy var sepratorLine: UIView = {
+        let view = ZLineView(asix: .horizontal, thickness: CGFloat.fy.px1)
+        view.backgroundColor = UIColor.fy.line
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.tag = 999
+        blurView.frame.size = view.frame.size
+        view.addSubview(blurView)
+        return view
+    }()
     
     public required override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
-        backgroundColor = UIColor.fy.background
-        self.setupCustomView__()
-        self.setupCustomViewBinding__()
-        self.setupConstraint()
-        self.setupBindings()
+        self.setup()
     }
     
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        self.setup()
+    }
+    
+    private func setup() {
+        self.selectionStyle = .none
+        self.backgroundColor = UIColor.fy.background
+        self.contentView.addSubview(sepratorLine)
+        self.contentView.bringSubviewToFront(sepratorLine)
+        self.sepratorLine.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            self.sepratorLineHeightConstraint = make.height.equalTo(sepratorLineHeight.value).constraint
+        }
+        self.setupCustomViewBinding__()
+        self.setupConstraint()
+        self.setupBindings()
     }
     
     // MARK: - subview methods
@@ -39,11 +60,8 @@ open class BaseTableViewCell: UITableViewCell {
     
     // MARK: - private methods
     
-    lazy var sepratorLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.fy.white
-        return view
-    }()
+    let disposeBag = DisposeBag()
+    var sepratorLineHeightConstraint: Constraint?
     
     lazy var clickContentView: UITapGestureRecognizer = {
         let click = UITapGestureRecognizer()
@@ -53,38 +71,25 @@ open class BaseTableViewCell: UITableViewCell {
         return click
     }()
     
-    private var lineTConstraint: Constraint?
-    private var lineLConstraint: Constraint?
-    private var lineRConstraint: Constraint?
-    private var lineHConstraint: Constraint?
-    
-    func setupCustomView__() {
-        contentView.addSubview(sepratorLine)
-        contentView.bringSubviewToFront(sepratorLine)
-        sepratorLine.snp.makeConstraints { make in
-            self.lineTConstraint = make.top.equalToSuperview().constraint
-            self.lineLConstraint = make.leading.equalToSuperview().constraint
-            self.lineRConstraint = make.trailing.equalToSuperview().constraint
-            self.lineHConstraint = make.height.equalTo(lineHeight.value).constraint
-        }
+    private func setupCustomViewBinding__() {
+        self.sepratorLineHeight.distinctUntilChanged().subscribe(onNext: { [weak self] height in
+            self?.sepratorLineHeightConstraint?.update(offset: height)
+        }).disposed(by: disposeBag)
+        self.sepratorLineInsets.distinctUntilChanged().subscribe(onNext: { [weak self] _ in
+            self?.setupLines()
+        }).disposed(by: disposeBag)
     }
     
-    func setupCustomViewBinding__() {
-        self.lineColor.bind(to: sepratorLine.rx.backgroundColor).disposed(by: rx.disposeBag)
-        self.lineHeight.subscribe(onNext: { [weak self] height in
-            self?.lineHConstraint?.update(offset: height)
-        }).disposed(by: rx.disposeBag)
-        self.lineConstraint.subscribe(onNext: { [weak self] in
-            if let top = $0.top {
-                self?.lineTConstraint?.update(offset: top)
-            }
-            if let left = $0.leading {
-                self?.lineLConstraint?.update(offset: left)
-            }
-            if let right = $0.trailing {
-                self?.lineRConstraint?.update(offset: right)
-            }
-        }).disposed(by: rx.disposeBag)
+    private func setupLines() {
+        guard sepratorLine.superview != nil else {
+            return
+        }
+        self.sepratorLine.snp.remakeConstraints { (make) in
+            make.left.equalTo(self.sepratorLineInsets.value.left)
+            make.right.equalTo(self.sepratorLineInsets.value.right)
+            make.bottom.equalToSuperview().offset(self.sepratorLineInsets.value.top - self.sepratorLineInsets.value.bottom)
+            make.height.equalTo(self.sepratorLineHeight.value)
+        }
     }
 }
 

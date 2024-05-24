@@ -30,18 +30,18 @@ class MineSignInCalenderCell: FSCalendarViewCellable {
     }
     
     lazy var tagLabel: UILabel = {
-        let label = UILabel.init()
+        let label = BaseLabel.init()
         return label
     }()
     
     lazy var subTagLabel: UILabel = {
-        let label = UILabel.init()
+        let label = BaseLabel.init()
         return label
     }()
     
     lazy var selectionLayer: CAShapeLayer = {
         let selectionLayer = CAShapeLayer()
-        selectionLayer.fillColor = UIColor.black.cgColor
+        selectionLayer.fillColor = UIColor.fy.black.cgColor
         selectionLayer.actions = ["hidden": NSNull()]
         return selectionLayer
     }()
@@ -51,8 +51,8 @@ class MineSignInCalenderCell: FSCalendarViewCellable {
         self.setupUI()
         //self.contentView.layer.insertSublayer(selectionLayer, below: self.titleLabel!.layer)
 
-        let view = UIView(frame: self.bounds)
-        view.backgroundColor = UIColor.lightGray.withAlphaComponent(0.12)
+        let view = BaseView(frame: self.bounds)
+        view.backgroundColor = UIColor.fy.gray_333333.withAlphaComponent(0.12)
         self.backgroundView = view
         
         self.shapeLayer.isHidden = true
@@ -71,11 +71,11 @@ class MineSignInCalenderCell: FSCalendarViewCellable {
         super.configureAppearance()
         if self.isPlaceholder {
             self.eventIndicator.isHidden = true
-            self.titleLabel.textColor = UIColor.clear
+            self.titleLabel.textColor = UIColor.fy.clear
         } else {
-            self.titleLabel.textColor = UIColor.init(hex: 333333)
+            self.titleLabel.textColor = UIColor.fy.gray_333333
         }
-        self.titleLabel.font = UIFont.systemFont(ofSize: 14)
+        self.titleLabel.font = UIFont.fy.system_14
     }
     
     func setupUI() {

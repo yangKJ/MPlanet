@@ -42,7 +42,7 @@ class MineSettingViewController: BaseTableViewController<MineSettingViewModel> {
     
     override func registerTableViewCell() -> [BaseTableViewCell.Type] {
         return [
-            MineFunctionFormCell.self
+            BaseFormDetailCell.self
         ]
     }
     
@@ -59,8 +59,9 @@ class MineSettingViewController: BaseTableViewController<MineSettingViewModel> {
     func setupViewModel() {
         // 绑定功能列表数据
         viewModel.outputs.mineFunctions.bind(to: tableView.rx.items) { (tableView, row, element) in
-            let cell = tableView.fy.dequeueReusableCell(MineFunctionFormCell.self)
-            cell.functionForm.accept(element)
+            let cell = tableView.fy.dequeueReusableCell(BaseFormDetailCell.self)
+            cell.title.accept(element.des)
+            cell.hasArrow.accept(true)
             return cell
         }.disposed(by: rx.disposeBag)
         

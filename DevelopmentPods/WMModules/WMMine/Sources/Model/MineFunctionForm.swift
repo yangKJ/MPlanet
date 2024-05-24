@@ -10,7 +10,9 @@ import FeatBox
 
 enum MineFunctionForm {
     case signature
-    
+}
+
+extension MineFunctionForm {
     var des: String {
         switch self {
         case .signature:

@@ -9,7 +9,7 @@ import Foundation
 import SnapKit
 import ProductLib
 
-public final class ZLineView: UIView {
+public final class ZLineView: BaseView {
     
     private var asix: NSLayoutConstraint.Axis = .horizontal
     private var thickness: CGFloat = CGFloat.fy.px1

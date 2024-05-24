@@ -27,6 +27,8 @@ extension Res {
 }
 
 extension Res {
+    /// 向右箭头
+    public static let next_arrow = Res.image("next")
     /// 黑色返回箭头
     public static let black_back_arrow = Res.image("back")
     /// 网络失败占位图

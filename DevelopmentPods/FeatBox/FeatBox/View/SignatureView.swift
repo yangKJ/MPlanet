@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-open class SignatureView: UIView {
+open class SignatureView: BaseView {
     
     public var lineWidth: CGFloat = 2.0 {
         didSet {

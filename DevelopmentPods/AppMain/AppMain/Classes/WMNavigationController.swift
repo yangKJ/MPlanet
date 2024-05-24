@@ -78,6 +78,9 @@ extension WMNavigationController: UIGestureRecognizerDelegate {
     }
     
     private func shouldNotBegan() -> Bool {
+        if UIViewController.fy.currentViewController() is ExplanationPopupViewController {
+            return true
+        }
         return false
     }
 }

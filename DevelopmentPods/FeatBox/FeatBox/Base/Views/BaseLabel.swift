@@ -29,9 +29,13 @@ open class BaseLabel: UILabel {
     }
     
     private var fontSize: CGFloat?
+    private var oldFont: UIFont?
     
     open override var font: UIFont! {
         set {
+            if oldFont == nil {
+                self.oldFont = font
+            }
             fontSize = newValue.pointSize
             if let size = fontSize {
                 super.font = newValue.withSize(size).fy.fixedFont
@@ -41,6 +45,18 @@ open class BaseLabel: UILabel {
         }
         get {
             return super.font
+        }
+    }
+    
+    /// 关闭后不再自动调整文字尺寸以适应控件
+    public var closedAdjustsFontSizeToFitWidth: Bool = false {
+        didSet {
+            if closedAdjustsFontSizeToFitWidth {
+                if let oldFont = self.oldFont {
+                    self.font = oldFont
+                }
+            }
+            self.adjustsFontSizeToFitWidth = !closedAdjustsFontSizeToFitWidth
         }
     }
     
