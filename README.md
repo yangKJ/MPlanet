@@ -8,10 +8,7 @@
 
 > **"A battle-tested iOS modularization template using CTMediator + MVVM + RxSwift, with 4 years of production experience baked in."**
 >
-> 历经 4 年一线 iOS 团队生产环境沉淀的组件化模板,把 CTMediator + MVVM + RxSwift 真正串起来的可读可改工程代码。
-
-> **CTMediator 组件化 + RxSwift MVVM + 自研 4 大基础库 + Metal 渲染**
-> 一份**可作为中型项目起手模板**的 iOS 架构圣经
+> 历经 4 年一线 iOS 团队生产环境沉淀的组件化模板，把 CTMediator + MVVM + RxSwift 真正串起来的可读可改工程代码。
 
 [![CI](https://github.com/yangKJ/MPlanet/actions/workflows/ci.yml/badge.svg)](https://github.com/yangKJ/MPlanet/actions)
 [![codecov](https://img.shields.io/codecov/c/github/yangKJ/MPlanet)](https://codecov.io/gh/yangKJ/MPlanet)
@@ -27,14 +24,6 @@
 
 </div>
 
-<p align="center">
-  <a href="#"><img src="https://api.star-history.com/svg?repos=yangKJ/MPlanet&type=Date" alt="Star History" width="600"></a>
-</p>
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=yangKJ&repo=MPlanet&color=blue" alt="Visitors">
-</p>
-
 <div align="center">
 
 [English](README.en.md) · [简体中文](README.md)
@@ -42,7 +31,7 @@
 </div>
 
 <p align="center">
-  <a href="#-5-%E5%88%86%E9%92%9F%E8%B7%91%E8%B5%B7%E6%9D%A5"><img src="Screenshot/WX@2x.png" alt="MPlanet Hero" width="260"></a>
+  <a href="#-5-%E5%88%86%E9%92%9F%E8%B7%91%E8%B5%B7%E6%9D%A5"><img src="https://raw.githubusercontent.com/yangKJ/MPlanet/master/Screenshot/WX@2x.png" alt="MPlanet Hero" width=“600"></a>
 </p>
 
 <p align="center">
@@ -57,7 +46,7 @@
 
 ## 一句话价值主张
 
-> **MPlanet** 是一个把 CTMediator 组件化、RxSwift MVVM、自研基础库、Metal 渲染全部**真正串起来**的中型 iOS 演示工程——**不是 PPT,不是 demo 拼凑,而是 ~17K 行可读可改的工程代码**。
+> **MPlanet** 是一个把 CTMediator 组件化、RxSwift MVVM、自研基础库、Metal 渲染全部**真正串起来**的中型 iOS 演示工程——**不是 PPT，不是 demo 拼凑，而是 ~17K 行可读可改的工程代码**。
 
 ---
 
@@ -114,7 +103,7 @@
               ▼                        ▼                        ▼
        ┌────────────┐           ┌────────────┐           ┌────────────┐
        │  AppMain   │           │ WMDiscover │           │   WMMine   │
-       │ (TabBar +  │           │  发现模块  │           │  我的模块  │
+       │ (TabBar +  │           │  发现模块   │           │  我的模块   │
        │  Launcher) │           │            │           │            │
        └─────┬──────┘           └──────┬─────┘           └──────┬─────┘
              │                         │                        │
@@ -126,14 +115,14 @@
        ▼                               ▼                               ▼
  ┌──────────┐                   ┌──────────┐                     ┌──────────┐
  │ FeatBox  │                   │ Networks │                     │ Database │
- │ 基础能力 │                   │ 网络层   │                     │  WCDB    │
+ │ 基础能力  │                   │ 网络层    │                     │  WCDB     │
  └────┬─────┘                   └────┬─────┘                     └────┬─────┘
       │                              │                                │
       └──────────────┬───────────────┴────────────────────────────────┘
                      ▼
               ┌──────────────┐         ┌──────────────┐
               │  ProductLib  │         │  Componets   │
-              │  通用工具库  │         │  UI 组件库   │
+              │  通用工具库   │         │  UI 组件库    │
               └──────────────┘         └──────┬───────┘
                                               ▼  Metal
                                      ┌─────────────────┐
@@ -526,11 +515,11 @@ open MainProject.xcworkspace
 
 ## 实际效果
 
-> 📷 *截图位:实际 UI / 渲染效果展示。建议在 PR 中替换为真实截图。*
+> 📷 *截图位:实际 UI / 渲染效果展示。*
 
 | 启动页 | 主界面 | Metal 波纹 | 设置面板 |
-|:---:|:---:|:---:|:---:|
-| ![launch](Screenshot/launch.png) | ![main](Screenshot/WX@2x.png) | ![metal](Screenshot/WX@2x.png) | ![settings](Screenshot/WX@2x.png) |
+|:---:|:---:|
+| ![launch](https://raw.githubusercontent.com/yangKJ/MPlanet/master/Screenshot/launch_on.png) | ![main](https://raw.githubusercontent.com/yangKJ/MPlanet/master/Screenshot/Home.png) |
 
 > 💡 **动图占位建议**:在 `Screenshot/` 下补充 `metal_ripple.gif`、`tabbar_login_transition.gif`、`bridge_launch_flow.gif` 三个核心动效,转化率提升 50%+。
 
