@@ -25,17 +25,27 @@
 import Foundation
 
 /// Internal type which encapsulates a `MultipartFormData` upload.
-final class MultipartUpload {
-    lazy var result = Result { try build() }
+final class MultipartUpload: @unchecked Sendable { // Must be @unchecked due to FileManager not being properly Sendable.
+    private let _result = Protected<Result<UploadRequest.Uploadable, any Error>?>(nil)
+    var result: Result<UploadRequest.Uploadable, any Error> {
+        if let value = _result.read({ $0 }) {
+            return value
+        } else {
+            let result = Result { try build() }
+            _result.write(result)
+
+            return result
+        }
+    }
 
     private let multipartFormData: Protected<MultipartFormData>
 
     let encodingMemoryThreshold: UInt64
-    let request: URLRequestConvertible
+    let request: any URLRequestConvertible
     let fileManager: FileManager
 
     init(encodingMemoryThreshold: UInt64,
-         request: URLRequestConvertible,
+         request: any URLRequestConvertible,
          multipartFormData: MultipartFormData) {
         self.encodingMemoryThreshold = encodingMemoryThreshold
         self.request = request
@@ -45,7 +55,7 @@ final class MultipartUpload {
 
     func build() throws -> UploadRequest.Uploadable {
         let uploadable: UploadRequest.Uploadable
-        if multipartFormData.contentLength < encodingMemoryThreshold {
+        if multipartFormData.read(\.contentLength) < encodingMemoryThreshold {
             let data = try multipartFormData.read { try $0.encode() }
 
             uploadable = .data(data)

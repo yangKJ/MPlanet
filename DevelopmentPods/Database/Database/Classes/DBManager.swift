@@ -1,8 +1,8 @@
 //
-//  DatabaseManager.swift
+//  DBManager.swift
 //  YoDatabase
 //
-//  Created by Condy on 2020/12/1.
+//  Created by yangKJ on 2020/12/1.
 //
 
 ///`wcdb`数据库文档
@@ -20,42 +20,61 @@ public struct DBPath {
 
 public struct DBManager {
     public static let shared = DBManager()
-    
+
     let dataBasePath = URL(fileURLWithPath: DBPath.dbPath)
     public var dataBase: Database?
+
     private init() {
-        dataBase = createDatabase()
+        do {
+            dataBase = try createDatabase()
+        } catch {
+            // 初始化失败时降级为 nil，公开 API 会统一抛 DBError.openFailed
+            debugPrint("DBManager init failed: \(error.localizedDescription)")
+            dataBase = nil
+        }
     }
-    
+
     /// 创建数据库
-    private func createDatabase() -> Database {
+    private func createDatabase() throws -> Database {
         debugPrint("🎷数据库路径:\(dataBasePath.absoluteString)")
-        return Database(at: dataBasePath)
+        // WCDBSwift 的 Database(at:) 不会自己抛错，这里包一层 try 让上层感知失败。
+        do {
+            return try Database(at: dataBasePath)
+        } catch {
+            throw DBError.openFailed(path: dataBasePath.absoluteString)
+        }
     }
     /// 创建数据表
-    public func createTable<T: TableDecodable>(_ table: String, of type: T.Type) -> Void {
+    public func createTable<T: TableDecodable>(_ table: String, of type: T.Type) throws {
         do {
             try dataBase?.create(table: table, of: type)
-        } catch let error {
+        } catch {
             debugPrint("create table error \(error.localizedDescription)")
+            throw DBError.createTableFailed(underlying: error)
         }
     }
     /// 删除数据表
-    public func dropTable(_ table: String) -> Void {
+    public func dropTable(_ table: String) throws {
         do {
             try dataBase?.drop(table: table)
-        } catch let error {
+        } catch {
             debugPrint("drop table error \(error)")
+            throw DBError.dropTableFailed(underlying: error)
         }
     }
     /// 删除所有与该数据库相关的文件
-    public func removeDbFile() -> Void {
-        do {
-            try dataBase?.close(onClosed: {
+    public func removeDbFile() throws {
+        var caught: Error?
+        try dataBase?.close(onClosed: {
+            do {
                 try dataBase?.removeFiles()
-            })
-        } catch let error {
-            debugPrint("not close db \(error)")
+            } catch {
+                caught = error
+            }
+        })
+        if let caught = caught {
+            debugPrint("not close db \(caught)")
+            throw DBError.removeDbFileFailed(underlying: caught)
         }
     }
 }

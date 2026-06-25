@@ -84,17 +84,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>HandyJSON.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Harbeth-Harbeth.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Harbeth.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>HollowCodable.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -125,6 +125,21 @@
 			<false/>
 		</dict>
 		<key>Moya.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NetworkCachePlugin.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NetworkHudsPlugin.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NetworkLottiePlugin.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -165,11 +180,6 @@
 			<false/>
 		</dict>
 		<key>RxGesture.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>RxNetworks.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -249,7 +259,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>WMWallet-Demo.xcscheme</key>
+		<key>WMWallet-WMWallet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

@@ -2,16 +2,16 @@
   "name": "WMDiscover",
   "version": "1.0.0",
   "summary": "A short description of WMDiscover.",
-  "homepage": "https://github.com/Condy/WMDiscover",
+  "homepage": "https://github.com/yangKJ/WMDiscover",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "yangkj310@gmail.com"
+    "yangKJ": "your_email@example.com"
   },
   "source": {
-    "git": "https://github.com/Condy/WMDiscover.git",
+    "git": "https://github.com/yangKJ/WMDiscover.git",
     "tag": "1.0.0"
   },
   "platforms": {
@@ -23,43 +23,17 @@
   "dependencies": {
     "FeatBox": [
 
-    ],
-    "FSPagerView": [
-
     ]
   },
+  "source_files": "Sources/Classes/**/**/*.swift",
   "subspecs": [
     {
       "name": "Resources",
       "resource_bundles": {
         "WMDiscover": [
-          "Sources/Resources/*.{xcassets,lproj,json,gif}"
+          "Sources/Assets/*.{xcassets,lproj,json,gif}"
         ]
       }
-    },
-    {
-      "name": "Util",
-      "source_files": "Sources/Util/**/*.swift"
-    },
-    {
-      "name": "Api",
-      "source_files": "Sources/Api/**/*.swift"
-    },
-    {
-      "name": "Controller",
-      "source_files": "Sources/Controller/**/*.swift"
-    },
-    {
-      "name": "ViewModel",
-      "source_files": "Sources/ViewModel/**/*.swift"
-    },
-    {
-      "name": "View",
-      "source_files": "Sources/View/**/*.swift"
-    },
-    {
-      "name": "Model",
-      "source_files": "Sources/Model/**/*.swift"
     }
   ],
   "swift_version": "5.0"

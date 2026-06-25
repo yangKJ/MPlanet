@@ -88,3 +88,39 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+# ============================================================
+# Open source prep (added for GitHub release)
+# ============================================================
+
+# macOS metadata
+.DS_Store
+
+# Xcode user state (含真实用户名隐私，必须忽略)
+xcuserdatad/
+*.xcuserstate
+*.xcuserplanner
+
+# CocoaPods 依赖 (不入库，本地 pod install 重新生成)
+Pods/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# 编辑器 / IDE
+*.swp
+*.swo
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# 环境变量 / 本地配置
+.env*
+*.local
+
+# 临时 / 日志
+*.log
+*.bak
+*.tmp

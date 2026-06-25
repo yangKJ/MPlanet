@@ -2,16 +2,16 @@
   "name": "FeatBox",
   "version": "2.0.0",
   "summary": "A short description of FeatBox.",
-  "homepage": "https://github.com/Condy/FeatBox",
+  "homepage": "https://github.com/yangKJ/FeatBox",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "yangkj310@gmail.com"
+    "yangKJ": "your_email@example.com"
   },
   "source": {
-    "git": "https://github.com/Condy/FeatBox.git",
+    "git": "https://github.com/yangKJ/FeatBox.git",
     "tag": "2.0.0"
   },
   "platforms": {
@@ -24,16 +24,13 @@
     "ProductLib": [
 
     ],
-    "CommonView": [
+    "Componets": [
+
+    ],
+    "Networks": [
 
     ],
     "Mediator": [
-
-    ],
-    "Booming": [
-
-    ],
-    "RxNetworks": [
 
     ],
     "RxCocoa": [
@@ -48,7 +45,13 @@
     "RxSkeletonView": [
 
     ],
-    "Rickenbacker": [
+    "Rickenbacker/Core": [
+
+    ],
+    "Rickenbacker/DZNEmptyDataSet": [
+
+    ],
+    "Rickenbacker/MJRefresh": [
 
     ],
     "SnapKit": [
@@ -57,29 +60,41 @@
     "Harbeth": [
 
     ],
-    "ImageX": [
-
-    ],
     "SDWebImage": [
 
     ],
     "YYText": [
 
     ],
-    "UITableView+FDTemplateLayoutCell": [
+    "MPITextKit": [
 
     ],
-    "HandyJSON": [
+    "UITableView+FDTemplateLayoutCell": [
 
     ],
     "FSCalendar": [
 
     ],
-    "ESTabBarController-swift": [
+    "FSPagerView": [
+
+    ],
+    "SwifterSwift/UIKit": [
+
+    ],
+    "SwifterSwift/Foundation": [
+
+    ],
+    "WKWebViewJavascriptBridge": [
+
+    ],
+    "CHIPageControl": [
+
+    ],
+    "ViewAnimator": [
 
     ]
   },
-  "source_files": "FeatBox/**/**/*.{h,swift}",
+  "source_files": "FeatBox/**/**/*.{h,m,swift}",
   "subspecs": [
     {
       "name": "Resources",

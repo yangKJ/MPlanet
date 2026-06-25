@@ -1,0 +1,54 @@
+{
+    "code": 200,
+    "message": "成功",
+    "data": [
+        {
+            "id": 1,
+            "title": "钢琴",
+            "titleEn": "Piano",
+            "icon": "pianokeys",
+            "courseCount": 28,
+            "studentCount": 1024
+        },
+        {
+            "id": 2,
+            "title": "作曲",
+            "titleEn": "Composition",
+            "icon": "music.note.list",
+            "courseCount": 16,
+            "studentCount": 512
+        },
+        {
+            "id": 3,
+            "title": "声乐",
+            "titleEn": "Vocal",
+            "icon": "mic.fill",
+            "courseCount": 42,
+            "studentCount": 2048
+        },
+        {
+            "id": 4,
+            "title": "吉他",
+            "titleEn": "Guitar",
+            "icon": "guitars",
+            "courseCount": 36,
+            "studentCount": 1536
+        },
+        {
+            "id": 5,
+            "title": "贝斯",
+            "titleEn": "Bass",
+            "icon": "music.quarternote.3",
+            "courseCount": 12,
+            "studentCount": 256
+        },
+        {
+            "id": 6,
+            "title": "混音",
+            "titleEn": "Mixing",
+            "icon": "slider.horizontal.3",
+            "courseCount": 24,
+            "studentCount": 768
+        }
+    ]
+}

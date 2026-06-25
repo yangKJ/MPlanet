@@ -1,0 +1,69 @@
+{
+    "code": 200,
+    "message": "成功",
+    "data": [
+        {
+            "id": 1,
+            "userId": 1001,
+            "username": "钢琴小王子",
+            "avatar": "https://i.pravatar.cc/150?u=piano",
+            "lastMessage": "晚上一起练琴吗？我想听听你弹的《致爱丽丝》。",
+            "lastTime": "12:30",
+            "unreadCount": 2
+        },
+        {
+            "id": 2,
+            "userId": 1002,
+            "username": "吉他老张",
+            "avatar": "https://i.pravatar.cc/150?u=guitar",
+            "lastMessage": "[图片]",
+            "lastTime": "11:45",
+            "unreadCount": 0
+        },
+        {
+            "id": 3,
+            "userId": 1003,
+            "username": "编曲达人小宇",
+            "avatar": "https://i.pravatar.cc/150?u=mix",
+            "lastMessage": "我把工程文件发给你了，你看看副歌的和弦走向。",
+            "lastTime": "昨天",
+            "unreadCount": 5
+        },
+        {
+            "id": 4,
+            "userId": 1004,
+            "username": "声乐糖糖",
+            "avatar": "https://i.pravatar.cc/150?u=voice",
+            "lastMessage": "好的，我一会儿把录好的 demo 发你。",
+            "lastTime": "昨天",
+            "unreadCount": 0
+        },
+        {
+            "id": 5,
+            "userId": 1005,
+            "username": "小提琴阿狸",
+            "avatar": "https://i.pravatar.cc/150?u=violin",
+            "lastMessage": "今天练习辛苦了，记得放松手腕。",
+            "lastTime": "星期二",
+            "unreadCount": 1
+        },
+        {
+            "id": 6,
+            "userId": 1006,
+            "username": "鼓手阿伦",
+            "avatar": "https://i.pravatar.cc/150?u=drum",
+            "lastMessage": "周末要一起去录音棚吗？",
+            "lastTime": "星期一",
+            "unreadCount": 0
+        },
+        {
+            "id": 7,
+            "userId": 1007,
+            "username": "贝斯阿坤",
+            "avatar": "https://i.pravatar.cc/150?u=bass",
+            "lastMessage": "[语音] 6″",
+            "lastTime": "星期日",
+            "unreadCount": 3
+        }
+    ]
+}

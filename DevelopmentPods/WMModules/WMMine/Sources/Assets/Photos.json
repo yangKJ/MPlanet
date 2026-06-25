@@ -1,0 +1,13 @@
+{
+    "code": "200",
+    "message": "成功",
+    "data": [{
+        "id": 6,
+        "imagePath": "https://avatars.githubusercontent.com/u/17396101?v=4",
+        "sort": 1
+    }, {
+        "id": 20,
+        "imagePath": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+        "sort": 2
+    }]
+}

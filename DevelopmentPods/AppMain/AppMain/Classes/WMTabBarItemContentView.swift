@@ -7,19 +7,21 @@
 
 import Foundation
 import ESTabBarController_swift
+import ProductLib
 
 /// 上图下文带动画
-final class WMTabBarItemContentView: ESTabBarItemContentView {
-    
+final class WMTabBarItemContentView: ESTabBarItemContentView, Storyboardable {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.renderingMode = .alwaysOriginal
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        StoryboardableFatal.notImplemented(coder: aDecoder)
     }
-    
+
     override func updateLayout() {
         let w = self.bounds.size.width
         let h = CGFloat(48.0)

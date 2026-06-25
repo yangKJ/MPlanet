@@ -7,6 +7,20 @@
 
 import Foundation
 
+public protocol LevelStatusBarWindowShowUpable {
+    
+    func makeOpenedStatusConstraint(superview: ViewType)
+    
+    func show(animated: Bool, animation: (() -> Void)?, completion: ((Bool) -> Void)?)
+    
+    func close(animated: Bool, animation: (() -> Void)?, completion: ((Bool) -> Void)?)
+    
+    /// Refresh the interface according to the added settings.
+    func refreshBeforeShow()
+    /// Click on the outside area to close it.
+    var canCloseWhenTapOutSize: Bool { get }
+}
+
 /// 状态窗口显示器
 open class LevelStatusBarWindowController: ViewControllerType {
     private static let window: WindowType = X.createWindow()
@@ -20,14 +34,14 @@ open class LevelStatusBarWindowController: ViewControllerType {
     private let windowController = NSWindowController()
     #else
     open override var prefersStatusBarHidden: Bool {
-        if let controller = X.topViewController() {
+        if let controller = self.topViewController() {
             return controller.prefersStatusBarHidden
         }
         return true
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
-        if let controller = X.topViewController() {
+        if let controller = self.topViewController() {
             return controller.preferredStatusBarStyle
         }
         return .default
@@ -66,7 +80,7 @@ open class LevelStatusBarWindowController: ViewControllerType {
     
     public var showUpView: LevelStatusBarWindowShowUpable?
     
-    /// 外界已经将`showUpView`添加到控制器
+    /// The outside world has added `showUpView` to the controller.
     public var addedShowUpView: Bool = false
     
     public var overlayBackgroundColor: ColorType = .black.withAlphaComponent(0.2) {
@@ -140,29 +154,30 @@ open class LevelStatusBarWindowController: ViewControllerType {
         guard LevelStatusBarWindowController.window.rootViewController == self else {
             return
         }
-        if let window_ = LevelStatusBarWindowController.lastKeyWindow {
-            if window_.rootViewController != nil {
+        LevelStatusBarWindowController.window.isHidden = true
+        if let lastKeyWindow = LevelStatusBarWindowController.lastKeyWindow {
+            if lastKeyWindow.rootViewController != nil {
                 #if os(macOS)
-                windowController.contentViewController = window_.contentViewController
-                windowController.window = window_
+                windowController.contentViewController = lastKeyWindow.contentViewController
+                windowController.window = lastKeyWindow
                 windowController.showWindow(self)
                 #else
-                window_.makeKeyAndVisible()
+                lastKeyWindow.makeKeyAndVisible()
                 #endif
             }
             LevelStatusBarWindowController.lastKeyWindow = nil
-        } else if let window_ = mainWindow {
+        } else if let mainWindow = mainWindow {
             #if os(macOS)
-            windowController.contentViewController = window_.contentViewController
-            windowController.window = window_
+            windowController.contentViewController = mainWindow.contentViewController
+            windowController.window = mainWindow
             windowController.showWindow(self)
             #else
-            window_.makeKeyAndVisible()
+            mainWindow.makeKeyAndVisible()
             #endif
         }
         LevelStatusBarWindowController.window.rootViewController = nil
         LevelStatusBarWindowController.window.isHidden = true
-        if Self.controllers.count < 10 {
+        if LevelStatusBarWindowController.controllers.count < 10 {
             while let rootViewController = LevelStatusBarWindowController.controllers.last {
                 if rootViewController.isCalledClose {
                     LevelStatusBarWindowController.controllers.removeLast()
@@ -210,4 +225,38 @@ open class LevelStatusBarWindowController: ViewControllerType {
         }
         cancelAllBackgroundControllersShow()
     }
+    
+    #if canImport(UIKit)
+    private func topViewController() -> UIViewController? {
+        let window = UIApplication.shared.delegate?.window
+        guard window != nil, let rootViewController = window?!.rootViewController else {
+            return nil
+        }
+        return self.getTopViewController(controller: rootViewController)
+    }
+    
+    private func getTopViewController(controller: UIViewController) -> UIViewController {
+        if let presentedViewController = controller.presentedViewController {
+            return self.getTopViewController(controller: presentedViewController)
+        } else if let navigationController = controller as? UINavigationController {
+            if let topViewController = navigationController.topViewController {
+                return self.getTopViewController(controller: topViewController)
+            }
+            return navigationController
+        } else if let tabbarController = controller as? UITabBarController {
+            if let selectedViewController = tabbarController.selectedViewController {
+                return self.getTopViewController(controller: selectedViewController)
+            }
+            return tabbarController
+        } else {
+            return controller
+        }
+    }
+    #endif
+}
+
+extension LevelStatusBarWindowShowUpable {
+    public func makeOpenedStatusConstraint(superview: ViewType) { }
+    public func refreshBeforeShow() { }
+    public var canCloseWhenTapOutSize: Bool { false }
 }

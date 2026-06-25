@@ -1,0 +1,35 @@
+{
+    "code": "200",
+    "message": "成功",
+    "data": [{
+        "id": 1,
+        "title": "钢琴",
+        "iconName": "pianokeys",
+        "sort": 0
+    }, {
+        "id": 2,
+        "title": "作曲",
+        "iconName": "music.note.list",
+        "sort": 1
+    }, {
+        "id": 3,
+        "title": "声乐",
+        "iconName": "mic.fill",
+        "sort": 2
+    }, {
+        "id": 4,
+        "title": "吉他",
+        "iconName": "guitars",
+        "sort": 3
+    }, {
+        "id": 5,
+        "title": "贝斯",
+        "iconName": "music.quarternote.3",
+        "sort": 4
+    }, {
+        "id": 6,
+        "title": "混音",
+        "iconName": "slider.horizontal.3",
+        "sort": 5
+    }]
+}

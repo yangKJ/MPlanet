@@ -1,0 +1,154 @@
+{
+    "code": 200,
+    "message": "成功",
+    "data": [
+        {
+            "id": 101,
+            "categoryId": 1,
+            "title": "零基础钢琴入门 30 课",
+            "teacher": "李老师",
+            "price": 199.0,
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "intro": "本课程由中央音乐学院李老师主讲，从识谱、指法到简单曲目弹奏，循序渐进带你踏入钢琴世界。",
+            "duration": "12小时30分",
+            "studentCount": 1024,
+            "rating": 4.9,
+            "chapterList": [
+                {
+                    "title": "第1课：认识钢琴键盘",
+                    "duration": "18:20",
+                    "videoUrl": "https://example.com/learn/101/01.mp4"
+                },
+                {
+                    "title": "第2课：正确坐姿与手型",
+                    "duration": "22:10",
+                    "videoUrl": "https://example.com/learn/101/02.mp4"
+                },
+                {
+                    "title": "第3课：识谱基础",
+                    "duration": "26:45",
+                    "videoUrl": "https://example.com/learn/101/03.mp4"
+                }
+            ]
+        },
+        {
+            "id": 102,
+            "categoryId": 1,
+            "title": "流行钢琴即兴伴奏",
+            "teacher": "王老师",
+            "price": 299.0,
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "intro": "掌握流行歌曲的常用和弦进行与节奏型，让你可以为喜欢的歌曲即兴伴奏。",
+            "duration": "8小时15分",
+            "studentCount": 768,
+            "rating": 4.8,
+            "chapterList": [
+                {
+                    "title": "第1课：三和弦与七和弦",
+                    "duration": "20:00",
+                    "videoUrl": "https://example.com/learn/102/01.mp4"
+                },
+                {
+                    "title": "第2课：常用节奏型",
+                    "duration": "24:30",
+                    "videoUrl": "https://example.com/learn/102/02.mp4"
+                }
+            ]
+        },
+        {
+            "id": 201,
+            "categoryId": 2,
+            "title": "作曲基础：和声学入门",
+            "teacher": "陈教授",
+            "price": 399.0,
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "intro": "系统讲解传统和声与流行和声，让你能写出悦耳动听的旋律。",
+            "duration": "15小时",
+            "studentCount": 512,
+            "rating": 5.0,
+            "chapterList": [
+                {
+                    "title": "第1课：自然大调和声",
+                    "duration": "30:00",
+                    "videoUrl": "https://example.com/learn/201/01.mp4"
+                }
+            ]
+        },
+        {
+            "id": 301,
+            "categoryId": 3,
+            "title": "流行唱法发声训练",
+            "teacher": "张老师",
+            "price": 159.0,
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "intro": "通过呼吸训练、共鸣腔调节，让你的声音更通透、更有穿透力。",
+            "duration": "6小时",
+            "studentCount": 2048,
+            "rating": 4.7,
+            "chapterList": [
+                {
+                    "title": "第1课：腹式呼吸法",
+                    "duration": "15:20",
+                    "videoUrl": "https://example.com/learn/301/01.mp4"
+                }
+            ]
+        },
+        {
+            "id": 401,
+            "categoryId": 4,
+            "title": "木吉他弹唱速成",
+            "teacher": "赵老师",
+            "price": 219.0,
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "intro": "从零开始学习木吉他弹唱，一个月内学会 5 首热门歌曲。",
+            "duration": "10小时",
+            "studentCount": 1536,
+            "rating": 4.8,
+            "chapterList": [
+                {
+                    "title": "第1课：吉他调弦与基础和弦",
+                    "duration": "25:30",
+                    "videoUrl": "https://example.com/learn/401/01.mp4"
+                }
+            ]
+        },
+        {
+            "id": 501,
+            "categoryId": 5,
+            "title": "电贝斯 Slap 技巧",
+            "teacher": "刘老师",
+            "price": 259.0,
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "intro": "深入讲解 slap（击勾弦）技巧，让你的贝斯线更具律动感。",
+            "duration": "7小时",
+            "studentCount": 256,
+            "rating": 4.9,
+            "chapterList": [
+                {
+                    "title": "第1课：拇指击弦基础",
+                    "duration": "20:00",
+                    "videoUrl": "https://example.com/learn/501/01.mp4"
+                }
+            ]
+        },
+        {
+            "id": 601,
+            "categoryId": 6,
+            "title": "Logic Pro 混音实战",
+            "teacher": "孙老师",
+            "price": 359.0,
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "intro": "使用 Logic Pro X 完成从分轨整理到母带处理的全流程混音。",
+            "duration": "18小时",
+            "studentCount": 768,
+            "rating": 4.8,
+            "chapterList": [
+                {
+                    "title": "第1课：Session 工程模板",
+                    "duration": "22:30",
+                    "videoUrl": "https://example.com/learn/601/01.mp4"
+                }
+            ]
+        }
+    ]
+}

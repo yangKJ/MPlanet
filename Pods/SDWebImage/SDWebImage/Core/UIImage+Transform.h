@@ -98,12 +98,23 @@ typedef NS_OPTIONS(NSUInteger, SDRectCorner) {
 #pragma mark - Image Blending
 
 /**
- Return a tinted image with the given color. This actually use alpha blending of current image and the tint color.
+ Return a tinted image with the given color. This actually use `sourceIn` blend mode.
+ @note Before 5.20, this API actually use `sourceAtop` and cause naming confusing. After 5.20, we match UIKit's behavior using `sourceIn`.
  
  @param tintColor  The tint color.
  @return The new image with the tint color.
  */
 - (nullable UIImage *)sd_tintedImageWithColor:(nonnull UIColor *)tintColor;
+
+/**
+ Return a tinted image with the given color and blend mode.
+ @note The blend mode treat `self` as background image (destination), treat `tintColor` as input image (source). So mostly you need `source` variant blend mode (use `sourceIn` not `destinationIn`), which is different from UIKit's `+[UIImage imageWithTintColor:]`.
+ 
+ @param tintColor  The tint color.
+ @param blendMode The blend mode.
+ @return The new image with the tint color.
+ */
+- (nullable UIImage *)sd_tintedImageWithColor:(nonnull UIColor *)tintColor blendMode:(CGBlendMode)blendMode;
 
 /**
  Return the pixel color at specify position. The point is from the top-left to the bottom-right and 0-based. The returned the color is always be RGBA format. The image must be CG-based.
@@ -112,6 +123,7 @@ typedef NS_OPTIONS(NSUInteger, SDRectCorner) {
  @note The overhead of object creation means this method is best suited for infrequent color sampling. For heavy image processing, grab the raw bitmap data and process yourself.
 
  @param point The position of pixel
+ @warning This API currently support 8 bits per component only (RGBA8888 etc), not RGBA16U/RGBA10
  @return The color for specify pixel, or nil if any error occur
  */
 - (nullable UIColor *)sd_colorAtPoint:(CGPoint)point;

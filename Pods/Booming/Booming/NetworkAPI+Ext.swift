@@ -8,7 +8,6 @@
 import Foundation
 import Alamofire
 import Moya
-import CommonCrypto
 
 /// 协议默认实现方案
 /// Protocol default implementation scheme
@@ -34,25 +33,45 @@ extension NetworkAPI {
     }
     
     public var keyPrefix: String {
-        let paramString = X.sortParametersToString(parameters)
-        let string = ip + path + paramString
-        let ccharArray = string.cString(using: String.Encoding.utf8)
-        var uint8Array = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-        CC_MD5(ccharArray, CC_LONG(ccharArray!.count - 1), &uint8Array)
-        return uint8Array.reduce("") { $0 + String(format: "%02X", $1) }
+        let string = ip + path + X.sortParametersToString(parameters)
+        return MD5.init().hex_md5(string)
+    }
+    
+    public var requestCachePolicy: NSURLRequest.CachePolicy {
+        return BoomingSetup.requestCachePolicy
+    }
+    
+    public var timeoutIntervalForRequest: TimeInterval {
+        return BoomingSetup.timeoutIntervalForRequest
+    }
+    
+    public var httpShouldHandleCookies: Bool {
+        return BoomingSetup.HTTPShouldSetCookies
+    }
+    
+    public var httpShouldUsePipelining: Bool {
+        return BoomingSetup.HTTPShouldUsePipelining
+    }
+    
+    public var sampleResponse: Moya.EndpointSampleResponse {
+        return .networkResponse(200, self.sampleData)
+    }
+    
+    public var mapped2JSON: Bool {
+        return BoomingSetup.mapped2JSON
     }
     
     public func removeHUD() {
-        SharedDriver.shared.readHUD(prefix: keyPrefix).forEach {
-            X.removeHUD(key: $0.key)
+        HUDs.readHUD(prefix: keyPrefix).forEach {
+            HUDs.removeHUD(key: $0.key)
             $0.close()
         }
     }
     
     public func removeLoading() {
-        let vcs = SharedDriver.shared.readHUD(prefix: keyPrefix)
-        for vc in vcs where X.loadingSuffix(key: vc.key) {
-            X.removeHUD(key: vc.key)
+        let vcs = HUDs.readHUD(prefix: keyPrefix)
+        for vc in vcs where HUDs.loadingHUDsSuffix(key: vc.key) {
+            HUDs.removeHUD(key: vc.key)
             vc.close()
         }
     }

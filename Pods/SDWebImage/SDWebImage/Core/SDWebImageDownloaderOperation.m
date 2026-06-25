@@ -73,7 +73,7 @@
 
 @property (strong, nonatomic, readwrite, nullable) NSURLSessionTask *dataTask;
 
-@property (strong, nonatomic, readwrite, nullable) NSURLSessionTaskMetrics *metrics API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0));
+@property (strong, nonatomic, readwrite, nullable) NSURLSessionTaskMetrics *metrics API_AVAILABLE(macos(10.12), ios(10.0), watchos(3.0), tvos(10.0));
 
 @property (strong, nonatomic, nonnull) NSOperationQueue *coderQueue; // the serial operation queue to do image decoding
 
@@ -168,6 +168,7 @@
 }
 
 - (void)start {
+    NSURLSessionTask *dataTask = nil;
     @synchronized (self) {
         if (self.isCancelled) {
             if (!self.isFinished) self.finished = YES;
@@ -228,22 +229,23 @@
             return;
         }
         
-        self.dataTask = [session dataTaskWithRequest:self.request];
-        self.executing = YES;
+        dataTask = [session dataTaskWithRequest:self.request];
     }
 
-    if (self.dataTask) {
+    if (dataTask) {
         if (self.options & SDWebImageDownloaderHighPriority) {
-            self.dataTask.priority = NSURLSessionTaskPriorityHigh;
+            dataTask.priority = NSURLSessionTaskPriorityHigh;
         } else if (self.options & SDWebImageDownloaderLowPriority) {
-            self.dataTask.priority = NSURLSessionTaskPriorityLow;
+            dataTask.priority = NSURLSessionTaskPriorityLow;
         } else {
-            self.dataTask.priority = NSURLSessionTaskPriorityDefault;
+            dataTask.priority = NSURLSessionTaskPriorityDefault;
         }
-        [self.dataTask resume];
         NSArray<SDWebImageDownloaderOperationToken *> *tokens;
         @synchronized (self) {
             tokens = [self.callbackTokens copy];
+            self.dataTask = dataTask;
+            self.executing = YES;
+            [self.dataTask resume];
         }
         for (SDWebImageDownloaderOperationToken *token in tokens) {
             if (token.progressBlock) {
@@ -697,7 +699,7 @@ didReceiveResponse:(NSURLResponse *)response
     }
 }
 
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didFinishCollectingMetrics:(NSURLSessionTaskMetrics *)metrics API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0)) {
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didFinishCollectingMetrics:(NSURLSessionTaskMetrics *)metrics API_AVAILABLE(macos(10.12), ios(10.0), watchos(3.0), tvos(10.0)) {
     self.metrics = metrics;
 }
 

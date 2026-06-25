@@ -17,10 +17,13 @@ extension BoxWrapper where Base: UIButton {
     public var touchAreaInsets: UIEdgeInsets {
         set {
             let insets = NSValue(uiEdgeInsets: newValue)
-            objc_setAssociatedObject(self, &touchAreaInsetsKey, insets, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            // 修复：objc_setAssociatedObject 的第一个参数是 host object，应该传 base (UIButton)，
+            // 传 self (BoxWrapper) 时 associated object 实际存到 BoxWrapper 上，
+            // 但 getter 又从 self 上读（因为 BoxWrapper 是值类型，被桥接封装），造成读写错位。
+            objc_setAssociatedObject(base, &touchAreaInsetsKey, insets, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get {
-            return (objc_getAssociatedObject(self, &touchAreaInsetsKey) as? NSValue)?.uiEdgeInsetsValue ?? .zero
+            return (objc_getAssociatedObject(base, &touchAreaInsetsKey) as? NSValue)?.uiEdgeInsetsValue ?? .zero
         }
     }
     

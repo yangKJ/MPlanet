@@ -44,21 +44,22 @@ extension FileManager {
       let permissions = mode_t(externalFileAttributes >> 16) & ~S_IFMT
       let defaultPermissions = entryType == .directory ? defaultDirectoryPermissions : defaultFilePermissions
       return permissions == 0 ? defaultPermissions : UInt16(permissions)
+
     default:
       return entryType == .directory ? defaultDirectoryPermissions : defaultFilePermissions
     }
   }
 
   class func externalFileAttributesForEntry(of type: Entry.EntryType, permissions: UInt16) -> UInt32 {
-    var typeInt: UInt16
-    switch type {
-    case .file:
-      typeInt = UInt16(S_IFREG)
-    case .directory:
-      typeInt = UInt16(S_IFDIR)
-    case .symlink:
-      typeInt = UInt16(S_IFLNK)
-    }
+    let typeInt =
+      switch type {
+      case .file:
+        UInt16(S_IFREG)
+      case .directory:
+        UInt16(S_IFDIR)
+      case .symlink:
+        UInt16(S_IFLNK)
+      }
     var externalFileAttributes = UInt32(typeInt | UInt16(permissions))
     externalFileAttributes = (externalFileAttributes << 16)
     return externalFileAttributes
@@ -88,8 +89,7 @@ extension FileManager {
     #endif
 
     let timeStamp = TimeInterval(modTimeSpec.tv_sec) + TimeInterval(modTimeSpec.tv_nsec) / 1000000000.0
-    let modDate = Date(timeIntervalSince1970: timeStamp)
-    return modDate
+    return Date(timeIntervalSince1970: timeStamp)
   }
 
   class func fileSizeForItem(at url: URL) throws -> Int64 {
@@ -307,7 +307,7 @@ extension Date {
   // MARK: Internal
 
   var fileModificationDateTime: (UInt16, UInt16) {
-    (self.fileModificationDate, self.fileModificationTime)
+    (fileModificationDate, fileModificationTime)
   }
 
   var fileModificationDate: UInt16 {

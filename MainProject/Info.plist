@@ -28,7 +28,7 @@
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>armv7</string>
+		<string>arm64</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
@@ -39,5 +39,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>本学习项目演示相机相关功能时需要使用相机权限。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>本学习项目演示相册图片选择与处理时需要读取相册权限。</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>本学习项目演示将处理后的图片保存到相册时需要写入相册权限。</string>
 </dict>
 </plist>

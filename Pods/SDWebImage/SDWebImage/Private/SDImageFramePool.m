@@ -31,7 +31,8 @@ SD_LOCK_DECLARE_STATIC(_providerFramePoolMapLock);
     static NSMapTable *providerFramePoolMap;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        providerFramePoolMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPointerPersonality valueOptions:NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPointerPersonality];
+        // Key use `hash` && `isEqual:`
+        providerFramePoolMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPersonality valueOptions:NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPointerPersonality];
     });
     return providerFramePoolMap;
 }
@@ -108,11 +109,14 @@ SD_LOCK_DECLARE_STATIC(_providerFramePoolMapLock);
     
     if (self.fetchQueue.operationCount == 0) {
         // Prefetch next frame in background queue
-        id<SDAnimatedImageProvider> animatedProvider = self.provider;
         @weakify(self);
         NSOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
             @strongify(self);
             if (!self) {
+                return;
+            }
+            id<SDAnimatedImageProvider> animatedProvider = self.provider;
+            if (!animatedProvider) {
                 return;
             }
             UIImage *frame = [animatedProvider animatedImageFrameAtIndex:index];

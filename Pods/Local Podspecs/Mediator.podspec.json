@@ -1,18 +1,18 @@
 {
   "name": "Mediator",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "summary": "A short description of Mediator.",
-  "homepage": "https://github.com/Condy/Mediator",
+  "homepage": "https://github.com/yangKJ/Mediator",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "yangkj310@gmail.com"
+    "yangKJ": "your_email@example.com"
   },
   "source": {
-    "git": "https://github.com/Condy/Mediator.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/yangKJ/Mediator.git",
+    "tag": "1.0.0"
   },
   "platforms": {
     "ios": "10.0"
@@ -20,14 +20,6 @@
   "swift_versions": "5.0",
   "requires_arc": true,
   "static_framework": true,
-  "dependencies": {
-    "Rickenbacker/Mediator": [
-
-    ],
-    "HandyJSON": [
-
-    ]
-  },
   "source_files": "Mediator/Classes/**/*",
   "swift_version": "5.0"
 }

@@ -16,15 +16,15 @@ enum LayerEffectType: Int, Codable, Sendable {
 // MARK: ClassFamily
 
 extension LayerEffectType: ClassFamily {
-  static var discriminator: Discriminator = .type
+  static var discriminator = Discriminator.type
 
   func getType() -> AnyObject.Type {
     switch self {
     case .dropShadow:
-      return DropShadowEffect.self
+      DropShadowEffect.self
     case .unknown:
       // Unsupported
-      return LayerEffect.self
+      LayerEffect.self
     }
   }
 }

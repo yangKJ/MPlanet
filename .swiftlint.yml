@@ -1,0 +1,69 @@
+# ============================================================
+# SwiftLint 配置
+# ------------------------------------------------------------
+# 用途: 统一 DevelopmentPods / MainProject 下的 Swift 代码风格
+# 参考: https://realm.github.io/SwiftLint/
+# ============================================================
+
+# 仅扫描业务代码目录;Pods / 生成代码跳过
+included:
+  - DevelopmentPods
+  - MainProject
+
+excluded:
+  - Pods
+  - "**/*.generated.swift"
+  - "**/Generated/**"
+  - "**/.build/**"
+
+# 关闭与团队习惯冲突的规则
+disabled_rules:
+  - trailing_whitespace      # 行尾空格交给 EditorConfig / SwiftFormat 处理
+
+# 启用推荐的额外规则
+opt_in_rules:
+  - empty_count              # 优先使用 isEmpty 而不是 count == 0
+  - explicit_init            # 明确调用 init,避免歧义
+  - first_where              # 鼓励 first(where:) 而不是 filter(...).first
+
+# ---- 基础阈值 ----------------------------------------------------
+line_length:
+  warning: 140
+  error: 200
+  ignores_urls: true
+  ignores_function_declarations: true
+  ignores_comments: true
+
+file_length:
+  warning: 500
+  error: 1000
+
+function_body_length:
+  warning: 80
+  error: 200
+
+type_name:
+  min_length: 3
+  max_length: 60
+  excluded:
+    - ID
+
+identifier_name:
+  min_length: 2
+  excluded:
+    - id
+    - x
+    - y
+    - i
+    - j
+    - to
+
+# ---- opt-in 规则严格度 ------------------------------------------
+empty_count:
+  severity: warning
+
+explicit_init:
+  severity: warning
+
+first_where:
+  severity: warning

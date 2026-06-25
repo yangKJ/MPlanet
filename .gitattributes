@@ -1,0 +1,27 @@
+# ============================================================
+# .gitattributes: 统一换行 / 标记二进制文件,避免 Git 误判
+# ============================================================
+
+# 默认: 自动探测 + LF 换行
+* text=auto eol=lf
+
+# Xcode 工程文件强制 LF (避免 CRLF 造成 merge 冲突)
+*.pbxproj text eol=lf
+*.xcworkspace text eol=lf
+*.xcscheme text eol=lf
+
+# Swift 源码强制 LF
+*.swift text eol=lf
+
+# 资源 / 媒体文件标记为二进制,Git 不做文本归一化
+*.png binary
+*.gif binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.pdf binary
+*.zip binary
+*.ttf binary
+*.otf binary
+*.car binary
+*.xcassets binary

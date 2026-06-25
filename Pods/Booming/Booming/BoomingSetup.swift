@@ -12,28 +12,45 @@ import Alamofire
 public typealias NetworkConfig = BoomingSetup
 
 /// 网络配置信息，只需要在程序开启的时刻配置一次
-/// Network configuration information, only need to be configured once when the program is started
+/// Network configuration information, only need to be configured once when the program is started.
 public struct BoomingSetup {
     
-    /// Whether to add the Debugging plugin by default
-    public static var addDebugging: Bool = false
-    /// Whether to add the Indicator plugin by default
-    public static var addIndicator: Bool = false
-    /// Set the request timeout, the default is 30 seconds
-    public static var timeoutIntervalForRequest: Double = 30
-    
-    public static var interceptor: RequestInterceptor? = nil
-    /// Root path address
+    /// Root path address.
     public static var baseURL: APIHost = ""
     /// Default request type, default `post`
     public static var baseMethod: APIMethod = APIMethod.post
     /// Default basic parameters, similar to: userID, token, etc.
     public static var baseParameters: APIParameters = [:]
-    /// Default Header argument, 相同数据时该数据会被`NetworkHttpHeaderPlugin`插件覆盖.
+    /// Default Header argument, When the same data is the same, the data will be overwritten by the `NetworkHttpHeaderPlugin` plug-in.
     public static var baseHeaders: [String: String] = [:]
-    /// Plugins that require default injection, generally not recommended
+    /// Plugins that require default injection, generally not recommended.
     /// However, you can inject this kind of global unified general plugin, such as secret key plugin, certificate plugin, etc.
     public static var basePlugins: [PluginSubType]?
+    
+    /// The network cache policy for the request.
+    public static var requestCachePolicy: NSURLRequest.CachePolicy = .reloadIgnoringCacheData
+    /// This will cause a timeout if no data is transmitted for the given timeout value, the default is 30 seconds.
+    public static var timeoutIntervalForRequest: Double = 30
+    /// Allow the use of HTTP pipelining.
+    public static var HTTPShouldUsePipelining: Bool = true
+    /// Allow the session to set cookies on requests.
+    public static var HTTPShouldSetCookies: Bool = true
+    
+    /// Whether to support background URLSessionConfigurations with Alamofire.
+    public static var supportBackgroundRequest: Bool = false
+    /// Determines whether this instance will automatically start all requests.
+    /// If set to `false`, all requests created must have `.resume()` called. on them for them to start.
+    public static var startRequestsImmediately: Bool = false
+    
+    /// You only need to unify the unauthorized status of 401.
+    public static var tokenInvalidCode: Int = 401
+    /// When the network failed, ignored the error codes will don't display.
+    public static var ignoreErrorCodes: [Int] = []
+    
+    /// Maps data received from the signal into a JSON object, when the data is empty mapping should fail.
+    public static var failsOnEmptyData: Bool = true
+    /// Mapped to json, Default is true.
+    public static var mapped2JSON: Bool = true
     
     /// Loading animation JSON, for `AnimatedLoadingPlugin` used.
     public static var animatedJSON: String?
@@ -42,20 +59,24 @@ public struct BoomingSetup {
     /// Auto close all loading after the end of the last network requesting.
     public static var lastCompleteAndCloseLoadingHUDs: Bool = true
     
-    /// Maps data received from the signal into a JSON object, when the data is empty mapping should fail.
-    public static var failsOnEmptyData: Bool = true
+    /// Whether to add the Indicator plugin by default.
+    public static var addIndicator: Bool = false
+    #if BOOMING_PLUGINGS_FEATURES
+    /// Set the log plug-in to print content, Default concise.
+    public static var debuggingLogOption: NetworkDebuggingPlugin.Options = .concise
+    #endif
     
     /// Update the default basic parameter data, which is generally used for what operation the user has switched.
     /// - Parameters:
     ///   - value: Update value
     ///   - key: Update key
     public static func updateBaseParametersWithValue(_ value: AnyObject?, key: String) {
-        var dict = Self.baseParameters
+        var dict = BoomingSetup.baseParameters
         if let value = value {
             dict.updateValue(value, forKey: key)
         } else {
             dict.removeValue(forKey: key)
         }
-        Self.baseParameters = dict
+        BoomingSetup.baseParameters = dict
     }
 }

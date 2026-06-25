@@ -1,0 +1,56 @@
+{
+    "code": 200,
+    "message": "成功",
+    "data": [
+        {
+            "id": 1001,
+            "categoryId": 1,
+            "title": "钢琴版《告白气球》翻奏",
+            "teacher": "李老师",
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "playCount": 12580,
+            "likeCount": 1024,
+            "duration": "03:42"
+        },
+        {
+            "id": 1002,
+            "categoryId": 1,
+            "title": "即兴伴奏《夜空中最亮的星》",
+            "teacher": "王老师",
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "playCount": 8943,
+            "likeCount": 768,
+            "duration": "04:15"
+        },
+        {
+            "id": 1003,
+            "categoryId": 3,
+            "title": "《不为谁而作的歌》翻唱",
+            "teacher": "张老师",
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "playCount": 22000,
+            "likeCount": 2048,
+            "duration": "05:00"
+        },
+        {
+            "id": 1004,
+            "categoryId": 4,
+            "title": "指弹《River Flows in You》",
+            "teacher": "赵老师",
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "playCount": 15230,
+            "likeCount": 1536,
+            "duration": "03:28"
+        },
+        {
+            "id": 1005,
+            "categoryId": 6,
+            "title": "混音对比：Before & After",
+            "teacher": "孙老师",
+            "coverImage": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+            "playCount": 6840,
+            "likeCount": 512,
+            "duration": "06:10"
+        }
+    ]
+}

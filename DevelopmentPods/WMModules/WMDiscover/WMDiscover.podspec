@@ -17,10 +17,10 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   
-  s.homepage         = 'https://github.com/Condy/WMDiscover'
+  s.homepage         = 'https://github.com/yangKJ/WMDiscover'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
-  s.source           = { :git => 'https://github.com/Condy/WMDiscover.git', :tag => s.version.to_s }
+  s.author           = { 'yangKJ' => 'your_email@example.com' }
+  s.source           = { :git => 'https://github.com/yangKJ/WMDiscover.git', :tag => s.version.to_s }
   
   s.ios.deployment_target = '10.0'
   s.swift_version    = '5.0'
@@ -28,34 +28,11 @@ Pod::Spec.new do |s|
   s.static_framework = true
   
   s.dependency 'FeatBox'
-  s.dependency 'FSPagerView' # 轮播图，https://github.com/WenchaoD/FSPagerView
+  
+  s.source_files = 'Sources/Classes/**/**/*.swift'
   
   s.subspec 'Resources' do |xx|
-    xx.resource_bundles = { 'WMDiscover' => ['Sources/Resources/*.{xcassets,lproj,json,gif}'] }
-  end
-  
-  s.subspec 'Util' do |xx|
-    xx.source_files = 'Sources/Util/**/*.swift'
-  end
-  
-  s.subspec 'Api' do |xx|
-    xx.source_files = 'Sources/Api/**/*.swift'
-  end
-  
-  s.subspec 'Controller' do |xx|
-    xx.source_files = 'Sources/Controller/**/*.swift'
-  end
-  
-  s.subspec 'ViewModel' do |xx|
-    xx.source_files = 'Sources/ViewModel/**/*.swift'
-  end
-  
-  s.subspec 'View' do |xx|
-    xx.source_files = 'Sources/View/**/*.swift'
-  end
-  
-  s.subspec 'Model' do |xx|
-    xx.source_files = 'Sources/Model/**/*.swift'
+    xx.resource_bundles = { s.name => ['Sources/Assets/*.{xcassets,lproj,json,gif}'] }
   end
   
 end

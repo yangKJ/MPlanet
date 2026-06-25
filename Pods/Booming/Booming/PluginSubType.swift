@@ -8,27 +8,16 @@
 import Foundation
 import Moya
 
-public protocol PluginPropertiesable: PluginSubType {
-    var plugins: APIPlugins { get set }
-    
-    var key: String? { get set }
-    
-    /// Loading HUD delay hide time.
-    var delay: Double { get }
-}
-
-extension PluginPropertiesable {
-    public var delay: Double {
-        return 0
-    }
-}
-
 /// 继承Moya插件协议，方便后序扩展，所有插件方法都必须实现该协议
 /// Inherit the Moya plug-in protocol, which is convenient for subsequent expansion. All plug-in methods must implement this protocol
 public protocol PluginSubType: Moya.PluginType {
     
     /// 插件名
     var pluginName: String { get }
+    
+    /// Priority level, some plugins need to be sorted.
+    /// 场景：比如解析插件和解压插件甚至加解密插件，至少就需要先解压再解密最后才是解析数据。
+    var usePriorityLevel: UsePriorityLevel { get }
     
     /// 设置网络配置信息之后，开始准备请求之前，
     /// 该方法可以用于本地缓存存在时直接抛出数据而不用再执行后序网络请求等场景
@@ -58,16 +47,28 @@ public protocol PluginSubType: Moya.PluginType {
     ///   - result: Containing the data source and whether auto-last network request.
     ///   - target: The protocol used to define the specifications necessary for a `MoyaProvider`.
     ///   - onNext: Provide callbacks for the plug-in to process tasks asynchronously.
-    func lastNever(_ result: LastNeverResult, target: TargetType, onNext: @escaping LastNeverCallback)
+    func outputResult(_ result: OutputResult, target: TargetType, onNext: @escaping OutputResultBlock)
 }
 
 extension PluginSubType {
+    
+    public static var className: String {
+        String(describing: self)
+    }
+    
+    public var className: String {
+        String(describing: type(of: self))
+    }
+    
+    public var usePriorityLevel: UsePriorityLevel {
+        UsePriorityLevel.medium
+    }
     
     public func configuration(_ request: HeadstreamRequest, target: TargetType) -> HeadstreamRequest {
         return request
     }
     
-    public func lastNever(_ result: LastNeverResult, target: TargetType, onNext: @escaping LastNeverCallback) {
+    public func outputResult(_ result: OutputResult, target: TargetType, onNext: @escaping OutputResultBlock) {
         onNext(result)
     }
 }

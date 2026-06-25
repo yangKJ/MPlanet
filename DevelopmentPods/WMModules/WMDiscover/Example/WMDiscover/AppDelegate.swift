@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  WMDiscover_Example
 //
-//  Created by Condy on 2023/03/17.
-//  Copyright (c) 2023 Condy. All rights reserved.
+//  Created by yangKJ on 2023/03/17.
+//  Copyright (c) 2024 yangKJ. All rights reserved.
 //
 
 import UIKit

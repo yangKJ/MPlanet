@@ -36,43 +36,50 @@ public enum FontSizeType: Int {
     }
 }
 
-public extension BoxWrapper where Base: UIFont {
+extension BoxWrapper where Base: UIFont {
     
     /// 重新设置字体尺寸
     public var fixedFont: UIFont {
-        let fixedSize = base.pointSize + AppUserSettings.fontSizeType.deltaFontSize
+        let fixedSize: CGFloat
+        if base.pointSize >= 20 {
+            fixedSize = base.pointSize
+        } else {
+            fixedSize = CGFloat.minimum(20, base.pointSize + AppUserSettings.fontSizeType.deltaFontSize)
+        }
         return base.withSize(fixedSize)
     }
     
-    static var bold_18: UIFont {
-        UIFont.boldSystemFont(ofSize: 18)
+    public static func system(_ size: CGFloat, fixedFont: Bool = true) -> UIFont {
+        if fixedFont {
+            return UIFont.systemFont(ofSize: size).fy.fixedFont
+        } else {
+            return UIFont.systemFont(ofSize: size)
+        }
     }
     
-    static var bold_20: UIFont {
-        UIFont.boldSystemFont(ofSize: 20)
+    public static func bold(_ size: CGFloat, fixedFont: Bool = true) -> UIFont {
+        if fixedFont {
+            return UIFont.boldSystemFont(ofSize: size).fy.fixedFont
+        } else {
+            return UIFont.boldSystemFont(ofSize: size)
+        }
     }
+}
+
+public extension BoxWrapper where Base: UIFont {
     
-    static var system_20: UIFont {
-        UIFont.systemFont(ofSize: 20)
-    }
+    static var bold_16: UIFont { bold(16) }
+    static var bold_18: UIFont { bold(18) }
+    static var bold_20: UIFont { bold(20) }
+    // 修复：WMWallet 用了 bold_14 但 token 表里没定义，补全
+    static var bold_14: UIFont { bold(14) }
     
-    static var system_18: UIFont {
-        UIFont.systemFont(ofSize: 18)
-    }
-    
-    static var system_16: UIFont {
-        UIFont.systemFont(ofSize: 16)
-    }
-    
-    static var system_14: UIFont {
-        UIFont.systemFont(ofSize: 14)
-    }
-    
-    static var system_13: UIFont {
-        UIFont.systemFont(ofSize: 13)
-    }
-    
-    static var system_10: UIFont {
-        UIFont.systemFont(ofSize: 10)
-    }
+    static var system_20: UIFont { system(20) }
+    static var system_18: UIFont { system(18) }
+    static var system_16: UIFont { system(16) }
+    static var system_15: UIFont { system(15) }
+    static var system_14: UIFont { system(14) }
+    static var system_13: UIFont { system(13) }
+    static var system_12: UIFont { system(12) }
+    static var system_10: UIFont { system(10) }
 }

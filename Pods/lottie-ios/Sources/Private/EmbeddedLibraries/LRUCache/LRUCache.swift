@@ -43,8 +43,8 @@ let LRUCacheMemoryWarningNotification: NSNotification.Name =
 #else
 
 /// Notification that cache should be cleared
-let LRUCacheMemoryWarningNotification: NSNotification.Name =
-  .init("LRUCacheMemoryWarningNotification")
+let LRUCacheMemoryWarningNotification =
+  NSNotification.Name("LRUCacheMemoryWarningNotification")
 
 #endif
 
@@ -99,7 +99,7 @@ final class LRUCache<Key: Hashable, Value> {
   private var values: [Key: Container] = [:]
   private unowned(unsafe) var head: Container?
   private unowned(unsafe) var tail: Container?
-  private let lock: NSLock = .init()
+  private let lock = NSLock()
   private var token: AnyObject?
   private let notificationCenter: NotificationCenter
 
@@ -216,7 +216,7 @@ extension LRUCache {
 
   // MARK: Private
 
-  // Remove container from list (must be called inside lock)
+  /// Remove container from list (must be called inside lock)
   private func remove(_ container: Container) {
     if head === container {
       head = container.next
@@ -229,7 +229,7 @@ extension LRUCache {
     container.next = nil
   }
 
-  // Append container to list (must be called inside lock)
+  /// Append container to list (must be called inside lock)
   private func append(_ container: Container) {
     assert(container.next == nil)
     if head == nil {
@@ -240,7 +240,7 @@ extension LRUCache {
     tail = container
   }
 
-  // Remove expired values (must be called outside lock)
+  /// Remove expired values (must be called outside lock)
   private func clean() {
     lock.lock()
     defer { lock.unlock() }

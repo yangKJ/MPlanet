@@ -11,57 +11,57 @@ import ProductLib
 /// 所有文本都需走该实例，方便后续做统一修改<例如：生僻字，字体大小修改等>
 open class BaseLabel: UILabel {
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupInit()
-    }
-    
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-        self.setupInit()
-    }
-    
-    private func setupInit() {
-        // 动态调整文字尺寸适配控件，只会缩小不会放大
-        self.adjustsFontSizeToFitWidth = true
-        // 最小缩为原先的四分子一
-        self.minimumScaleFactor = 0.25
-    }
-    
     private var fontSize: CGFloat?
-    private var oldFont: UIFont?
+    private weak var originalFont: UIFont?
     
-    open override var font: UIFont! {
-        set {
-            if oldFont == nil {
-                self.oldFont = font
-            }
-            fontSize = newValue.pointSize
-            if let size = fontSize {
-                super.font = newValue.withSize(size).fy.fixedFont
-            } else {
-                super.font = newValue
-            }
-        }
-        get {
-            return super.font
-        }
-    }
+//    open override var font: UIFont! {
+//        set {
+//            if originalFont == nil {
+//                self.originalFont = font
+//            }
+//            if closedAdjustsFontSizeToFitWidth {
+//                return
+//            }
+//            guard let font_ = newValue else {
+//                return
+//            }
+//            fontSize = font_.pointSize
+//            if let size = fontSize {
+//                super.font = font_.withSize(size).fy.fixedFont
+//            } else {
+//                super.font = font_
+//            }
+//        }
+//        get {
+//            return super.font
+//        }
+//    }
     
     /// 关闭后不再自动调整文字尺寸以适应控件
-    public var closedAdjustsFontSizeToFitWidth: Bool = false {
+    public var closedAdjustsFontSizeToFitWidth: Bool = true {
         didSet {
             if closedAdjustsFontSizeToFitWidth {
-                if let oldFont = self.oldFont {
+                if let oldFont = self.originalFont {
                     self.font = oldFont
                 }
+            } else {
+                // 最小缩为原先的四分子一
+                self.minimumScaleFactor = 0.25
             }
+            // 动态调整文字尺寸适配控件，只会缩小不会放大
             self.adjustsFontSizeToFitWidth = !closedAdjustsFontSizeToFitWidth
         }
     }
     
     public var textInsets = UIEdgeInsets.zero {
         didSet { invalidateIntrinsicContentSize() }
+    }
+    
+    public func height(of width: CGFloat, font: UIFont? = nil) -> CGFloat {
+        guard let text = text, !text.isEmpty else {
+            return 0.0
+        }
+        return text.fy.height(withConstrainedWidth: width, font: font ?? self.font)
     }
 }
 

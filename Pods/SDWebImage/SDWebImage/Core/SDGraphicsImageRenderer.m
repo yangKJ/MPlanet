@@ -8,12 +8,7 @@
 
 #import "SDGraphicsImageRenderer.h"
 #import "SDImageGraphics.h"
-
-@interface SDGraphicsImageRendererFormat ()
-#if SD_UIKIT
-@property (nonatomic, strong) UIGraphicsImageRendererFormat *uiformat API_AVAILABLE(ios(10.0), tvos(10.0));
-#endif
-@end
+#import "SDDeviceHelper.h"
 
 @implementation SDGraphicsImageRendererFormat
 @synthesize scale = _scale;
@@ -131,24 +126,9 @@
             self.uiformat = uiformat;
         } else {
 #endif
-#if SD_VISION
-            CGFloat screenScale = UITraitCollection.currentTraitCollection.displayScale;
-#elif SD_WATCH
-            CGFloat screenScale = [WKInterfaceDevice currentDevice].screenScale;
-#elif SD_UIKIT
-            CGFloat screenScale = [UIScreen mainScreen].scale;
-#elif SD_MAC
-            NSScreen *mainScreen = nil;
-            if (@available(macOS 10.12, *)) {
-                mainScreen = [NSScreen mainScreen];
-            } else {
-                mainScreen = [NSScreen screens].firstObject;
-            }
-            CGFloat screenScale = mainScreen.backingScaleFactor ?: 1.0f;
-#endif
+            CGFloat screenScale = SDDeviceHelper.screenScale;
             self.scale = screenScale;
             self.opaque = NO;
-            self.preferredRange = SDGraphicsImageRendererFormatRangeStandard;
 #if SD_UIKIT
         }
 #endif
@@ -173,24 +153,9 @@
             self.uiformat = uiformat;
         } else {
 #endif
-#if SD_VISION
-            CGFloat screenScale = UITraitCollection.currentTraitCollection.displayScale;
-#elif SD_WATCH
-            CGFloat screenScale = [WKInterfaceDevice currentDevice].screenScale;
-#elif SD_UIKIT
-            CGFloat screenScale = [UIScreen mainScreen].scale;
-#elif SD_MAC
-            NSScreen *mainScreen = nil;
-            if (@available(macOS 10.12, *)) {
-                mainScreen = [NSScreen mainScreen];
-            } else {
-                mainScreen = [NSScreen screens].firstObject;
-            }
-            CGFloat screenScale = mainScreen.backingScaleFactor ?: 1.0f;
-#endif
+            CGFloat screenScale = SDDeviceHelper.screenScale;
             self.scale = screenScale;
             self.opaque = NO;
-            self.preferredRange = SDGraphicsImageRendererFormatRangeStandard;
 #if SD_UIKIT
         }
 #endif

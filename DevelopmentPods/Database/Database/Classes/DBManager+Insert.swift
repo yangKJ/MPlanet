@@ -2,7 +2,7 @@
 //  DBManager+Insert.swift
 //  YoDatabase
 //
-//  Created by Condy on 2020/12/1.
+//  Created by yangKJ on 2020/12/1.
 //
 
 import Foundation
@@ -16,11 +16,12 @@ public extension DBManager {
     ///   - on: 需要插入的字段
     func insert<T: TableEncodable>(intoTable table: String,
                                    objects: [T],
-                                   on propertyConvertibleList: [PropertyConvertible]? = nil) {
+                                   on propertyConvertibleList: [PropertyConvertible]? = nil) throws {
         do {
             try dataBase?.insert(objects, on: propertyConvertibleList, intoTable: table)
-        } catch let error {
+        } catch {
             debugPrint(" insert obj error \(error.localizedDescription)")
+            throw DBError.insertFailed(underlying: error)
         }
     }
     /// 增加或者更新数据
@@ -30,11 +31,32 @@ public extension DBManager {
     ///   - on: 需要插入的字段
     func insertOrReplace<T: TableEncodable>(intoTable table: String,
                                             objects: [T],
-                                            on propertyConvertibleList: [PropertyConvertible]? = nil) {
+                                            on propertyConvertibleList: [PropertyConvertible]? = nil) throws {
         do {
             try dataBase?.insertOrReplace(objects, on: propertyConvertibleList, intoTable: table)
-        } catch let error {
+        } catch {
             debugPrint(" insert obj error \(error.localizedDescription)")
+            throw DBError.insertFailed(underlying: error)
+        }
+    }
+
+    /// 批量插入数据，使用事务包裹。失败时整个事务回滚。
+    /// - Parameters:
+    ///   - objects: 需要插入的对象数组
+    ///   - intoTable: 表名
+    func insertBatch(_ objects: [TableEncodable], intoTable table: String) throws {
+        guard !objects.isEmpty else {
+            return
+        }
+        do {
+            try dataBase?.run(transaction: {
+                for obj in objects {
+                    try dataBase?.insert(obj, intoTable: table)
+                }
+            })
+        } catch {
+            debugPrint(" insertBatch error \(error.localizedDescription)")
+            throw DBError.insertBatchFailed(underlying: error)
         }
     }
 }

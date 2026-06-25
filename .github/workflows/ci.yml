@@ -1,0 +1,94 @@
+# ============================================================
+# MPlanet iOS 持续集成工作流
+# ------------------------------------------------------------
+# 触发条件: 推送到 master 或向 master 发起 PR
+# 任务: 编译 MainProject-Example Debug 配置 (iphonesimulator)
+# ============================================================
+
+name: CI
+
+# 仅授予读取仓库内容的权限,避免泄露 token / 写权限滥用
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+# 同一个分支的新 push 自动取消旧 build
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (Debug / iPhone 16 Simulator)
+    runs-on: macos-latest
+    timeout-minutes: 45
+
+    steps:
+      # ------------------------------------------------------------
+      # 1. 检出代码
+      # ------------------------------------------------------------
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ------------------------------------------------------------
+      # 2. 选择 Ruby 3.2 (与 Gemfile 锁定的 CocoaPods 1.16.2 / Fastlane 兼容)
+      # ------------------------------------------------------------
+      - name: Set up Ruby 3.2
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true   # 自动 bundle install 并缓存 gem
+
+      # ------------------------------------------------------------
+      # 3. 安装 Xcode 命令行工具 (macos-latest 已自带,这里冗余保险)
+      # ------------------------------------------------------------
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      # ------------------------------------------------------------
+      # 4. 安装 CocoaPods 依赖
+      #    - Gemfile 锁定了 CocoaPods 1.16.2, 走 bundle exec 避免全局污染
+      # ------------------------------------------------------------
+      - name: Install CocoaPods
+        run: bundle exec pod install --repo-update
+
+      # ------------------------------------------------------------
+      # 5. 列出可用的 iOS Simulator 目的地,辅助排查 destination 名称
+      # ------------------------------------------------------------
+      - name: List available iOS simulators
+        run: xcrun simctl list devices available | grep -E "iPhone|iOS" | head -40
+
+      # ------------------------------------------------------------
+      # 6. 编译 Debug 配置
+      #    - 不签名 (CI 环境无证书)
+      #    - 输出到 DerivedData/Build,便于排查
+      # ------------------------------------------------------------
+      - name: Build Debug
+        run: |
+          set -o pipefail
+          bundle exec xcodebuild \
+            -workspace MainProject.xcworkspace \
+            -scheme MainProject-Example \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build 2>&1 | tee build.log
+
+      # ------------------------------------------------------------
+      # 7. 失败时上传 build.log 方便排查
+      # ------------------------------------------------------------
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          if-no-files-found: ignore
+          retention-days: 7

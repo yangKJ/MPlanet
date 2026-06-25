@@ -7,10 +7,19 @@
 
 import Foundation
 import UIKit
+import ProductLib
 
 public class Session {
     
     public private(set) static var shared = Session()
+    
+    public static func initializeSession() {
+        // 3个月未登录，强制重新登陆
+        if let lastLoginTime = AppUserSettings.lastLoginTime, lastLoginTime.fy.millisecondDate.fy.monthLater(with: 3) <= Date() {
+            AppUserSettings.token = nil
+            Session.shared.logout()
+        }
+    }
     
     /// 登陆成功之后的用户数据
     public private(set) var loggedUserDTO: UserDTO?
@@ -25,12 +34,12 @@ public class Session {
             case .logged:
                 if oldValue != .logged {
                     // 可发送登陆成功通知
-                    NotificationCenter.default.post(name: Notify.Login.didLogin, object: nil)
+                    Notify.Login.didLogin.post()
                 }
             case .none:
                 if oldValue == .logged {
                     // 可发送退出登陆通知
-                    NotificationCenter.default.post(name: Notify.Login.didLogout, object: nil)
+                    Notify.Login.didLogout.post()
                 }
             case .logging:
                 break
@@ -49,15 +58,16 @@ public class Session {
     
     /// 登陆成功
     public func loggedSuccess(_ userDTO: UserDTO) {
-        self.loggedUserDTO = userDTO
         AppUserSettings.token = userDTO.token
+        AppUserSettings.lastLoginTime = Date().timeIntervalSince1970
+        self.loggedUserDTO = userDTO
         self.loginState = .logged
     }
     
     /// 退出登陆
     public func logout() {
-        self.loginState = .none
         self.loggedUserDTO = nil
+        self.loginState = .none
     }
 }
 

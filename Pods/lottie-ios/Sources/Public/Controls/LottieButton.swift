@@ -5,7 +5,6 @@
 import SwiftUI
 
 /// A wrapper which exposes Lottie's `AnimatedButton` to SwiftUI
-@available(iOS 13.0, tvOS 13.0, macOS 10.15, *)
 public struct LottieButton: UIViewConfiguringSwiftUIView {
 
   // MARK: Lifecycle
@@ -118,6 +117,6 @@ public struct LottieButton: UIViewConfiguringSwiftUIView {
 
   private let animation: LottieAnimation?
   private let action: () -> Void
-  private var configuration: LottieConfiguration = .shared
+  private var configuration = LottieConfiguration.shared
 }
 #endif

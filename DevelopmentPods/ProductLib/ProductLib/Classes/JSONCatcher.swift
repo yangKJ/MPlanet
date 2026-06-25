@@ -19,6 +19,7 @@ import Foundation
 ///
 ///     let name: String? = catcher.name // Rover
 ///     let messyName: String? = catcher.owner?.name // Ms. Simpson
+/// `JSONCatcher` 通过 `@dynamicMemberLookup` 让任意 dict 可以像 Swift 对象一样点语法取值,类型不匹配返回 nil/默认值。
 @dynamicMemberLookup public struct JSONCatcher {
     
     public var value: [String: Any]

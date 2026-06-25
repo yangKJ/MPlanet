@@ -12,23 +12,7 @@
 /// https://github.com/Alamofire/Alamofire
 ///
 
-@_exported import Alamofire
-@_exported import Moya
-
-public typealias APIHost = String
-public typealias APIPath = String
-public typealias APINumber = Int
-public typealias APIMethod = Moya.Method
-public typealias APIParameters = Alamofire.Parameters
-public typealias APIPlugins = [PluginSubType]
-public typealias APIStubBehavior = Moya.StubBehavior
-public typealias APISuccessJSON = Any
-public typealias APIFailureError = Swift.Error
-public typealias APIResponseResult = Result<Moya.Response, MoyaError>
-
-public typealias APISuccess = (_ json: APISuccessJSON) -> Void
-public typealias APIFailure = (_ error: APIFailureError) -> Void
-public typealias APIComplete = (_ result: Result<APISuccessJSON, APIFailureError>) -> Void
+import Moya
 
 public protocol NetworkAPI: Moya.TargetType {
     
@@ -45,6 +29,25 @@ public protocol NetworkAPI: Moya.TargetType {
     
     /// Identification key prefix, defaul MD5 request link.
     var keyPrefix: String { get }
+    
+    /// Default cache policy for requests. Default is `BoomingSetup.requestCachePolicy` value.
+    var requestCachePolicy: NSURLRequest.CachePolicy { get }
+    
+    /// This will cause a timeout if no data is transmitted for the given timeout value.
+    /// Default is `BoomingSetup.timeoutIntervalForRequest` value.
+    var timeoutIntervalForRequest: Double { get }
+    
+    /// Allow the session to set cookies on requests. Default is `BoomingSetup.HTTPShouldSetCookies` value.
+    var httpShouldHandleCookies: Bool { get }
+    
+    /// Allow the use of HTTP pipelining. Default is `BoomingSetup.HTTPShouldUsePipelining` value.
+    var httpShouldUsePipelining: Bool { get }
+    
+    /// Mapped to json, Default is `BoomingSetup.mapped2JSON` value.
+    var mapped2JSON: Bool { get }
+    
+    /// A responsible for returning an `EndpointSampleResponse`.
+    var sampleResponse: Moya.EndpointSampleResponse { get }
     
     /// Remove all HUDs displayed to `LevelStatusBarWindowController`.
     func removeHUD()

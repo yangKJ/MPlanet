@@ -1,0 +1,8 @@
+{
+  "indent": 4,
+  "linebreak": "lf",
+  "allowShortIfStatementsOnASingleLine": false,
+  "stripUnusedargs": true,
+  "self": { "removeSelf": true },
+  "comments": { "minLength": 2 }
+}

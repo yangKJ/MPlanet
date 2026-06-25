@@ -70,7 +70,8 @@ extension Archive {
     compressionMethod: CompressionMethod,
     bufferSize: Int,
     progress: Progress? = nil,
-    provider: Provider) throws -> (sizeWritten: Int64, crc32: CRC32)
+    provider: Provider)
+    throws -> (sizeWritten: Int64, crc32: CRC32)
   {
     var checksum = CRC32(0)
     var sizeWritten = Int64(0)
@@ -83,6 +84,7 @@ extension Archive {
           bufferSize: bufferSize,
           progress: progress,
           provider: provider)
+
       case .deflate:
         (sizeWritten, checksum) = try writeCompressed(
           size: uncompressedSize,
@@ -90,9 +92,11 @@ extension Archive {
           progress: progress,
           provider: provider)
       }
+
     case .directory:
       _ = try provider(0, 0)
       if let progress { progress.completedUnitCount = progress.totalUnitCount }
+
     case .symlink:
       let (linkSizeWritten, linkChecksum) = try writeSymbolicLink(
         size: Int(uncompressedSize),
@@ -226,6 +230,7 @@ extension Archive {
           throw ArchiveError.invalidCentralDirectoryEntryCount
         }
         return (sizeOfCD + UInt64(cdDataLengthChange), numberOfTotalEntries + UInt64(countChange))
+
       case .remove:
         return (sizeOfCD - UInt64(-cdDataLengthChange), numberOfTotalEntries - UInt64(-countChange))
       }
@@ -262,7 +267,8 @@ extension Archive {
     size: Int64,
     bufferSize: Int,
     progress: Progress? = nil,
-    provider: Provider) throws -> (sizeWritten: Int64, checksum: CRC32)
+    provider: Provider)
+    throws -> (sizeWritten: Int64, checksum: CRC32)
   {
     var position: Int64 = 0
     var sizeWritten: Int64 = 0
@@ -283,7 +289,8 @@ extension Archive {
     size: Int64,
     bufferSize: Int,
     progress: Progress? = nil,
-    provider: Provider) throws -> (sizeWritten: Int64, checksum: CRC32)
+    provider: Provider)
+    throws -> (sizeWritten: Int64, checksum: CRC32)
   {
     var sizeWritten: Int64 = 0
     let consumer: Consumer = { data in sizeWritten += Int64(try Data.write(chunk: data, to: self.archiveFile)) }

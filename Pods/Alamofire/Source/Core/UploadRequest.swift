@@ -25,9 +25,9 @@
 import Foundation
 
 /// `DataRequest` subclass which handles `Data` upload from memory, file, or stream using `URLSessionUploadTask`.
-public final class UploadRequest: DataRequest {
+public final class UploadRequest: DataRequest, @unchecked Sendable {
     /// Type describing the origin of the upload, whether `Data`, file, or stream.
-    public enum Uploadable {
+    public enum Uploadable: @unchecked Sendable { // Must be @unchecked Sendable due to InputStream.
         /// Upload from the provided `Data` value.
         case data(Data)
         /// Upload from the provided file `URL`, as well as a `Bool` determining whether the source file should be
@@ -40,7 +40,7 @@ public final class UploadRequest: DataRequest {
     // MARK: Initial State
 
     /// The `UploadableConvertible` value used to produce the `Uploadable` value for this instance.
-    public let upload: UploadableConvertible
+    public let upload: any UploadableConvertible
 
     /// `FileManager` used to perform cleanup tasks, including the removal of multipart form encoded payloads written
     /// to disk.
@@ -54,24 +54,26 @@ public final class UploadRequest: DataRequest {
     /// Creates an `UploadRequest` using the provided parameters.
     ///
     /// - Parameters:
-    ///   - id:                 `UUID` used for the `Hashable` and `Equatable` implementations. `UUID()` by default.
-    ///   - convertible:        `UploadConvertible` value used to determine the type of upload to be performed.
-    ///   - underlyingQueue:    `DispatchQueue` on which all internal `Request` work is performed.
-    ///   - serializationQueue: `DispatchQueue` on which all serialization work is performed. By default targets
-    ///                         `underlyingQueue`, but can be passed another queue from a `Session`.
-    ///   - eventMonitor:       `EventMonitor` called for event callbacks from internal `Request` actions.
-    ///   - interceptor:        `RequestInterceptor` used throughout the request lifecycle.
-    ///   - fileManager:        `FileManager` used to perform cleanup tasks, including the removal of multipart form
-    ///                         encoded payloads written to disk.
-    ///   - delegate:           `RequestDelegate` that provides an interface to actions not performed by the `Request`.
+    ///   - id:                        `UUID` used for the `Hashable` and `Equatable` implementations. `UUID()` by default.
+    ///   - convertible:               `UploadConvertible` value used to determine the type of upload to be performed.
+    ///   - underlyingQueue:           `DispatchQueue` on which all internal `Request` work is performed.
+    ///   - serializationQueue:        `DispatchQueue` on which all serialization work is performed. By default targets
+    ///                                `underlyingQueue`, but can be passed another queue from a `Session`.
+    ///   - eventMonitor:              `EventMonitor` called for event callbacks from internal `Request` actions.
+    ///   - interceptor:               `RequestInterceptor` used throughout the request lifecycle.
+    ///   - shouldAutomaticallyResume: Whether the instance should resume after the first response handler is added.
+    ///   - fileManager:               `FileManager` used to perform cleanup tasks, including the removal of multipart
+    ///                                form encoded payloads written to disk.
+    ///   - delegate:                  `RequestDelegate` that provides an interface to actions not performed by the `Request`.
     init(id: UUID = UUID(),
-         convertible: UploadConvertible,
+         convertible: any UploadConvertible,
          underlyingQueue: DispatchQueue,
          serializationQueue: DispatchQueue,
-         eventMonitor: EventMonitor?,
-         interceptor: RequestInterceptor?,
+         eventMonitor: (any EventMonitor)?,
+         interceptor: (any RequestInterceptor)?,
+         shouldAutomaticallyResume: Bool?,
          fileManager: FileManager,
-         delegate: RequestDelegate) {
+         delegate: any RequestDelegate) {
         upload = convertible
         self.fileManager = fileManager
 
@@ -81,6 +83,7 @@ public final class UploadRequest: DataRequest {
                    serializationQueue: serializationQueue,
                    eventMonitor: eventMonitor,
                    interceptor: interceptor,
+                   shouldAutomaticallyResume: shouldAutomaticallyResume,
                    delegate: delegate)
     }
 
@@ -156,7 +159,7 @@ public final class UploadRequest: DataRequest {
 }
 
 /// A type that can produce an `UploadRequest.Uploadable` value.
-public protocol UploadableConvertible {
+public protocol UploadableConvertible: Sendable {
     /// Produces an `UploadRequest.Uploadable` value from the instance.
     ///
     /// - Returns: The `UploadRequest.Uploadable`.

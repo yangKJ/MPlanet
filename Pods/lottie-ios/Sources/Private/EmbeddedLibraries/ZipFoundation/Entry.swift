@@ -185,6 +185,7 @@ struct Entry: Equatable {
       default:
         return isDirectory ? .directory : .file
       }
+
     case .msdos:
       isDirectory = isDirectory || ((centralDirectoryStructure.externalFileAttributes >> 4) == 0x01)
       fallthrough // For all other OSes we can only guess based on the directory suffix char
@@ -236,7 +237,7 @@ struct Entry: Equatable {
     return dataOffset
   }
 
-  static func == (lhs: Entry, rhs: Entry) -> Bool {
+  static func ==(lhs: Entry, rhs: Entry) -> Bool {
     lhs.path == rhs.path
       && lhs.localFileHeader.crc32 == rhs.localFileHeader.crc32
       && lhs.centralDirectoryStructure.effectiveRelativeOffsetOfLocalHeader

@@ -1,0 +1,41 @@
+{
+    "code": "200",
+    "message": "成功",
+    "data": [{
+        "desc": "这是一个GIF链接地址",
+        "id": 29,
+        "cardNo": "62834210000001363",
+        "imagePath": "https://raw.githubusercontent.com/yangKJ/ImageX/master/Images/IMG_0139.gif",
+        "order": 1,
+        "title": "骑自行车",
+        "gotoType": "FUNCTION",
+        "gotoObject": "FUNCTION_BANNER_DETAIL",
+        "github": "https://github.com/yangKJ",
+        "fixed_height": null,
+        "height": null
+    }, {
+        "desc": "test image",
+        "id": 6,
+        "cardNo": "6285921000000383",
+        "imagePath": "https://avatars.githubusercontent.com/u/17396101?v=4",
+        "order": 0,
+        "title": "图片",
+        "gotoType": "FUNCTION",
+        "gotoObject": "FUNCTION_BANNER_DETAIL",
+        "github": "https://github.com/yangKJ",
+        "fixed_height": null,
+        "height": null
+    }, {
+        "desc": "随便写的测试数据",
+        "id": 20,
+        "cardNo": "6283421000023483",
+        "imagePath": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+        "order": 2,
+        "title": "Harbeth滤镜库",
+        "gotoType": "FUNCTION",
+        "gotoObject": "FUNCTION_BANNER_DETAIL",
+        "github": "https://github.com/yangKJ/Harbeth",
+        "fixed_height": null,
+        "height": null
+    }]
+}

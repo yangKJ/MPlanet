@@ -1,0 +1,49 @@
+{
+    "code": 200,
+    "message": "成功",
+    "data": {
+        "id": 1,
+        "userId": 1001,
+        "username": "钢琴小王子",
+        "userAvatar": "https://i.pravatar.cc/150?u=piano",
+        "title": "学钢琴三个月的心路历程",
+        "content": "从零基础到现在能弹《致爱丽丝》，分享我的学习方法和踩过的坑。\n\n第一周：认识键盘、五线谱、节拍器。\n\n第一个月：能单手弹《献给爱丽丝》前 16 小节，每天练 30 分钟，分手练 20 分钟、合手 10 分钟。\n\n第二个月：开始练哈农练习曲 1-20 条，重点是手指独立性。\n\n第三个月：终于可以比较流畅地弹完《致爱丽丝》全曲。\n\n心得：1）节拍器永远是第一位；2）分手练比合手练更高效；3）每天 30 分钟比周末突击 6 小时更好；4）不要追求速度，先把音弹对再提速。\n\n希望对想学钢琴的朋友有帮助！",
+        "imageUrls": [
+            "https://picsum.photos/400/300?random=1",
+            "https://picsum.photos/400/300?random=2",
+            "https://picsum.photos/400/300?random=20"
+        ],
+        "likeCount": 128,
+        "commentCount": 3,
+        "createTime": "10 分钟前",
+        "comments": [
+            {
+                "id": 1,
+                "userId": 1002,
+                "username": "吉他老张",
+                "userAvatar": "https://i.pravatar.cc/150?u=guitar",
+                "content": "学到了，谢谢分享！节拍器那个我之前就没重视，难怪老是抢拍。",
+                "likeCount": 5,
+                "createTime": "1 小时前"
+            },
+            {
+                "id": 2,
+                "userId": 1003,
+                "username": "编曲达人小宇",
+                "userAvatar": "https://i.pravatar.cc/150?u=mix",
+                "content": "坚持 30 天每天 30 分钟确实有效。我当年也是这么练吉他的。",
+                "likeCount": 8,
+                "createTime": "30 分钟前"
+            },
+            {
+                "id": 3,
+                "userId": 1004,
+                "username": "声乐糖糖",
+                "userAvatar": "https://i.pravatar.cc/150?u=voice",
+                "content": "请问用什么节拍器 APP 推荐？我现在用的是手机自带的，但感觉不太专业。",
+                "likeCount": 2,
+                "createTime": "刚刚"
+            }
+        ]
+    }
+}

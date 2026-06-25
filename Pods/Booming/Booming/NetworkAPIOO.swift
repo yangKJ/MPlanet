@@ -13,75 +13,99 @@ import Moya
 open class NetworkAPIOO {
     
     /// Request host
-    public var cdy_ip: APIHost?
+    public var ip: APIHost = BoomingSetup.baseURL
     /// Request path
-    public var cdy_path: APIPath?
+    public var path: APIPath?
     /// Request parameters
-    public var cdy_parameters: APIParameters?
+    public var parameters: APIParameters?
     /// Request type
-    public var cdy_method: APIMethod?
+    public var method: APIMethod = BoomingSetup.baseMethod
     /// Plugin array
-    public var cdy_plugins: APIPlugins = []
+    public var plugins: APIPlugins = []
     /// Failed retry count
-    public var cdy_retry: APINumber = 0
+    public var retry: APINumber = 0
+    /// Callback queue. If nil - queue from provider initializer will be used.
+    public var callbackQueue: DispatchQueue?
+    /// Default true.
+    public var httpShouldHandleCookies: Bool = true
+    /// Mapped to json, Default is true.
+    public var mapped2JSON: Bool = BoomingSetup.mapped2JSON
+    
+    // MARK: - test
+    
     /// Test data, after setting the value of this property, only the test data is taken
-    public var cdy_testJSON: String?
+    public var testData: Data?
     /// Test data return time, the default is half a second
-    public var cdy_testTime: Double = 0.5
+    public var testTime: Double = 0.5
     
     public init() { }
     
     @discardableResult
-    open func cdy_request(complete: @escaping APIComplete, queue: DispatchQueue? = nil) -> Cancellable? {
-        HTTPRequest(success: { json in
-            complete(.success(json))
-        }, failure: { error in
-            complete(.failure(error))
-        }, queue: queue)
+    open func request(successed: @escaping APISuccessed, failed: APIFailure? = nil) -> Moya.Cancellable? {
+        return apiTarget.request(successed: successed, failed: { error in
+            failed?(error)
+        }, queue: callbackQueue)
+    }
+    
+    public var apiTarget: NetworkAPI {
+        NetworkCompatible_.init(target: self)
     }
 }
 
-extension NetworkAPIOO: NetworkAPI {
+private struct NetworkCompatible_: NetworkAPI {
     
-    public var ip: APIHost {
-        return cdy_ip ?? BoomingSetup.baseURL
+    let target: NetworkAPIOO
+    
+    init(target: NetworkAPIOO) {
+        self.target = target
     }
     
-    public var path: String {
-        return cdy_path ?? ""
+    var ip: APIHost {
+        return target.ip
     }
     
-    public var parameters: APIParameters? {
-        return cdy_parameters
+    var path: String {
+        return target.path ?? ""
     }
     
-    public var method: APIMethod {
-        return cdy_method ?? BoomingSetup.baseMethod
+    var parameters: APIParameters? {
+        return target.parameters
     }
     
-    public var plugins: APIPlugins {
-        return cdy_plugins
+    var method: APIMethod {
+        return target.method
     }
     
-    public var retry: APINumber {
-        return cdy_retry
+    var plugins: APIPlugins {
+        return target.plugins
     }
     
-    public var stubBehavior: APIStubBehavior {
-        guard let _ = cdy_testJSON else {
+    var retry: APINumber {
+        return target.retry
+    }
+    
+    var httpShouldHandleCookies: Bool {
+        target.httpShouldHandleCookies
+    }
+    
+    var mapped2JSON: Bool {
+        target.mapped2JSON
+    }
+    
+    var stubBehavior: APIStubBehavior {
+        guard let _ = target.testData else {
             return .never
         }
-        if cdy_testTime > 0 {
-            return .delayed(seconds: cdy_testTime)
+        if target.testTime > 0 {
+            return .delayed(seconds: target.testTime)
         } else {
             return .immediate
         }
     }
     
-    public var sampleData: Data {
-        if let json = cdy_testJSON {
-            return json.data(using: String.Encoding.utf8)!
-        }
-        return "{\"Condy\":\"yangkj310@gmail.com\"}".data(using: String.Encoding.utf8)!
+    var sampleData: Data {
+        return target.testData ?? {
+            "{\"Condy\":\"yangkj310@gmail.com\"}".data(using: String.Encoding.utf8)!
+        }()
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-open class SignatureView: BaseView {
+open class SignatureView: BaseView, Storyboardable {
     
     public var lineWidth: CGFloat = 2.0 {
         didSet {
@@ -30,11 +30,13 @@ open class SignatureView: BaseView {
         super.init(frame: frame)
         setupSubviews()
     }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        // Storyboardable 子类不支持 Storyboard 加载,统一错误入口
+        StoryboardableFatal.notImplemented(coder: coder)
     }
-    
+
     func setupSubviews() {
         self.path.lineWidth = self.lineWidth
     }

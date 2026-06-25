@@ -100,17 +100,23 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AppMain/AppMain.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FeatBox/FeatBox.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/Harbeth/Harbeth.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMChat/WMChat.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMDiscover/WMDiscover.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMLearn/WMLearn.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMMine/WMMine.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMWallet/Demo.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMTopics/WMTopics.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMWallet/WMWallet.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AppMain/AppMain.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FeatBox/FeatBox.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/Harbeth/Harbeth.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMChat/WMChat.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMDiscover/WMDiscover.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMLearn/WMLearn.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMMine/WMMine.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMWallet/Demo.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMTopics/WMTopics.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/WMWallet/WMWallet.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

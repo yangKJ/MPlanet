@@ -14,7 +14,7 @@
 
 This library provides an async image downloader with cache support. For convenience, we added categories for UI elements like `UIImageView`, `UIButton`, `MKAnnotationView`.
 
-Note: `SD` is the prefix for **Simple Design** (which is the team name in Daily Motion company from the author Olivier Poitrey)
+> 💡NOTE: `SD` is the prefix for **Simple Design** (which is the team name in Daily Motion company from the author Olivier Poitrey)
 
 ## Features
 
@@ -54,6 +54,14 @@ See `Installation with Swift Package Manager` and `Manual Installation Guide` be
 - WebP format from iOS 14/macOS 11.0 via [SDWebImageAWebPCoder](https://github.com/SDWebImage/SDWebImage/wiki/Advanced-Usage#awebp-coder). For lower firmware, use coder plugin [SDWebImageWebPCoder](https://github.com/SDWebImage/SDWebImageWebPCoder)
 - JPEG-XL format from iOS 17/macOS 14.0 built-in. For lower firmware, use coder plugin [SDWebImageJPEGXLCoder](https://github.com/SDWebImage/SDWebImageJPEGXLCoder)
 - Support extendable coder plugins for new image formats like BPG, AVIF. And vector format like PDF, SVG. See all the list in [Image coder plugin List](https://github.com/SDWebImage/SDWebImage/wiki/Coder-Plugin-List)
+
+> 💡NOTE: For new user
+
+SDWebImage use [Coder Plugin System](https://github.com/SDWebImage/SDWebImage/wiki/Coder-Plugin-List) to support both Apple's built-in and external image format. For static image we always use Apple's built-in as fallback, but not for animated image. Currently (updated to 5.19.x version) we only register traditional animated format like GIF/APNG by default, without the modern format like AWebP/HEICS/AVIF, even on the latest firmware.
+
+If you want these animated image format support, simply register by yourself with one-line code, see more in [WebP Coder](https://github.com/SDWebImage/SDWebImage/wiki/Advanced-Usage#awebp-coder) and [HEIC Coder](https://github.com/SDWebImage/SDWebImage/wiki/Advanced-Usage#heic-coder)
+
+In future we will change this behavior by always registering all Apple's built-in animated image format, to make it easy for new user to integrate.
 
 ## Additional modules and Ecosystem
 
@@ -114,7 +122,7 @@ You can use those directly, or create similar components of your own, by using t
 - watchOS 2.0 or later
 - macOS 10.11 or later (10.15 for Catalyst)
 - visionOS 1.0 or later
-- Xcode 14.0 or later (visionOS requires Xcode 15.0)
+- Xcode 15.0 or later
 
 #### Backwards compatibility
 
@@ -269,9 +277,9 @@ Make the following entry in your Cartfile: `github "SDWebImage/SDWebImage"`
 Then run `carthage update`
 If this is your first time using Carthage in the project, you'll need to go through some additional steps as explained [over at Carthage](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
-> NOTE: At this time, Carthage does not provide a way to build only specific repository subcomponents (or equivalent of CocoaPods's subspecs). All components and their dependencies will be built with the above command. However, you don't need to copy frameworks you aren't using into your project. For instance, if you aren't using `SDWebImageMapKit`, feel free to delete that framework from the Carthage Build directory after `carthage update` completes.
+> 💡NOTE: At this time, Carthage does not provide a way to build only specific repository subcomponents (or equivalent of CocoaPods's subspecs). All components and their dependencies will be built with the above command. However, you don't need to copy frameworks you aren't using into your project. For instance, if you aren't using `SDWebImageMapKit`, feel free to delete that framework from the Carthage Build directory after `carthage update` completes.
 
-> NOTE: [Apple requires SDWebImage contains signatures](https://developer.apple.com/support/third-party-SDK-requirements/). So, by default the `carthage build` binary framework does not do codesign, this will cause validation error. You can sign yourself with the Apple Developer Program identity, or using the binary framework:
+> 💡NOTE: [Apple requires SDWebImage contains signatures](https://developer.apple.com/support/third-party-SDK-requirements/). So, by default the `carthage build` binary framework does not do codesign, this will cause validation error. You can sign yourself with the Apple Developer Program identity, or using the binary framework:
 
 ```
 binary "https://github.com/SDWebImage/SDWebImage/raw/master/SDWebImage.json"
@@ -312,6 +320,8 @@ Drag the unzipped `.xcframework` into your Xcode Project's Framework tab.
 + Verify signature of binary XCFramework
 
 From Xcode 15 Apple will verify the signature of binary XCFramework, to avoid supply chain attack.
+
+The fingerprint currently should be `FC 3B 10 13 86 34 4C 50 DB 70 2A 9A D1 01 6F B5 1A 3E CC 8B 9D A9 B7 AE 47 A0 48 D4 D0 63 39 83`
 
 The certificate is stored in the repo [here](https://github.com/SDWebImage/SDWebImage/blob/master/Certificate/SDWebImage%20Signing%20Certificate.cer)
 

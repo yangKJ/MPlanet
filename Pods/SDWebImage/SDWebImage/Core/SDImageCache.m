@@ -279,7 +279,11 @@ static NSString * _defaultDiskCacheDirectory;
                     format = [SDImageCoderHelper CGImageContainsAlpha:image.CGImage] ? SDImageFormatPNG : SDImageFormatJPEG;
                 }
             }
-            NSData *encodedData = [[SDImageCodersManager sharedManager] encodedDataWithImage:image format:format options:context[SDWebImageContextImageEncodeOptions]];
+            id<SDImageCoder> imageCoder = context[SDWebImageContextImageCoder];
+            if (!imageCoder) {
+                imageCoder = [SDImageCodersManager sharedManager];
+            }
+            NSData *encodedData = [imageCoder encodedDataWithImage:image format:format options:context[SDWebImageContextImageEncodeOptions]];
             dispatch_async(self.ioQueue, ^{
                 [self _storeImageDataToDisk:encodedData forKey:key];
                 [self _archivedDataWithImage:image forKey:key];
@@ -619,7 +623,8 @@ static NSString * _defaultDiskCacheDirectory;
     
     // First check the in-memory cache...
     UIImage *image;
-    if (queryCacheType != SDImageCacheTypeDisk) {
+    BOOL shouldQueryDiskOnly = (queryCacheType == SDImageCacheTypeDisk);
+    if (!shouldQueryDiskOnly) {
         image = [self imageFromMemoryCacheForKey:key];
     }
     
@@ -683,14 +688,19 @@ static NSString * _defaultDiskCacheDirectory;
             // the image is from in-memory cache, but need image data
             diskImage = image;
         } else if (diskData) {
+            // the image memory cache miss, need image data and image
             BOOL shouldCacheToMemory = YES;
             if (context[SDWebImageContextStoreCacheType]) {
                 SDImageCacheType cacheType = [context[SDWebImageContextStoreCacheType] integerValue];
                 shouldCacheToMemory = (cacheType == SDImageCacheTypeAll || cacheType == SDImageCacheTypeMemory);
             }
-            // Special case: If user query image in list for the same URL, to avoid decode and write **same** image object into disk cache multiple times, we query and check memory cache here again.
-            if (shouldCacheToMemory && self.config.shouldCacheImagesInMemory) {
-                diskImage = [self.memoryCache objectForKey:key];
+            // Special case: If user query image in list for the same URL, to avoid decode and write **same** image object into disk cache multiple times, we query and check memory cache here again. See: #3523
+            // This because disk operation can be async, previous sync check of `memory cache miss`, does not gurantee current check of `memory cache miss`
+            if (!shouldQueryDiskSync) {
+                // First check the in-memory cache...
+                if (!shouldQueryDiskOnly) {
+                    diskImage = [self imageFromMemoryCacheForKey:key];
+                }
             }
             // decode image data only if in-memory cache missed
             if (!diskImage) {

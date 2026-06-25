@@ -2,16 +2,16 @@
   "name": "ProductLib",
   "version": "0.1.0",
   "summary": "A short description of ProductLib.",
-  "homepage": "https://github.com/Condy/ProductLib",
+  "homepage": "https://github.com/yangKJ/ProductLib",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "Condy": "yangkj310@gmail.com"
+    "yangKJ": "your_email@example.com"
   },
   "source": {
-    "git": "https://github.com/Condy/ProductLib.git",
+    "git": "https://github.com/yangKJ/ProductLib.git",
     "tag": "0.1.0"
   },
   "platforms": {

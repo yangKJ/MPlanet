@@ -10,6 +10,9 @@ import SnapKit
 
 open class BaseView: UIView {
     
+    /// The part beyond the parent view also responds to click events.
+    public var exceededClickAreaAnswer: Bool = false
+    
     public convenience init(width: CGFloat) {
         self.init(frame: CGRect(x: 0, y: 0, width: width, height: 0))
         snp.makeConstraints { (make) in
@@ -40,6 +43,22 @@ open class BaseView: UIView {
     
     public func getCenter() -> CGPoint {
         return convert(center, from: superview)
+    }
+    
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if !exceededClickAreaAnswer {
+            return super.hitTest(point, with: event)
+        }
+        guard isUserInteractionEnabled && !isHidden && alpha > 0.01 else {
+            return nil
+        }
+        for view in subviews.reversed() {
+            let pointInSubViewSystem = convert(point, to: view)
+            if view.bounds.contains(pointInSubViewSystem) {
+                return view.hitTest(pointInSubViewSystem, with: event)
+            }
+        }
+        return super.hitTest(point, with: event)
     }
 }
 

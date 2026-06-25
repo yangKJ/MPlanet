@@ -1,0 +1,45 @@
+{
+    "code": "200",
+    "message": "成功",
+    "data": [{
+        "id": 1,
+        "title": "流行钢琴入门",
+        "imagePath": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+        "author": "小糖老师",
+        "playCount": 12580,
+        "rank": 1,
+        "sort": 0
+    }, {
+        "id": 2,
+        "title": "古典吉他名曲解析",
+        "imagePath": "https://avatars.githubusercontent.com/u/17396101?v=4",
+        "author": "老周说琴",
+        "playCount": 9802,
+        "rank": 2,
+        "sort": 1
+    }, {
+        "id": 3,
+        "title": "电子音乐制作教程",
+        "imagePath": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/mac1.png",
+        "author": "DJ小宇",
+        "playCount": 7621,
+        "rank": 3,
+        "sort": 2
+    }, {
+        "id": 4,
+        "title": "声乐发声基础",
+        "imagePath": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+        "author": "糖糖说唱",
+        "playCount": 5430,
+        "rank": 4,
+        "sort": 3
+    }, {
+        "id": 5,
+        "title": "贝斯节奏律动",
+        "imagePath": "https://raw.githubusercontent.com/yangKJ/Harbeth/master/Screenshot/launch.jpeg",
+        "author": "Funky Boy",
+        "playCount": 3210,
+        "rank": 5,
+        "sort": 4
+    }]
+}

@@ -7,6 +7,7 @@
 
 import Foundation
 import Mediator
+import ProductLib
 
 /// App功能标识
 public enum FunctionType: String {
@@ -16,7 +17,7 @@ public enum FunctionType: String {
 extension FunctionType {
     
     @discardableResult
-    public func goto(from viewController: UIViewController? = nil, additional: Any? = nil, logined: Bool = false) -> Bool {
+    public func goto(from viewController: UIViewController? = nil, additional: Any? = nil) -> Bool {
         switch self {
         case .banner_detail:
             let params = additional as? [String: Any]
@@ -27,12 +28,14 @@ extension FunctionType {
         }
         return false
     }
-    
-    func push(from viewController: UIViewController?, vc: UIViewController?) -> Bool {
+}
+
+extension FunctionType {
+    private func push(from viewController: UIViewController?, vc: UIViewController?) -> Bool {
         guard let vc = vc else {
             return false
         }
-        let viewController = viewController ?? Ces.topViewController
+        let viewController = viewController ?? UIViewController.fy.currentViewController()
         viewController?.navigationController?.pushViewController(vc, animated: true)
         return true
     }

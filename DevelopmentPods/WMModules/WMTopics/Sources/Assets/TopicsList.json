@@ -1,0 +1,128 @@
+{
+    "code": 200,
+    "message": "成功",
+    "data": [
+        {
+            "id": 1,
+            "userId": 1001,
+            "username": "钢琴小王子",
+            "userAvatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "title": "学钢琴三个月的心路历程",
+            "content": "从零基础到现在能弹《致爱丽丝》，分享我的学习方法和踩过的坑：1）节拍器永远是第一位 2）分手练比合手练更高效 3）每天 30 分钟比周末突击 6 小时更好。",
+            "imageUrls": [
+                "https://picsum.photos/400/300?random=1",
+                "https://picsum.photos/400/300?random=2"
+            ],
+            "likeCount": 128,
+            "commentCount": 23,
+            "createTime": "10 分钟前"
+        },
+        {
+            "id": 2,
+            "userId": 1002,
+            "username": "吉他老张",
+            "userAvatar": "https://i.pravatar.cc/150?u=guitar",
+            "title": "新手必看：吉他调弦的标准方法",
+            "content": "A=440Hz 基准，六弦 E2 A2 D3 G3 B3 E4，用电子调音器最准。手动调弦口诀：6 5 4 3 2 1，从最粗弦到最细弦。",
+            "imageUrls": [
+                "https://picsum.photos/400/300?random=3"
+            ],
+            "likeCount": 1024,
+            "commentCount": 86,
+            "createTime": "1 小时前"
+        },
+        {
+            "id": 3,
+            "userId": 1003,
+            "username": "编曲达人小宇",
+            "userAvatar": "https://i.pravatar.cc/150?u=mix",
+            "title": "周末编了一首 Lo-fi 风格的曲子",
+            "content": "用到的和弦走向是 ii-V-I，副歌用了 9 和弦增加色彩。分享工程文件给大家参考，欢迎一起交流。",
+            "imageUrls": [
+                "https://picsum.photos/400/300?random=4",
+                "https://picsum.photos/400/300?random=5",
+                "https://picsum.photos/400/300?random=6"
+            ],
+            "likeCount": 512,
+            "commentCount": 42,
+            "createTime": "3 小时前"
+        },
+        {
+            "id": 4,
+            "userId": 1004,
+            "username": "声乐糖糖",
+            "userAvatar": "https://i.pravatar.cc/150?u=voice",
+            "title": "发声练习三大基础",
+            "content": "腹式呼吸、气息控制、共鸣位置。新同学建议每天 10 分钟基础功，坚持一个月会有明显改善。",
+            "imageUrls": [],
+            "likeCount": 768,
+            "commentCount": 55,
+            "createTime": "今天 09:20"
+        },
+        {
+            "id": 5,
+            "userId": 1005,
+            "username": "小提琴阿狸",
+            "userAvatar": "https://i.pravatar.cc/150?u=violin",
+            "title": "小提琴音准练习心得",
+            "content": "音准不是手指的问题，是耳朵的问题。要先在脑中建立准确的音高概念，再让手指去找。每天练空弦 G、D、A、E 半小时。",
+            "imageUrls": [
+                "https://picsum.photos/400/300?random=7",
+                "https://picsum.photos/400/300?random=8",
+                "https://picsum.photos/400/300?random=9",
+                "https://picsum.photos/400/300?random=10"
+            ],
+            "likeCount": 256,
+            "commentCount": 31,
+            "createTime": "昨天 22:15"
+        },
+        {
+            "id": 6,
+            "userId": 1006,
+            "username": "鼓手阿伦",
+            "userAvatar": "https://i.pravatar.cc/150?u=drum",
+            "title": "架子鼓基本功 - 单跳双跳",
+            "content": "初学者建议每天 30 分钟基础练习：单跳 8 分音符 4 拍 → 双跳 16 分音符。手腕放松，用手指控制不要用整条手臂。",
+            "imageUrls": [
+                "https://picsum.photos/400/300?random=11"
+            ],
+            "likeCount": 384,
+            "commentCount": 28,
+            "createTime": "昨天 18:30"
+        },
+        {
+            "id": 7,
+            "userId": 1007,
+            "username": "贝斯阿坤",
+            "userAvatar": "https://i.pravatar.cc/150?u=bass",
+            "title": "贝斯 Slap 技巧入门",
+            "content": "Slap 不是越响越好，重点是颗粒度和动态。建议先从 60 bpm 练起，一根弦一根弦地抠。",
+            "imageUrls": [
+                "https://picsum.photos/400/300?random=12",
+                "https://picsum.photos/400/300?random=13"
+            ],
+            "likeCount": 196,
+            "commentCount": 15,
+            "createTime": "昨天 14:00"
+        },
+        {
+            "id": 8,
+            "userId": 1008,
+            "username": "作曲小诺",
+            "userAvatar": "https://i.pravatar.cc/150?u=song",
+            "title": "如何写出一段抓人的副歌旋律？",
+            "content": "副歌的核心是「记忆点」：1）音程跳跃要明显 2）重复 motif 强化印象 3）最高音放在副歌强拍。",
+            "imageUrls": [
+                "https://picsum.photos/400/300?random=14",
+                "https://picsum.photos/400/300?random=15",
+                "https://picsum.photos/400/300?random=16",
+                "https://picsum.photos/400/300?random=17",
+                "https://picsum.photos/400/300?random=18",
+                "https://picsum.photos/400/300?random=19"
+            ],
+            "likeCount": 888,
+            "commentCount": 67,
+            "createTime": "前天 20:45"
+        }
+    ]
+}

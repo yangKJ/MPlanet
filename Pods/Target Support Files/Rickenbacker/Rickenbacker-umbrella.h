@@ -10,9 +10,6 @@
 #endif
 #endif
 
-#import "Rickenbacker.h"
-#import "__objc_mediator.h"
-#import "__objc_msgSend.h"
 
 FOUNDATION_EXPORT double RickenbackerVersionNumber;
 FOUNDATION_EXPORT const unsigned char RickenbackerVersionString[];

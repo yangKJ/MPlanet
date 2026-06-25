@@ -9,6 +9,8 @@
 #import "UIViewController+HBD.h"
 #import "HBDNavigationBar.h"
 
+#define hairlineWidth (1.f/[UIScreen mainScreen].scale)
+
 BOOL isImageEqual(UIImage *image1, UIImage *image2) {
     if (image1 == image2) {
         return YES;
@@ -663,26 +665,16 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (CGRect)fakeBarFrameForViewController:(UIViewController *)vc {
-    UIView *back = self.navigationBar.subviews[0];
-    CGRect frame = [self.navigationBar convertRect:back.frame toView:vc.view];
-    frame.origin.x = 0;
-    if ((vc.edgesForExtendedLayout & UIRectEdgeTop) == 0) {
-        frame.origin.y = -frame.size.height;
+    CGFloat height = self.navigationBar.frame.size.height + self.navigationBar.frame.origin.y;
+    if (vc.view.frame.size.height == self.view.frame.size.height) {
+        return CGRectMake(0, 0, self.navigationBar.frame.size.width, height);
+    }else{
+        return CGRectMake(0, -height, self.navigationBar.frame.size.width, height);
     }
-
-    // fix issue for pushed to UIViewController whose root view is UIScrollView.
-    if ([vc.view isKindOfClass:[UIScrollView class]]) {
-        UIScrollView *scrollView = (UIScrollView *) vc.view;
-        scrollView.clipsToBounds = NO;
-        if (scrollView.contentOffset.y == 0) {
-            frame.origin.y = -frame.size.height;
-        }
-    }
-    return frame;
 }
 
 - (CGRect)fakeShadowFrameWithBarFrame:(CGRect)frame {
-    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - 0.5, frame.size.width, 0.5);
+    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - hairlineWidth, frame.size.width, hairlineWidth);
 }
 
 @end

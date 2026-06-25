@@ -24,14 +24,31 @@ public extension BoxWrapper where Base: UIColor {
         return UIColor(hex: "#82C87C")
     }
     
-    /// 背景色
-    static var background: UIColor {
-        return UIColor.white
-    }
-    
     /// 标题颜色
     static var title: UIColor {
-        return UIColor.black
+        return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    }
+    
+    /// 背景色
+    static var background: UIColor {
+        return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    /// 全局背景灰色
+    static var backgroundGray: UIColor {
+        return UIColor(hex: "#F7F7F7")
+    }
+    
+    static var navBarTitle: UIColor {
+        return UIColor(hex: "#333333")
+    }
+    
+    static var navBarItem: UIColor {
+        return UIColor(hex: "#333333")
+    }
+    
+    static var placeholder: UIColor {
+        UIColor(hex: "#CCCCCC")
     }
     
     /// 副标题颜色
@@ -42,6 +59,14 @@ public extension BoxWrapper where Base: UIColor {
     /// 线条颜色
     static var line: UIColor {
         return UIColor(hex: "#EFEFEF")
+    }
+    
+    static var darkLine: UIColor {
+        return UIColor(hex: "#CDCDCD")
+    }
+    
+    static var linkBlue: UIColor {
+        return UIColor(hex: "#578ff9")
     }
     
     static var itemShadowImageColor: UIColor {
@@ -88,8 +113,12 @@ public extension BoxWrapper where Base: UIColor {
         return UIColor.yellow
     }
     
-    static var gray_333333: UIColor {
+    static var black_333333: UIColor {
         UIColor(hex: "#333333")
+    }
+    
+    static var black_666666: UIColor {
+        UIColor(hex: "#666666")
     }
     
     static var gray_F3F3F3: UIColor {
@@ -104,12 +133,13 @@ public extension BoxWrapper where Base: UIColor {
         UIColor(hex: "#CCCCCC")
     }
     
-    static var gray_666666: UIColor {
-        UIColor(hex: "#666666")
-    }
-    
     static var gray_999999: UIColor {
         UIColor(hex: "#999999")
+    }
+
+    /// 美化：次级灰，比 gray_999999 更柔的副文本色，用于时间戳/低优先级文案
+    static var gray_B0B0B0: UIColor {
+        UIColor(hex: "#B0B0B0")
     }
     
     /// 青蓝
@@ -127,5 +157,9 @@ public extension BoxWrapper where Base: UIColor {
     /// 浅红
     static var lightRed: UIColor {
         UIColor(hex: "#FA6D5B")
+    }
+    
+    static var blue_1687FF: UIColor {
+        UIColor(hex: "#1687FF")
     }
 }

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Mediator'
-  s.version          = '0.1.0'
+  s.version          = '1.0.0'
   s.summary          = 'A short description of Mediator.'
   
   # This description is used to generate tags and improve search results.
@@ -17,20 +17,16 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   
-  s.homepage         = 'https://github.com/Condy/Mediator'
+  s.homepage         = 'https://github.com/yangKJ/Mediator'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
-  s.source           = { :git => 'https://github.com/Condy/Mediator.git', :tag => s.version.to_s }
+  s.author           = { 'yangKJ' => 'your_email@example.com' }
+  s.source           = { :git => 'https://github.com/yangKJ/Mediator.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   
   s.ios.deployment_target = '10.0'
   s.swift_version    = '5.0'
   s.requires_arc     = true
   s.static_framework = true
-  
-  s.dependency 'Rickenbacker/Mediator'
-  
-  s.dependency 'HandyJSON'
   
   s.source_files = 'Mediator/Classes/**/*'
   

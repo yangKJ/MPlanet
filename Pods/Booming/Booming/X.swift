@@ -75,6 +75,9 @@ public struct X {
     }
     
     public static func toJSON(form value: Any, prettyPrint: Bool = false) -> String? {
+        if let data = value as? Data {
+            return String(data: data, encoding: .utf8)
+        }
         guard JSONSerialization.isValidJSONObject(value) else {
             return nil
         }
@@ -85,7 +88,7 @@ public struct X {
             jsonData = try? JSONSerialization.data(withJSONObject: value, options: [])
         }
         guard let data = jsonData else { return nil }
-        return String(data: data ,encoding: .utf8)
+        return String(data: data, encoding: .utf8)
     }
     
     public static func toDictionary(form json: String) -> [String : Any]? {
@@ -95,31 +98,5 @@ public struct X {
             return nil
         }
         return result
-    }
-}
-
-// MARK: - HUD
-extension X {
-    /// 移除窗口所有HUD
-    public static func removeAllAtLevelStatusBarWindow() {
-        SharedDriver.shared.removeAllAtLevelStatusBarWindow()
-    }
-    
-    /// 移除所有加载HUD
-    public static func removeLoadingHUDs() {
-        SharedDriver.shared.removeLoadingHUDs()
-    }
-    
-    public static func readHUD(key: String) -> LevelStatusBarWindowController? {
-        SharedDriver.shared.readHUD(key: key)
-    }
-    
-    public static func saveHUD(key: String, viewController: LevelStatusBarWindowController) {
-        SharedDriver.shared.saveHUD(key: key, viewController: viewController)
-    }
-    
-    @discardableResult
-    public static func removeHUD(key: String?) -> LevelStatusBarWindowController? {
-        SharedDriver.shared.removeHUD(key: key)
     }
 }

@@ -35,9 +35,9 @@ extension Environment {
     public static var host: String {
         switch environment {
         case .develop:
-            return "https://www.httpbin.org"
-        case .release:
             return "https://api.github.com"
+        case .release:
+            return "https://www.httpbin.org"
         }
     }
 }

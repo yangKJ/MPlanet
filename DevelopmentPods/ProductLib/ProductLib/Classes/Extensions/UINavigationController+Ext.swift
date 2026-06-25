@@ -41,44 +41,55 @@ extension BoxWrapper where Base: UINavigationController {
         CATransaction.commit()
     }
     
+    /// Push to view controller and replace the last `replaceCount` view controller.
+    /// - Parameters:
+    ///   - controller: Push to view controller.
+    ///   - replaceCount: The number of replacements, `Int.max` replace all.
+    ///   - animated: Whether to turn on the animation.
+    public func pushViewControllerAndReplace(_ controller: UIViewController, replaceCount: Int, animated: Bool) {
+        if replaceCount == Int.max {
+            base.setViewControllers([controller], animated: animated)
+        } else {
+            var cons = base.viewControllers
+            let count = min(cons.count, replaceCount)
+            cons.removeLast(count)
+            cons.append(controller)
+            base.setViewControllers(cons, animated: animated)
+        }
+    }
+    
     /// Push to view controller and remove the `removeType` controller.
     /// - Parameters:
     ///   - controller: Push to view controller.
     ///   - removeType: Controllers to be removed.
     ///   - animated: Whether to turn on the animation.
     public func pushViewController(_ controller: UIViewController, removeType: UIViewController.Type, animated: Bool) {
-        var cons = base.viewControllers
-        var i = 0
-        while i < cons.count {
-            if cons.indices.contains(i), type(of: cons[i]) == removeType {
-                cons.remove(at: i)
-                i -= 1
-            }
-            i += 1
-        }
-        cons.append(controller)
-        base.setViewControllers(cons, animated: animated)
+        pushViewController(controller, removeTypes: [removeType], animated: animated)
     }
     
-    /// Push to view controller and remove some the `removeTypes` controller.
+    /// Push to view controller and remove some the `removeTypes` controller, and add some middle controllers.
     /// - Parameters:
     ///   - controller: Push to view controller.
+    ///   - middleControllers: Need add middle view controllers.
     ///   - removeTypes: Controllers to be removed.
     ///   - animated: Whether to turn on the animation.
-    public func pushViewController(_ controller: UIViewController, removeTypes: [UIViewController.Type], animated: Bool) {
-        var cons = base.viewControllers
+    public func pushViewController(_ controller: UIViewController, middleControllers: [UIViewController]? = nil, removeTypes: [UIViewController.Type], animated: Bool) {
+        var controllers = base.viewControllers
         var i = 0
-        while i < cons.count {
-            if cons.indices.contains(i), removeTypes.contains(where: { removeType in
-                type(of: cons[i]) == removeType
+        while i < controllers.count {
+            if controllers.indices.contains(i), removeTypes.contains(where: {
+                type(of: controllers[i]) == $0
             }) {
-                cons.remove(at: i)
+                controllers.remove(at: i)
                 i -= 1
             }
             i += 1
         }
-        cons.append(controller)
-        base.setViewControllers(cons, animated: animated)
+        if let middleControllers = middleControllers {
+            controllers += middleControllers
+        }
+        controllers.append(controller)
+        base.setViewControllers(controllers, animated: animated)
     }
     
     public func popToPreviousViewController(of previousTypes: [UIViewController.Type], animated: Bool) {
@@ -86,8 +97,8 @@ extension BoxWrapper where Base: UINavigationController {
         var i = 0
         var foundIndex = NSNotFound
         while i < cons.count {
-            if cons.indices.contains(i), previousTypes.contains(where: { previousType in
-                type(of: cons[i]) == previousType
+            if cons.indices.contains(i), previousTypes.contains(where: {
+                type(of: cons[i]) == $0
             }) {
                 foundIndex = i
                 break

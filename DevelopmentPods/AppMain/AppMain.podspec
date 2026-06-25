@@ -17,10 +17,10 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   
-  s.homepage         = 'https://github.com/Condy/AppMain'
+  s.homepage         = 'https://github.com/yangKJ/AppMain'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
-  s.source           = { :git => 'https://github.com/Condy/AppMain.git', :tag => s.version.to_s }
+  s.author           = { 'yangKJ' => 'your_email@example.com' }
+  s.source           = { :git => 'https://github.com/yangKJ/AppMain.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   
   s.ios.deployment_target = '10.0'
@@ -34,10 +34,10 @@ Pod::Spec.new do |s|
   #s.dependency 'RAMAnimatedTabBarController' # TabBarController组件，https://github.com/Ramotion/animated-tab-bar
   s.dependency 'ESTabBarController-swift' # TabBarController组件，https://github.com/eggswift/ESTabBarController
   
-  s.subspec 'Resources' do |xx|
-    xx.resource_bundles = { 'AppMain' => ['AppMain/Classes/*.xcassets'] }
-  end
-  
   s.source_files = 'AppMain/Classes/*.swift'
+  
+  s.subspec 'Resources' do |xx|
+    xx.resource_bundles = { s.name => ['AppMain/Classes/*.xcassets'] }
+  end
   
 end

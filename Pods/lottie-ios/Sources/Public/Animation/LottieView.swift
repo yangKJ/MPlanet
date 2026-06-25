@@ -7,14 +7,13 @@ import SwiftUI
 // MARK: - LottieView
 
 /// A wrapper which exposes Lottie's `LottieAnimationView` to SwiftUI
-@available(iOS 13.0, tvOS 13.0, macOS 10.15, *)
 public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
 
   // MARK: Lifecycle
 
   /// Creates a `LottieView` that displays the given animation
   public init(animation: LottieAnimation?) where Placeholder == EmptyView {
-    _animationSource = State(initialValue: animation.map(LottieAnimationSource.lottieAnimation))
+    localAnimation = animation.map(LottieAnimationSource.lottieAnimation)
     placeholder = nil
   }
 
@@ -29,7 +28,7 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
   /// }
   /// ```
   public init(dotLottieFile: DotLottieFile?) where Placeholder == EmptyView {
-    _animationSource = State(initialValue: dotLottieFile.map(LottieAnimationSource.dotLottieFile))
+    localAnimation = dotLottieFile.map(LottieAnimationSource.dotLottieFile)
     placeholder = nil
   }
 
@@ -107,9 +106,9 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
     _ loadAnimation: @escaping () async throws -> LottieAnimationSource?,
     @ViewBuilder placeholder: @escaping () -> Placeholder)
   {
+    localAnimation = nil
     self.loadAnimation = loadAnimation
     self.placeholder = placeholder
-    _animationSource = State(initialValue: nil)
   }
 
   // MARK: Public
@@ -126,7 +125,7 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
     }
     .sizing(sizing)
     .configure { context in
-      applyCurrentAnimationConfiguration(to: context.view)
+      applyCurrentAnimationConfiguration(to: context.view, in: context.container)
     }
     .configurations(configurations)
     .opacity(animationSource == nil ? 0 : 1)
@@ -142,9 +141,42 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
     }
   }
 
+  /// Returns a copy of this `LottieView` updated to have the specific configuration property
+  /// applied to its represented `LottieAnimationView` whenever it is updated via the `updateUIView(...)`
+  /// or `updateNSView(...)` methods.
+  ///
+  /// - note: This configuration will be applied on every SwiftUI render pass.
+  ///         Be wary of applying heavy side-effects as configuration values.
+  public func configure<Property>(
+    _ property: ReferenceWritableKeyPath<LottieAnimationView, Property>,
+    to value: Property)
+    -> Self
+  {
+    configure { $0[keyPath: property] = value }
+  }
+
+  /// Returns a copy of this `LottieView` updated to have the specific configuration property
+  /// applied to its represented `LottieAnimationView` whenever it is updated via the `updateUIView(...)`
+  /// or `updateNSView(...)` methods.
+  ///
+  /// - note: If the `value` is already the currently-applied configuration value, it won't be applied
+  public func configure<Property: Equatable>(
+    _ property: ReferenceWritableKeyPath<LottieAnimationView, Property>,
+    to value: Property)
+    -> Self
+  {
+    configure {
+      guard $0[keyPath: property] != value else { return }
+      $0[keyPath: property] = value
+    }
+  }
+
   /// Returns a copy of this `LottieView` updated to have the given closure applied to its
   /// represented `LottieAnimationView` whenever it is updated via the `updateUIView(…)`
   /// or `updateNSView(…)` method.
+  ///
+  /// - note: This configuration closure will be executed on every SwiftUI render pass.
+  ///         Be wary of applying heavy side-effects inside it.
   public func configure(_ configure: @escaping (LottieAnimationView) -> Void) -> Self {
     var copy = self
     copy.configurations.append { context in
@@ -153,11 +185,19 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
     return copy
   }
 
-  /// Returns a copy of this view that can be resized by scaling its animation to fit the size
-  /// offered by its parent.
+  /// Returns a copy of this view that can be resized by scaling its animation
+  /// to always fit the size offered by its parent.
   public func resizable() -> Self {
     var copy = self
     copy.sizing = .proposed
+    return copy
+  }
+
+  /// Returns a copy of this view that adopts the intrinsic size of the animation,
+  /// up to the proposed size.
+  public func intrinsicSize() -> Self {
+    var copy = self
+    copy.sizing = .intrinsic
     return copy
   }
 
@@ -192,7 +232,7 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
     playbackMode(.playing(.fromProgress(nil, toProgress: 1, loopMode: loopMode)))
   }
 
-  // Returns a copy of this view playing once from the current frame to the end frame
+  /// Returns a copy of this view playing once from the current frame to the end frame
   public func playing() -> Self {
     playbackMode(.playing(.fromProgress(nil, toProgress: 1, loopMode: .playOnce)))
   }
@@ -454,7 +494,9 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
 
   // MARK: Private
 
-  @State private var animationSource: LottieAnimationSource?
+  @State private var remoteAnimation: LottieAnimationSource?
+
+  private let localAnimation: LottieAnimationSource?
   private var playbackMode: LottiePlaybackMode?
   private var animationSpeed: Double?
   private var reloadAnimationTrigger: AnyEquatable?
@@ -464,9 +506,9 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
   private var showPlaceholderWhileReloading = false
   private var textProvider: AnimationKeypathTextProvider = DefaultTextProvider()
   private var fontProvider: AnimationFontProvider = DefaultFontProvider()
-  private var configuration: LottieConfiguration = .shared
-  private var dotLottieConfigurationComponents: DotLottieConfigurationComponents = .imageProvider
-  private var logger: LottieLogger = .shared
+  private var configuration = LottieConfiguration.shared
+  private var dotLottieConfigurationComponents = DotLottieConfigurationComponents.imageProvider
+  private var logger = LottieLogger.shared
   private var sizing = SwiftUIMeasurementContainerStrategy.automatic
   private let placeholder: (() -> Placeholder)?
 
@@ -474,12 +516,16 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
     imageProvider: AnimationImageProvider,
     imageProvidersAreEqual: (AnimationImageProvider, AnimationImageProvider) -> Bool)?
 
+  private var animationSource: LottieAnimationSource? {
+    localAnimation ?? remoteAnimation
+  }
+
   private func loadAnimationIfNecessary() {
     guard let loadAnimation else { return }
 
     Task {
       do {
-        animationSource = try await loadAnimation()
+        remoteAnimation = try await loadAnimation()
       } catch {
         logger.warn("Failed to load asynchronous Lottie animation with error: \(error)")
       }
@@ -490,14 +536,17 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
     guard loadAnimation != nil else { return }
 
     if showPlaceholderWhileReloading {
-      animationSource = nil
+      remoteAnimation = nil
     }
 
     loadAnimationIfNecessary()
   }
 
   /// Applies playback configuration for the current animation to the `LottieAnimationView`
-  private func applyCurrentAnimationConfiguration(to view: LottieAnimationView) {
+  private func applyCurrentAnimationConfiguration(
+    to view: LottieAnimationView,
+    in container: SwiftUIMeasurementContainer<LottieAnimationView>)
+  {
     guard let animationSource else { return }
     var imageProviderConfiguration = imageProviderConfiguration
     var playbackMode = playbackMode
@@ -539,9 +588,13 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
     if animationSource.animation !== view.animation {
       view.loadAnimation(animationSource)
       animationDidLoad?(animationSource)
+
+      // Invalidate the intrinsic size of the SwiftUI measurement container,
+      // since any cached measurements will be out of date after updating the animation.
+      container.invalidateIntrinsicContentSize()
     }
 
-    if 
+    if
       let playbackMode,
       playbackMode != view.currentPlaybackMode
     {
@@ -564,7 +617,6 @@ public struct LottieView<Placeholder: View>: UIViewConfiguringSwiftUIView {
   }
 }
 
-@available(iOS 13.0, tvOS 13.0, macOS 10.15, *)
 extension View {
 
   /// The `.overlay` modifier that uses a `ViewBuilder` is available in iOS 15+, this helper function helps us to use the same API in older OSs

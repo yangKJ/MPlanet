@@ -17,15 +17,20 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   
-  s.homepage         = 'https://github.com/Condy/Database'
+  s.homepage         = 'https://github.com/yangKJ/Database'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Condy' => 'yangkj310@gmail.com' }
-  s.source           = { :git => 'https://github.com/Condy/Database.git', :tag => s.version.to_s }
+  s.author           = { 'yangKJ' => 'your_email@example.com' }
+  s.source           = { :git => 'https://github.com/yangKJ/Database.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   
   s.ios.deployment_target = '9.0'
   
-  s.source_files = 'Database/Classes/*.swift'
   s.dependency 'WCDB.swift' ## 数据库，https://github.com/Tencent/wcdb
+
+  s.source_files = 'Database/Classes/*.swift'
+  
+  s.subspec 'Resources' do |xx|
+    xx.resource_bundles = { s.name => [ 'Tables/**/*' ] }
+  end
   
 end

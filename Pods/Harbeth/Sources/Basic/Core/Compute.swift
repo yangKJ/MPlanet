@@ -81,8 +81,10 @@ extension C7FilterProtocol {
     }
     
     private func encoding(computeEncoder: MTLComputeCommandEncoder, pipelineState: MTLComputePipelineState, textures: [MTLTexture]) -> MTLTexture {
+        if case .compute(let kernel) = self.modifier {
+            computeEncoder.label = kernel + " encoder"
+        }
         computeEncoder.setComputePipelineState(pipelineState)
-        
         let destTexture = textures[0]
         for (index, texture) in textures.enumerated() {
             computeEncoder.setTexture(texture, index: index)
@@ -93,8 +95,15 @@ extension C7FilterProtocol {
             var factor = self.factors[i]
             computeEncoder.setBytes(&factor, length: size, index: i)
         }
+        /// 配置像素总数参数
+        var index: Int = self.factors.count - 1
+        if self.hasCount {
+            var count = destTexture.width * destTexture.height
+            computeEncoder.setBytes(&count, length: size, index: index)
+            index += 1
+        }
         /// 配置特殊参数非`Float`类型，例如4x4矩阵
-        self.setupSpecialFactors(for: computeEncoder, index: self.factors.count - 1)
+        self.setupSpecialFactors(for: computeEncoder, index: index)
         
         // Too large some Gpus are not supported. Too small gpus have low efficiency
         // 2D texture, depth set to 1

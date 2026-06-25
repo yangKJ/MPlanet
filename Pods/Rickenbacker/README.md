@@ -5,7 +5,7 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Rickenbacker.svg?style=flat&label=CocoaPods&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Rickenbacker)
 [![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)](#installation)
 
-<font color=red>**👌. MVVM + RxSwift + Mediatror + MJRefresh + DZNEmptyDataSet + SkeletonView**</font>
+<font color=red>**👌. MVVM + RxSwift + Mediatror + MJRefresh + DZNEmptyDataSet**</font>
 
 -------
 
@@ -16,39 +16,35 @@ This is a set of infrastructure based on MVVM + RxSwift
 ## Features
 At the moment, the most important features of [Rickenbacker](https://github.com/yangKJ/Rickenbacker) can be summarized as follows:
 
-### Adapter
+### Core
 This module is mainly to encapsulate the base class.
 
-- [BaseViewController](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Adapter/BaseViewController.swift): Support oc base class, public part.
-- [VMScrollViewController](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Adapter/VMScrollViewController.swift): Provide refresh and empty data display support for the list.
-- [VMTableViewController](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Adapter/VMTableViewController.swift): List base class, internally responsive processing.
-- [VMViewController](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Adapter/VMViewController.swift): You need to specify ViewModel or its subclasses as generics.
-- [ViewModel](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Adapter/ViewModel.swift): Basic view model, Subclasses must inherit.
-- [NavigationBarHiddenable](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Adapter/NavigationBarHiddenable.swift): Hide the protocol of NavigationBar.
+- [BasicsViewController](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Core/BasicsViewController.swift): Base class, public part.
+- [VMScrollViewController](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Core/VMScrollViewController.swift): Provide refresh and empty data display support for the list.
+- [VMTableViewController](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Core/VMTableViewController.swift): List base class, internally responsive processing.
+- [VMViewController](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Core/VMViewController.swift): You need to specify ViewModel or its subclasses as generics.
+- [ViewModel](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Core/ViewModel.swift): Basic view model, Subclasses must inherit.
+- [NavigationBarHiddenable](https://github.com/yangKJ/Rickenbacker/blob/master/Sources/Core/NavigationBarHiddenable.swift): Hide the protocol of NavigationBar.
 
-### CatHome
 Resource module, which mainly deals with image resource and text resource reading.
 
 - Read image resource: 
 
 ```
-R.image("base_black_back")
+Res.image("base_black_back")
 ```
 
 - Read text resource: 
 
 ```
-R.text("base_empty_title")
+Res.text("base_empty_title")
 ```
 
 - Read color resource:
 
 ```
-R.color("background")
+Res.color("background")
 ```
-
-### BeeBox
-Mainly collect [RxSwift](https://github.com/ReactiveX/RxSwift) related useful method classes, etc.
 
 ### Mediatror
 
@@ -95,9 +91,6 @@ class SecondTarget: NSObject {
     }
 }
 ```
-
-### HBDNavigationBar
-This module is based on [HBDNavigationBar](https://github.com/listenzz/HBDNavigationBar) secondary encapsulation of the underlying basic Navigation.
 
 ### MJRefresh
 This module is based on the refresh function of [MJRefresh](https://github.com/CoderMJLee/MJRefresh) encapsulated UITableView.
@@ -156,7 +149,7 @@ Test case:
 extension DZNEmptyDataSetViewController: DZNEmptyDataSetable {
     
     func DZNEmptyDataSetImage(scrollView: UIScrollView) -> UIImage {
-        return R.image("base_network_error_black")
+        return Res.image("base_network_error_black")
     }
     
     func DZNEmptyDataSetImageTintColor(scrollView: UIScrollView) -> UIColor? {
@@ -164,11 +157,11 @@ extension DZNEmptyDataSetViewController: DZNEmptyDataSetable {
     }
     
     func DZNEmptyDataSetTitle(scrollView: UIScrollView) -> NSAttributedString? {
-        NSAttributedString(string: R.text("TEXT"))
+        NSAttributedString(string: Res.text("TEXT"))
     }
     
     func DZNEmptyDataSetDescription(scrollView: UIScrollView) -> NSAttributedString? {
-        NSAttributedString(string: R.text("测试网络异常展示"))
+        NSAttributedString(string: Res.text("测试网络异常展示"))
     }
     
     func DZNEmptyDataSetVerticalOffset(scrollView: UIScrollView) -> CGFloat {

@@ -24,7 +24,7 @@
 
 import Foundation
 
-private protocol Lock {
+private protocol Lock: Sendable {
     func lock()
     func unlock()
 }
@@ -50,8 +50,9 @@ extension Lock {
 }
 
 #if canImport(Darwin)
+// Number of Apple engineers who insisted on inspecting this: 5
 /// An `os_unfair_lock` wrapper.
-final class UnfairLock: Lock {
+final class UnfairLock: Lock, @unchecked Sendable {
     private let unfairLock: os_unfair_lock_t
 
     init() {
@@ -80,7 +81,6 @@ extension NSLock: Lock {}
 #endif
 
 /// A thread-safe wrapper around a value.
-@dynamicMemberLookup
 final class Protected<Value> {
     #if canImport(Darwin)
     private let lock = UnfairLock()
@@ -89,7 +89,8 @@ final class Protected<Value> {
     #else
     #error("This platform needs a Lock-conforming type without Foundation.")
     #endif
-    private var value: Value
+
+    private nonisolated(unsafe) var value: Value
 
     init(_ value: Value) {
         self.value = value
@@ -120,16 +121,11 @@ final class Protected<Value> {
     func write(_ value: Value) {
         write { $0 = value }
     }
-
-    subscript<Property>(dynamicMember keyPath: WritableKeyPath<Value, Property>) -> Property {
-        get { lock.around { value[keyPath: keyPath] } }
-        set { lock.around { value[keyPath: keyPath] = newValue } }
-    }
-
-    subscript<Property>(dynamicMember keyPath: KeyPath<Value, Property>) -> Property {
-        lock.around { value[keyPath: keyPath] }
-    }
 }
+
+#if compiler(>=6)
+extension Protected: Sendable {}
+#endif
 
 extension Protected where Value == Request.MutableState {
     /// Attempts to transition to the passed `State`.

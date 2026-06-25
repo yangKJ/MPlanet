@@ -1,20 +1,34 @@
-# Uncomment the next line to define a global platform for your project
+# ============================================================
+# MPlanet Podfile
+# ------------------------------------------------------------
+# 部署目标: iOS 15.0
+# 源仓库:   CocoaPods 官方 CDN (cdn.cocoapods.org)
+#           说明: CI (GitHub Actions) 拉不动清华镜像,已切换到
+#                 官方 CDN 以保证 CI / 国外开发者本地都能 install。
+# ============================================================
 
-#source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git' # 清华镜像源
-source 'https://github.com/CocoaPods/Specs.git'
-#source 'git@github.com:Condy/PrivatePod.git' # 私有索引
+platform :ios, '15.0'
 
-#platform :ios, '10.0' # 这个版本为所有CocoaPods里面`s.ios.deployment_target`支持的最低版本
+source 'https://cdn.cocoapods.org/'
+#source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git' # 国内可改回清华镜像
+#source 'git@github.com:your-username/PrivatePod.git' # 私有索引
+
 inhibit_all_warnings!
 use_frameworks!
 
 def modules_pods
-  
+
   ## 发现模块
   pod 'WMDiscover', :path => 'DevelopmentPods/WMModules/WMDiscover'
+  ## 学习模块
+  pod 'WMLearn', :path => 'DevelopmentPods/WMModules/WMLearn'
+  ## 主题模块
+  pod 'WMTopics', :path => 'DevelopmentPods/WMModules/WMTopics'
+  ## 消息模块
+  pod 'WMChat', :path => 'DevelopmentPods/WMModules/WMChat'
   ## 我的模块
   pod 'WMMine', :path => 'DevelopmentPods/WMModules/WMMine'
-  ## 钱包首页
+  ## 钱包/会员模块（登录后动态插入）
   pod 'WMWallet', :path => 'DevelopmentPods/WMModules/WMWallet'
 end
 
@@ -47,14 +61,14 @@ target 'MainProject_Example' do
   ## 公共部分《项目耦合》
   pod 'FeatBox', :path => 'DevelopmentPods/FeatBox'
   
-  ## 数据库部分
-  pod 'Database', :path => 'DevelopmentPods/Database'
-  
   ## 独立公共控件
-  pod 'CommonView', :path => 'DevelopmentPods/CommonView'
+  pod 'Componets', :path => 'DevelopmentPods/Componets'
   
   ## 百宝箱工具
   pod 'ProductLib', :path => 'DevelopmentPods/ProductLib'
+  
+  ## 网络组件
+  pod 'Networks', :path => 'DevelopmentPods/Networks'
   
   modules_pods
   
@@ -64,7 +78,18 @@ end
 
 target 'MainProject_Tests' do
   inherit! :search_paths
-  
+
+  # 测试需要的依赖(Rx 用于 Once/Relay 等;ProductLib 是主仓 Tests 直接 @testable import 的目标)
+  pod 'RxSwift', '~> 6.9.0'
+  pod 'RxCocoa', '~> 6.9.0'
+
+  # 业务模块挂载:让 Tests/Tests.swift 能 @testable import ProductLib/FeatBox/Mediator
+  pod 'ProductLib',  :path => 'DevelopmentPods/ProductLib'
+  pod 'FeatBox',     :path => 'DevelopmentPods/FeatBox'
+  pod 'Mediator',    :path => 'DevelopmentPods/Mediator'
+  pod 'Networks',    :path => 'DevelopmentPods/Networks'
+  pod 'Componets',   :path => 'DevelopmentPods/Componets'
+  pod 'RootManager', :path => 'DevelopmentPods/RootManager'
 end
 
 $static_framework = ['SnapKit']
@@ -83,9 +108,21 @@ post_install do |installer|
     installer.generated_projects.each do |project|
        project.targets.each do |target|
           target.build_configurations.each do |config|
-              config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
+              config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
           end
        end
+    end
+    ## 强制把 MainProject_Tests 的 deployment target 也升到 15.0,
+    ## 否则 ProductLib/FeatBox 等 iOS 15 的 pod 会编译失败。
+    installer.aggregate_targets.each do |aggregate|
+        aggregate.user_project.targets.each do |target|
+            if target.name == 'MainProject_Tests'
+                target.build_configurations.each do |config|
+                    config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+                end
+            end
+        end
+        aggregate.user_project.save
     end
     ## Fixed read framework library
     ## See: https://juejin.cn/post/7012995777727299591

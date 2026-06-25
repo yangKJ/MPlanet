@@ -1,0 +1,40 @@
+# ============================================================
+# Dependabot: 自动跟踪 GitHub Actions / CocoaPods 依赖更新
+# ============================================================
+version: 2
+
+updates:
+  # ---- GitHub Actions 周更 ----------------------------------------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "dependencies"
+      - "ci"
+
+  # ---- CocoaPods 周更 --------------------------------------------
+  # RxSwift / Moya / Alamofire 当前锁 6.x / 15.x / 5.11,显式 ignore 主版本升级
+  - package-ecosystem: "cocoapods"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "dependencies"
+      - "cocoapods"
+    ignore:
+      # RxSwift 6.x → 7.x 是破坏性升级,先观望
+      - dependency-name: "RxSwift"
+        versions: ["7.x", "8.x"]
+      # Moya 15.x → 16.x 主版本升级
+      - dependency-name: "Moya"
+        versions: ["16.x", "17.x"]
+      # Alamofire 5.x → 6.x 主版本升级
+      - dependency-name: "Alamofire"
+        versions: ["6.x", "7.x"]

@@ -28,6 +28,23 @@ extension UIImage {
 }
 
 extension BoxWrapper where Base: UIImage {
+    /// Create UIImage from color and size.
+    /// - Parameters:
+    ///   - color: image fill color.
+    ///   - size: image size.
+    public static func colorImage(with color: UIColor, size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        color.setFill()
+        UIRectFill(CGRect(origin: .zero, size: size))
+        guard let aCgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
+            return nil
+        }
+        return UIImage.init(cgImage: aCgImage)
+    }
+    
     /// 类似Android中的setColorFilter，可以给图片换颜色。
     /// UI给了一张绿色的图，实际效果却是红色，这时候要么重新换一张红色的图，要么就可以使用这个方法。
     ///
@@ -54,9 +71,12 @@ extension BoxWrapper where Base: UIImage {
         return image
     }
     
-    /// 裁剪透明区域
+    /// 裁剪透明区域(同步版,内部 helper)
     /// - Parameter retainPixel: 保留周边像素
-    public func cropAlpha(retainPixel: Int = 0) -> UIImage {
+    /// - 3000x3000 像素遍历耗时可达数十毫秒,
+    ///   外部调用方应优先使用 `cropAlpha(retainPixel:completion:)` 后台版本,
+    ///   避免在主线程上卡顿。
+    public func cropAlphaSync(retainPixel: Int = 0) -> UIImage {
         guard let cgImage = base.cgImage else {
             return base
         }
@@ -77,9 +97,9 @@ extension BoxWrapper where Base: UIImage {
         guard let ptr = context?.data?.assumingMemoryBound(to: UInt8.self) else {
             return base
         }
-        
+
         context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
-        
+
         var minX = width
         var minY = height
         var maxX: Int = 0
@@ -105,6 +125,26 @@ extension BoxWrapper where Base: UIImage {
         }
         let ret = UIImage(cgImage: croppedImage, scale: base.scale, orientation: base.imageOrientation)
         return ret
+    }
+
+    /// 裁剪透明区域(后台队列异步版本)
+    /// - Parameter retainPixel: 保留周边像素
+    /// - Parameter completion: 结果回调,在主线程触发;
+    ///   若 cgImage 为空或 context 构造失败,回调参数为 `base` 原图。
+    /// - why: 3000x3000 像素双重循环 ~9M 次读,
+    ///   在主线程执行会触发 60Hz 主循环掉帧;
+    ///   `userInitiated` QoS 表示工作应在用户能感知到的延迟窗口内完成,
+    ///   比 `.utility` 更高优先级,但仍不阻塞主线程。
+    public func cropAlpha(retainPixel: Int = 0, completion: @escaping (UIImage) -> Void) {
+        // why: capture 弱引用 base 是值类型语义 (UIImage 是 struct),
+        // 实际不会持有任何引用,这里直接值传递即可。
+        let source = base
+        DispatchQueue.global(qos: .userInitiated).async {
+            let result = source.fy.cropAlphaSync(retainPixel: retainPixel)
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
     }
 }
 

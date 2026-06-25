@@ -3,13 +3,14 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/yangKJ/RxNetworks)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Booming.svg?style=flat&label=Booming&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/Booming)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/RxNetworks.svg?style=flat&label=RxNetworks&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/RxNetworks)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/HollowCodable.svg?style=flat&label=HollowCodable&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/HollowCodable)
 ![Platform](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS-4E4E4E.svg?colorA=28a745)
 
 **[Booming](https://github.com/yangKJ/RxNetworks)** is a base network library for Swift. Developed for Swift 5, it aims to make use of the latest language features. The framework's ultimate goal is to enable easy networking that makes it easy to write well-maintainable code.
 
 **[RxNetworks](https://github.com/yangKJ/RxNetworks)** is a declarative and reactive networking library for Swift.
 
-<font color=red>**🧚. RxSwift + Moya + HandyJSON + Plugins.👒👒👒**</font>
+<font color=red>**🧚. RxSwift + Moya + HandyJSON / Codable + Plugins.👒👒👒**</font>
 
 -------
 
@@ -21,67 +22,77 @@ This is a network api set of infrastructure based on Moya, also support responsi
 At the moment, the most important features of Booming can be summarized as follows:
 
 - [x] Support reactive network requests combined with [RxSwift](https://github.com/ReactiveX/RxSwift).
-- [x] Support for OOP also support POP network requests.
-- [x] Support data parsing with [HandyJSON](https://github.com/alibaba/HandyJSON).
-- [x] Support configuration of general request and path, general parameters, etc.
+- [x] Support for [OOP](https://github.com/yangKJ/RxNetworks/blob/master/Booming/NetworkAPIOO.swift) also support [POP](https://github.com/yangKJ/RxNetworks/blob/master/Booming/NetworkAPI.swift) network requests.
+- [x] Support data parsing with [HandyJSON](https://github.com/alibaba/HandyJSON) and [Codable](https://github.com/yangKJ/HollowCodable).
 - [x] Support simple customization of various network plugins for [Moya](https://github.com/Moya/Moya).
-- [x] Support uploading and downloading files/resources and so on.
+- [x] Support uploading and downloading files or resources [plugin](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkFilesPlugin.swift).
+- [x] Support configuration of general request and path, general parameters, etc.
 - [x] Support for added default plugins with `BoomingSetup.basePlugins`.
-- [x] Support setup authorization certificate with Alamofire [RequestInterceptor](https://github.com/Alamofire/Alamofire/blob/master/Source/Features/RequestInterceptor.swift).
-- [x] Support automatic managed loading plugins hud.
-- [x] Support 10 plugins have been packaged for you to use.
+- [x] Support authorization certificate [plugin](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkAuthenticationPlugin.swift) with Alamofire [RequestInterceptor](https://github.com/Alamofire/Alamofire/blob/master/Source/Features/RequestInterceptor.swift).
+- [x] Support automatic managed [loading](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Huds/NetworkLoadingPlugin.swift) plugins hud.
+- [x] Support token [plugin](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkTokenPlugin.swift) validation and automatically retries new token requests.
+- [x] Support shared [plugin](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkSharedPlugin.swift) that do not request the same network repeatedly.
+- [x] Support separate plugin library, eg: [Loading](https://cocoapods.org/pods/NetworkHudsPlugin) / [AnimatedLoading](https://cocoapods.org/pods/NetworkLottiePlugin) / [Cache](https://cocoapods.org/pods/NetworkCachePlugin).
+- [x] Support 18 plugins have been packaged for you to use.
 
 ### Usages
 How to use [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md).
 
 ```
-TokenAPI.auth.request(complete: { res in
-    switch res {
-    case let .success(json):
-        // do somthing..
-        let model = Deserialized<Model>.toModel(with: json)
-    case let .failure(error):    
-        print(error.localizedDescription)
-    }
-})
-
-or
-
-SharedAPI.userInfo(name: "yangKJ").HTTPRequest(success: { json in
+SharedAPI.userInfo(name: "yangKJ").request(successed: { response in
     // do somthing..
-    let model = Deserialized<Model>.toModel(with: json)
-}, failure: { error in
+}, failed: { error in
     print(error.localizedDescription)
 })
+
+or use async/await with swift 5.5
+
+Task {
+    do {
+        let response = try await LoadingAPI.test2("666").requestAsync()
+        let json = response.bpm.mappedJson
+        // do somthing..
+        let model = LoadingModel.deserialize(from: json, designatedPath: "data")
+    } catch {
+        block(error.localizedDescription)
+    }
+}
 ```
 
 ### Plugins
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/NetworkHudsPlugin.svg?style=flat&label=NetworkHudsPlugin&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/NetworkHudsPlugin)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/NetworkCachePlugin.svg?style=flat&label=NetworkCachePlugin&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/NetworkCachePlugin)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/NetworkLottiePlugin.svg?style=flat&label=NetworkLottiePlugin&colorA=28a745&&colorB=4E4E4E)](https://cocoapods.org/pods/NetworkLottiePlugin)
+
 This module is mainly based on moya package network related plugins.
 
-- At present, 10 plugins have been packaged for you to use:
-    - [Header](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Header/NetworkHttpHeaderPlugin.swift): Network HTTP Header Plugin.
-    - [Cache](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Cache/NetworkCachePlugin.swift): Network Data Cache Plugin.
-    - [Debugging](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Debugging/NetworkDebuggingPlugin.swift): Network printing, built in plugin.
-    - [GZip](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/GZip/NetworkGZipPlugin.swift): Network data unzip plugin.
-    - [Shared](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Shared/NetworkSharedPlugin.swift): Network sharing plugin.
+- At present, 14 plugins have been packaged for you to use:
+    - [Header](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkHttpHeaderPlugin.swift): Network HTTP Header Plugin.
+    - [Authentication](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkAuthenticationPlugin.swift): Interceptor plugin.
+    - [Debugging](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkDebuggingPlugin.swift): Network printing, built in plugin.
+    - [GZip](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkGZipPlugin.swift): Network data unzip plugin.
+    - [Shared](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkSharedPlugin.swift): Network sharing plugin.
+    - [Files](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkFilesPlugin.swift): Network downloading files And Uploading resources plugin.
+    - [Token](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkTokenPlugin.swift): Token verify plugin.
+    - [Ignore](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkIgnorePlugin.swift): Ignore plugin, the purpose is to ignore a plugin in this network request.
+    - [CustomCache](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Features/NetworkCustomCachePlugin.swift): Custom network data caching plugin.
+    - [Cache](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Cache/NetworkCachePlugin.swift): Network data cache plugin.
     - [Lottie](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Lottie/AnimatedLoadingPlugin.swift): Animation loading plugin based on lottie.
-    - [Files](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Files/NetworkFilesPlugin.swift): Network downloading files And Uploading resources plugin.
     
 For ios platform:    
-- [Loading](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Loading/NetworkLoadingPlugin.swift): Loading animation plugin.
-- [Indicator](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Indicator/NetworkIndicatorPlugin.swift): Indicator plugin.
-- [Warning](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Warning/NetworkWarningPlugin.swift): Network failure prompt plugin.
+- [Loading](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Huds/NetworkLoadingPlugin.swift): Loading animation plugin.
+- [Warning](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Huds/NetworkWarningPlugin.swift): Network failure prompt plugin.
+- [Indicator](https://github.com/yangKJ/RxNetworks/blob/master/Plugins/Views/NetworkIndicatorPlugin.swift): Indicator plugin.
 
 If you want to use token plugin and auth plugin you can refer to the project use case.    
-- [Token](https://github.com/yangKJ/RxNetworks/blob/master/RxNetworks/Plugins/Token/TokenPlugin.swift): Token verify plugin.
 - [Auth](https://github.com/yangKJ/RxNetworks/blob/master/RxNetworks/Plugins/Auth/AuthPlugin.swift): Authorization plugin.
 
 🎷 Simple to use, implement the protocol method in the API protocol, and then add the plugin to it:
 
 ```
 var plugins: APIPlugins {
-    let cache = NetworkCachePlugin.init(options: .cacheThenNetwork)
-    let loading = NetworkLoadingPlugin.init(options: .init(delay: 0.5))
+    let cache = NetworkCachePlugin.init()
+    let loading = NetworkLoadingPlugin.init()
     let warning = NetworkWarningPlugin.init()
     let shared = NetworkSharedPlugin.init()
     let gzip = NetworkGZipPlugin.init()
@@ -95,22 +106,74 @@ This module mainly supports responsive data binding.
 ```
 func request(_ count: Int) -> Observable<[CacheModel]> {
     CacheAPI.cache(count).request()
-        .mapHandyJSON(HandyDataModel<[CacheModel]>.self)
+        .deserialized(ApiResponse<[CacheModel]>.self)
         .compactMap { $0.data }
         .observe(on: MainScheduler.instance)
         .catchAndReturn([])
 }
 ```
 
+### HollowCodable
+**[HollowCodable](https://github.com/yangKJ/HollowCodable)** is a codable customization using property wrappers library for Swift.
+
+This module is serialize and deserialize the data, Replace HandyJSON.
+
+🎷 Example of use in conjunction with the network part:
+
+```
+func request(_ count: Int) -> Observable<[LoadingModel]> {
+    CodableAPI.cache(count)
+        .request(callbackQueue: DispatchQueue(label: "request.codable"))
+        .deserialized(ApiResponse<[LoadingModel]>.self)
+        .compactMap({ $0.data })
+        .observe(on: MainScheduler.instance)
+        .catchAndReturn([])
+}
+```
+
+<details>
+  <summary>RxSwift deserialized extension.</summary>
+
+```swift
+public extension Observable where Element: Any {
+    
+    @discardableResult func deserialized<T>(_ type: T.Type) -> Observable<T> where T: HollowCodable {
+        return self.map { element -> T in
+            return try T.deserialize(element: element)
+        }
+    }
+    
+    @discardableResult func deserialized<T>(_ type: [T].Type) -> Observable<[T]> where T: HollowCodable {
+        return self.map { element -> [T] in
+            return try [T].deserialize(element: element)
+        }
+    }
+    
+    @discardableResult func deserialized<T>(_ type: T.Type) -> Observable<ApiResponse<T.DataType>> where T: HasResponsable, T.DataType: HollowCodable {
+        return self.map { element -> ApiResponse<T.DataType> in
+            return try T.deserialize(element: element)
+        }
+    }
+    
+    @discardableResult func deserialized<T>(_ type: T.Type) -> Observable<ApiResponse<[T.DataType.Element]>> where T: HasResponsable, T.DataType: Collection, T.DataType.Element: HollowCodable {
+        return self.map { element -> ApiResponse<[T.DataType.Element]> in
+            return try T.deserialize(element: element)
+        }
+    }
+}
+```
+</details>
+
 ### HandyJSON
-This module is based on `HandyJSON` package network data parsing.
+⚠️ Note: This module is not recommended because it has stopped maintenance.
+
+<details>
+  <summary>This module is based on HandyJSON package network data parsing.</summary>
 
 - Roughly divided into the following 3 parts:
     - [HandyDataModel](https://github.com/yangKJ/RxNetworks/blob/master/Sources/HandyJSON/HandyDataModel.swift): Network outer data model.
     - [HandyJSONError](https://github.com/yangKJ/RxNetworks/blob/master/Sources/HandyJSON/HandyJSONError.swift): Parse error related.
     - [RxHandyJSON](https://github.com/yangKJ/RxNetworks/blob/master/Sources/HandyJSON/RxHandyJSON.swift): HandyJSON data parsing, currently provides two parsing solutions.
-        - **Option 1**: Combine `HandyDataModel` model to parse out data.
-        - **Option 2**: Parse the data of the specified key according to `keyPath`, the precondition is that the json data source must be in the form of a dictionary.
 
 🎷 Example of use in conjunction with the network part:
 
@@ -125,6 +188,7 @@ func request(_ count: Int) -> Driver<[CacheModel]> {
         .asDriver(onErrorJustReturn: [])
 }
 ```
+</details>
 
 ### CocoaPods
 
@@ -143,8 +207,19 @@ platform :ios, '11.0'
 If you want import cache plugin:
 
 ```
-pod 'Booming'
-pod 'Booming/Cache'
+pod 'NetworkCachePlugin'
+```
+
+If you want import loading plugin:
+
+```
+pod 'NetworkHudsPlugin'
+```
+
+If you wang using Codable:
+
+```
+pod 'HollowCodable'
 ```
 
 If responsive networking is required:

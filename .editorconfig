@@ -1,0 +1,27 @@
+# ============================================================
+# EditorConfig: 统一不同编辑器 / IDE 的基础代码风格
+# ============================================================
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# YAML / JSON 缩进改为 2 空格 (生态默认)
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+# Makefile 必须使用 Tab 缩进
+[Makefile]
+indent_style = tab
+
+# Podfile / Fastfile 用 4 空格
+[{Podfile,Podfile.lock,Fastfile,*.rb}]
+indent_size = 4

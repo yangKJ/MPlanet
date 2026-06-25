@@ -1,0 +1,62 @@
+{
+    "code": 200,
+    "message": "成功",
+    "data": [
+        {
+            "rank": 1,
+            "name": "键盘侠小明",
+            "score": 98,
+            "avatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "isCurrentUser": false
+        },
+        {
+            "rank": 2,
+            "name": "吉他阿强",
+            "score": 92,
+            "avatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "isCurrentUser": false
+        },
+        {
+            "rank": 3,
+            "name": "贝斯小李",
+            "score": 87,
+            "avatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "isCurrentUser": false
+        },
+        {
+            "rank": 4,
+            "name": "我",
+            "score": 80,
+            "avatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "isCurrentUser": true
+        },
+        {
+            "rank": 5,
+            "name": "鼓手老王",
+            "score": 75,
+            "avatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "isCurrentUser": false
+        },
+        {
+            "rank": 6,
+            "name": "混音师小张",
+            "score": 70,
+            "avatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "isCurrentUser": false
+        },
+        {
+            "rank": 7,
+            "name": "声乐导师陈",
+            "score": 65,
+            "avatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "isCurrentUser": false
+        },
+        {
+            "rank": 8,
+            "name": "作曲系赵同学",
+            "score": 60,
+            "avatar": "https://avatars.githubusercontent.com/u/17396101?v=4",
+            "isCurrentUser": false
+        }
+    ]
+}

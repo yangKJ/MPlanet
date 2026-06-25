@@ -15,15 +15,15 @@ enum LayerStyleType: Int, Codable, Sendable {
 // MARK: ClassFamily
 
 extension LayerStyleType: ClassFamily {
-  static var discriminator: Discriminator = .type
+  static var discriminator = Discriminator.type
 
   func getType() -> AnyObject.Type {
     switch self {
     case .dropShadow:
-      return DropShadowStyle.self
+      DropShadowStyle.self
     case .unknown:
       // Unsupported
-      return LayerStyle.self
+      LayerStyle.self
     }
   }
 }
