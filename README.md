@@ -31,7 +31,7 @@
 </div>
 
 <p align="center">
-  <a href="#-5-%E5%88%86%E9%92%9F%E8%B7%91%E8%B5%B7%E6%9D%A5"><img src="https://raw.githubusercontent.com/yangKJ/MPlanet/master/Screenshot/WX@2x.png" alt="MPlanet Hero" width=“600"></a>
+  <a href="#-5-%E5%88%86%E9%92%9F%E8%B7%91%E8%B5%B7%E6%9D%A5"><img src="https://raw.githubusercontent.com/yangKJ/MPlanet/master/Screenshot/WX@2x.png" alt="MPlanet Hero" width=“500"></a>
 </p>
 
 <p align="center">
@@ -517,7 +517,7 @@ open MainProject.xcworkspace
 
 > 📷 *截图位:实际 UI / 渲染效果展示。*
 
-| 启动页 | 主界面 | Metal 波纹 | 设置面板 |
+| 启动页 | 主界面 |
 |:---:|:---:|
 | ![launch](https://raw.githubusercontent.com/yangKJ/MPlanet/master/Screenshot/launch_on.png) | ![main](https://raw.githubusercontent.com/yangKJ/MPlanet/master/Screenshot/Home.png) |
 
